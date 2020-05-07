@@ -1,27 +1,47 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import { register } from '../../actions/authActions';
+import PropTypes from 'prop-types'
 
 
 export class Register extends Component {
   state = {
-    username: '',
+    userName: '',
     password: '',
     email: '',
     number: ''
   };
+  static propTypes = {
+    register: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
 
+
+  componentDidMount() {
+      this.setState({ number: this.props.auth.number });
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
+    const {number, userName, password, email  } = this.state;
+    const newUser = {
+      number,
+      userName,
+      password,
+      email,
+    };
+    this.props.register(newUser);
+    console.log(newUser)
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+      return <Redirect exact to="/" />;
     }
-    const { username, password, email, number } = this.state;
+    const {number, userName, password, email  } = this.state;
     return (
       <div className="">
         <div className="auth-form">
@@ -44,9 +64,9 @@ export class Register extends Component {
                 type="text"
                 className=""
                 placeholder="Name"
-                name="name"
+                name="userName"
                 onChange={this.onChange}
-                value={username}
+                value={userName}
               />
             </div>
 
@@ -89,5 +109,9 @@ export class Register extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+  auth: state.auth,
+});
 
-export default Register;
+export default connect(mapStateToProps, { register })(Register);

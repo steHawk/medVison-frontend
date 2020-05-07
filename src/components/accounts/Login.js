@@ -1,16 +1,24 @@
 import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { login } from '../../actions/authActions';
 
 
 export class Login extends Component {
   state = {
-    username: '',
+    number: '',
     password: '',
   };
 
+  static propTypes = {
+    login: PropTypes.func.isRequired,
+    isAuthenticated: PropTypes.bool,
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
+    this.props.login(this.state.number, this.state.password);
   };
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
@@ -19,19 +27,19 @@ export class Login extends Component {
     if (this.props.isAuthenticated) {
       return <Redirect to="/" />;
     }
-    const { username, password } = this.state;
+    const { number, password } = this.state;
     return (
       <div className="">
         <div className="auth-form">
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
               <input
-                type="text"
+                type="number"
                 className=""
-                name="username"
+                name="number"
                 placeholder="Mobile Number"
                 onChange={this.onChange}
-                value={username}
+                value={number}
               />
             </div>
 
@@ -54,7 +62,7 @@ export class Login extends Component {
               </button>
             </div>
             <p>
-              Don't have an account? <Link className="relink" to="/register">Register</Link>
+              Don't have an account? <Link className="relink" to="/getotp">Register</Link>
             </p>
           </form>
         </div>
@@ -63,5 +71,9 @@ export class Login extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  isAuthenticated: state.auth.isAuthenticated,
+});
 
-export default Login;
+export default connect(mapStateToProps, { login })(Login);
+

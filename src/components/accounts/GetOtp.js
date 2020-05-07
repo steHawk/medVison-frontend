@@ -1,43 +1,57 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
+import PropTypes from "prop-types";
+import { getOtp } from "../../actions/authActions";
 
 export class GetOtp extends Component {
   state = {
-    username: "",
+    mobileNumber: "",
   };
+
+  static propTypes = {
+    getOtp: PropTypes.func.isRequired,
+    otp: PropTypes.string.isRequired,
+    auth: PropTypes.object.isRequired
+  };
+
+  onChange = (e) => this.setState({ mobileNumber: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
-    
+    const mobileNumber = this.state.mobileNumber;
+    this.props.getOtp(mobileNumber);
+
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
   render() {
-    if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+    const mobileNumber = this.state.mobileNumber;
+    const { gotOtp } = this.props.auth;
+    if (gotOtp) {
+      return <Redirect to="/submitotp" />
     }
-    const { username } = this.state;
     return (
       <div className="">
         <div className="auth-form">
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
               <input
-                type="text"
+                type="number"
                 className=""
-                name="username"
+                name="mobileName"
                 placeholder="Mobile Number"
                 onChange={this.onChange}
-                value={username}
+                value={mobileNumber}
               />
             </div>
             <div className="">
-              <button type="submit" onSubmit={this.onSubmit}>Get OTP</button>
+              <button type="submit" onSubmit={this.onSubmit}>
+                Get OTP
+              </button>
             </div>
 
             {(() => {
-              if (this.props.history.location.pathname === "/register") {
+              if (this.props.history.location.pathname === "/getotp") {
               } else {
                 return (
                   <p>
@@ -56,4 +70,9 @@ export class GetOtp extends Component {
   }
 }
 
-export default GetOtp;
+const mapStateToProps = (state) => ({
+  otp: state.auth.otp,
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { getOtp })(GetOtp);

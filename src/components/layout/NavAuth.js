@@ -1,9 +1,19 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
+import { logout } from "../../actions/authActions";
+
 
 class NavAuth extends Component {
+
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
+
   render() {
-    const isAuth = false;
+    const { isAuthenticated } = this.props.auth;
 
     return (
       <div className="nav-auth">
@@ -21,9 +31,9 @@ class NavAuth extends Component {
             </svg>
             <NavLink to="/profile">Profile</NavLink>
           </li>
-          {isAuth ? (
-            <li className="log">
-              <NavLink to="/logout">Log Out</NavLink>
+          {isAuthenticated ? (
+            <li onClick={this.props.logout} className="log">
+              <NavLink to="/">Log Out</NavLink>
             </li>
           ) : (
             <li className="log">
@@ -50,4 +60,8 @@ class NavAuth extends Component {
   }
 }
 
-export default NavAuth;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+
+export default connect(mapStateToProps, { logout })(NavAuth);

@@ -1,23 +1,45 @@
-import React, { Component } from 'react';
-import { Link, Redirect } from 'react-router-dom';
-
+import React, { Component } from "react";
+import { Link, Redirect } from "react-router-dom";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { validOtp } from "../../actions/authActions";
 
 export class SubmitOtp extends Component {
   state = {
-    mobileNumber: 9912654045,
-    otp: '',
+    mobileNumber: "",
+    otp: "",
+    verify: false,
   };
 
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    validOtp: PropTypes.func.isRequired,
+  };
 
   onSubmit = (e) => {
     e.preventDefault();
+    let stateOtp = parseInt(this.state.otp);
+    let propOtp = this.props.auth.otp;
+    if (stateOtp === propOtp) {
+      this.setState({ verify: true });
+    } else {
+      this.props.validOtp();
+    }
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => {
+    this.setState({ [e.target.name]: e.target.value });
+  };
+
+  componentDidMount() {
+    setTimeout(() => {
+      this.setState({ mobileNumber: this.props.auth.number });
+    }, 3000);
+  }
 
   render() {
-    if (this.props.isAuthenticated) {
-      return <Redirect to="/" />;
+    if (this.state.verify === true) {
+      return <Redirect to="/register" />;
     }
     const { mobileNumber, otp } = this.state;
     return (
@@ -26,7 +48,7 @@ export class SubmitOtp extends Component {
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
               <input
-                type="text"
+                type="number"
                 className=""
                 name="mobileNumber"
                 placeholder="Mobile Number"
@@ -45,16 +67,17 @@ export class SubmitOtp extends Component {
                 value={otp}
               />
             </div>
-          
-           <Link to="/register">Resend OTP</Link>
+
+            <Link to="/register">Resend OTP</Link>
 
             <div className="">
-              <button type="submit">
-                Login
-              </button>
+              <button type="submit">Login</button>
             </div>
             <p>
-              Don't have an account? <Link className="relink" to="/register">Register</Link>
+              Don't have an account?{" "}
+              <Link className="relink" to="/getotp">
+                Register
+              </Link>
             </p>
           </form>
         </div>
@@ -63,5 +86,8 @@ export class SubmitOtp extends Component {
   }
 }
 
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
 
-export default SubmitOtp;
+export default connect(mapStateToProps, { validOtp })(SubmitOtp);

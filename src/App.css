@@ -17,7 +17,6 @@ body{
   /* color: #000000; */
   font-size: 15px;
   line-height: 1.5;
-
 }
 
 a {
@@ -39,7 +38,7 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  height: 95px;
+  height: 80px;
   background-color: var(--primaryColor);
   font-family: Arial, sans-serif;
   font-size: 16px;
@@ -295,10 +294,12 @@ ul {
 }
 
 .footer{
+  display: flex;
   background-color: var(--primaryColor);
+  left: 0;
+  bottom: 0;
+  height: 100px;
   width: 100%;
-  bottom: 0px;
-  margin-top: 20px;
 }
 
 .inner_foot {
