@@ -34,7 +34,7 @@ function About() {
             other branches in Warangal, Hanamkonda, Nizamabad, Kurnool, Nellore,
             Visakhapatnam, Kolkata and Gurgaon.
           </p>
-          <img src="/img/whymed.jpg" alt="nurse treating"></img>
+          <img src="/img/Doctors_For_Men-732x549-thumbnail.jpg" alt="nurse treating"></img>
         </div>
       </div>
     </div>

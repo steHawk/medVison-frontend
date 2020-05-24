@@ -5,22 +5,48 @@ import NavAuth from "./NavAuth";
 
 class Navbar extends Component {
   render() {
+    function handleBlur(e) {
+      console.log("hi");
+      document.querySelector(".nav-item").classList.toggle("show");
+    }
+
     return (
       <div className="nav-bar">
-        <div className="nav-item">
+        <div onClick={handleBlur} className="menu-btn">
+          <i className="fa fa-bars  fa-2x" aria-hidden="true"></i>
+        </div>
+
+        <div className="nav-item fa-2x">
+        <div onClick={handleBlur} className="menu-btn close">
+          <i className="fa fa-times " aria-hidden="true"></i>
+        </div>
           <ul className="nav-left">
-          <li>
+            <li className="fix">
               <NavLink to="/">Home</NavLink>
             </li>
-            <li>
+         
+            <li className="fix">
+              <NavLink to="/profile">Profile</NavLink>
+            </li>
+            <li className="fix">
               <NavLink to="/about">About Us</NavLink>
             </li>
-            <li>
-              <NavLink to="/services">Services</NavLink>
+            <li className="fix-1">
+              <div className="dropdown">
+                <button className="dropbtn">
+                  Services
+                  <i className="fa fa-caret-down"></i>
+                </button>
+                <div className="dropdown-content">
+                  <NavLink to="/doctors">Doctor Consultation</NavLink>
+                  <NavLink to="/viewall">Diagnostics</NavLink>
+                  <NavLink to="/medicine">
+                    Medicines and Medical Supplies
+                  </NavLink>
+                </div>
+              </div>
             </li>
-            <li>
-              <NavLink to="/reports">Reports</NavLink>
-            </li>
+         
           </ul>
         </div>
         <NavSearch />

@@ -6,32 +6,41 @@ class BookNow extends Component {
     const bookNow = [
       {
         id: 1,
-        title: "Get Medical Test done simply at your Home",
-        link: "/medtestform",
+        title: "Doctor Consultation",
+        des:"Easy access to Doctors",
+        link: "/doctors",
+        src: "/img/doc.jpg"
       },
       {
         id: 2,
-        title: "Easy access to Doctor Consultation",
-        link: "/docConsult",
+        title: "Diagnostics",
+        des:"Easy Sample Collection & Quick Report Delivery",
+        link: "/viewall",
+        src: "/img/test.jpg"
       },
       {
         id: 3,
-        title: "Get Medicines & Medical Supplies Quick and Easy Delivery",
-        link: "/medhome",
+        title: "Medicines and Medical Supplies",
+        des:"Quick and Easy Delivery",
+        link: "/medicine",
+        src: "/img/meds.jpg"
       },
     ];
+
     return (
-      <div>
+      <div className="bookdiv">
+        <div className="home-cards">
         {bookNow.map((book, index) => (
-          <div key={index} className="book">
-            <p>{book.title}</p>
+          <div key={index}>
+            <img src={book.src} alt="" />
+            <h3>{book.title}</h3>
+            <p>{book.des}</p>
             <Link to={book.link}>
-              <div className="book_now">
-                <p>Book Now</p>
-              </div>
+              GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
             </Link>
           </div>
-        ))}
+          ))}
+        </div>
       </div>
     );
   }

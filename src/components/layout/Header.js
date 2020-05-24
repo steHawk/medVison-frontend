@@ -8,7 +8,7 @@ class Header extends Component {
       <div className="navbar-top">
         <NavLink to="/">
           {" "}
-          <h1>MedVision</h1>
+          <h1>MedBaba</h1>
         </NavLink>
 
         <div className="store-img">
@@ -18,7 +18,7 @@ class Header extends Component {
         </div>
       </div>
     );
-  }
+  } 
 }
 
 export default Header;

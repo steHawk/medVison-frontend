@@ -35,6 +35,8 @@ export class Register extends Component {
     console.log(newUser)
   };
 
+
+
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {

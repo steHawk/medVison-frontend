@@ -40,7 +40,7 @@ class ConsultForm extends Component {
         } = this.state;
         return (
           <div className="t_form">
-            <h2>Fill Details For Doctor Consultation</h2>
+            <h2>Request Callback</h2>
             <div className="test_form">
               <form onSubmit={this.onSubmit}>
                 <div className="pair">
@@ -88,7 +88,6 @@ class ConsultForm extends Component {
                       type="text"
                       name="age"
                       onChange={this.onChange}
-                      test_form
                       value={age}
                     />
                   </div>
@@ -137,8 +136,15 @@ class ConsultForm extends Component {
                     <TimePicker onChange={this.timeChange} value={time} />
                   </div>
                 </div>
+
+
+                <div className="callb">
+                  <h2>--(OR)--</h2>
+                  <h3>Call Us On</h3>
+                  <h1>(+91) 91 33 55 77 99</h1>
+                </div>
     
-                <div className="form_ele">
+                <div className="form_but">
                   <button type="submit" className="btn_test">
                     Submit
                   </button>

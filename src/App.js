@@ -21,6 +21,13 @@ import GetOtp from "./components/accounts/GetOtp";
 import SubmitOtp from "./components/accounts/SubmitOtp";
 import Register from "./components/accounts/Register";
 import Alerts from "./components/layout/Alerts";
+import Doctors from "./components/layout/services/Doctors";
+import Specialist from "./components/layout/services/Specialist";
+import Medicine from "./components/layout/services/Medicine";
+import MedicineItems from "./components/layout/services/MedicinItems";
+import Profile from "./components/accounts/Profile";
+
+
 
 import { loadUser } from "./actions/authActions";
 
@@ -52,6 +59,11 @@ class App extends Component {
                 <Route exact path="/" component={MainPage} />
                 <Route path="/about" component={About} />
                 <Route path="/services" component={Service} />
+                <Route path="/medicine" component={Medicine} />
+                <Route path="/profile" component={Profile} />
+                <Route path="/meditems" component={MedicineItems} />
+                <Route path="/specialist" component={Specialist} />
+                <Route path="/doctors" component={Doctors} />
                 <Route path="/medtestform" component={TestForm} />
                 <Route path="/docConsult" component={ConsultForm} />
                 <Route path="/medhome" component={MedForm} />

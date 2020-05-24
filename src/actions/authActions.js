@@ -114,11 +114,6 @@ export const login = (number, password) => (dispatch, getState) => {
   }
 };
 
-// Validate email
-function validateEmail(email) {
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
 
 // REGISTER USER
 export const register = ({ number, userName, password, email }) => (
@@ -137,13 +132,28 @@ export const register = ({ number, userName, password, email }) => (
   });
   console.log(body);
 
+  // Validate email
+function validateEmail(email) {
+  var re = /\S+@\S+\.\S+/;
+  return re.test(email);
+}
+
+function emailLength(email) {
+  if(email.length > 0){
+    return true
+  }else{
+    return false
+  }
+}
+
   if (password.length === 0) {
     dispatch(createMessage({ password: "Please set password" }));
   } else if (password.length < 8) {
     dispatch(
       createMessage({ passwordL: "Password should be minimum 8 characters " })
     );
-  } else if (email === !null) {
+  } else if (emailLength(email) === true) {
+    console.log(email)
     if (validateEmail(email) === false)
       dispatch(createMessage({ email: "Enter a valid email" }));
   } else {
