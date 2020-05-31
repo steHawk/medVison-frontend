@@ -1,7 +1,8 @@
-import { FETCH_TESTS } from "../actions/types";
+import { FETCH_TESTS, FETCH_ALL_TESTS } from "../actions/types";
 
 const initialState = {
   tests: [],
+  allTests: [],
 };
 
 export default function (state = initialState, action) {
@@ -11,7 +12,11 @@ export default function (state = initialState, action) {
         ...state,
         tests: action.payload,
       };
-
+    case FETCH_ALL_TESTS:
+      return {
+        ...state,
+        allTests: action.payload,
+      };
     default:
       return state;
   }

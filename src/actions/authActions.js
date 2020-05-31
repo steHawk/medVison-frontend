@@ -17,9 +17,17 @@ export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({ type: USER_LOADING });
   const number = getState().auth.loginNumber;
+  // const body = JSON.stringify({
+  //   phoneNumber: number,
+  // });
+
+  const body = {
+    phoneNumber: number,
+  }; 
   axios
-    .get(
-      `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/info?phoneNumber=${number}`,
+    .post(
+      `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/info`,
+      body,
       tokenConfig(getState)
     )
     .then((res) => {
@@ -43,13 +51,20 @@ export const loadUser = () => (dispatch, getState) => {
 // GET OTP
 export const getOtp = (mobileNumber) => (dispatch) => {
   let mobile = mobileNumber.substr(-10);
+  // const body = JSON.stringify({
+  //   phoneNumber: mobileNumber,
+  // });
+  const body = {
+    phoneNumber: mobile,
+  };
   console.log(mobile);
   if (mobile === "" || mobile.length < 10) {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
     axios
-      .get(
-        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/sendotp?phoneNumber=${mobile}`
+      .post(
+        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/sendotp`,
+        body
       )
       .then((res) => {
         console.log(res.data);
@@ -73,16 +88,34 @@ export const getOtp = (mobileNumber) => (dispatch) => {
 };
 
 // LOGIN USER
-export const login = (number, password) => (dispatch, getState) => {
-  // Headers
-  // const config = {
-  //   headers: {
-  //     'Content-Type': 'application/json',
-  //   },
-  // };
+// export const login = (number, password) => (dispatch, getState) => {
+//   // Request Body
+//   // const body = JSON.stringify({
+//   //   phoneNumber: number,
+//   //   password: password,
+//   // });
+//   console.log(body);
+//   {
+//     axios
+//       .post(
+//         `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/login`,
+//         body
+//       )
+//       .then((res) => {
+//         console.log(res);
+//       });
+//   }
+// };
 
+// // LOGIN USER
+export const login = (number, password) => (dispatch, getState) => {
   // Request Body
-  // const body = JSON.stringify({ username, password });
+  // const body = JSON.stringify({
+  //   phoneNumber: number,
+  //   password : password
+  // });
+  let phoneNumber = number.substr(-10);
+  const body = { phoneNumber: phoneNumber, password: password };
 
   if (number.length < 10 || number === "") {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
@@ -90,8 +123,9 @@ export const login = (number, password) => (dispatch, getState) => {
     dispatch(createMessage({ password: "Please enter your password" }));
   } else {
     axios
-      .get(
-        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/login?phoneNumber=${number}&password=${password}`
+      .post(
+        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/login`,
+        body
       )
       .then((res) => {
         console.log(res);
@@ -102,7 +136,9 @@ export const login = (number, password) => (dispatch, getState) => {
             number: number,
           });
         } else {
-          dispatch(createMessage({ check: "Mobile Number or Password Incorrect" }));
+          dispatch(
+            createMessage({ check: "Mobile Number or Password Incorrect" })
+          );
           dispatch({
             type: LOGIN_FAIL,
           });
@@ -115,10 +151,13 @@ export const login = (number, password) => (dispatch, getState) => {
 };
 
 
+
 // REGISTER USER
 export const register = ({ number, userName, password, email }) => (
   dispatch
 ) => {
+  let mobile = number.substr(-10);
+
   // Headers
   const config = {
     headers: {
@@ -128,23 +167,23 @@ export const register = ({ number, userName, password, email }) => (
 
   // Request Body
   const body = JSON.stringify({
-    userDetails: { mobile: number, userName, email, password },
+    userDetails: { mobile: mobile, userName, email, password },
   });
   console.log(body);
 
   // Validate email
-function validateEmail(email) {
-  var re = /\S+@\S+\.\S+/;
-  return re.test(email);
-}
-
-function emailLength(email) {
-  if(email.length > 0){
-    return true
-  }else{
-    return false
+  function validateEmail(email) {
+    var re = /\S+@\S+\.\S+/;
+    return re.test(email);
   }
-}
+
+  function emailLength(email) {
+    if (email.length > 0) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 
   if (password.length === 0) {
     dispatch(createMessage({ password: "Please set password" }));
@@ -152,10 +191,8 @@ function emailLength(email) {
     dispatch(
       createMessage({ passwordL: "Password should be minimum 8 characters " })
     );
-  } else if (emailLength(email) === true) {
-    console.log(email)
-    if (validateEmail(email) === false)
-      dispatch(createMessage({ email: "Enter a valid email" }));
+  } else if (emailLength(email) === true && validateEmail(email) === false) {
+    dispatch(createMessage({ email: "Enter a valid email" }));
   } else {
     axios
       .post(

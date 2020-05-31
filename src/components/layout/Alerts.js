@@ -26,8 +26,10 @@ export class Alerts extends Component {
       if (message.passwordL) alert.error(message.passwordL);
       if (message.duplicate) alert.error(message.duplicate);
       if (message.check) alert.error(message.check);
-
+      if (message.itemAdded) alert.success(message.itemAdded);
+      if (message.itemDel) alert.success(message.itemDel);
       if (message.email) alert.error(message.email);
+      if (message.logCart) alert.error(message.logCart);
 
 
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);

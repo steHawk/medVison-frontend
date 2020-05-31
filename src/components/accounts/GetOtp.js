@@ -4,6 +4,7 @@ import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
 import { getOtp } from "../../actions/authActions";
 
+
 export class GetOtp extends Component {
   state = {
     mobileNumber: "",
@@ -15,18 +16,19 @@ export class GetOtp extends Component {
     auth: PropTypes.object.isRequired
   };
 
+
   onChange = (e) => this.setState({ mobileNumber: e.target.value });
 
   onSubmit = (e) => {
     e.preventDefault();
     const mobileNumber = this.state.mobileNumber;
     this.props.getOtp(mobileNumber);
-
   };
 
   render() {
-    const mobileNumber = this.state.mobileNumber;
-    const { gotOtp } = this.props.auth;
+      const mobileNumber = this.state.mobileNumber;
+      const { gotOtp } = this.props.auth;
+   
     if (gotOtp) {
       return <Redirect to="/submitotp" />
     }
@@ -52,6 +54,8 @@ export class GetOtp extends Component {
 
             {(() => {
               if (this.props.history.location.pathname === "/getotp") {
+    
+
               } else {
                 return (
                   <p>

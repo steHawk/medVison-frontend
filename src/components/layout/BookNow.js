@@ -13,9 +13,9 @@ class BookNow extends Component {
       },
       {
         id: 2,
-        title: "Diagnostics",
+        title: "Lab Services",
         des:"Easy Sample Collection & Quick Report Delivery",
-        link: "/viewall",
+        link: "/alltests",
         src: "/img/test.jpg"
       },
       {

@@ -39,7 +39,7 @@ class Navbar extends Component {
                 </button>
                 <div className="dropdown-content">
                   <NavLink to="/doctors">Doctor Consultation</NavLink>
-                  <NavLink to="/viewall">Diagnostics</NavLink>
+                  <NavLink to="/alltests">Lab Services</NavLink>
                   <NavLink to="/medicine">
                     Medicines and Medical Supplies
                   </NavLink>

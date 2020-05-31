@@ -14,7 +14,7 @@ import TestForm from "./components/booknow/TestForm";
 import ConsultForm from "./components/booknow/ConsultForm";
 import MedForm from "./components/booknow/MedForm";
 import UserCart from "./components/cart/UserCart";
-import ViewAll from "./components/tests/ViewAll";
+import AllTests from "./components/tests/AllTests";
 import LoginAuth from "./components/accounts/LayoutAuth";
 // import Register from "./components/accounts/Register";
 import GetOtp from "./components/accounts/GetOtp";
@@ -44,6 +44,7 @@ const options = {
 class App extends Component {
 
   componentDidMount() {
+
     store.dispatch(loadUser());
   }
 
@@ -68,7 +69,7 @@ class App extends Component {
                 <Route path="/docConsult" component={ConsultForm} />
                 <Route path="/medhome" component={MedForm} />
                 <Route path="/cart" component={UserCart} />
-                <Route path="/viewall" component={ViewAll} />
+                <Route path="/alltests" component={AllTests} />
                 <Route path="/login" component={LoginAuth} />
                 <Route path="/getotp" component={GetOtp} />
                 <Route path="/submitOtp" component={SubmitOtp} />

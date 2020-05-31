@@ -8,5 +8,7 @@ export const getItems = () => (dispatch) => {
         type: FETCH_ITEMS,
         payload: items,
       })
-    );
+    );   
 };
+
+

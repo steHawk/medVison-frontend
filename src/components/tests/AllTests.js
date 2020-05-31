@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { fetchTests } from "../../actions/testsActions";
+import { fetchAllTests } from "../../actions/testsActions";
 
-class ViewAll extends Component {
+class AllTests extends Component {
   componentDidMount() {
-    this.props.fetchTests();
+    this.props.fetchAllTests();
   }
   render() {
     return (
@@ -12,10 +12,10 @@ class ViewAll extends Component {
         <div className="view_items">
           <h1>Full Body Checkups</h1>
           {this.props.tests.map((test, index) => (
-            <div className="inner_all">
-              <h3>{test.title}</h3>
-              <p>{test.discription}</p>
-              <p>₹795</p>
+            <div key={index} className="inner_all">
+              <h3>{test.name}</h3>
+              <p>{test.desc}</p>
+              <p>₹{test.price}</p>
               <button>Book Now</button>
             </div>
           ))}
@@ -26,6 +26,6 @@ class ViewAll extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  tests: state.tests.tests,
+  tests: state.tests.allTests,
 });
-export default connect(mapStateToProps, { fetchTests })(ViewAll);
+export default connect(mapStateToProps, { fetchAllTests })(AllTests);

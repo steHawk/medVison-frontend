@@ -18,6 +18,7 @@ const initialState = {
   isLoading: false,
   user: null,
   gotOtp: null,
+  _id: localStorage.getItem("_id")
 };
 
 export default function (state = initialState, action) {
@@ -28,11 +29,13 @@ export default function (state = initialState, action) {
         isLoading: true,
       };
     case USER_LOADED:
+      localStorage.setItem("_id", action.payload._id);
       return {
         ...state,
         isAuthenticated: true,
         isLoading: false,
         user: action.payload,
+        // _id: action.payload._id,
       };
     case GET_OTP:
       return {
@@ -56,12 +59,15 @@ export default function (state = initialState, action) {
     case REGISTER_FAIL:
       localStorage.removeItem("token");
       localStorage.removeItem("number");
+      localStorage.removeItem("_id");
       return {
         ...state,
         token: null,
         user: null,
         isAuthenticated: false,
         isLoading: false,
+        gotOtp: false,
+
       };
     default:
       return state;

@@ -54,6 +54,7 @@ ul {
 .store-img {
   display: flex;
   align-items: center;
+  padding-right: 100px ;
 }
 
 .store-img img {
@@ -149,6 +150,13 @@ ul {
   font-size: 22px;
   font-family: "Roboto Mono", monospace;
   text-size-adjust: none;
+}
+
+.auth-login {
+  text-align: center;
+  font-size: 2rem;
+  font-size: bold;
+  margin: 20px;
 }
 
 .dropdown {
@@ -259,38 +267,60 @@ ul {
   margin: 20px 20% 20px 20%;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-gap: 20px;
 }
 
 .docSelect1 {
-  width: 200px;
+  width: auto;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 4px #979797;
-  margin-bottom: 18px;
 }
 
 .docSelect1 img {
-  width: 180px;
+  width: auto;
   height: 240px;
-  margin: 6px;
+  margin: auto;
 }
 
-.docBut {
+.callback {
+  width: auto;
+  box-shadow: 0px 1px 10px 1px #979797;
+  margin-bottom: 20px;
+  background-color: #ffffff;
+}
+
+.callback img {
+  width: 70%;
+  height: 260px;
+  margin-left: 15%;
+}
+
+.callbut {
   background-color: var(--primaryColor);
   padding: 8px;
   color: #ffffff;
   font-size: 1.2rem;
   text-align: center;
+  width: 74%;
+  margin-left: 13%;
   border-radius: 8px;
-  margin-bottom: 2px;
+}
+
+.docBut {
+  background-color: var(--primaryColor);
+  padding: 6px;
+  color: #ffffff;
+  font-size: 1.2rem;
+  text-align: center;
+  border-radius: 8px;
 }
 
 .price_but {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: auto 46%;
   font-size: 1rem;
   font-weight: bold;
+  align-items: center;
 }
 
 .specialist-head {
@@ -312,13 +342,13 @@ ul {
 }
 
 .doctors {
-  width: 290px;
+  width: auto;
   box-shadow: 0px 1px 10px 1px #979797;
   padding: 10px;
   margin-bottom: 20px;
 }
 
-.doc-div h1 {
+.doctors h1 {
   font-size: 1.2rem;
   color: var(--primaryColor);
 }
@@ -361,30 +391,34 @@ ul {
 
 .testCard {
   padding: 10px;
-  max-width: 280px;
-  height: 160px;
+  height: 180px;
   border-style: solid;
   border-color: #ffffff;
   border-width: 1px;
   border-radius: 12px;
   box-shadow: 0px 1px 10px 1px #979797;
   margin: 8px;
+  display: grid;
+  grid-template-rows: 10px 20% auto;
+  grid-gap: auto;
 }
 
 .testCard h4 {
   color: #130046;
   margin-bottom: 6px;
   font-weight: bold;
+  font-size: 1.2rem;
 }
 .testCard p {
-  font-size: 0.8rem;
+  font-size: 0.9rem;
   margin-bottom: 40px;
+  white-space: pre-line;
 }
 
 .bookPrice {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 220px auto;
+  grid-gap: auto;
 }
 
 .bookPrice p {
@@ -408,6 +442,7 @@ ul {
 
 .bookPrice button:hover {
   cursor: pointer;
+  background-color: var(--secondaryColor);
 }
 
 .footer {
@@ -418,7 +453,7 @@ ul {
   bottom: 0;
   height: 100px;
   width: 100%;
- overflow: hidden;
+  overflow: hidden;
 }
 
 .inner_foot {
@@ -547,9 +582,9 @@ ul {
 }
 
 .inner_all {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 30% 50% auto 120px;
+  grid-gap: 10px;
   align-items: center;
   margin: 10px 0px;
   padding: 10px 15px;
@@ -613,9 +648,9 @@ ul {
 }
 
 .cart_items {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
+  display: grid;
+  grid-template-columns: 50% auto 20px;
+  grid-gap: auto;
   align-items: center;
   padding: 20px 40px;
   border-radius: 12px;
@@ -630,7 +665,6 @@ ul {
 }
 .cart_items p:nth-of-type(2) {
   font-size: 1.2rem;
-  font-weight: bold;
 }
 
 .bill {
@@ -1209,10 +1243,10 @@ select {
   .meditems img {
     height: 140px;
     width: 100px;
-  } 
- .med_i {
-      grid-template-columns: repeat(2, 1fr);
-    }
+  }
+  .med_i {
+    grid-template-columns: repeat(2, 1fr);
+  }
   .prescription {
     width: 80%;
   }
@@ -1233,14 +1267,11 @@ select {
     margin: 20px 5% 20px 5%;
   }
 
-
-.doc-div {
-  width: 90%;
-  margin: 20px auto 20px auto;
-  grid-template-columns: repeat(3, 1fr);
-}
-
-
+  .doc-div {
+    width: 90%;
+    margin: 20px auto 20px auto;
+    grid-template-columns: repeat(3, 1fr);
+  }
 }
 
 @media only screen and (max-width: 768px) and (min-width: 376px) {
@@ -1252,23 +1283,16 @@ select {
     margin: 20px auto 20px auto;
     grid-template-columns: repeat(1, 1fr);
   }
-
 }
-
 
 @media only screen and (max-width: 1260px) and (min-width: 500px) {
   .test_form {
     width: 80%;
   }
-
 }
-
 
 @media only screen and (max-width: 768px) and (min-width: 0px) {
- 
 }
-
-
 
 /* Media query for ipad tab */
 @media (max-width: 768px) {
@@ -1287,7 +1311,6 @@ select {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  
   .auth-form {
     width: 50%;
   }
@@ -1348,17 +1371,22 @@ select {
     right: 0px;
     position: absolute;
     color: #000000;
-
   }
 
   .nav-auth ul li {
     padding: 6px 6px;
+    color: #fff;
   }
 
   .nav-auth ul li a {
     font-size: 1rem;
+    color: #fff;
   }
 
+  .nav-cart_ {
+    display: flex;
+    flex-direction: column;
+  }
   .dropbtn {
     display: none;
   }
@@ -1408,22 +1436,25 @@ select {
   }
 }
 
-
 /* Media query for mobile */
 
 @media (max-width: 500px) {
+  .test_items {
+    width: 98%;
+    margin: 60px auto 2px auto;
+  }
+
   .meditems img {
-  height: 140px;
-  width: 100px;
-}
+    height: 140px;
+    width: 100px;
+  }
 
-.inner_foot {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  width: 100%;
-  white-space: nowrap;
-}
-
+  .inner_foot {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
+    white-space: nowrap;
+  }
 
   .med_i {
     grid-template-columns: repeat(1, 1fr);
@@ -1432,21 +1463,21 @@ select {
     width: 90%;
     margin: 20px auto 20px auto;
   }
-  .cart h1{
+  .cart h1 {
     display: none;
   }
   .bill {
     width: 90%;
     margin: 20px auto 20px auto;
   }
-  .inner_about img{
+  .inner_about img {
     display: none;
   }
-  .prescription h1{
+  .prescription h1 {
     font-size: 1.4rem;
   }
-  .prescription{
-   width: 100%;
+  .prescription {
+    width: 100%;
   }
   .pair_p {
     display: flex;
@@ -1457,20 +1488,16 @@ select {
     width: 90%;
     margin-bottom: 20px;
   }
-  
 
   .doc-div {
     width: 100%;
     margin: 20px auto 20px auto;
     grid-template-columns: repeat(1, 1fr);
   }
-  .specialist-head{
+  .specialist-head {
     width: 100%;
     margin: 20px auto 20px auto;
     flex-direction: column;
-  }
-  .doctors{
-    margin: auto;
   }
 
   .test_form {
@@ -1497,7 +1524,7 @@ select {
     margin-left: 120px;
   }
 
-.docHead {
+  .docHead {
     font-size: 1rem;
   }
 
@@ -1513,8 +1540,9 @@ select {
   }
 
   .docSelect {
-    width: 100%;
-    margin: 20px 0% 20px 0%;
+    grid-template-columns: repeat(1, 1fr);
+    width: 70%;
+    margin: auto;
   }
   .view_items {
     width: 98%;
