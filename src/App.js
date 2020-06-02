@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { Provider } from "react-redux";
+import { Provider, connect } from "react-redux";
 import store from "./store";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -10,9 +10,8 @@ import About from "./components/layout/About";
 import Footer from "./components/layout/Footer";
 import Service from "./components/layout/Services";
 import MainPage from "./components/layout/MainPage";
-import TestForm from "./components/booknow/TestForm";
+// import TestForm from "./components/booknow/TestForm";
 import ConsultForm from "./components/booknow/ConsultForm";
-import MedForm from "./components/booknow/MedForm";
 import UserCart from "./components/cart/UserCart";
 import AllTests from "./components/tests/AllTests";
 import LoginAuth from "./components/accounts/LayoutAuth";
@@ -27,9 +26,10 @@ import Medicine from "./components/layout/services/Medicine";
 import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
 
-
-
 import { loadUser } from "./actions/authActions";
+import Conformation from "./components/booknow/Conformation";
+
+
 
 // optional cofiguration
 const options = {
@@ -41,16 +41,16 @@ const options = {
   transition: transitions.SCALE,
 };
 
+
+
 class App extends Component {
-
   componentDidMount() {
-
     store.dispatch(loadUser());
   }
 
   render() {
     return (
-      <Provider store={store}>
+      // <Provider store={store}>
         <AlertProvider template={AlertTemplate} {...options}>
           <BrowserRouter>
             <Fragment>
@@ -65,9 +65,8 @@ class App extends Component {
                 <Route path="/meditems" component={MedicineItems} />
                 <Route path="/specialist" component={Specialist} />
                 <Route path="/doctors" component={Doctors} />
-                <Route path="/medtestform" component={TestForm} />
+                <Route path="/conformation" component={Conformation} />
                 <Route path="/docConsult" component={ConsultForm} />
-                <Route path="/medhome" component={MedForm} />
                 <Route path="/cart" component={UserCart} />
                 <Route path="/alltests" component={AllTests} />
                 <Route path="/login" component={LoginAuth} />
@@ -79,9 +78,12 @@ class App extends Component {
             </Fragment>
           </BrowserRouter>
         </AlertProvider>
-      </Provider>
+      // </Provider>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {})(App);

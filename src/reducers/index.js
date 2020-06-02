@@ -5,6 +5,10 @@ import auth from "./auth";
 import errors from "./errors";
 import messages from "./messages";
 import cart from "./cart";
+import doctors from "./doctors";
+import medicine from "./medicine";
+
+
 
 export default combineReducers({
   tests: tests,
@@ -13,4 +17,6 @@ export default combineReducers({
   errors,
   messages,
   cart,
+  doctors,
+  medicine
 });

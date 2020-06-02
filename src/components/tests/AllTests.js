@@ -1,12 +1,22 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchAllTests } from "../../actions/testsActions";
+import { addCart } from "../../actions/cartAction";
+import PropTypes from 'prop-types'
+import { Link } from "react-router-dom";
+
 
 class AllTests extends Component {
+  static propTypes = {
+    addCart: PropTypes.func.isRequired,
+  };
+
+  
   componentDidMount() {
     this.props.fetchAllTests();
   }
   render() {
+    const { isAuthenticated } = this.props.auth;
     return (
       <div>
         <div className="view_items">
@@ -16,7 +26,24 @@ class AllTests extends Component {
               <h3>{test.name}</h3>
               <p>{test.desc}</p>
               <p>₹{test.price}</p>
-              <button>Book Now</button>
+              {isAuthenticated ? (
+                    <button
+                      onClick={this.props.addCart.bind(
+                        this,
+                        test._id,
+                        test.name,
+                        test.desc,
+                        test.price,
+                        "MedicalTest"
+                      )}
+                    >
+                      Add to cart
+                    </button>
+                  ) : (
+                    <Link to="/login">
+                      <button>Add to cart</button>
+                    </Link>
+                  )}
             </div>
           ))}
         </div>
@@ -27,5 +54,7 @@ class AllTests extends Component {
 
 const mapStateToProps = (state) => ({
   tests: state.tests.allTests,
+  auth: state.auth,
+
 });
-export default connect(mapStateToProps, { fetchAllTests })(AllTests);
+export default connect(mapStateToProps, { fetchAllTests, addCart })(AllTests);

@@ -1,8 +1,26 @@
 import React, { Component } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
+import {
+  fetchAllDoctors,
+  doctorConsultation,
+} from "../../../actions/doctorActions";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
 
 class Doctors extends Component {
+  static propTypes = {
+    doctorConsultation: PropTypes.func.isRequired,
+    auth: PropTypes.object.isRequired,
+  };
+
+  componentDidMount() {
+    this.props.fetchAllDoctors();
+  }
   render() {
+    const { isAuthenticated } = this.props.auth;
+    if (this.props.gotDocToken) {
+      return <Redirect exact to="/conformation" />;
+    }
     return (
       <div>
         <div className="docHead">
@@ -20,128 +38,48 @@ class Doctors extends Component {
             </Link>
           </div>
 
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
+          {this.props.doctors.map((doctor, index) => (
+            <div key={index} className="doctors">
+              <img src="/img/standing-11.png" alt="" />
+              <h1>{doctor.userName}</h1>
+              <p>MBBS, MD (DVL)</p>
+              <strong>{doctor.specialization}</strong>
+              <div>
+                <div className="price_but">
+                  <p>₹500</p>
+                  {isAuthenticated ? (
+                    <button
+                      onClick={this.props.doctorConsultation.bind(
+                        this,
+                        doctor._id
+                      )}
+                      className="docBut"
+                    >
+                      <p>Consult</p>
+                    </button>
+                  ) : (
+                    <Link to="/login">
+                      <button className="docBut">
+                        <p>Consult</p>
+                      </button>
+                    </Link>
+                  )}
+                </div>
               </div>
             </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
-
-          <div className="doctors">
-            <img src="/img/Dr_KranthiVerma.png" alt="" />
-            <h1>Dr Kranthi Verma</h1>
-            <p>MBBS, MD (DVL)</p>
-            <strong>Dermatology</strong>
-            <div>
-              <div className="price_but">
-                <p>₹500</p>
-                <Link to="/">
-                  <div className="docBut">
-                    <p>Consult</p>
-                  </div>
-                </Link>
-              </div>
-            </div>
-          </div>
+          ))}
         </div>
       </div>
     );
   }
 }
 
-export default Doctors;
+const mapStateToProps = (state) => ({
+  doctors: state.doctors.doctors,
+  auth: state.auth,
+  gotDocToken: state.doctors.gotDocToken,
+});
+export default connect(mapStateToProps, {
+  fetchAllDoctors,
+  doctorConsultation,
+})(Doctors);

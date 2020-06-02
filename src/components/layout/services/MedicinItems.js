@@ -1,72 +1,130 @@
 import React, { Component } from "react";
+import { fetchMedicineByType } from "../../../actions/medicineActions";
+
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { addCart } from "../../../actions/cartAction";
+
+
 
 
 class MedicineItems extends Component {
+  static propTypes = {
+    fetchMedicineByType: PropTypes.func.isRequired,
+    addCart: PropTypes.func.isRequired,
 
+  };
 
+  componentDidMount() {
+    this.props.fetchMedicineByType("prescription medicines");
+  }
   render() {
-    return (
-      <div>
-        <div className="filter_med">
-          <p>Prescription Medicines</p>
-          <p>Over-the-counter (OTC)</p>
-          <p>Baby Care</p>
-          <p>Personal Care</p>
-          <p>Supplements & Wellness Products</p>
-          <p>Medical & Surgical Devices</p>
-          <p>Immunity Boosters</p>
-          <p>Hand-Hygiene</p>
-        </div>
-     
-        <div className="med_i">
-            <div className="meditems">
-                <img src="/img/azy.jpg" alt="" />
-                <div>
-                <h1>Azithromycin 500MG</h1>
-                <strong>Package size : <p>10 CAPSULES IN A STRIP</p></strong>
-                <strong>Description : <p>It is used for treating bladder infections.</p></strong>
-                </div>
-                <div>
-                <div className="buy_but">
-                <h2>₹252</h2>
-                <button className="addb">Add to Cart</button>
-                </div>
-                </div>
-            </div>
+    const { isAuthenticated } = this.props.auth;
 
-            <div className="meditems">
-                <img src="/img/azy.jpg" alt="" />
-                <div>
-                <h1>Azithromycin 500MG</h1>
-                <strong>Package size : <p>10 CAPSULES IN A STRIP</p></strong>
-                <strong>Description : <p>It is used for treating bladder infections.</p></strong>
+    return (
+      <div className="meds">
+        <div className="filter_med">
+          <button
+            onClick={this.props.fetchMedicineByType.bind(
+              this,
+              "prescription medicines"
+            )}
+          >
+            Prescription Medicines
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(
+              this,
+              "over-the-counter"
+            )}
+          >
+            Over-the-counter (OTC)
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(this, "baby care")}
+          >
+            Baby Care
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(this, "personal care")}
+          >
+            Personal Care
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(this, "personal care")}
+          >
+            Supplements & Wellness Products
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(
+              this,
+              "over-the-counter"
+            )}
+          >
+            Medical & Surgical Devices
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(
+              this,
+              "prescription medicines"
+            )}
+          >
+            Immunity Boosters
+          </button>
+          <button
+            onClick={this.props.fetchMedicineByType.bind(this, "baby care")}
+          >
+            Hand-Hygiene
+          </button>
+        </div>
+
+        <div className="med_i">
+          {this.props.medicines.map((med, index) => (
+            <div key={index} className="meditems">
+              <img src="/img/azy.jpg" alt="" />
+              <div>
+                <h1>{med.name}</h1>
+                <strong>
+                  Package size : <p>{med.packageSize}</p>
+                </strong>
+                <strong>
+                  Description : <p>{med.description.slice(0, 60)}</p>
+                </strong>
+              </div>
+              <div>
+                <div >
+                  <h2>{med.price}</h2>
+                  {isAuthenticated ? (
+                    <button className="addb"
+                      onClick={this.props.addCart.bind(
+                        this,
+                        med._id,
+                        med.name,
+                        med.desc,
+                        med.price,
+                        "Medicine"
+                      )}
+                    >
+                      Add to cart
+                    </button>
+                  ) : (
+                    <Link to="/login">
+                      <button className="addb">Add to cart</button>
+                    </Link>
+                  )}
                 </div>
-                <div>
-                <div className="buy_but">
-                <h2>₹252</h2>
-                <button className="addb">Add to Cart</button>
-                </div>
-                </div>
+              </div>
             </div>
-           
-            <div className="meditems">
-                <img src="/img/azy.jpg" alt="" />
-                <div>
-                <h1>Azithromycin 500MG</h1>
-                <strong>Package size : <p>10 CAPSULES IN A STRIP</p></strong>
-                <strong>Description : <p>It is used for treating bladder infections.</p></strong>
-                </div>
-                <div>
-                <div className="buy_but">
-                <h2>₹252</h2>
-                <button className="addb">Add to Cart</button>
-                </div>
-                </div>
-            </div>
+          ))}
         </div>
       </div>
     );
   }
 }
 
-export default MedicineItems;
+const mapStateToProps = (state) => ({
+  medicines: state.medicine.meds,
+  auth: state.auth,
+});
+export default connect(mapStateToProps, { fetchMedicineByType, addCart })(MedicineItems);

@@ -135,6 +135,7 @@ export const login = (number, password) => (dispatch, getState) => {
             payload: res.data,
             number: number,
           });
+          window.location.reload(false);
         } else {
           dispatch(
             createMessage({ check: "Mobile Number or Password Incorrect" })
@@ -207,6 +208,7 @@ export const register = ({ number, userName, password, email }) => (
             type: REGISTER_SUCCESS,
             payload: res.data,
           });
+          window.location.reload(false);
         } else {
           if (res.data.error.message) {
             dispatch(returnErrors(res.data.error.message, res.data));
