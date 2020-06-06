@@ -26,7 +26,7 @@ export const loadUser = () => (dispatch, getState) => {
   }; 
   axios
     .post(
-      `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/info`,
+      `https://api.emetroplus.com/user/info`,
       body,
       tokenConfig(getState)
     )
@@ -63,7 +63,7 @@ export const getOtp = (mobileNumber) => (dispatch) => {
   } else {
     axios
       .post(
-        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/sendotp`,
+        `https://api.emetroplus.com/user/sendotp`,
         body
       )
       .then((res) => {
@@ -124,7 +124,7 @@ export const login = (number, password) => (dispatch, getState) => {
   } else {
     axios
       .post(
-        `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/login`,
+        `https://api.emetroplus.com/user/login`,
         body
       )
       .then((res) => {
@@ -197,7 +197,7 @@ export const register = ({ number, userName, password, email }) => (
   } else {
     axios
       .post(
-        "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/create",
+        "https://api.emetroplus.com/user/create",
         body,
         config
       )

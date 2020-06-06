@@ -19,7 +19,7 @@ export const fetchMedicineByType = (drugType) => (dispatch) => {
 
   axios
     .post(
-      "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/drug/type",
+      "https://api.emetroplus.com/drug/type",
       body,
       config
     )

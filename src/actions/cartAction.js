@@ -25,7 +25,7 @@ export const addCart = (item_id, test_name, test_desc, test_price, type) => (
    console.log(body)
   axios
     .post(
-      "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/additem",
+      "https://api.emetroplus.com/user/additem",
       body,
       tokenConfig(getState)
     )
@@ -43,7 +43,7 @@ export const getCartItems = () => (dispatch, getState) => {
   console.log(body);
   axios
     .post(
-      "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/getcartitems",
+      "https://api.emetroplus.com/user/getcartitems",
       body,
       tokenConfig(getState)
     )
@@ -64,7 +64,7 @@ export const deleteCartItems = (item_id) => (dispatch, getState) => {
   };
   axios
     .post(
-      `http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/user/removeitem`,
+      `https://api.emetroplus.com/user/removeitem`,
       body,
       tokenConfig(getState)
     )

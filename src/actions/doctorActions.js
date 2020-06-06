@@ -5,7 +5,7 @@ import axios from "axios";
 
 export const fetchAllDoctors = () => (dispatch) => {
   fetch(
-    "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/doctor/data"
+    "https://api.emetroplus.com/doctor/data"
   )
     .then((res) => res.json())
     .then((docs) =>
@@ -37,7 +37,7 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
 
   axios
     .post(
-      "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/consultantbooking/create",
+      "https://api.emetroplus.com/consultantbooking/create",
       body,
       config
     )
@@ -74,7 +74,7 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
 
   axios
     .post(
-      "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/consultantbooking/create",
+      "https://api.emetroplus.com//consultantbooking/create",
       body,
       config
     )

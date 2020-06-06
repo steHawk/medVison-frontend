@@ -3,7 +3,7 @@ import { FETCH_TESTS, FETCH_ALL_TESTS } from "./types";
 export const fetchPopularTests = () => (dispatch) => {
   console.log("fetching...");
   fetch(
-    "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/medicaltest/popular"
+    "https://api.emetroplus.com/medicaltest/popular"
   )
     .then((res) => res.json())
     .then((tests) =>
@@ -17,7 +17,7 @@ export const fetchPopularTests = () => (dispatch) => {
 export const fetchAllTests = () => (dispatch) => {
   console.log("fetching...");
   fetch(
-    "http://medlifeapi-env.eba-3pdzjp57.us-east-2.elasticbeanstalk.com/medicaltest/getall?testType=normal"
+    "https://api.emetroplus.com/medicaltest/getall?testType=normal"
   )
     .then((res) => res.json())
     .then((tests) =>
