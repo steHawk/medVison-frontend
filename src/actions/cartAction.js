@@ -38,7 +38,7 @@ export const addCart = (item_id, test_name, test_desc, test_price, type) => (
 // GET Cart Items
 export const getCartItems = () => (dispatch, getState) => {
   const body = {
-    user_id: getState().auth.user._id,
+    user_id: getState().auth._id,
   };
   console.log(body);
   axios

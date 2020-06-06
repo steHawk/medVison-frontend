@@ -1,59 +1,70 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import NavSearch from "./NavSearch";
 import NavAuth from "./NavAuth";
+import { logout } from "../../actions/authActions";
+import { connect } from "react-redux";
+
+import PropTypes from "prop-types";
 
 class Navbar extends Component {
+  static propTypes = {
+    auth: PropTypes.object.isRequired,
+    logout: PropTypes.func.isRequired,
+  };
   render() {
+    const { isAuthenticated } = this.props.auth;
     function handleBlur(e) {
-      console.log("hi");
-      document.querySelector(".nav-item").classList.toggle("show");
+      document.querySelector('.main-menu').classList.toggle('show');
     }
 
     return (
-      <div className="nav-bar">
-        <div onClick={handleBlur} className="menu-btn">
-          <i className="fa fa-bars  fa-2x" aria-hidden="true"></i>
-        </div>
 
-        <div className="nav-item fa-2x">
-        <div onClick={handleBlur} className="menu-btn close">
-          <i className="fa fa-times " aria-hidden="true"></i>
-        </div>
-          <ul className="nav-left">
-            <li className="fix">
-              <NavLink to="/">Home</NavLink>
-            </li>
-         
-            <li className="fix">
-              <NavLink to="/profile">Profile</NavLink>
-            </li>
-            <li className="fix">
-              <NavLink to="/about">About Us</NavLink>
-            </li>
-            <li className="fix-1">
-              <div className="dropdown">
-                <button className="dropbtn">
-                  Services
-                  <i className="fa fa-caret-down"></i>
-                </button>
-                <div className="dropdown-content">
-                  <NavLink to="/doctors">Doctor Consultation</NavLink>
-                  <NavLink to="/alltests">Lab Services</NavLink>
-                  <NavLink to="/medicine">
-                    Medicines and Medical Supplies
-                  </NavLink>
-                </div>
+
+      <div className="main-nav">
+        <ul className="main-menu" >
+          <li>   <div onClick={handleBlur}><div class="close-i">
+
+            <i class="fa fa-times fa-3x" aria-hidden="true"></i>
+          </div>   </div>
+          </li>
+          <li><a href="/doctors">Doctor Consultation</a></li>
+          <li> <a href="/alltests">Lab Services</a></li>
+          <li> <a href="/medicine"> Medicines and Medical Supplies</a></li>
+
+          {isAuthenticated ? (
+            <div className="right">
+              <li> <a href="/profile"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                           Profile</a></li>
+              <li> <a href="/logout" onClick={this.logout}><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
+                           Logout</a>
+              </li>
+              <li> <a href="/cart"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                           Cart</a></li>
+            </div>
+
+          ) : (
+              <div className="right">
+                <li> <a href="/login"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                          Profile</a></li>
+                <li> <a href="/login"><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
+                          Login</a>
+                </li>
+                <li> <a href="/login"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                          Cart</a></li>
               </div>
-            </li>
-         
-          </ul>
-        </div>
-        <NavSearch />
-        <NavAuth />
+
+            )}
+
+        </ul>
+
+
       </div>
     );
   }
 }
 
-export default Navbar;
+const mapStateToProps = (state) => ({
+  auth: state.auth,
+});
+export default connect(mapStateToProps, {logout})(Navbar);

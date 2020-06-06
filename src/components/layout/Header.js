@@ -1,24 +1,49 @@
 import React, { Component } from "react";
 import { NavLink } from "react-router-dom";
+import NavSearch from "./NavSearch";
 
 
 class Header extends Component {
-  render() {
-    return (
-      <div className="navbar-top">
-        <NavLink to="/">
-          {" "}
-          <h1>MedBaba</h1>
-        </NavLink>
 
-        <div className="store-img">
-          <h3>Download Our App</h3>
-          <img src="/img/downloadA.png" alt="apple store"></img>
-          <img src="/img/download.png" alt="apple store"></img>
+  render() {
+    function handleBlur(e) {
+      console.log("hi");
+      document.querySelector('.main-menu').classList.toggle('show');
+    }
+    return (
+
+      <div class="navbar-top">
+
+        <a class="logo" href="/">
+          <p>eMetroPlus</p>
+        </a>
+
+
+        <div class="menu-search">
+        <div onClick={handleBlur}>
+          <div class="menu-btn"  onClick={this.handleBlur}>
+            <i class="fa fa-bars  fa-2x" aria-hidden="true"></i>
+          </div>
+          </div>
+
+          <div class="search">
+            <input type="text" placeholder="Search for test,medicine,doctor." />
+            <i class="fa fa-search" aria-hidden="true"></i>
+          </div>
+
+
         </div>
+
+
+
+        <button class="upload">Upload Prescription</button>
+
+        <p class="call">Call +91 991-654-056</p>
+
       </div>
+       
     );
-  } 
+  }
 }
 
 export default Header;

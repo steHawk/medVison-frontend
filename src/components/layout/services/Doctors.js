@@ -23,7 +23,8 @@ class Doctors extends Component {
     }
     return (
       <div>
-        <div className="docHead">
+
+          <div className="docHead">
           <h3>Our Doctors</h3>
         </div>
 
@@ -71,7 +72,7 @@ class Doctors extends Component {
         </div>
       </div>
     );
-  }
+  }  
 }
 
 const mapStateToProps = (state) => ({
