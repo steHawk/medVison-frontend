@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-// import { Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 class BannerAdd extends Component {
   render() {
@@ -10,9 +10,9 @@ class BannerAdd extends Component {
           <div>
             <h2>eMetroPlus is one stope solution to all your medical needs.</h2>
             <p>Call us on +91 969-685-696 or Request a call back</p>
-            <a href="#" class="btn">
+            <Link to="/docConsult" class="btn">
               Request Callback <i class="fa fa-chevron-right" aria-hidden="true"></i>
-            </a>
+            </Link>
           </div>
         </div>
       </div>

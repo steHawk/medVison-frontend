@@ -34,24 +34,24 @@ class Navbar extends Component {
 
           {isAuthenticated ? (
             <div className="right">
-              <li> <a href="/profile"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                           Profile</a></li>
-              <li> <a href="/logout" onClick={this.logout}><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
-                           Logout</a>
+              <li> <Link to="/profile"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                           Profile</Link></li>
+              <li> <Link to="/" onClick={this.props.logout}><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
+                           Logout</Link>
               </li>
-              <li> <a href="/cart"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-                           Cart</a></li>
+              <li> <Link to="/cart"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                           Cart</Link></li>
             </div>
 
           ) : (
               <div className="right">
-                <li> <a href="/login"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
-                          Profile</a></li>
-                <li> <a href="/login"><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
-                          Login</a>
+                <li> <Link to="/login"><i className="fa fa-user-circle-o fa-2x" aria-hidden="true"></i>
+                          Profile</Link></li>
+                <li> <Link to="/login"><i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
+                          Login</Link>
                 </li>
-                <li> <a href="/login"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
-                          Cart</a></li>
+                <li> <Link to="/login"><i className="fa fa-shopping-cart fa-2x" aria-hidden="true"></i>
+                          Cart</Link></li>
               </div>
 
             )}
