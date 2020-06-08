@@ -324,7 +324,30 @@ ul {
   cursor: pointer;
   background-color: var(--secondaryColor);
 }
+/* Added by Suma */
+html {
+  height: 100%;
+}
 
+body {
+  min-height: 100%;
+}
+
+#app {
+  min-height: 100vh;
+}
+#content {
+  padding-top:145px;
+  min-height: calc(100vh - 100px); 
+}
+.sticky-inner{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+}
+/* Added by Suma */
 .footer {
   display: flex;
   position: relative;
@@ -1255,6 +1278,11 @@ select {
 }
 
 @media only screen and (max-width: 768px) and (min-width: 0px) {
+  body {font-size:14px}
+  .fa-2x{
+    font-size:1.5em;
+  }
+
 }
 
 /* Media query for ipad tab */
@@ -1556,6 +1584,7 @@ select {
 .main-nav{
   width: 80%;
   margin: 0px auto 0px auto;
+  background-color:white;
 }
 
 /* Nav */
