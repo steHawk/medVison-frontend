@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import FileUpload from "../layout/FileUplode";
 
 
 class Profile extends Component {
@@ -46,6 +47,8 @@ class Profile extends Component {
             Mobile : <p>9912654045</p>
           </strong>
         </div>
+
+        <FileUpload />
       </div>
     );
   }

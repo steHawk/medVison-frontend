@@ -53,9 +53,11 @@ class App extends Component {
       // <Provider store={store}>
         <AlertProvider template={AlertTemplate} {...options}>
           <BrowserRouter>
-            <Fragment>
+            <div>
               <HeaderNav />
               <Alerts />
+              <div id="content">
+                <Fragment>
               <Switch>
                 <Route exact path="/" component={MainPage} />
                 <Route path="/about" component={About} />
@@ -74,8 +76,10 @@ class App extends Component {
                 <Route path="/submitOtp" component={SubmitOtp} />
                 <Route path="/register" component={Register} />
               </Switch>
+              </Fragment>
+             </div>
               <Footer />
-            </Fragment>
+            </div>
           </BrowserRouter>
         </AlertProvider>
       // </Provider>

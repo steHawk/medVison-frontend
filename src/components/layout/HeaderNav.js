@@ -5,9 +5,10 @@ import Navbar from "./Navbar";
 class HeaderNav extends Component {
   render() {
     return (
-      <div>
+      <div className="sticky-inner">
         <Header />
-        <Navbar />
+     
+      <Navbar />
       </div>
     );
   }
