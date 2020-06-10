@@ -27,8 +27,8 @@ class Prescription extends Component {
             <i className="fa fa-file" aria-hidden="true"></i>
             File type may be .IMG .PDF .TXT .JPG .JPEG
           </p>
-          <hr></hr>
-          <button className="file_but">Choose File</button>
+          <hr></hr>         
+         <input type="file" className="file_but"  />
           <strong>No file selected</strong>
           <p>
             <i className="fa fa-map-marker" aria-hidden="true"></i>

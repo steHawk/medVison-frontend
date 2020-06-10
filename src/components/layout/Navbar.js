@@ -31,7 +31,7 @@ class Navbar extends Component {
           </li>
           <li><Link to="/doctors" onClick={handleBlur}>Doctor Consultation</Link></li>
           <li> <Link to="/alltests" onClick={handleBlur}>Lab Services</Link></li>
-          <li> <Link href="/medicine" onClick={handleBlur}> Medicines and Medical Supplies</Link></li>
+          <li> <Link to="/medicine" onClick={handleBlur}> Medicines and Medical Supplies</Link></li>
 
           {isAuthenticated ? (
             <div className="right">
