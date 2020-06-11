@@ -33,7 +33,7 @@ class Tests extends Component {
           <div className="items_overflow">
             {this.props.tests.map((test, index) => (
               <div key={index} className="testCard">
-                ;<h4>{test.name}</h4>
+                <h4>{test.name}</h4>
                 <p>{test.desc.slice(0, 60)} ...</p>
                 <div className="bookPrice">
                   <p>₹{test.price}</p>
