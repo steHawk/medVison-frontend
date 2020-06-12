@@ -22,7 +22,7 @@ class BookNow extends Component {
         id: 3,
         title: "Medicines and Medical Supplies",
         des: "Quick and Easy Delivery",
-        link: "/medicine",
+        link: "/meditems",
         src: "/img/medh3.png"
       },
     ];

@@ -18,9 +18,10 @@ class AllTests extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
-      <div>
+      <div className="allt">
+                  <h1>All Available Tests</h1>
         <div className="view_items">
-          <h1>Full Body Checkups</h1>
+
           {this.props.tests.map((test, index) => (
             <div key={index} className="inner_all">
               <h3>{test.name}</h3>

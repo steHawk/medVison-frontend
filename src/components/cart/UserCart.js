@@ -5,9 +5,12 @@ import Billing from "./Billing";
 function UserCart() {
   return (
     <Fragment>
+      <div className="CCdiv">
+        
       <Cart />
 
       <Billing />
+      </div>
     </Fragment>
   );
 }
