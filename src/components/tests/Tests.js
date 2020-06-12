@@ -23,12 +23,12 @@ class Tests extends Component {
       <div>
         <div className="test_items">
           <div className="testName">
-            <p>Popular Tests</p>
+            <b>Popular Tests</b>
             <Link to="/viewall">
               <div className="view_all">
                 <p>View All</p>
               </div>
-            </Link>
+            </Link>  
           </div>
           <div className="items_overflow">
             {this.props.tests.map((test, index) => (

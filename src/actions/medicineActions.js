@@ -5,7 +5,7 @@ import { MEDICINE_BY_TYPES} from "./types";
 
 //  FETCH ALL MEDICINE BY TYPE
 
-export const fetchMedicineByType = (drugType) => (dispatch) => {
+export const fetchMedicineByType = () => (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
@@ -14,12 +14,13 @@ export const fetchMedicineByType = (drugType) => (dispatch) => {
 
   // Request Body
   const body = {
-    drugType,
+    "limit": 10,
+    "skip": 0
   };
 
   axios
     .post(
-      "https://api.emetroplus.com/drug/type",
+      "https://api.emetroplus.com/drug/data",
       body,
       config
     )
@@ -27,7 +28,7 @@ export const fetchMedicineByType = (drugType) => (dispatch) => {
       console.log(res);
       dispatch({
         type: MEDICINE_BY_TYPES,
-        payload: res.data.drugs,
+        payload: res.data.data,
       });
     });
 };

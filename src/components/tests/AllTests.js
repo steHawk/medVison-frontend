@@ -11,7 +11,7 @@ class AllTests extends Component {
     addCart: PropTypes.func.isRequired,
   };
 
-  
+
   componentDidMount() {
     this.props.fetchAllTests();
   }
@@ -25,27 +25,30 @@ class AllTests extends Component {
             <div key={index} className="inner_all">
               <h3>{test.name}</h3>
               <p>{test.desc}</p>
-              <p>₹{test.price}</p>
-              {isAuthenticated ? (
-                    <button
-                      onClick={this.props.addCart.bind(
-                        this,
-                        test._id,
-                        test.name,
-                        test.desc,
-                        test.price,
-                        "MedicalTest"
-                      )}
-                    >
-                      Add to cart
-                    </button>
-                  ) : (
+              <div className="priceBtn">
+                <p>₹{test.price}</p>
+                {isAuthenticated ? (
+                  <button
+                    onClick={this.props.addCart.bind(
+                      this,
+                      test._id,
+                      test.name,
+                      test.desc,
+                      test.price,
+                      "MedicalTest"
+                    )}
+                  >
+                    Add to cart
+                  </button>
+                ) : (
                     <Link to="/login">
                       <button>Add to cart</button>
                     </Link>
                   )}
+              </div>
             </div>
           ))}
+
         </div>
       </div>
     );

@@ -24,20 +24,15 @@ class Doctors extends Component {
     return (
       <div>
 
-          <div className="docHead">
+        <div className="docHead">
           <h3>Our Doctors</h3>
+          <Link to="/docConsult" class="btn">
+            <i class="fa fa-phone" aria-hidden="true"></i> Request Callback
+            </Link>
         </div>
 
         <div className="docSelect">
-          <div className="callback">
-            <Link to="/docConsult">
-              <img src="/img/callback.jpg" alt="" />
 
-              <div className="callbut">
-                <p>Request Callback</p>
-              </div>
-            </Link>
-          </div>
 
           {this.props.doctors.map((doctor, index) => (
             <div key={index} className="doctors">
@@ -59,12 +54,12 @@ class Doctors extends Component {
                       <p>Consult</p>
                     </button>
                   ) : (
-                    <Link to="/login">
-                      <button className="docBut">
-                        <p>Consult</p>
-                      </button>
-                    </Link>
-                  )}
+                      <Link to="/login">
+                        <button className="docBut">
+                          <p>Consult</p>
+                        </button>
+                      </Link>
+                    )}
                 </div>
               </div>
             </div>
@@ -72,7 +67,7 @@ class Doctors extends Component {
         </div>
       </div>
     );
-  }  
+  }
 }
 
 const mapStateToProps = (state) => ({

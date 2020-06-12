@@ -71,7 +71,7 @@ ul {
   border: 0;
   font-weight: bold;
   padding: 10px 20px;
-  background: #262626;
+  background: var(--primaryColor);
   color: #fff;
   font-size: 15px;;
 }
@@ -109,7 +109,7 @@ ul {
 
 .home-cards img {
   width: 270px;
-  margin-bottom: 10px;
+  margin-bottom: 10px;  
   height: 160px;
 }
 
@@ -131,15 +131,15 @@ ul {
 
 .docHead {
   width: 60%;
-  color: var(--primaryColor);
-  margin: 20px 20% 20px 20%;
-  font-size: 30px;
-  text-align: center;
+  margin: 20px auto;
+  font-size: 26px;
+  display: grid;
+  grid-template-columns: auto 190px;
 }
 
 .docSelect {
   width: 60%;
-  margin: 20px 20% 20px 20%;
+  margin: 20px auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-gap: 20px;
@@ -224,8 +224,8 @@ ul {
 }
 
 .doctors img{
- width: 200px;
- height: 200px;
+ width: 160px;
+ height: 140px;
 }
 
 .doctors h1 {
@@ -235,10 +235,7 @@ ul {
 
 .test_items {
   width: 80%;
-  margin-left: 10%;
-  margin-right: 10%;
-  margin-top: 60px;
-  margin-bottom: 20px;
+  margin: 20px auto;
 }
 
 .testName {
@@ -247,9 +244,8 @@ ul {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-size: 1.4rem;
   font-weight: bold;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 
 .view_all {
@@ -271,7 +267,6 @@ ul {
 
 .testCard {
   padding: 10px;
-  height: 180px;
   border-style: solid;
   border-color: #ffffff;
   border-width: 1px;
@@ -279,51 +274,52 @@ ul {
   box-shadow: 0px 1px 10px 1px #979797;
   margin: 8px;
   display: grid;
-  grid-template-rows: 10px 20% auto;
+  grid-template-rows: auto auto auto;
   grid-gap: auto;
 }
 
-.testCard h4 {
-  color: #130046;
-  margin-bottom: 6px;
-  font-weight: bold;
-  font-size: 1.2rem;
+.testCard h4{
+  color: var(--primaryColor);
 }
-.testCard p {
-  font-size: 0.9rem;
-  margin-bottom: 40px;
-  white-space: pre-line;
+.testCard h4:hover{
+  cursor: pointer;
 }
 
+.testCard p{
+  font-size: 12px;
+  white-space: normal;
+  line-height: 20px;
+}
 .bookPrice {
   display: grid;
-  grid-template-columns: 220px auto;
+  grid-template-columns: 160px auto;
   grid-gap: auto;
+  align-items: center;
+    margin-top: 22px;
 }
 
 .bookPrice p {
-  margin-bottom: 0px;
-  font-size: 1rem;
+  font-size: 12px;
   font-weight: bold;
-  text-rendering: auto;
-  margin-right: 100px;
 }
 
 .bookPrice button {
-  padding: 8px;
+  padding: 6px;
   color: #ffffff;
   background-color: var(--primaryColor);
   border-color: var(--primaryColor);
   border-style: none;
   border-radius: 2px;
-  margin: 4px;
   font-weight: bold;
+  font-size: 12px;
 }
 
 .bookPrice button:hover {
   cursor: pointer;
   background-color: var(--secondaryColor);
 }
+
+
 /* Added by Suma */
 html {
   height: 100%;
@@ -486,17 +482,26 @@ body {
 
 .inner_all {
   display: grid;
-  grid-template-columns: 30% 50% auto 120px;
+  grid-template-columns: 40% 40% auto;
   grid-gap: 10px;
-  align-items: center;
+  /* align-items: center; */
   margin: 10px 0px;
   padding: 10px 15px;
-  border: 2px solid rgba(36, 34, 34, 0.5);
+  border: 2px solid rgba(46, 44, 44, 0.5);
 }
 
+.priceBtn{
+  display: grid;
+  align-items: center;
+  grid-template-columns: auto 120px;
+}
+
+.priceBtn p{
+font-weight: bold;
+}
 .view_items h3 {
   color: var(--primaryColor);
-  font-size: 1.2rem;
+  font-size: 1rem;
 }
 
 .inner_all p:nth-of-type(1) {
@@ -1075,66 +1080,72 @@ select {
 }
 
 
+.meds {
+  width: 98%;
+  margin: 10px auto;
+}
 
 .med_i {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 20px;
+  grid-template-columns: repeat(4, 1fr);
+  grid-gap: 10px;
 }
-
-.meditems {
-  height: 190px;
-  width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  padding: 10px;
-  border-radius: 16px;
-  box-shadow: 0px 8px 16px 0px rgba(0, 2, 4, 10);
-  margin-top: 6px;
-}
-
-.meditems img {
-  height: 160px;
-  width: 160px;
-}
-
-.meditems h1 {
-  font-size: 1.2rem;
+.meditems h3{
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   color: var(--primaryColor);
-  margin: 6px 0px 4px 0px;
 }
-
-.meditems strong {
-  font-weight: bold;
-  margin-bottom: 4px;
-}
-
-.meditems p {
-  font-weight: normal;
-  font-size: 0.8rem;
-}
-
-.meditems .addb {
-  margin-top: 80px;
-  white-space: nowrap;
-  background-color: var(--primaryColor);
-  padding: 6px;
-  color: #fff;
-  font-weight: bold;
-  border-color: var(--primaryColor);
-  border-radius: 6px;
-}
-
-.addb:hover {
+.meditems h3:hover{
  cursor: pointer;
- background-color: var(--secondaryColor);
- border-style: none;
+}
+.meditems{
+  box-shadow: 2px 4px 10px 1px #dfdfdf;
+  padding: 10px;
+  border-radius: 12px;
+}
+.meditems:hover{
+  box-shadow: 6px 10px 1px 1px #dfdfdf;
+}
+.meditems p{
+font-size: 12px;
+color: #525252;
+}
+.medBook {
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+ align-items: center;
 }
 
-.meditems h2 {
-  margin-left: 18px;
-  font-size: 1.1rem;
+.medBook p{
+  font-weight: bold;
+  color: #000000;
+ }
+
+.medBook button{
+  padding: 8px;
+  font-style: bold;
+  background-color: var(--primaryColor);
+  color: #fff;
+
+  border: none;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.medBook button{
+  padding: 8px;
+  font-style: bold;
+  background-color: var(--primaryColor);
+  color: #fff;
+
+  border: none;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.medBook button:hover{
+   background-color: var(--secondaryColor);
+   cursor: pointer;
 }
 
 /* Profile */
@@ -1213,18 +1224,25 @@ select {
   color: var(--primaryColor);
 }
 
-@media (max-width: 375px) {
-  .docSelect {
-    grid-template-columns: repeat(1, 1fr);
-  }
-  .docSelect1 {
-    margin: auto;
-  }
-}
 
 /* Media query for tab */
 
-@media (max-width: 1024px) {
+@media (max-width: 1180px) {
+  .inner_all {
+    grid-gap: 10px;
+    margin: 4px 0px;
+    padding: 2px 4px;
+  }
+  
+  .view_items {
+    width: 100%;
+    margin: 10px auto;
+  }
+  
+
+  .docSelect {
+    grid-template-columns: repeat(3, 1fr);
+  }
 
   
   .meditems img {
@@ -1242,10 +1260,7 @@ select {
 
   .test_items {
     width: 94%;
-    margin-left: 3%;
-    margin-right: 3%;
-    margin-top: 60px;
-    margin-bottom: 20px;
+    margin: 20px auto;
   }
 
   .home-cards {
@@ -1260,33 +1275,24 @@ select {
   }
 }
 
-@media only screen and (max-width: 768px) and (min-width: 376px) {
-  .docSelect {
-    grid-template-columns: repeat(2, 1fr);
-  }
-  .doc-div {
-    width: 90%;
-    margin: 20px auto 20px auto;
-    grid-template-columns: repeat(1, 1fr);
-  }
-}
-
-@media only screen and (max-width: 1260px) and (min-width: 500px) {
-  .test_form {
-    width: 80%;
-  }
-}
-
-@media only screen and (max-width: 768px) and (min-width: 0px) {
-  body {font-size:14px}
-  .fa-2x{
-    font-size:1.5em;
-  }
-
-}
 
 /* Media query for ipad tab */
 @media (max-width: 768px) {
+
+  .inner_all {
+    display: flex;
+ flex-direction: column;
+  }
+  
+
+  
+
+  
+  .docSelect {
+    grid-template-columns: repeat(2, 1fr);
+
+  }
+
   .m_div {
     display: grid;
     grid-template-columns: repeat(1, 1fr);
@@ -1341,7 +1347,7 @@ select {
 
   .test_items {
     width: 98%;
-    margin: 60px auto 2px auto;
+    margin: 20px auto 2px auto;
   }
 
   .meditems img {
@@ -1425,25 +1431,29 @@ select {
   }
 
   .docHead {
-    font-size: 1rem;
+    width: 99%;
+
   }
 
   .docSelect1 {
-    width: 180px;
+ 
     border-radius: 10px;
     box-shadow: 0px 0px 10px 4px #979797;
     margin-bottom: 18px;
   }
 
   .docSelect1 img {
-    width: 160px;
+    width: 140px;
+    height: 140px;
   }
 
   .docSelect {
-    grid-template-columns: repeat(1, 1fr);
-    width: 70%;
+    grid-template-columns: repeat(2, 1fr);
+    width: 100%;
     margin: auto;
   }
+
+
   .view_items {
     width: 98%;
     margin: 1px 1%;
@@ -1479,6 +1489,15 @@ select {
   }
 }
 
+@media (max-width: 375px) {
+  .docSelect {
+    grid-template-columns: repeat(1, 1fr);
+    width: 100%;
+  }
+  .docSelect1 {
+    margin: auto;
+  }
+}
 
 
 
