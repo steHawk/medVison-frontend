@@ -954,8 +954,13 @@ select {
 
 .auth-form {
   width: 18%;
-  margin: auto;
-  margin-bottom: 100px;
+  margin:24px auto;
+}
+
+.auth-form h1 {
+  font-weight: bold;
+  font-size: 1rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .auth-form p {
@@ -972,7 +977,7 @@ select {
   margin-bottom: 3px;
 }
 
-.auth-form button {
+.authBut{
   width: 100%;
   padding: 12px;
   margin: 20px 0px;
@@ -982,8 +987,13 @@ select {
   font-weight: bold;
   margin-bottom: 10px;
   border: none;
+  cursor: pointer;
 }
-
+.resendOtp{
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+}
 .relink {
   font-size: 1rem;
   color: var(--primaryColor);
@@ -1216,25 +1226,30 @@ color: #525252;
 
 /* Profile */
 
-.profile {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: auto;
-}
 
 .p_img {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 11, 0.2);
-  border-radius: 12px;
+  border-radius: 50%;
+  width: 100px;
+  height: 100px;
   margin: 10px;
-  padding: 6px;
+} 
+.p_name{
   display: flex;
   flex-direction: row;
+  align-content: center;
+  justify-content: space-around;
+  box-shadow: 0px 8px 16px 0px rgba(0, 0, 11, 0.2);
+  border-radius: 12px;
+  margin: 10px;
+  padding: 16px;
 }
 .p_address,
 .p_contact {
   box-shadow: 0px 8px 16px 0px rgba(0, 0, 11, 0.2);
   border-radius: 12px;
-  margin: 10px;
+  width: 500px;
+  margin: 10px auto;
   padding: 16px;
 }
 
@@ -1245,28 +1260,22 @@ color: #525252;
   margin-right: 20px;
 }
 
-.name_edit,
-.add_edit {
+.edit {
   display: flex;
   flex-direction: row;
   align-items: center;
+  justify-content: space-between;
 }
 
-.add_edit a {
-  align-self: flex-end;
+.edit a {
   color: var(--primaryColor);
   font-weight: bold;
 }
 
-.name_edit a {
-  align-self: flex-end;
-  color: var(--primaryColor);
-  font-weight: bold;
-}
 
-.name_edit h1,
-.add_edit h1 {
-  font-size: 1.2rem;
+
+.edit h1 {
+  font-size: 18px;
   font-weight: bold;
   margin-right: 20px;
   margin-bottom: 6px;
@@ -1294,6 +1303,12 @@ color: #525252;
 /* Media query for tab */
 
 @media (max-width: 1180px) {
+
+  .auth-form {
+    width: 30%;
+    margin:24px auto;
+  }
+  
 
   .CCdiv{
     display: flex;
@@ -1419,6 +1434,12 @@ color: #525252;
 /* Media query for mobile */
 
 @media (max-width: 500px) {
+
+  .auth-form {
+    width: 90%;
+    margin:24px auto;
+  }
+  
   .CCdiv{
    width: 100%;
   }
@@ -1863,6 +1884,13 @@ height: 120px;
 
 
 @media (max-width: 600px) {
+
+  .p_address,
+.p_contact {
+
+  width: 100%;
+
+}
 
   
 .navbar-top{

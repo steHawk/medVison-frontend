@@ -9,6 +9,7 @@ import {
   LOGOUT_SUCCESS,
   LOGIN_FAIL,
   LOGIN_SUCCESS,
+  GET_OTP_LOGIN,
 } from "./types";
 import { createMessage, returnErrors } from "./messages";
 
@@ -259,4 +260,75 @@ export const tokenConfig = (getState) => {
   console.log(config);
 
   return config;
+};
+
+
+
+// GET OTP FOR LOGIN
+export const otpForLogin = (mobileNumber) => (dispatch) => {
+  let mobile = mobileNumber.substr(-10);
+  // const body = JSON.stringify({
+  //   phoneNumber: mobileNumber,
+  // });
+  const body = {
+    phoneNumber: mobile,
+  };
+  console.log(mobile);
+  if (mobile === "" || mobile.length < 10) {
+    dispatch(createMessage({ number: "Incorrect mobile number" }));
+  } else {
+    axios
+      .post(
+        `https://api.emetroplus.com/user/otplogin`,
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+          dispatch({
+            type: GET_OTP,
+            payload: res.data.otp.otp,
+            mobileNumber: mobile,
+          });
+         
+      })
+      .catch((err) => {
+        dispatch(returnErrors(err, err));
+      });
+  }
+};
+
+
+// GET OTP FOR LOGIN
+export const afterOTPLogin = (mobileNumber) => (dispatch) => {
+  let mobile = mobileNumber.substr(-10);
+  // const body = JSON.stringify({
+  //   phoneNumber: mobileNumber,
+  // });
+  const body = {
+    phoneNumber: mobile,
+  };
+  console.log(mobile);
+  if (mobile === "" || mobile.length < 10) {
+    dispatch(createMessage({ number: "Incorrect mobile number" }));
+  } else {
+    axios
+      .post(
+        `https://api.emetroplus.com/user/otplogin`,
+        body
+      )
+      .then((res) => {
+        console.log(res.data);
+          dispatch({
+            type: GET_OTP_LOGIN,
+            payload: res.data.otp.otp,
+            mobileNumber: mobile,
+            user_id: res.data.user_id,
+            token: res.data.token
+          });
+          window.location.reload(false);
+      })
+      .catch((err) => {
+        dispatch(returnErrors(err, err));
+      });
+  }
 };

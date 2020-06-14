@@ -74,7 +74,9 @@ class App extends Component {
                 <Route path="/login" component={LoginAuth} />
                 <Route path="/getotp" component={GetOtp} />
                 <Route path="/submitOtp" component={SubmitOtp} />
+                <Route path="/submitLoginOtp" component={SubmitOtp} />
                 <Route path="/register" component={Register} />
+                <Route path="/otpLogin" component={GetOtp} /> 
               </Switch>
               </Fragment>
              </div>

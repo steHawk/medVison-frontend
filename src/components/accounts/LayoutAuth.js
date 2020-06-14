@@ -8,7 +8,6 @@ class LoginAuth extends Component {
     render() {
         return (
             <Fragment>
-            <Auth />
             <Login />
            </Fragment>
         )

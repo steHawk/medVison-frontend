@@ -7,6 +7,7 @@ import {
   LOGOUT_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
+  GET_OTP_LOGIN
 } from "../actions/types";
 
 const initialState = {
@@ -38,6 +39,16 @@ export default function (state = initialState, action) {
         // _id: action.payload._id,
       };
     case GET_OTP:
+      return {
+        ...state,
+        otp: action.payload,
+        number: action.mobileNumber,
+        gotOtp: true,
+      };
+    case GET_OTP_LOGIN:
+      localStorage.setItem("token", action.token);
+      localStorage.setItem("_id", action.user_id);
+      localStorage.setItem("number", action.mobileNumber);
       return {
         ...state,
         otp: action.payload,

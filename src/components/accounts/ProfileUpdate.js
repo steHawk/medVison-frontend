@@ -5,7 +5,7 @@ import { register } from '../../actions/authActions';
 import PropTypes from 'prop-types'
 
 
-export class Register extends Component {
+export class ProfileUpdate extends Component {
   state = {
     userName: '',
     password: '',
@@ -116,4 +116,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { register })(Register);
+export default connect(mapStateToProps, {  })(ProfileUpdate);

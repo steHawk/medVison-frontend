@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link, Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { validOtp } from "../../actions/authActions";
+import { validOtp, afterOTPLogin ,  getOtp, otpForLogin } from "../../actions/authActions";
 
 export class SubmitOtp extends Component {
   state = {
@@ -31,6 +31,17 @@ export class SubmitOtp extends Component {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+  onClick = (e) => {
+    e.preventDefault();
+    if (this.props.history.location.pathname === "/submitLoginOtp") {
+      this.props.otpForLogin(this.state.mobileNumber);
+      return <Redirect to="/" />
+    } else {
+      this.props.getOtp(this.state.mobileNumber);
+    }
+   
+  };
+
   componentDidMount() {
     setTimeout(() => {
       this.setState({ mobileNumber: this.props.auth.number });
@@ -39,12 +50,22 @@ export class SubmitOtp extends Component {
 
   render() {
     if (this.state.verify === true) {
-      return <Redirect to="/register" />;
+      if (this.props.history.location.pathname === "/submitLoginOtp") {
+        this.props.afterOTPLogin(this.props.auth.number);
+        return <Redirect to="/" />
+      } else {
+        return <Redirect to="/register" />;
+      }
+     
     }
     const { mobileNumber, otp } = this.state;
     return (
       <div className="">
+
         <div className="auth-form">
+        <h1>
+         ENTER YOUR OTP
+        </h1>
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
               <input
@@ -68,10 +89,10 @@ export class SubmitOtp extends Component {
               />
             </div>
 
-            <Link to="/register">Resend OTP</Link>
+            <button className="resendOtp" onClick={this.onClick}>Resend OTP</button>
 
-            <div className="">
-              <button type="submit">Login</button>
+            <div >
+              <button className="authBut" type="submit">SUBMIT</button>
             </div>
             <p>
               Don't have an account?{" "}
@@ -90,4 +111,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { validOtp })(SubmitOtp);
+export default connect(mapStateToProps, { validOtp, afterOTPLogin, getOtp, otpForLogin })(SubmitOtp);

@@ -29,44 +29,48 @@ export class Login extends Component {
     }
     const { number, password } = this.state;
     return (
-      <div className="">
-        <div className="auth-form">
-          <form onSubmit={this.onSubmit}>
-            <div className="log-ele">
-              <input
-                type="number"
-                className=""
-                name="number"
-                placeholder="Mobile Number"
-                onChange={this.onChange}
-                value={number}
-              />
-            </div>
+      <div className="auth-form">
 
-            <div className="log-ele">
-              <input
-                type="password"
-                className=""
-                placeholder="Password"
-                name="password"
-                onChange={this.onChange}
-                value={password}
-              />
-            </div>
-          
-           <Link to="/register">Forgot Password?</Link>
 
-            <div className="">
-              <button type="submit">
-                Login
+        <h1>
+          Login to eMetroPlus
+        </h1>
+        <form onSubmit={this.onSubmit}>
+          <div className="log-ele">
+            <input
+              type="number"
+              className=""
+              name="number"
+              placeholder="Mobile Number"
+              onChange={this.onChange}
+              value={number}
+            />
+          </div>
+
+          <div className="log-ele">
+            <input
+              type="password"
+              className=""
+              placeholder="Password"
+              name="password"
+              onChange={this.onChange}
+              value={password}
+            />
+          </div>
+
+          <Link to="/otpLogin">Forgot Password?</Link>
+
+          <div className="">
+            <button className="authBut" type="submit">
+              Login
               </button>
-            </div>
-            <p>
-              Don't have an account? <Link className="relink" to="/getotp">Register</Link>
-            </p>
-          </form>
-        </div>
+          </div>
+          <p>
+            Don't have an account? <Link className="relink" to="/getotp">Register</Link>
+          </p>
+        </form>
       </div>
+
     );
   }
 }

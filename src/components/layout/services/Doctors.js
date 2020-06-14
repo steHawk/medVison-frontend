@@ -32,8 +32,6 @@ class Doctors extends Component {
         </div>
 
         <div className="docSelect">
-
-
           {this.props.doctors.map((doctor, index) => (
             <div key={index} className="doctors">
               <img src="/img/standing-11.png" alt="" />

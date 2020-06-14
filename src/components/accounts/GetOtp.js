@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link, Redirect } from "react-router-dom";
 import PropTypes from "prop-types";
-import { getOtp } from "../../actions/authActions";
+import { getOtp, otpForLogin } from "../../actions/authActions";
 
 
 export class GetOtp extends Component {
@@ -22,20 +22,46 @@ export class GetOtp extends Component {
   onSubmit = (e) => {
     e.preventDefault();
     const mobileNumber = this.state.mobileNumber;
-    this.props.getOtp(mobileNumber);
+    if (this.props.history.location.pathname === "/otpLogin") {
+    this.props.otpForLogin(mobileNumber);
+    }else{
+      this.props.getOtp(mobileNumber);
+    }
   };
 
   render() {
-      const mobileNumber = this.state.mobileNumber;
-      const { gotOtp } = this.props.auth;
-   
+    const mobileNumber = this.state.mobileNumber;
+    const { gotOtp } = this.props.auth;
+
     if (gotOtp) {
-      return <Redirect to="/submitotp" />
+      if (this.props.history.location.pathname === "/otpLogin") {
+        return <Redirect to="/submitLoginOtp" />
+      } else {
+        return <Redirect to="/submitotp" />
+
+      }
     }
     return (
-      <div className="">
+ 
         <div className="auth-form">
+ 
+        {(() => {
+          if (this.props.history.location.pathname === "/otpLogin") {
+            return (
+              <h1>
+                LOGIN WITH OTP {" "}
+              </h1>
+            );
+          } else {
+            return (
+              <h1>
+                ENTER YOUR MOBILE 10 DIGIT NUMBER{" "}
+                </h1>
+            );
+          }
+        })()}
           <form onSubmit={this.onSubmit}>
+
             <div className="log-ele">
               <input
                 type="number"
@@ -47,29 +73,31 @@ export class GetOtp extends Component {
               />
             </div>
             <div className="">
-              <button type="submit" onSubmit={this.onSubmit}>
-                Get OTP
-              </button>
-            </div>
+                  <button className="authBut" type="submit" onSubmit={this.onSubmit}>
+                    Get OTP
+                       </button>
+                </div>
 
             {(() => {
               if (this.props.history.location.pathname === "/getotp") {
-    
+
+                return (<p></p>)
 
               } else {
                 return (
-                  <p>
-                    Don't have an account?{" "}
-                    <Link className="relink" to="/register">
-                      Register
+            
+                    <p>
+                      Don't have an account?{" "}
+                      <Link className="relink" to="/register">
+                        Register
                     </Link>
-                  </p>
+                    </p>
                 );
               }
             })()}
           </form>
         </div>
-      </div>
+
     );
   }
 }
@@ -79,4 +107,4 @@ const mapStateToProps = (state) => ({
   auth: state.auth,
 });
 
-export default connect(mapStateToProps, { getOtp })(GetOtp);
+export default connect(mapStateToProps, { getOtp, otpForLogin })(GetOtp);
