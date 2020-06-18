@@ -25,9 +25,15 @@ import Specialist from "./components/layout/services/Specialist";
 import Medicine from "./components/layout/services/Medicine";
 import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
+import  ProfileUpdate  from "./components/accounts/ProfileUpdate";
+
+
 
 import { loadUser } from "./actions/authActions";
 import Conformation from "./components/booknow/Conformation";
+import Prescription from "./components/layout/services/Prescription";
+
+
 
 
 
@@ -76,7 +82,9 @@ class App extends Component {
                 <Route path="/submitOtp" component={SubmitOtp} />
                 <Route path="/submitLoginOtp" component={SubmitOtp} />
                 <Route path="/register" component={Register} />
-                <Route path="/otpLogin" component={GetOtp} /> 
+                <Route path="/otpLogin" component={GetOtp} />  
+                <Route path="/profileUpdate" component={ProfileUpdate} />   
+                <Route path="/prescription" component={Prescription} /> 
               </Switch>
               </Fragment>
              </div>

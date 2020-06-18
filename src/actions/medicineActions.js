@@ -5,17 +5,17 @@ import { MEDICINE_BY_TYPES} from "./types";
 
 //  FETCH ALL MEDICINE BY TYPE
 
-export const fetchMedicineByType = () => (dispatch) => {
+export const fetchMedicineByType = (limit, skip) => (dispatch) => {
   const config = {
     headers: {
       "Content-Type": "application/json",
     },
   };
-
+   
   // Request Body
   const body = {
-    "limit": 10,
-    "skip": 0
+    "limit": limit,
+    "skip": skip
   };
 
   axios

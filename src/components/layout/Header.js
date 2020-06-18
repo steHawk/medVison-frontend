@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { NavLink } from "react-router-dom";
+import { NavLink, Link } from "react-router-dom";
 import NavSearch from "./NavSearch";
 
 
@@ -34,9 +34,9 @@ class Header extends Component {
 
         </div>
 
+        <Link to="/prescription"><button class="upload">Upload Prescription</button></Link>
 
-
-        <button class="upload">Upload Prescription</button>
+        
 
         <p class="call">Call +91 991-654-056</p>
 

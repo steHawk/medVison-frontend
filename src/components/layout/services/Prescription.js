@@ -1,4 +1,7 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import axios from "axios";
 
 class Prescription extends Component {
   constructor(props) {
@@ -8,12 +11,33 @@ class Prescription extends Component {
       street: "",
       pinCode: "",
       city: "",
+      file: null
     };
   }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  handleFileUpload = (event) => {
+    this.setState({ file: event.target.files });
+    };
 
-  onSubmit = (e) => {};
+
+
+  submitFile = (event) => {
+    event.preventDefault();
+    const formData = new FormData();
+    formData.append("file", this.state.file[0]);
+    formData.append("name", "chaitanya");
+    console.log(formData)
+    axios
+      .post("https://api.emetroplus.com/aws/prescription-upload", formData, {})
+      .then((response) => {
+        console.log(response)
+      })
+      .catch((error) => {
+        // handle your error
+        console.log(error);
+      });
+  };
 
 
 
@@ -27,9 +51,12 @@ class Prescription extends Component {
             <i className="fa fa-file" aria-hidden="true"></i>
             File type may be .IMG .PDF .TXT .JPG .JPEG
           </p>
-          <hr></hr>         
-         <input type="file" className="file_but"  />
+          <hr></hr>
+          <input label="choose file"
+            type="file"
+            onChange={this.handleFileUpload} className="file_but" />
           <strong>No file selected</strong>
+          <button onClick={this.submitFile} type="submit">upload</button>
           <p>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
             Choose Your Delivery location
@@ -98,4 +125,11 @@ class Prescription extends Component {
   }
 }
 
-export default Prescription;
+const mapStateToProps = (state) => ({
+
+});
+export default connect(mapStateToProps, {})(Prescription);
+
+
+
+

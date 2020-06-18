@@ -34,17 +34,23 @@ class Profile extends Component {
           <div className="edit">
             <h1>Your eMetroPlus Profile</h1>
 
-            <Link to="/">edit</Link>
+            <Link to="/profileUpdate">edit</Link>
           </div>
           <p>Name : {this.state.name}</p>
           <p>Gender : Male</p>
           <p>age : 23ys</p>
           <p>mobile :  {this.state.mobileNumber}</p>
           <b>Address</b>
-          <p> {this.state.address[0].hno}</p>
-          <p>{this.state.address[0].street}</p>
-          <p>{this.state.address[0].city}</p>
-          <p>{this.state.address[0].pincode}</p>
+          {this.state.address.map((address, index) => (
+            <div key={index} className="address">
+              <b>{address.type}</b>
+              <p> {address.doorNo}</p>
+              <p>{address.street}</p>
+              <p>{address.city}</p>
+              <p>{address.pincode}</p>
+            </div>
+          ))}
+
         </div>
 
       </div>

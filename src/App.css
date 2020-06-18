@@ -957,6 +957,10 @@ select {
   margin:24px auto;
 }
 
+.auth-form label{
+font-size: 12px;
+}
+
 .auth-form h1 {
   font-weight: bold;
   font-size: 1rem;
@@ -971,7 +975,7 @@ select {
 
 .auth-form input {
   width: 100%;
-  padding: 12px;
+  padding: 6px;
   background-color: #ffffff;
   font-size: 1.2rem;
   margin-bottom: 3px;
@@ -1003,7 +1007,6 @@ select {
 .log-ele {
   font-size: 1rem;
   font-weight: bold;
-  margin-top: 8px;
   margin-bottom: 2px;
 }
 
@@ -1126,6 +1129,63 @@ select {
 }
 
 /* MedItems */
+.loadmore{
+ display: flex;
+ flex-direction: row;
+ justify-content: center;
+}
+.loadmore button{
+  cursor: pointer;
+ padding: 4px;
+ margin: 20px 6px;
+ width: 80px;
+ border: none;
+ background-color: var(--secondaryColor);
+ color: #fff;
+ }
+ .loadmore button:hover{
+background-color: var(--primaryColor);
+ }
+ 
+ .medhome{
+   background-image: url("/img/Asset 2@2x.png");
+   background-position: center;
+   background-repeat: no-repeat;
+   background-size: 100%;
+   width: 80%;
+   margin: auto;
+   height: 200px;
+
+   border-radius: 6px;
+ }
+
+  
+ .medP{
+
+  width: 300px;
+  align-items: center;
+  float: right;
+  color: #fff;
+  margin: 20px;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+ }
+ .medP p{
+  font-size: 1.2rem;
+ }
+
+ .medP button{
+  cursor: pointer;
+ padding: 8px;
+ border: none;
+ background-color: var(--secondaryColor);
+ color: #fff;
+ white-space: nowrap;
+ border-radius: 2px;
+ }
+
 
 .filter_med {
   overflow: auto;
@@ -1243,6 +1303,10 @@ color: #525252;
   border-radius: 12px;
   margin: 10px;
   padding: 16px;
+}
+
+.address{
+  padding-top: 8px;
 }
 .p_address,
 .p_contact {
@@ -1381,6 +1445,37 @@ color: #525252;
   
 
   
+ .medhome{
+  background-image: url("/img/blue2.jpg");
+  height: 80px;
+
+}
+
+ 
+.medP{
+ width: 96%;
+ align-items: center;
+ float: none;
+ color: #fff;
+ margin: 0px;
+ padding: 8px;
+ height: 100px;
+ display: flex;
+ flex-direction: row;
+ justify-content: space-between;
+}
+
+.medP button{
+ cursor: pointer;
+padding: 8px;
+border: none;
+background-color: var(--secondaryColor);
+color: #fff;
+white-space: nowrap;
+border-radius: 2px;
+}
+
+
 
   
   .docSelect {
