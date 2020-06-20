@@ -9,6 +9,7 @@ export class Login extends Component {
   state = {
     number: '',
     password: '',
+    msg: '',
   };
 
   static propTypes = {
@@ -21,7 +22,26 @@ export class Login extends Component {
     this.props.login(this.state.number, this.state.password);
   };
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value, msg: "" });
+
+  checkMobileNumber(e) {
+
+    var keycode = (e.target.value.which) ? e.target.value.which : e.target.value.keyCode;
+    //comparing pressed keycodes
+    if(e.target.value.length !== 10){
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    if (keycode > 31 && (keycode < 48 || keycode > 57)) {
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    else return true;
+  }
 
   render() {
     if (this.props.isAuthenticated) {
@@ -38,13 +58,15 @@ export class Login extends Component {
         <form onSubmit={this.onSubmit}>
           <div className="log-ele">
             <input
-              type="number"
+              type="text"
               className=""
               name="number"
               placeholder="Mobile Number"
               onChange={this.onChange}
               value={number}
-            />
+              pattern="\d{10}"
+              onBlur={(e) => this.checkMobileNumber(e)}
+            /><span id="msg">{this.state.msg}</span>
           </div>
 
           <div className="log-ele">

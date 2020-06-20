@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { fetchPopularTests } from "../../actions/testsActions";
-import { Link, Redirect } from "react-router-dom";
+import { Link } from "react-router-dom";//, Redirect
 
 import PropTypes from "prop-types";
 

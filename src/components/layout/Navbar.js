@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
-import NavSearch from "./NavSearch";
-import NavAuth from "./NavAuth";
+import { Link } from "react-router-dom";//NavLink,
+// import NavSearch from "./NavSearch";
+// import NavAuth from "./NavAuth";
 import { logout } from "../../actions/authActions";
 import { connect } from "react-redux";
 
@@ -24,9 +24,9 @@ class Navbar extends Component {
     return (
       <div className="main-nav">
         <ul className="main-menu" >
-          <li>   <div onClick={handleBlur}><div class="close-i">
+          <li>   <div onClick={handleBlur}><div className="close-i">
 
-            <i class="fa fa-times fa-3x" aria-hidden="true"></i>
+            <i className="fa fa-times fa-3x" aria-hidden="true"></i>
           </div>   </div>
           </li>
           <li><Link to="/doctors" onClick={handleBlur}>Doctor Consultation</Link></li>

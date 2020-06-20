@@ -1,10 +1,10 @@
 import { GET_CART_ITEMS, DELETE_CART_ITEM } from "./types";
 import { tokenConfig } from "./authActions";
-import { createMessage, returnErrors } from "./messages";
-import React from "react";
+import { createMessage } from "./messages";//, returnErrors
+// import React from "react";
 
 import axios from "axios";
-import { Redirect, Link } from "react-router-dom";
+// import { Redirect, Link } from "react-router-dom";
 
 // ADD To Cart
 export const addCart = (item_id, test_name, test_desc, test_price, type) => (
@@ -22,7 +22,7 @@ export const addCart = (item_id, test_name, test_desc, test_price, type) => (
       type: type,
     },
   };
-   console.log(body)
+   //console.log(body)
   axios
     .post(
       "https://api.emetroplus.com/user/additem",
@@ -37,14 +37,11 @@ export const addCart = (item_id, test_name, test_desc, test_price, type) => (
 
 // GET Cart Items
 export const getCartItems = () => (dispatch, getState) => {
- 
- 
-
-
   const body = {
     user_id: getState().auth._id,
   };
-  console.log(body);
+  // console.log("body");
+  //console.log(body);
   axios
     .post(
       "https://api.emetroplus.com/user/getcartitems",

@@ -5,28 +5,15 @@ import { connect } from "react-redux";
 
 class Profile extends Component {
   state = {
-    name: "",
-    mobileNumber: "",
-    address: [{}]
+    name: localStorage.getItem("user"),
+    email: localStorage.getItem("email"),
+    mobileNumber: localStorage.getItem("number"),
+    address: JSON.parse(localStorage.getItem("shippingAddress")),
   };
 
-  static propTypes = {
-
-  };
-
-
-  componentDidMount() {
-    this.interval = setInterval(() => this.setState({
-      mobileNumber: this.props.auth.user.mobile, name: this.props.auth.user.userName, address: this.props.auth.user.shippingAddress
-    }), 1000);
-  }
-  componentWillUnmount() {
-    clearInterval(this.interval);
-  }
 
 
   render() {
-
 
     return (
       <div className="profile">
@@ -37,19 +24,23 @@ class Profile extends Component {
             <Link to="/profileUpdate">edit</Link>
           </div>
           <p>Name : {this.state.name}</p>
-          <p>Gender : Male</p>
-          <p>age : 23ys</p>
-          <p>mobile :  {this.state.mobileNumber}</p>
+          <p>Email : {this.state.email}</p>
+          <p>Mobile :  {this.state.mobileNumber}</p>
+          <p>Gender : {this.state.gender}</p>
+          <p>Age : {this.state.age}</p>
           <b>Address</b>
-          {this.state.address.map((address, index) => (
-            <div key={index} className="address">
-              <b>{address.type}</b>
-              <p> {address.doorNo}</p>
-              <p>{address.street}</p>
-              <p>{address.city}</p>
-              <p>{address.pincode}</p>
-            </div>
-          ))}
+          {/* {this.state.address.length > 0 ? 
+          this.state.address.map((address, index) => (  */}
+          {/* key={index} */}
+          <div  className="address">
+            {/* <b>Type : {this.state.address.type}</b> */}
+            <p>Door :  {this.state.address.doorNo}</p>
+            <p>LandMark : {this.state.address.landMark}</p>
+            <p>Street : {this.state.address.street}</p>
+            <p>City : {this.state.address.city}</p>
+            <p>PIN :{this.state.address.pincode}</p>
+          </div>
+           {/* )):null} */}
 
         </div>
 

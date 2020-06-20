@@ -10,7 +10,8 @@ export class Register extends Component {
     userName: '',
     password: '',
     email: '',
-    number: ''
+    number: '',
+    msg: '',
   };
   static propTypes = {
     register: PropTypes.func.isRequired,
@@ -19,12 +20,12 @@ export class Register extends Component {
 
 
   componentDidMount() {
-      this.setState({ number: this.props.auth.number });
+    this.setState({ number: this.props.auth.number });
   }
 
   onSubmit = (e) => {
     e.preventDefault();
-    const {number, userName, password, email  } = this.state;
+    const { number, userName, password, email } = this.state;
     const newUser = {
       number,
       userName,
@@ -37,19 +38,39 @@ export class Register extends Component {
 
 
 
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value, msg: "" });
+
+  
+  checkMobileNumber(e) {
+
+    var keycode = (e.target.value.which) ? e.target.value.which : e.target.value.keyCode;
+    //comparing pressed keycodes
+    if(e.target.value.length !== 10){
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    if (keycode > 31 && (keycode < 48 || keycode > 57)) {
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    else return true;
+  }
 
   render() {
     if (this.props.isAuthenticated) {
       return <Redirect exact to="/" />;
     }
-    const {number, userName, password, email  } = this.state;
+    const { number, userName, password, email } = this.state;
     return (
       <div className="">
         <div className="auth-form">
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
-            <label>Mobile Number</label>
+              <label>Mobile Number</label>
               <input
                 type="text"
                 className=""
@@ -57,11 +78,13 @@ export class Register extends Component {
                 placeholder="Mobile Number"
                 onChange={this.onChange}
                 value={number}
-              />
+                pattern="\d{10}"
+                onBlur={(e) => this.checkMobileNumber(e)}
+              /><span id="msg">{this.state.msg}</span>
             </div>
 
             <div className="log-ele">
-            <label>Name <span>*</span></label>
+              <label>Name <span>*</span></label>
               <input
                 type="text"
                 className=""
@@ -73,9 +96,9 @@ export class Register extends Component {
             </div>
 
             <div className="log-ele">
-            <label>Email</label>
+              <label>Email</label>
               <input
-                type="text"
+                type="email"
                 className=""
                 placeholder="Email"
                 name="email"
@@ -85,7 +108,7 @@ export class Register extends Component {
             </div>
 
             <div className="log-ele">
-            <label>Password <span>*</span></label>
+              <label>Password <span>*</span></label>
               <input
                 type="password"
                 className=""

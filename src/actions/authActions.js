@@ -18,6 +18,9 @@ export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({ type: USER_LOADING });
   const number = getState().auth.loginNumber;
+  //console.log(getState().auth.token);
+  //localStorage.setItem("token", getState().auth._id);
+  
   // const body = JSON.stringify({
   //   phoneNumber: number,
   // });
@@ -33,7 +36,15 @@ export const loadUser = () => (dispatch, getState) => {
     )
     .then((res) => {
       if (res.data.ok) {
-        console.log(res);
+        console.log(res.data);
+        localStorage.setItem("user",res.data.user_details.userName);
+        localStorage.setItem("email", res.data.user_details.email);
+        localStorage.setItem("shippingAddress",JSON.stringify( res.data.user_details.shippingAddress[0]));
+        //console.log(res.data.user_details.shippingAddress[0]);
+        //console.log(localStorage.getItem("shippingAddress"))
+        
+        // localStorage.setItem("cart", res.data.user_details.cartItems);
+        //console.log(res.data.user_details.shippingAddress);
         dispatch({
           type: USER_LOADED,
           payload: res.data.user_details,
@@ -129,13 +140,15 @@ export const login = (number, password) => (dispatch, getState) => {
         body
       )
       .then((res) => {
-        console.log(res);
+        //console.log(res.data);
         if (res.data.ok) {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
             number: number,
           });
+          //console.log(res.data);
+          
           window.location.reload(false);
         } else {
           dispatch(
@@ -244,6 +257,8 @@ export const validOtp = () => (dispatch) => {
 export const tokenConfig = (getState) => {
   // Get token from state
   const token = getState().auth.token;
+  // console.log("toke",token);
+  
 
   // Headers
   const config = {
@@ -273,7 +288,7 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
   const body = {
     phoneNumber: mobile,
   };
-  console.log(mobile);
+  // console.log(mobile);
   if (mobile === "" || mobile.length < 10) {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
@@ -307,7 +322,7 @@ export const afterOTPLogin = (mobileNumber) => (dispatch) => {
   const body = {
     phoneNumber: mobile,
   };
-  console.log(mobile);
+  // console.log(mobile);
   if (mobile === "" || mobile.length < 10) {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
@@ -317,7 +332,7 @@ export const afterOTPLogin = (mobileNumber) => (dispatch) => {
         body
       )
       .then((res) => {
-        console.log(res.data);
+        console.log(res);
           dispatch({
             type: GET_OTP_LOGIN,
             payload: res.data.otp.otp,

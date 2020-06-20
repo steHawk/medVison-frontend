@@ -10,8 +10,8 @@ class BannerAdd extends Component {
           <div>
             <h2>eMetroPlus is one stope solution to all your medical needs.</h2>
             <p>Call us on +91 969-685-696 or Request a call back</p>
-            <Link to="/docConsult" class="btn">
-              Request Callback <i class="fa fa-chevron-right" aria-hidden="true"></i>
+            <Link to="/docConsult" className="btn">
+              Request Callback <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </div>
         </div>

@@ -9,6 +9,7 @@ export class SubmitOtp extends Component {
     mobileNumber: "",
     otp: "",
     verify: false,
+    msg:"",
   };
 
   static propTypes = {
@@ -28,7 +29,7 @@ export class SubmitOtp extends Component {
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value });
+    this.setState({ [e.target.name]: e.target.value, msg:"" });
   };
 
   onClick = (e) => {
@@ -46,6 +47,25 @@ export class SubmitOtp extends Component {
     setTimeout(() => {
       this.setState({ mobileNumber: this.props.auth.number });
     }, 3000);
+  }
+
+  checkMobileNumber(e) {
+
+    var keycode = (e.target.value.which) ? e.target.value.which : e.target.value.keyCode;
+    //comparing pressed keycodes
+    if(e.target.value.length !== 10){
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    if (keycode > 31 && (keycode < 48 || keycode > 57)) {
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    else return true;
   }
 
   render() {
@@ -69,13 +89,16 @@ export class SubmitOtp extends Component {
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
               <input
-                type="number"
+                type="text"
                 className=""
                 name="mobileNumber"
                 placeholder="Mobile Number"
                 onChange={this.onChange}
                 value={mobileNumber}
-              />
+                pattern="\d{10}"
+                onBlur={(e) => this.checkMobileNumber(e)}
+              /><span id="msg">{this.state.msg}</span>
+              
             </div>
 
             <div className="log-ele">

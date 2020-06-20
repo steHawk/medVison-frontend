@@ -1,4 +1,4 @@
-import { FETCH_ALL_DOCTORS, CALLBACK_TOKEN, DOCTOR_CONSULT } from "./types";
+import { FETCH_ALL_DOCTORS, CALLBACK_TOKEN } from "./types";//, DOCTOR_CONSULT
 import axios from "axios";
 
 // GET ALL THE DOCTORS AND DISPLAY

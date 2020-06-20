@@ -1,5 +1,5 @@
 import React, { Component, Fragment } from 'react'
-import Auth from './Auth';
+// import Auth from './Auth';
 import Login from './Login';
 
 

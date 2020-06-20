@@ -1,47 +1,41 @@
 import React, { Component } from "react";
-import { NavLink, Link } from "react-router-dom";
-import NavSearch from "./NavSearch";
-
+import { Link } from "react-router-dom";
+import { NavSearch } from "./NavSearch.js";
+import logo from "../../icon.png";
 
 class Header extends Component {
 
   render() {
-    function handleBlur(e) {
-      console.log("hi");
-      document.querySelector('.main-menu').classList.toggle('show');
-    }
+    // function handleBlur(e) {
+    //   console.log("hi");
+    //   document.querySelector('.main-menu').classList.toggle('show');
+    // }
     return (
 
-      <div class="navbar-top">
+      <div className="navbar-top">
 
-        <a class="logo" href="/">
-          <p>eMetroPlus</p>
+        <a className="logo" href="/">
+          <img src={logo} alt="eMetroPlus" id="logo"/>
         </a>
 
 
-        <div class="menu-search">
-        <div onClick={handleBlur}>
-          <div class="menu-btn"  onClick={this.handleBlur}>
-            <i class="fa fa-bars  fa-2x" aria-hidden="true"></i>
-          </div>
-          </div>
+        {/* <div className="menu-search">
+          <div onClick={handleBlur}>
+            <div className="menu-btn" onClick={this.handleBlur}>
+              <i className="fa fa-bars  fa-2x" aria-hidden="true"></i>
+            </div>
+          </div> */}
 
-          <div class="search">
-            <input type="text" placeholder="Search for test,medicine,doctor." />
-            <i class="fa fa-search" aria-hidden="true"></i>
-          </div>
+        <NavSearch />
+        <Link to="/prescription"><button className="upload">Upload Prescription</button></Link>
 
-
-        </div>
-
-        <Link to="/prescription"><button class="upload">Upload Prescription</button></Link>
-
-        
-
-        <p class="call">Call +91 991-654-056</p>
-
+        <p className="call">Call +91 991-654-056</p>
       </div>
-       
+
+
+
+      // </div>
+
     );
   }
 }

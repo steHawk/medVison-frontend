@@ -1,18 +1,91 @@
 import React, { Component } from "react";
+export class NavSearch extends Component {
 
-class NavSearch extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      searchkey: '',
+      items: [],
+    }
+  }
+
+  setItemName(e) {
+    this.setState({
+      searchkey: e.target.value
+    })
+    //this.setSearchKey(e.target.value)
+    //this.searchItem(e.target.value);
+    //console.log(e.target.value);
+  }
+
+  setSearchKey(event) {
+    try {
+      const signal = AbortController.signal;
+      this.setState({
+        searchkey: event.target.value
+      })
+      if (event.target.value === '') {
+        this.setState({
+          items: []
+        })
+      } else {
+        let requrl = 'https://api.emetroplus.com/drug/search';
+        let data = { 'keyword': event.target.value };
+        fetch(requrl, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        }, { signal: signal })
+          .then(response =>
+            response.json()
+          )
+          .then(data => {
+            //console.log(data);
+            if (data.ok && data) {
+              this.setState({
+                items: data.data
+              })
+            } else {
+              this.setState({
+                items: []
+              })
+            }
+            //console.log(data.data);
+          })
+      }
+      return function cleanup() {
+        AbortController.abort();
+      }
+
+    }
+    catch (e) {
+      console.log(JSON.stringify(e));
+    }
+
+  }
+
+
+
   render() {
     return (
-      <div>
       <div className="search">
-        <input type="text" placeholder="Search for test,medicine,doctor." />
-        <img src="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0Ij4KICAgIDxnIGZpbGw9IiMxMzRGNzAiIGZpbGwtcnVsZT0iZXZlbm9kZCI+CiAgICAgICAgPHBhdGggZD0iTTExIDE4YTcgNyAwIDEgMSAwLTE0IDcgNyAwIDAgMSAwIDE0em0wLTEuNWE1LjUgNS41IDAgMSAwIDAtMTEgNS41IDUuNSAwIDAgMCAwIDExeiIvPgogICAgICAgIDxwYXRoIGQ9Ik0xNSAxNi4wNkwxNi4wNiAxNWwzLjcxMyAzLjcxMmEuNzUuNzUgMCAwIDEtMS4wNiAxLjA2TDE1IDE2LjA2MnoiLz4KICAgIDwvZz4KPC9zdmc+Cg==" alt="search" />
-        
+        <input type="text" value={this.state.searchkey} onChange={(event, _) => this.setSearchKey(event)} placeholder="Search for test,medicine,doctor." />
+        <i className="fa fa-search" aria-hidden="true"></i>
+        {this.state.items.length > 0
+          ?
+          <table>
+            <tbody>
+              {this.state.items.map(item => <tr key={item._id} >
+                <td> <input id="itemsbtn" type="button" key={item._id} value={item.doctorPrescriptionName} onClick={(e) => this.setItemName(e)} /></td>
+                <td>{item.netAmount}</td></tr>)}
+          </tbody>
+          </table>
+          : null}
       </div>
-    
-      </div>
+
     );
   }
 }
 
 export default NavSearch;
+

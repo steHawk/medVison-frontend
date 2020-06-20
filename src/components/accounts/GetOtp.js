@@ -8,6 +8,7 @@ import { getOtp, otpForLogin } from "../../actions/authActions";
 export class GetOtp extends Component {
   state = {
     mobileNumber: "",
+    msg:"",
   };
 
   static propTypes = {
@@ -17,7 +18,7 @@ export class GetOtp extends Component {
   };
 
 
-  onChange = (e) => this.setState({ mobileNumber: e.target.value });
+  onChange = (e) => this.setState({ mobileNumber: e.target.value, msg:"" });
 
   onSubmit = (e) => {
     e.preventDefault();
@@ -28,6 +29,26 @@ export class GetOtp extends Component {
       this.props.getOtp(mobileNumber);
     }
   };
+
+  
+  checkMobileNumber(e) {
+
+    var keycode = (e.target.value.which) ? e.target.value.which : e.target.value.keyCode;
+    //comparing pressed keycodes
+    if(e.target.value.length !== 10){
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    if (keycode > 31 && (keycode < 48 || keycode > 57)) {
+      this.setState({
+        msg: "Invalid Mobile Number"
+      })
+      return false;
+    }
+    else return true;
+  }
 
   render() {
     const mobileNumber = this.state.mobileNumber;
@@ -64,13 +85,15 @@ export class GetOtp extends Component {
 
             <div className="log-ele">
               <input
-                type="number"
+                type="text"
                 className=""
                 name="mobileName"
                 placeholder="Mobile Number"
                 onChange={this.onChange}
                 value={mobileNumber}
-              />
+                pattern="\d{10}"
+                onBlur={(e) => this.checkMobileNumber(e)}
+              /><span id="msg">{this.state.msg}</span>
             </div>
             <div className="">
                   <button className="authBut" type="submit" onSubmit={this.onSubmit}>
