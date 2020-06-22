@@ -26,6 +26,7 @@ import Medicine from "./components/layout/services/Medicine";
 import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
 import  ProfileUpdate  from "./components/accounts/ProfileUpdate";
+import ItemDetails from "./components/layout/ItemDetails";
 
 
 
@@ -85,6 +86,8 @@ class App extends Component {
                 <Route path="/otpLogin" component={GetOtp} />  
                 <Route path="/profileUpdate" component={ProfileUpdate} />   
                 <Route path="/prescription" component={Prescription} /> 
+                <Route path={`/drug/:id`} component={ItemDetails} />
+
               </Switch>
               </Fragment>
              </div>

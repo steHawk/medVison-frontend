@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { Link } from "react-router-dom";
 export class NavSearch extends Component {
 
   constructor(props) {
@@ -7,15 +8,6 @@ export class NavSearch extends Component {
       searchkey: '',
       items: [],
     }
-  }
-
-  setItemName(e) {
-    this.setState({
-      searchkey: e.target.value
-    })
-    //this.setSearchKey(e.target.value)
-    //this.searchItem(e.target.value);
-    //console.log(e.target.value);
   }
 
   setSearchKey(event) {
@@ -64,23 +56,32 @@ export class NavSearch extends Component {
 
   }
 
-
+  clearSearch(e) {
+    this.setState({
+      searchkey: "",
+      items: [],
+    })
+  }
 
   render() {
     return (
-      <div className="search">
-        <input type="text" value={this.state.searchkey} onChange={(event, _) => this.setSearchKey(event)} placeholder="Search for test,medicine,doctor." />
-        <i className="fa fa-search" aria-hidden="true"></i>
-        {this.state.items.length > 0
-          ?
-          <table>
-            <tbody>
-              {this.state.items.map(item => <tr key={item._id} >
-                <td> <input id="itemsbtn" type="button" key={item._id} value={item.doctorPrescriptionName} onClick={(e) => this.setItemName(e)} /></td>
-                <td>{item.netAmount}</td></tr>)}
-          </tbody>
-          </table>
-          : null}
+      <div>
+        <div className="search">
+          <input type="text" value={this.state.searchkey} onChange={(event, _) => this.setSearchKey(event)} placeholder="Search for test,medicine,doctor." />
+          <i className="fa fa-search" aria-hidden="true"></i>
+        </div>
+        <div>
+          {this.state.items.length > 0
+            ?
+            <table>
+              <tbody>
+                {this.state.items.map(item => <tr key={item._id} >
+                  <td> <Link to={`/drug/${item._id}`} onClick={(e) => this.clearSearch(e)} id={item._id} type="button" key={item._id}>{item.doctorPrescriptionName}</Link></td>
+                  <td>{item.netAmount}</td></tr>)}
+              </tbody>
+            </table>
+            : null}
+        </div>
       </div>
 
     );
