@@ -7,10 +7,12 @@ import { connect } from 'react-redux';
 
 export function ProfileUpdate() {
   const [userName, setuserName] = useState(localStorage.getItem('user'));
-  const [gender, setgender] = useState("");
-  const [age, setage] = useState("");
+  // const [gender, setgender] = useState("");
+  // const [age, setage] = useState("");
   const [email, setemail] = useState(localStorage.getItem("email"));
   const [mobile, setmobile] = useState(localStorage.getItem("number"));
+  const [age, setage] = useState(localStorage.getItem("age"));
+  const [gender, setgender] = useState(localStorage.getItem("gender"));
   const [doorNo, setdoorNo] = useState(JSON.parse(localStorage.getItem("shippingAddress")).doorNo);
   const [street, setstreet] = useState(JSON.parse(localStorage.getItem("shippingAddress")).street);
   const [landMark, setlandMark] = useState(JSON.parse(localStorage.getItem("shippingAddress")).landMark);

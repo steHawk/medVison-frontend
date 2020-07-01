@@ -1,214 +1,115 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect } from "react";
+import { connect } from "react-redux";
+import PropTypes from "prop-types";
+import { Link } from "react-router-dom";
+import { addCart } from "../../actions/cartAction";
+import auth from "../../reducers/auth";
 
-function ItemDetails(props) {
-    const state = {
-        item_id: props.match.params.id,
-        items: [],
-        dataloaded: false,
-    }
+function ItemDetails(props, {auth}) {
+  const state = {
+    item_id: props.match.params.id,
+    items: [],
+    dataloaded: false,
+  };
 
-    const [item_id] = useState(state.item_id);
-    const [items, setItems] = useState(state.items);
-    const [dataloaded, setDataLoaded] = useState(state.dataloaded);
+  const [item_id] = useState(state.item_id);
+  const [items, setItems] = useState(state.items);
+  const [dataloaded, setDataLoaded] = useState(state.dataloaded);
 
-    useEffect(() => {
-        const getItems = async () => {
-            //console.log("p1", dataloaded);
-            let requrl = 'https://api.emetroplus.com/drug/';
-            let data = { 'drug_id': item_id };
-            fetch(requrl, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(data)
-            })
-                .then(response =>
-                    response.json()
-                )
-                .then(data => {
-                    //console.log(data);
-                    if (data.ok && data) {
-                        //console.log("p2", dataloaded);
-                        setItems(data.drug_details);
-                        setDataLoaded(true);
-                        //console.log("p3", dataloaded);
-                    }
-                })
-        }
-        getItems()
-    }, [item_id])
-    //console.log(item_id);
+  useEffect(() => {
+    const getItems = async () => {
+      //console.log("p1", dataloaded);
+      let requrl = "https://api.emetroplus.com/drug/";
+      let data = { drug_id: item_id };
+      fetch(requrl, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          //console.log(data);
+          if (data.ok && data) {
+            //console.log("p2", dataloaded);
 
-    return dataloaded ? (
-        <div className="search">
-            {
-                <table>
-                    <tbody key={items._id}>
-                        <tr>
-                            <td>
-                                Name </td><td>:
-                            </td>
-                            <td>
-                                {items.doctorPrescriptionName}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Used In </td><td>:
-                            </td>
-                            <td>
-                                {items.businessName}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Used At </td><td>:
-                            </td>
-                            <td>
-                                {items.uses}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Manufacturer </td><td>:
-                            </td>
-                            <td>
-                                {items.manufacturer}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                Price </td><td>:
-                            </td>
-                            <td>
-                                {items.netAmount}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                How it Works </td><td>:
-                            </td>
-                            <td>
-                                {items.howItWorks}
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            }
-        </div>
-    ) : (
-            <div>Loading...</div>
-        )
+            setItems(data.drug_details);
+            setDataLoaded(true);
+            //console.log("p3", dataloaded);
+          }
+        });
+    };
+    getItems();
+  }, [item_id]);
+  //console.log(item_id);
+
+
+  console.log(auth)
+
+  return dataloaded ? (
+      
+    <div className="item-detail">
+      <div className="detail-name">
+        {" "}
+        <h2>Name:</h2> <p>{items.doctorPrescriptionName}</p>
+      </div>
+
+      <div className="detail-name">
+        {" "}
+        <h2> Primarily Used For:</h2> <p>{items.primarilyUsedFor}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> Product Type:</h2> <p>{items.productType}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> MRP:</h2> <p>{items.mrp}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> Pack Size:</h2> <p>{items.packSize}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> How It Works:</h2> <p>{items.howItWorks}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> uses:</h2> <p>{items.uses}</p>{" "}
+      </div>
+      <div className="detail-name">
+        {" "}
+        <h2> PrimarilyUsedFor:</h2> <p>{items.primarilyUsedFor}</p>{" "}
+      </div>
+      {0 == 0 ? (
+        <button
+          className="addb"
+          onClick={this.props.addCart.bind(
+            this,
+            items._id,
+            items.doctorPrescriptionName,
+            items.uses,
+            items.mrp,
+            "Medicine"
+          )}
+        >
+          Add to cart
+        </button>
+      ) : (
+        <Link to="/login">
+          <button className="addb">Add to cart</button>
+        </Link>
+      )}
+    </div>
+  ) : (
+    <div>Loading...</div>
+  );
 }
 
+function mapStateToProps(state) {
+    return { auth: state.auth };
+  } 
+export default connect(mapStateToProps, { addCart })(ItemDetails);
 
 
-// class ItemDetails extends React.Component {
-//     constructor(props) {
-//         super(props);
-//         this.state = {
-//             item_id: this.props.match.params.id,
-//             items: [],
-//             dataloaded : false,
-//         }
-//     }
 
-//     getItems() {
-//         console.log("p1",dataloaded);
-//         let requrl = 'https://api.emetroplus.com/drug/';
-//         let data = { 'drug_id': item_id };
-//         fetch(requrl, {
-//             method: 'POST',
-//             headers: { 'Content-Type': 'application/json' },
-//             body: JSON.stringify(data)
-//         })
-//             .then(response =>
-//                 response.json()
-//             )
-//             .then(data => {
-//                 //console.log(data);
-//                 if (data.ok && data) {
-//                     console.log("p2",dataloaded);
-
-//                     this.setState({
-//                         items: [data.drug_details],
-//                         dataloaded : true,
-//                     })
-//                     console.log("p3",dataloaded);
-//                 }
-//             })
-//             return false;
-//     }
-
-//     render() {
-
-//         return (
-//             <div>
-//                 <div>
-//                     {
-//                         dataloaded === false ? this.getItems() : <div className="search"><p>About the Medicine : </p></div>
-//                     }
-//                 </div>
-//                 <div>
-//                     {
-//                         items.length > 0 ?
-//                             <table>
-//                                 <tbody key={items._id}>
-//                                     <tr>
-//                                         <td>
-//                                             Name :
-//                                         </td>
-//                                         <td>
-//                                             {items.doctorPrescriptionName}
-//                                         </td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td>
-//                                             Used In :
-//                                         </td>
-//                                         <td>
-//                                             {items.businessName}
-//                                         </td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td>
-//                                             Used At :
-//                                         </td>
-//                                         <td>
-//                                             {items.uses}
-//                                         </td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td>
-//                                             Manufacturer :
-//                                         </td>
-//                                         <td>
-//                                             {items.manufacturer}
-//                                         </td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td>
-//                                             Price :
-//                                         </td>
-//                                         <td>
-//                                             {items.netAmount}
-//                                         </td>
-//                                     </tr>
-//                                     <tr>
-//                                         <td>
-//                                             How it Works :
-//                                         </td>
-//                                         <td>
-//                                             {items.howItWorks}
-//                                         </td>
-//                                     </tr>
-//                                 </tbody>
-//                             </table>
-//                             : <p>No records Found </p>
-//                     }
-//                 </div>
-//             </div>
-//         );
-//     }
-// }
-
-export default ItemDetails;

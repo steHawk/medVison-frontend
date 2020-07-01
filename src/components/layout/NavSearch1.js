@@ -62,7 +62,7 @@ export class NavSearch extends Component {
   }
 
   render() {
-    return(
+    return (
       <div>
         <div className="search">
           <input
@@ -81,15 +81,15 @@ export class NavSearch extends Component {
                   <tr key={item._id}>
                     <td>
                       {" "}
-                      <Link
-                       to={{ pathname: `/drug/${item._id}` }}
+                      <NavLink
+                        to={`/drug/${item._id}`}
                         onClick={(e) => this.clearSearch(e)}
                         id={item._id}
                         type="button"
                         key={item._id}
                       >
                         {item.doctorPrescriptionName}
-                      </Link>
+                      </NavLink>
                     </td>
                     <td>{item.netAmount}</td>
                   </tr>
@@ -104,3 +104,85 @@ export class NavSearch extends Component {
 }
 
 export default NavSearch;
+
+
+// import React, { Component } from "react";
+// import { itemSearch } from "../../actions/itemsActions";
+// import { connect } from "react-redux";
+// import { Link, NavLink } from "react-router-dom";
+
+
+// class NavSearch extends Component {
+//   constructor(props) {
+//     super(props);
+//     this.state = {
+//       searchkey: "",
+//       searchMeds: [],
+//     };
+//   }
+
+//   onChange = (e) => {
+//     this.setState({
+//       searchkey: e.target.value,
+//     });
+//     if (e.target.value === "") {
+//       this.setState({
+//         searchMeds: [],
+//       });
+     
+//     } else {
+//       this.props.itemSearch(this.state.searchkey);
+//       this.setState({
+//         searchMeds:  this.props.searchItems,
+//       });
+//     }
+//     console.log(this.props.searchItems)
+//   };
+
+//   render() {
+//     return (
+//       <div>
+//         <div className="search">
+//           <input
+//             type="text"
+//             value={this.state.searchkey}
+//             onChange={this.onChange}
+//             placeholder="Search for test,medicine,doctor."
+//           />
+//           <i className="fa fa-search" aria-hidden="true"></i>
+//         </div>
+//         <div>
+//           {this.state.searchMeds.length > 0 ? (
+//             <table className="drugList">
+//               <tbody>
+//                 {this.state.searchMeds.map((item) => (
+//                   <tr key={item._id}>
+//                     <td>
+//                       {" "}
+//                       <NavLink
+//                         to={`/drug/${item._id}`}
+                    
+//                         id={item._id}
+//                         type="button"
+//                         key={item._id}
+//                       >
+//                         {item.doctorPrescriptionName}
+//                       </NavLink>
+//                     </td>
+//                     <td>{item.netAmount}</td>
+//                   </tr>
+//                 ))}
+//               </tbody>
+//             </table>
+//           ) : null}
+//         </div>
+//       </div>
+//     );
+//   }
+// }
+
+// const mapStateToProps = (state) => ({
+//   searchItems: state.searchItems.searchItems,
+// });
+
+// export default connect(mapStateToProps, { itemSearch })(NavSearch);

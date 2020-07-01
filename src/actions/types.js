@@ -18,4 +18,6 @@ export const FETCH_ALL_DOCTORS = 'FETCH_ALL_DOCTORS';
 export const CALLBACK_TOKEN = 'CALLBACK_TOKEN';  
 export const DOCTOR_CONSULT = 'DOCTOR_CONSULT'; 
 export const MEDICINE_BY_TYPES = 'MEDICINE_BY_TYPES'; 
-export const GET_OTP_LOGIN = 'GET_OTP_LOGIN'; 
+export const GET_OTP_LOGIN = 'GET_OTP_LOGIN';  
+export const SEARCH_ITEMS = 'SEARCH_ITEMS';  
+export const ITEM_DETAIL = 'ITEM_DETAIL';  

@@ -8,6 +8,8 @@ class Profile extends Component {
     name: localStorage.getItem("user"),
     email: localStorage.getItem("email"),
     mobileNumber: localStorage.getItem("number"),
+    age: localStorage.getItem("age"),
+    gender: localStorage.getItem("gender"),
     address: JSON.parse(localStorage.getItem("shippingAddress")),
   };
 

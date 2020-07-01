@@ -39,6 +39,8 @@ export const loadUser = () => (dispatch, getState) => {
         console.log(res.data);
         localStorage.setItem("user",res.data.user_details.userName);
         localStorage.setItem("email", res.data.user_details.email);
+        localStorage.setItem("age", res.data.user_details.age);
+        localStorage.setItem("gender", res.data.user_details.gender);
         localStorage.setItem("shippingAddress",JSON.stringify( res.data.user_details.shippingAddress[0]));
         //console.log(res.data.user_details.shippingAddress[0]);
         //console.log(localStorage.getItem("shippingAddress"))

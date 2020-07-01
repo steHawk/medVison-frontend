@@ -13,10 +13,12 @@ class FileUpload extends Component {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", this.state.file[0]);
+    formData.append("name", "chaitanya");
+    console.log(formData)
     axios
-      .post(`http://localhost:9000/imageUpload`, formData, {})
+      .post(`https://api.emetroplus.com/aws/prescription-upload`, formData, {})
       .then((response) => {
-        // handle your response;
+        console.log(response)
       })
       .catch((error) => {
         // handle your error

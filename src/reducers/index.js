@@ -7,8 +7,8 @@ import messages from "./messages";
 import cart from "./cart";
 import doctors from "./doctors";
 import medicine from "./medicine";
-
-
+import searchItems from "./searchItems";
+import itemDetail from "./itemDetail";
 
 export default combineReducers({
   tests: tests,
@@ -18,5 +18,7 @@ export default combineReducers({
   messages,
   cart,
   doctors,
-  medicine
+  medicine,
+  searchItems,
+  itemDetail
 });

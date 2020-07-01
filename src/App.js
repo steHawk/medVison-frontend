@@ -30,9 +30,11 @@ import ItemDetails from "./components/layout/ItemDetails";
 
 
 
+
 import { loadUser } from "./actions/authActions";
 import Conformation from "./components/booknow/Conformation";
 import Prescription from "./components/layout/services/Prescription";
+import ItemDetail from "./components/layout/ItemDetail";
 
 
 
@@ -86,7 +88,9 @@ class App extends Component {
                 <Route path="/otpLogin" component={GetOtp} />  
                 <Route path="/profileUpdate" component={ProfileUpdate} />   
                 <Route path="/prescription" component={Prescription} /> 
-                <Route path={`/drug/:id`} component={ItemDetails} />
+                {/* <Route path={`/drug/:id`} component={ItemDetails} /> */}
+                <Route path="/drug/:id" component={ItemDetail} /> 
+                  
 
               </Switch>
               </Fragment>

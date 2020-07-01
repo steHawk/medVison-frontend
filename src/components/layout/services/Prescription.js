@@ -2,36 +2,37 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 // import PropTypes from "prop-types";
 import axios from "axios";
+import { prescription } from "../../../actions/medicineActions";
 
 class Prescription extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      hno: "",
-      street: "",
-      pinCode: "",
-      city: "",
-      file: null
+      hno: JSON.parse(localStorage.getItem("shippingAddress")).doorNo,
+      street: JSON.parse(localStorage.getItem("shippingAddress")).street,
+      pinCode: JSON.parse(localStorage.getItem("shippingAddress")).pincode,
+      city: JSON.parse(localStorage.getItem("shippingAddress")).city,
+      file: null,
+      file_url: "",
     };
   }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
   handleFileUpload = (event) => {
     this.setState({ file: event.target.files });
-    };
-
-
+  };
 
   submitFile = (event) => {
     event.preventDefault();
     const formData = new FormData();
     formData.append("file", this.state.file[0]);
-    formData.append("name", "chaitanya");
-    console.log(formData)
+    formData.append("name", localStorage.getItem("user"));
+    console.log(formData);
     axios
       .post("https://api.emetroplus.com/aws/prescription-upload", formData, {})
       .then((response) => {
-        console.log(response)
+        console.log(response);
+        this.setState({ file_url: response.data.Location });
       })
       .catch((error) => {
         // handle your error
@@ -39,7 +40,29 @@ class Prescription extends Component {
       });
   };
 
+  onSubmit = (e) => {
+    e.preventDefault();
 
+    if (
+      this.state.file === null ||
+      this.state.file_url === null ||
+      this.state.hno === null ||
+      this.state.street === null
+    ) {
+      alert("Plesw submit the file");
+    } else {
+      const { hno, street, pinCode, city, file_url } = this.state;
+      const prescription = {
+        hno,
+        street,
+        pinCode,
+        city,
+        file_url,
+      };
+      this.props.prescription(prescription);
+      console.log(prescription);
+    }
+  };
 
   render() {
     const { hno, street, pinCode, city } = this.state;
@@ -52,14 +75,19 @@ class Prescription extends Component {
             File type may be .IMG .PDF .TXT .JPG .JPEG
           </p>
           <hr></hr>
-          <input label="choose file"
+          <input
+            label="choose file"
             type="file"
-            onChange={this.handleFileUpload} className="file_but" />
-          <strong>No file selected</strong>
-          <button onClick={this.submitFile} type="submit">upload</button>
+            onChange={this.handleFileUpload}
+            className="file_but"
+          />
+
+          <button onClick={this.submitFile} type="submit">
+            upload
+          </button>
           <p>
             <i className="fa fa-map-marker" aria-hidden="true"></i>
-            Choose Your Delivery location
+            conform Your Delivery location
           </p>
           <hr></hr>
 
@@ -125,11 +153,5 @@ class Prescription extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({
-
-});
-export default connect(mapStateToProps, {})(Prescription);
-
-
-
-
+const mapStateToProps = (state) => ({});
+export default connect(mapStateToProps, { prescription })(Prescription);

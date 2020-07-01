@@ -34,12 +34,23 @@ class BookNow extends Component {
           <div key={index} className="home-cards">
 
             <div key={index}>
-              <Link to={book.link} >   <img src={book.src} alt="" />
+              <Link to={book.link} >   
+              <div className="home-card-i">
+
+              <img src={book.src} alt="" />
+
+                <div className="home-card-inner">
                 <h3>{book.title}</h3>
                 <p>{book.des}</p>
                 <h4>
                   GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                </h4></Link>
+                </h4>
+                </div>
+
+                
+                </div>
+                </Link>
+
             </div>
           </div>
 
