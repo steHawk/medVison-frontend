@@ -10,6 +10,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   GET_OTP_LOGIN,
+  CALLBACK_TOKEN_NULL
 } from "./types";
 import { createMessage, returnErrors } from "./messages";
 
@@ -17,6 +18,9 @@ import { createMessage, returnErrors } from "./messages";
 export const loadUser = () => (dispatch, getState) => {
   // User Loading
   dispatch({ type: USER_LOADING });
+  dispatch({
+    type: CALLBACK_TOKEN_NULL,
+  });
   const number = getState().auth.loginNumber;
   //console.log(getState().auth.token);
   //localStorage.setItem("token", getState().auth._id);

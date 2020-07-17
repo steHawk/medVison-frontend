@@ -23,12 +23,11 @@ class Doctors extends Component {
     }
     return (
       <div>
-
         <div className="docHead">
           <h3>Our Doctors</h3>
           <Link to="/docConsult" class="btn">
             <i class="fa fa-phone" aria-hidden="true"></i> Request Callback
-            </Link>
+          </Link>
         </div>
 
         <div className="docSelect">
@@ -52,12 +51,12 @@ class Doctors extends Component {
                       <p>Consult</p>
                     </button>
                   ) : (
-                      <Link to="/login">
-                        <button className="docBut">
-                          <p>Consult</p>
-                        </button>
-                      </Link>
-                    )}
+                    <Link to="/login">
+                      <button className="docBut">
+                        <p>Consult</p>
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
             </div>

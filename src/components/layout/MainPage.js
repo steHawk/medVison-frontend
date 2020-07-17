@@ -10,8 +10,8 @@ class MainPage extends Component {
     return (
       <Fragment>
         <BannerAdd />
+        <HomePrescription/>
         <BookNow />
-        <HomePrescription />
         <Tests />
       </Fragment>
     );

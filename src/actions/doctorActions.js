@@ -1,12 +1,15 @@
-import { FETCH_ALL_DOCTORS, CALLBACK_TOKEN } from "./types";//, DOCTOR_CONSULT
+import {
+  FETCH_ALL_DOCTORS,
+  CALLBACK_TOKEN,
+  CALLBACK_TOKEN_NULL,
+} from "./types"; //, DOCTOR_CONSULT
 import axios from "axios";
+import { createMessage, returnErrors } from "./messages";
 
 // GET ALL THE DOCTORS AND DISPLAY
 
 export const fetchAllDoctors = () => (dispatch) => {
-  fetch(
-    "https://api.emetroplus.com/doctor/data"
-  )
+  fetch("https://api.emetroplus.com/doctor/data")
     .then((res) => res.json())
     .then((docs) =>
       dispatch({
@@ -35,19 +38,27 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
 
   console.log(body);
 
-  axios
-    .post(
-      "https://api.emetroplus.com/consultantbooking/create",
-      body,
-      config
-    )
-    .then((res) => {
-      console.log(res);
-      dispatch({
-        type: CALLBACK_TOKEN,
-        payload: res.data,
+  if (mobile === "" || mobile.length < 10) {
+    dispatch(createMessage({ number: "Incorrect mobile number" }));
+  } else if (userName === "") {
+    dispatch(createMessage({ userName: "User Name empty" }));
+  } else {
+    axios
+      .post("https://api.emetroplus.com/consultantbooking/create", body, config)
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: CALLBACK_TOKEN,
+          payload: res.data,
+        });
       });
-    });
+
+    setTimeout(function () {
+      dispatch({
+        type: CALLBACK_TOKEN_NULL,
+      });
+    }, 3000);
+  }
 };
 
 // DOCTOR CONSULTATION
@@ -64,8 +75,8 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
   const body = {
     bookingDetails: {
       userName: getState().auth.user.userName,
-      mobile:  getState().auth.user.mobile,
-      user:  getState().auth.user._id,
+      mobile: getState().auth.user.mobile,
+      user: getState().auth.user._id,
       doctor: doctor_id,
     },
   };
@@ -73,11 +84,7 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
   console.log(body);
 
   axios
-    .post(
-      "https://api.emetroplus.com//consultantbooking/create",
-      body,
-      config
-    )
+    .post("https://api.emetroplus.com//consultantbooking/create", body, config)
     .then((res) => {
       console.log(res);
       dispatch({
@@ -85,4 +92,10 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
         payload: res.data,
       });
     });
+
+  setTimeout(function () {
+    dispatch({
+      type: CALLBACK_TOKEN_NULL,
+    });
+  }, 3000);
 };

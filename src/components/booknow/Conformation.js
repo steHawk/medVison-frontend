@@ -4,12 +4,22 @@ import { Link } from "react-router-dom";
 
 
 class Conformation extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+     docTokenNumber :""
+    };
+  }
+  
+  componentDidMount() {
+    this.setState({ docTokenNumber: this.props.docToken });
+  }
+
   render() {
-    let docToken1 = this.props.docToken;
     return (
       <div className="call_back">
         <p>
-          Doctor Confirmation ID : <strong>{docToken1}</strong> our customer
+          Doctor Confirmation ID : <strong>{this.state.docTokenNumber}</strong> our customer
           support will call you back in 3 working hours Thank you..{" "}
         </p>
 

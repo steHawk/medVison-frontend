@@ -1,34 +1,42 @@
-import React, { useState } from 'react';//Component,
-import { Link } from 'react-router-dom';//, Redirect 
-import { connect } from 'react-redux';
+import React, { useState } from "react"; //Component,
+import { Link } from "react-router-dom"; //, Redirect
+import { connect } from "react-redux";
 // import { register } from '../../actions/authActions';
 // import PropTypes from 'prop-types'
 
-
 export function ProfileUpdate() {
-  const [userName, setuserName] = useState(localStorage.getItem('user'));
+  const [userName, setuserName] = useState(localStorage.getItem("user"));
   // const [gender, setgender] = useState("");
   // const [age, setage] = useState("");
   const [email, setemail] = useState(localStorage.getItem("email"));
   const [mobile, setmobile] = useState(localStorage.getItem("number"));
   const [age, setage] = useState(localStorage.getItem("age"));
   const [gender, setgender] = useState(localStorage.getItem("gender"));
-  const [doorNo, setdoorNo] = useState(JSON.parse(localStorage.getItem("shippingAddress")).doorNo);
-  const [street, setstreet] = useState(JSON.parse(localStorage.getItem("shippingAddress")).street);
-  const [landMark, setlandMark] = useState(JSON.parse(localStorage.getItem("shippingAddress")).landMark);
-  const [pincode, setpincode] = useState(JSON.parse(localStorage.getItem("shippingAddress")).pincode);
-  const [city, setcity] = useState(JSON.parse(localStorage.getItem("shippingAddress")).city);
+  const [doorNo, setdoorNo] = useState(
+    JSON.parse(localStorage.getItem("shippingAddress")).doorNo
+  );
+  const [street, setstreet] = useState(
+    JSON.parse(localStorage.getItem("shippingAddress")).street
+  );
+  const [landMark, setlandMark] = useState(
+    JSON.parse(localStorage.getItem("shippingAddress")).landMark
+  );
+  const [pincode, setpincode] = useState(
+    JSON.parse(localStorage.getItem("shippingAddress")).pincode
+  );
+  const [city, setcity] = useState(
+    JSON.parse(localStorage.getItem("shippingAddress")).city
+  );
   //const [address] = useState([{}]);
 
   const Submit = (e) => {
-
-    let url = "https://api.emetroplus.com/user/update";//"https://api.emetroplus.com/user/update";
+    let url = "https://api.emetroplus.com/user/update"; //"https://api.emetroplus.com/user/update";
 
     fetch(url, {
-      method: 'PUT',
+      method: "PUT",
       headers: {
-        'Content-Type': 'application/json',
-        'access-token': localStorage.getItem("token"),
+        "Content-Type": "application/json",
+        "access-token": localStorage.getItem("token"),
       },
       body: JSON.stringify({
         user_id: localStorage.getItem("_id"),
@@ -39,33 +47,33 @@ export function ProfileUpdate() {
           phoneNumber: mobile,
           age: parseInt(age),
           gender: gender,
-          shippingAddress: [{
-            doorNo: doorNo,
-            street: street,
-            landMark: landMark,
-            pincode: pincode,
-            city: city
-          },],
-          _id: localStorage.getItem("_id")
-        }
-      })
-    })
-      .then((response) => {
-        if (response.ok) {
-          console.log(response);
-          window.location.href = "/";
-        }
-      })
-      // .catch((e) => {
-      //   console.log(e);
-      // })
-  }
+          shippingAddress: [
+            {
+              doorNo: doorNo,
+              street: street,
+              landMark: landMark,
+              pincode: pincode,
+              city: city,
+            },
+          ],
+          _id: localStorage.getItem("_id"),
+        },
+      }),
+    }).then((response) => {
+      if (response.ok) {
+        console.log(response);
+        window.location.href = "/";
+      }
+    });
+    // .catch((e) => {
+    //   console.log(e);
+    // })
+  };
 
   return (
     <div className="">
       <div className="auth-form">
         <form>
-
           <div className="log-ele">
             <label>Name</label>
             <input
@@ -120,9 +128,7 @@ export function ProfileUpdate() {
               value={age}
             />
           </div>
-          {/* 
-          {address.map((addr, index) => (
-            <div key={index} className="address"> */}
+           <h2>Shipping Address</h2>
           <div className="log-ele">
             <label>Door Number</label>
             <input
@@ -177,24 +183,16 @@ export function ProfileUpdate() {
               value={pincode}
             />
           </div>
-          {/* </div>
-          ))} */}
+    
 
-          <div className="">
-            <button className="authBut" type="button" onClick={(e) => Submit(e)}>
-              Register
-              </button>
-          </div>
-          <p>
-            Have an account? <Link className="relink" to="/login">Login</Link>
-          </p>
+          <button className="authBut" type="button" onClick={(e) => Submit(e)}>
+            Update
+          </button>
         </form>
       </div>
     </div>
   );
-
-};
-
+}
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,

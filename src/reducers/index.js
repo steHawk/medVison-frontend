@@ -9,6 +9,8 @@ import doctors from "./doctors";
 import medicine from "./medicine";
 import searchItems from "./searchItems";
 import itemDetail from "./itemDetail";
+import dataReducer from "./data.reducer"
+
 
 export default combineReducers({
   tests: tests,
@@ -20,5 +22,6 @@ export default combineReducers({
   doctors,
   medicine,
   searchItems,
-  itemDetail
+  itemDetail,
+  data: dataReducer,
 });

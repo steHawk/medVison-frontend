@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
-import { connect } from "react-redux";//Provider, 
+import { connect } from "react-redux"; //Provider,
 import store from "./store";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
@@ -25,20 +25,16 @@ import Specialist from "./components/layout/services/Specialist";
 import Medicine from "./components/layout/services/Medicine";
 import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
-import  ProfileUpdate  from "./components/accounts/ProfileUpdate";
+import ProfileUpdate from "./components/accounts/ProfileUpdate";
 import ItemDetails from "./components/layout/ItemDetails";
-
-
-
 
 import { loadUser } from "./actions/authActions";
 import Conformation from "./components/booknow/Conformation";
 import Prescription from "./components/layout/services/Prescription";
 import ItemDetail from "./components/layout/ItemDetail";
-
-
-
-
+import Billing from "./components/cart/Billing";
+import ViewLabTest from "./components/tests/ViewLabTest";
+import Super60 from "./components/layout/Super60";
 
 // optional cofiguration
 const options = {
@@ -50,8 +46,6 @@ const options = {
   transition: transitions.SCALE,
 };
 
-
-
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser());
@@ -60,45 +54,45 @@ class App extends Component {
   render() {
     return (
       // <Provider store={store}>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <BrowserRouter>
-            <div>
-              <HeaderNav />
-              <Alerts />
-              <div id="content">
-                <Fragment>
-              <Switch>
-                <Route exact path="/" component={MainPage} />
-                <Route path="/about" component={About} />
-                <Route path="/services" component={Service} />
-                <Route path="/medicine" component={Medicine} />
-                <Route path="/profile" component={Profile} />
-                <Route path="/meditems" component={MedicineItems} />
-                <Route path="/specialist" component={Specialist} />
-                <Route path="/doctors" component={Doctors} />
-                <Route path="/conformation" component={Conformation} />
-                <Route path="/docConsult" component={ConsultForm} />
-                <Route path="/cart" component={UserCart} />
-                <Route path="/alltests" component={AllTests} />
-                <Route path="/login" component={LoginAuth} />
-                <Route path="/getotp" component={GetOtp} />
-                <Route path="/submitOtp" component={SubmitOtp} />
-                <Route path="/submitLoginOtp" component={SubmitOtp} />
-                <Route path="/register" component={Register} />
-                <Route path="/otpLogin" component={GetOtp} />  
-                <Route path="/profileUpdate" component={ProfileUpdate} />   
-                <Route path="/prescription" component={Prescription} /> 
-                {/* <Route path={`/drug/:id`} component={ItemDetails} /> */}
-                <Route path="/drug/:id" component={ItemDetail} /> 
-                  
-
-              </Switch>
+      <AlertProvider template={AlertTemplate} {...options}>
+        <BrowserRouter>
+          <div>
+            <HeaderNav />
+            <Alerts />
+            <div id="content">
+              <Fragment>
+                <Switch>
+                  <Route exact path="/" component={MainPage} />
+                  <Route path="/about" component={About} />
+                  <Route path="/services" component={Service} />
+                  <Route path="/medicine" component={Medicine} />
+                  <Route path="/profile" component={Profile} />
+                  <Route path="/meditems" component={MedicineItems} />
+                  <Route path="/specialist" component={Specialist} />
+                  <Route path="/doctors" component={Doctors} />
+                  <Route path="/conformation" component={Conformation} />
+                  <Route path="/docConsult" component={ConsultForm} />
+                  <Route path="/cart" component={UserCart} />
+                  <Route path="/alltests" component={AllTests} />
+                  <Route path="/login" component={LoginAuth} />
+                  <Route path="/getotp" component={GetOtp} />
+                  <Route path="/submitOtp" component={SubmitOtp} />
+                  <Route path="/submitLoginOtp" component={SubmitOtp} />
+                  <Route path="/register" component={Register} />
+                  <Route path="/otpLogin" component={GetOtp} />
+                  <Route path="/profileUpdate" component={ProfileUpdate} />
+                  <Route path="/prescription" component={Prescription} />
+                  <Route path={`/checkout`} component={Billing} />
+                  <Route path="/to/item" component={ItemDetail} />
+                  <Route path="/labItem" component={ViewLabTest} />
+                  <Route path="/super60" component={Super60} />
+                </Switch>
               </Fragment>
-             </div>
-              <Footer />
             </div>
-          </BrowserRouter>
-        </AlertProvider>
+            <Footer />
+          </div>
+        </BrowserRouter>
+      </AlertProvider>
       // </Provider>
     );
   }

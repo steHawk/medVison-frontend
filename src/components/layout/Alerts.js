@@ -30,9 +30,12 @@ export class Alerts extends Component {
       if (message.itemDel) alert.success(message.itemDel);
       if (message.email) alert.error(message.email);
       if (message.logCart) alert.error(message.logCart);
-
-
+      if (message.uploadFileError) alert.error(message.uploadFileError); 
+      if (message.addressError) alert.error(message.addressError); 
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
+      if (message.userName) alert.error(message.userName);
+      if (message.prescriptionUploaded) alert.success(message.prescriptionUploaded);
+      if (message.fileUploadSuccess) alert.success(message.fileUploadSuccess); 
     }
   }
 

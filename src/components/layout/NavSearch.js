@@ -1,106 +1,87 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
+import { search, clearItemsList } from "../../actions/medSearch";
+import { connect } from "react-redux";
+import PropTypes from 'prop-types'
+
+
+
 export class NavSearch extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      searchkey: "",
-      searchMeds: [],
+      item: "",
     };
   }
 
-  setSearchKey(event) {
-    try {
-      const signal = AbortController.signal;
+  static propTypes = {
+    search: PropTypes.func.isRequired,
+    ClearItemsList: PropTypes.func,
+    isDataLoading: PropTypes.bool,
+    data: PropTypes.array,
+  };
+
+  onChange(event) {
+    if (event.target.value.length > 0) {
       this.setState({
-        searchkey: event.target.value,
+        [event.target.name]: event.target.value,
+        msg: "Loading...!!!",
       });
-      if (event.target.value === "") {
-        this.setState({
-          searchMeds: [],
-        });
-      } else {
-        let requrl = "https://api.emetroplus.com/drug/search";
-        let data = { keyword: event.target.value };
-        fetch(
-          requrl,
-          {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify(data),
-          },
-          { signal: signal }
-        )
-          .then((response) => response.json())
-          .then((data) => {
-            //console.log(data);
-            if (data.ok && data) {
-              this.setState({
-                searchMeds: data.data,
-              });
-            } else {
-              this.setState({
-                searchMeds: [],
-              });
-            }
-            //console.log(data.data);
-          });
-      }
-      return function cleanup() {
-        AbortController.abort();
-      };
-    } catch (e) {
-      console.log(JSON.stringify(e));
+      this.props.search(event.target.value);
+    } else {
+      this.setState({ [event.target.name]: event.target.value, msg: "" });
     }
   }
 
-  clearSearch(e) {
-    this.setState({
-      searchkey: "",
-      searchMeds: [],
-    });
+  ClearItemsList() {
+    this.props.clearItemsList();
   }
 
   render() {
-    return(
-      <div>
+    return (
+     
         <div className="search">
+        
           <input
             type="text"
-            value={this.state.searchkey}
-            onChange={(event, _) => this.setSearchKey(event)}
+            value={this.state.item}
+            name="item"
+            onChange={(event) => this.onChange(event)}
             placeholder="Search for test,medicine,doctor."
           />
-          <i className="fa fa-search" aria-hidden="true"></i>
-        </div>
-        <div>
-          {this.state.searchMeds.length > 0 ? (
-            <table className="drugList">
-              <tbody>
-                {this.state.searchMeds.map((item) => (
-                  <tr key={item._id}>
-                    <td>
+         
+
+          <table className="drugList">
+            <tbody>
+              {this.props.data.map((items, i) => (
+                <tr key={i}>
+                  <td>
+                    <Link
+                      to={{
+                        pathname: "/to/item",
+                        state: { items: items },
+                      }}
+                      onClick={() => this.ClearItemsList()}
+                    >
                       {" "}
-                      <Link
-                       to={{ pathname: `/drug/${item._id}` }}
-                        onClick={(e) => this.clearSearch(e)}
-                        id={item._id}
-                        type="button"
-                        key={item._id}
-                      >
-                        {item.doctorPrescriptionName}
-                      </Link>
-                    </td>
-                    <td>{item.netAmount}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          ) : null}
+                      {items.doctorPrescriptionName}
+                    </Link>
+                  </td>
+                  <td>{items.mrp}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
         </div>
-      </div>
+   
+    
     );
   }
 }
 
-export default NavSearch;
+const mapStateToProps = (state) => ({
+  data: state.data.data,
+  isDataLoading: state.data.isDataLoading,
+});
+
+export default connect(mapStateToProps, { search, clearItemsList })(NavSearch);

@@ -48,7 +48,11 @@ class MedicineItems extends Component {
           {this.props.medicines.map((med, index) => (
             <div key={index} className="meditems">
               <div>
-                <Link to={`/drug/${med._id}`}>
+              
+                <Link  to={{
+                        pathname: "/to/item",
+                        state: { items: med },
+                      }}>
                   <h3>{med.doctorPrescriptionName}</h3>
                 </Link>
                 <strong>Description : </strong>
@@ -67,6 +71,7 @@ class MedicineItems extends Component {
                         med.doctorPrescriptionName,
                         med.uses,
                         med.mrp,
+                        med.packSize,
                         "Medicine"
                       )}
                     >

@@ -1,8 +1,15 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+
 // import PropTypes from "prop-types";
 import axios from "axios";
-import { prescription } from "../../../actions/medicineActions";
+import {
+  prescription,
+  uploadFileError,
+  addressError,
+  fileUploadSuccess,
+} from "../../../actions/medicineActions";
+import { Redirect } from "react-router-dom";
 
 class Prescription extends Component {
   constructor(props) {
@@ -18,38 +25,46 @@ class Prescription extends Component {
   }
 
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
+
   handleFileUpload = (event) => {
     this.setState({ file: event.target.files });
   };
 
   submitFile = (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("file", this.state.file[0]);
-    formData.append("name", localStorage.getItem("user"));
-    console.log(formData);
-    axios
-      .post("https://api.emetroplus.com/aws/prescription-upload", formData, {})
-      .then((response) => {
-        console.log(response);
-        this.setState({ file_url: response.data.Location });
-      })
-      .catch((error) => {
-        // handle your error
-        console.log(error);
-      });
+
+    if (this.state.file === null) {
+      this.props.uploadFileError();
+    } else {
+      const formData = new FormData();
+      formData.append("file", this.state.file[0]);
+      formData.append("name", localStorage.getItem("user"));
+      console.log(formData);
+      axios
+        .post(
+          "https://api.emetroplus.com/aws/prescription-upload",
+          formData,
+          {}
+        )
+        .then((response) => {
+          console.log(response);
+          this.setState({ file_url: response.data.Location });
+          this.props.fileUploadSuccess();
+        })
+        .catch((error) => {
+          // handle your error
+          console.log(error);
+        });
+    }
   };
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (
-      this.state.file === null ||
-      this.state.file_url === null ||
-      this.state.hno === null ||
-      this.state.street === null
-    ) {
-      alert("Plesw submit the file");
+    if (this.state.file === null || this.state.file_url === null) {
+      this.props.uploadFileError();
+    } else if (this.state.hno === "" || this.state.street === "") {
+      this.props.addressError();
     } else {
       const { hno, street, pinCode, city, file_url } = this.state;
       const prescription = {
@@ -66,6 +81,9 @@ class Prescription extends Component {
 
   render() {
     const { hno, street, pinCode, city } = this.state;
+    if (this.props.gotDocToken) {
+      return <Redirect exact to="/" />;
+    }
     return (
       <div className="prescription">
         <form onSubmit={this.onSubmit}>
@@ -82,7 +100,7 @@ class Prescription extends Component {
             className="file_but"
           />
 
-          <button onClick={this.submitFile} type="submit">
+          <button className="docBut" onClick={this.submitFile} type="submit">
             upload
           </button>
           <p>
@@ -153,5 +171,10 @@ class Prescription extends Component {
   }
 }
 
-const mapStateToProps = (state) => ({});
-export default connect(mapStateToProps, { prescription })(Prescription);
+const mapStateToProps = (state) => ({ gotDocToken: state.doctors.gotDocToken,});
+export default connect(mapStateToProps, {
+  prescription,
+  uploadFileError,
+  addressError,
+  fileUploadSuccess,
+})(Prescription);

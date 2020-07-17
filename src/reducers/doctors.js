@@ -1,9 +1,13 @@
-import { FETCH_ALL_DOCTORS,CALLBACK_TOKEN } from "../actions/types";
+import {
+  FETCH_ALL_DOCTORS,
+  CALLBACK_TOKEN,
+  CALLBACK_TOKEN_NULL,
+} from "../actions/types";
 
 const initialState = {
   doctors: [],
   doc_token: "",
-  gotDocToken: null
+  gotDocToken: null,
 };
 
 export default function (state = initialState, action) {
@@ -17,9 +21,14 @@ export default function (state = initialState, action) {
       return {
         ...state,
         doc_token: action.payload.test_details.bookingId,
-        gotDocToken: action.payload.ok
+        gotDocToken: action.payload.ok,
       };
-
+    case CALLBACK_TOKEN_NULL:
+      return {
+        ...state,
+        doc_token: "", 
+        gotDocToken: null,
+      };
     default:
       return state;
   }

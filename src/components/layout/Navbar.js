@@ -102,12 +102,9 @@ class Navbar extends Component {
               Medicines and Medical Supplies
             </Link>
           </li>
-
-         
-        </ul>
-        {isAuthenticated ? (
-            <div className="right">
-             
+          {isAuthenticated ? (
+            <ul>
+              <li>
                 {" "}
                 <Link to="/profile" onClick={handleBlur}>
                   <i
@@ -115,7 +112,8 @@ class Navbar extends Component {
                     aria-hidden="true"
                   ></i>
                 </Link>
-             
+              </li>
+              <li>
                 {" "}
                 <Link
                   to="/"
@@ -126,7 +124,8 @@ class Navbar extends Component {
                 >
                   <i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
                 </Link>
-             
+              </li>
+              <li>
                 {" "}
                 <Link to="/cart" onClick={handleBlur}>
                   <i
@@ -134,37 +133,37 @@ class Navbar extends Component {
                     aria-hidden="true"
                   ></i>
                 </Link>
-             
-            </div>
+              </li>
+            </ul>
           ) : (
-            <div className="right">
-             
+            <ul>
+              <li>
                 {" "}
                 <Link to="/login" onClick={handleBlur}>
                   <i
                     className="fa fa-user-circle-o fa-2x"
                     aria-hidden="true"
                   ></i>
-                 
                 </Link>
-             
+              </li>
+              <li>
                 {" "}
                 <Link to="/login" onClick={handleBlur}>
                   <i className="fa fa-sign-in fa-2x" aria-hidden="true"></i>
-                  
                 </Link>
-            
+              </li>
+              <li>
                 {" "}
                 <Link to="/login" onClick={handleBlur}>
                   <i
                     className="fa fa-shopping-cart fa-2x"
                     aria-hidden="true"
                   ></i>
-                  
                 </Link>
-             
-            </div>
+              </li>
+            </ul>
           )}
+        </ul>
       </div>
     );
   }

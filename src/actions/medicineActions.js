@@ -1,6 +1,8 @@
 import axios from "axios";
+import { createMessage } from "./messages";//, returnErrors
 
-import { MEDICINE_BY_TYPES } from "./types";
+import { MEDICINE_BY_TYPES, CALLBACK_TOKEN , CALLBACK_TOKEN_NULL} from "./types";
+import { Link } from "react-router-dom";
 
 //  FETCH ALL MEDICINE BY TYPE
 
@@ -30,7 +32,8 @@ export const fetchMedicineByType = (limit, skip) => (dispatch) => {
 
 // REGISTER USER
 export const prescription = ({ hno, street, pinCode, city, file_url }) => (
-  dispatch , getState
+  dispatch,
+  getState
 ) => {
   // Headers
   const config = {
@@ -41,36 +44,62 @@ export const prescription = ({ hno, street, pinCode, city, file_url }) => (
 
   // Request Body
   const body = {
- 
-      prescriptionDetails: {
-        userName: localStorage.getItem("user"),
-        email: localStorage.getItem("email"),
-        mobile: localStorage.getItem("number"),
-        age: localStorage.getItem("age"),
-        gender: localStorage.getItem("gender"),
-        prescriptionImg: file_url,
-        address: {
-          doorNo: hno,
-          street: street,
-          pincode: pinCode,
-          city: city,
-        },
-        user: localStorage.getItem("_id"),
+    prescriptionDetails: {
+      userName: localStorage.getItem("user"),
+      email: localStorage.getItem("email"),
+      mobile: localStorage.getItem("number"),
+      age: localStorage.getItem("age"),
+      gender: localStorage.getItem("gender"),
+      prescriptionImg: file_url,
+      address: {
+        doorNo: hno,
+        street: street,
+        pincode: pinCode,
+        city: city,
       },
-    }
-
+      user: localStorage.getItem("_id"),
+    },
+  };
 
   axios
     .post("https://api.emetroplus.com/prescription/upload", body, config)
     .then((res) => {
       console.log(res);
-      if(res.data.ok){
-          
-      }else {
-        console.log("error")
+      if (res.data.ok) {
+        dispatch(createMessage({ prescriptionUploaded: "Prescription Uploaded Successfully"}));
+        dispatch({
+          type: CALLBACK_TOKEN,
+          payload: res.data,
+        });
+        setTimeout(function () {
+          dispatch({
+            type: CALLBACK_TOKEN_NULL,
+          });
+        }, 3000);
+      } else {
+        console.log("error");
       }
-      
-    }).catch((error) => {
-      console.log(error)
     })
+    .catch((error) => {
+      console.log(error);
+    });
+};
+
+//
+export const uploadFileError = () => (dispatch, getState) => {
+  dispatch(createMessage({ uploadFileError: "Please select the file"}));
+};
+
+
+
+// 
+export const addressError = () => (dispatch, getState) => {
+  dispatch(createMessage({ addressError: "House Number or street Should is empty"}));
+};
+
+
+
+// 
+export const fileUploadSuccess = () => (dispatch, getState) => {
+  dispatch(createMessage({ fileUploadSuccess: "File Uploaded Successfully "}));
 };

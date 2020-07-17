@@ -24,7 +24,7 @@ class Tests extends Component {
         <div className="test_items">
           <div className="testName">
             <b>Popular Tests</b>
-            <Link to="/viewall">
+            <Link to="/super60">
               <div className="view_all">
                 <p>View All</p>
               </div>
@@ -33,20 +33,21 @@ class Tests extends Component {
           <div className="items_overflow">
             {this.props.tests.map((test, index) => (
               <div key={index} className="testCard">
-                <h4>{test.name}</h4>
-                <p>{test.desc.slice(0, 60)} ...</p>
+                <h4>{test.TNAME1}</h4>
+                <p></p>
                 <div className="bookPrice">
-                  <p>₹{test.price}</p>
+                  <p>₹{test.MRP}</p>
                   {isAuthenticated ? (
                     <button
-                      onClick={this.props.addCart.bind(
-                        this,
+                     onClick={this.props.addCart.bind(
+                      this,
                         test._id,
-                        test.name,
-                        test.desc,
-                        test.price,
+                        test.TNAME1,
+                        "no discription",
+                        parseInt(test.MRP),
+                        test.testType,
                         "MedicalTest"
-                      )}
+                    )}
                     >
                       Add to cart
                     </button>
