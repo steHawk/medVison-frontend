@@ -51,20 +51,6 @@
     background-color: #555;
 }
 
-/* Home Cards - Booking */
-.bookdiv {
-    position: relative;
-}
-.home-cards {
-    height: 280px;
-}
-.get-started {
-    position: absolute;
-    bottom: 0;
-    right: 0;
-}
-
-
 /* 
 // ------------------------------------------
 //   Footer
@@ -94,4 +80,21 @@
         }
         }
     }
+}
+
+/* 
+// ------------------------------------------
+//  Home Cards - Booking
+// ------------------------------------------ 
+*/
+.bookdiv {
+    position: relative;
+}
+.home-cards {
+    height: 280px;
+}
+.get-started {
+    position: absolute;
+    bottom: 0;
+    right: 0;
 }

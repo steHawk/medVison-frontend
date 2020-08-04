@@ -53,21 +53,6 @@
   background-color: #555;
 }
 
-/* Home Cards - Booking */
-.bookdiv {
-  position: relative;
-}
-
-.home-cards {
-  height: 280px;
-}
-
-.get-started {
-  position: absolute;
-  bottom: 0;
-  right: 0;
-}
-
 /* 
 // ------------------------------------------
 //   Footer
@@ -99,5 +84,24 @@
 
 .footer .container .row .contact-us ul li a {
   color: #ffffff;
+}
+
+/* 
+// ------------------------------------------
+//  Home Cards - Booking
+// ------------------------------------------ 
+*/
+.bookdiv {
+  position: relative;
+}
+
+.home-cards {
+  height: 280px;
+}
+
+.get-started {
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 /*# sourceMappingURL=App.css.map */

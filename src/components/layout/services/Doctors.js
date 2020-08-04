@@ -22,45 +22,56 @@ class Doctors extends Component {
       return <Redirect exact to="/conformation" />;
     }
     return (
-      <div>
-        <div className="docHead">
-          <h3>Our Doctors</h3>
-          <Link to="/docConsult" class="btn">
-            <i class="fa fa-phone" aria-hidden="true"></i> Request Callback
-          </Link>
-        </div>
-
-        <div className="docSelect">
-          {this.props.doctors.map((doctor, index) => (
-            <div key={index} className="doctors">
-              <img src="/img/standing-11.png" alt="" />
-              <h1>{doctor.userName}</h1>
-              <p>MBBS, MD (DVL)</p>
-              <strong>{doctor.specialization}</strong>
-              <div>
-                <div className="price_but">
-                  <p>₹500</p>
-                  {isAuthenticated ? (
-                    <button
-                      onClick={this.props.doctorConsultation.bind(
-                        this,
-                        doctor._id
-                      )}
-                      className="docBut"
-                    >
-                      <p>Consult</p>
-                    </button>
-                  ) : (
-                    <Link to="/login">
-                      <button className="docBut">
-                        <p>Consult</p>
-                      </button>
-                    </Link>
-                  )}
+      <div className="my-4">
+        <div className="container">
+          <div className="docHead">
+            <h3>Our Doctors</h3>
+            <Link to="/docConsult" class="btn">
+              <i class="fa fa-phone" aria-hidden="true"></i> Request Callback
+            </Link>
+          </div>
+          <div className="docSelect row m-0">
+            {this.props.doctors.map((doctor, index) => (
+              <div key={index} className="col-lg-3 col-md-4 my-2">
+                <div className="p-2 shadow rounded">
+                  <div className="text-center">
+                    <img src="/img/standing-11.png" alt="" height="200px"/>
+                  </div>
+                  <div className="p-2">
+                    <h5>{doctor.userName}</h5>
+                    <p>MBBS, MD (DVL)</p>
+                    <strong>{doctor.specialization}</strong>
+                    <div>
+                      <div className="price_but">
+                        <p>₹500</p>
+                        {isAuthenticated ? (
+                          <div className="text-center">
+                            <button
+                              onClick={this.props.doctorConsultation.bind(
+                                this,
+                                doctor._id
+                              )}
+                              className="docBut"
+                            >
+                              <p>Consult</p>
+                            </button>
+                          </div>
+                        ) : (
+                          <Link to="/login">
+                            <div className="text-center">
+                              <button className="button-primary">
+                                Consult
+                              </button>
+                            </div>
+                          </Link>
+                        )}
+                      </div>
+                    </div>
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
     );
