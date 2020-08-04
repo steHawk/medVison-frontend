@@ -4,10 +4,9 @@ import { Link } from "react-router-dom";
 class BannerAdd extends Component {
   render() {
     return (
-      <div>
-        <div className="bannerImg">
+      <div className="my-4">
           <Link to="/super60">
-            <img src="/img/medBanner.png" alt="Banner Add" />{" "}
+            <img src="/img/medBanner.png" alt="Banner Add" className="img-fluid" />{" "}
           </Link>
 
           {/* <div>
@@ -17,7 +16,6 @@ class BannerAdd extends Component {
               Request Callback <i className="fa fa-chevron-right" aria-hidden="true"></i>
             </Link>
           </div> */}
-        </div>
       </div>
     );
   }

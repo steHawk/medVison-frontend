@@ -29,28 +29,24 @@ class BookNow extends Component {
   render() {
 
     return (
-      <div className="bookdiv">
+      <div className="bookdiv row m-0">
         {bookNow.map((book, index) => (
-          <div key={index} className="home-cards">
-
+          <div key={index} className="col-lg-3 m-3 shadow rounded">
             <div key={index}>
-              <Link to={book.link} >   
-              <div className="home-card-i">
-
-              <img src={book.src} alt="" />
-
-                <div className="home-card-inner">
-                <h3>{book.title}</h3>
-                <p>{book.des}</p>
-                <h4>
-                  GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                </h4>
+              <Link to={book.link} class="text-decoration-none text-dark ">   
+              <div>
+                <img src={book.src} alt="" className="img-fluid" />
+                <div className="home-card-inner my-2">
+                  <h5>{book.title}</h5>
+                  <small>{book.des}</small>
+                  <div className="text-center my-2 get-started">
+                    <h6 className="m-2">
+                      GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                    </h6>
+                  </div>
                 </div>
-
-                
-                </div>
-                </Link>
-
+              </div>
+              </Link>
             </div>
           </div>
 

@@ -1,6 +1,8 @@
 import React, { Component, Fragment } from "react";
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import "./App.css";
+import "bootstrap/dist/css/bootstrap.min.css"; //Bootstrap CSS
+import "bootstrap/dist/js/bootstrap"; //Bootstrap CSS
 import { connect } from "react-redux"; //Provider,
 import store from "./store";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";

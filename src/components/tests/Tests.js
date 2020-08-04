@@ -20,26 +20,26 @@ class Tests extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
-      <div>
-        <div className="test_items">
-          <div className="testName">
-            <b>Popular Tests</b>
-            <Link to="/super60">
-              <div className="view_all">
-                <p>View All</p>
-              </div>
-            </Link>  
-          </div>
-          <div className="items_overflow">
-            {this.props.tests.map((test, index) => (
-              <div key={index} className="testCard">
-                <h4>{test.TNAME1}</h4>
-                <p></p>
-                <div className="bookPrice">
-                  <p>₹{test.MRP}</p>
-                  {isAuthenticated ? (
+      <div className="test_items my-2">
+        <div className="testName">
+          <h4 className="font-weight-bold">Popular Tests</h4>
+          <Link to="/super60">
+            <div className="view_all">
+              <p>View All</p>
+            </div>
+          </Link>  
+        </div>
+        <div className="items_overflow row m-0 my-2">
+          {this.props.tests.map((test, index) => (
+            <div key={index} className="testCard col-lg-3 m-2 p-2 shadow rounded">
+              <h6>{test.TNAME1}</h6>
+              <p></p>
+              <div className="bookPrice">
+                <p>₹{test.MRP}</p>
+                {isAuthenticated ? (
+                  <div className="text-center">
                     <button
-                     onClick={this.props.addCart.bind(
+                      onClick={this.props.addCart.bind(
                       this,
                         test._id,
                         test.TNAME1,
@@ -51,15 +51,17 @@ class Tests extends Component {
                     >
                       Add to cart
                     </button>
-                  ) : (
+                  </div>
+                ) : (
+                  <div className="text-center">
                     <Link to="/login">
-                      <button>Add to cart</button>
+                      <button className="button-primary">Add to cart</button>
                     </Link>
-                  )}
-                </div>
+                  </div>
+                )}
               </div>
-            ))}
-          </div>
+            </div>
+          ))}
         </div>
       </div>
     );

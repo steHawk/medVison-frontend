@@ -9,10 +9,12 @@ class MainPage extends Component {
   render() {
     return (
       <Fragment>
-        <BannerAdd />
-        <HomePrescription/>
-        <BookNow />
-        <Tests />
+        <div className="container">
+          <BannerAdd />
+          <HomePrescription/>
+          <BookNow />
+          <Tests />
+        </div>
       </Fragment>
     );
   }
