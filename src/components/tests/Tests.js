@@ -29,10 +29,11 @@ class Tests extends Component {
             </div>
           </Link>  
         </div>
-        <div className="items_overflow row m-0 my-2">
+        <hr />
+        <div className="items_overflow">
           {this.props.tests.map((test, index) => (
-            <div key={index} className="testCard col-lg-3 m-2 p-2 shadow rounded">
-              <h6>{test.TNAME1}</h6>
+            <div key={index} className="testCard p-2 mx-2 shadow my-2">
+              <h6 className="font-weight-bold">{test.TNAME1}</h6>
               <p></p>
               <div className="bookPrice">
                 <p>₹{test.MRP}</p>
@@ -55,7 +56,7 @@ class Tests extends Component {
                 ) : (
                   <div className="text-center">
                     <Link to="/login">
-                      <button className="button-primary">Add to cart</button>
+                      <button className="button-test">Add to cart</button>
                     </Link>
                   </div>
                 )}

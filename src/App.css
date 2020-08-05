@@ -91,17 +91,45 @@
 //  Home Cards - Booking
 // ------------------------------------------ 
 */
-.bookdiv {
+.home-cards {
   position: relative;
+  height: 320px;
 }
 
-.home-cards {
-  height: 280px;
+.home-card-subtitle {
+  width: 200px;
 }
 
 .get-started {
   position: absolute;
   bottom: 0;
   right: 0;
+}
+
+.items_overflow {
+  height: 200px;
+  overflow: auto;
+  white-space: nowrap;
+}
+
+.testCard {
+  display: inline-block;
+  width: auto;
+  background-color: var(--primaryColor);
+  color: white;
+  border: 2px solid white;
+  border-radius: 6px;
+}
+
+.button-test {
+  background-color: white;
+  padding: 0.5em;
+  border: none;
+  border-radius: 4px;
+  color: var(--secondaryColor);
+}
+
+.button-test:hover {
+  background-color: #ececec;
 }
 /*# sourceMappingURL=App.css.map */
