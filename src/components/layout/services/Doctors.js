@@ -38,7 +38,7 @@ class Doctors extends Component {
                     <img src="/img/standing-11.png" alt="" height="200px"/>
                   </div>
                   <div className="p-2">
-                    <h5>{doctor.userName}</h5>
+                    <h5 className="primary-text font-weight-bold">{doctor.userName}</h5>
                     <p>MBBS, MD (DVL)</p>
                     <strong>{doctor.specialization}</strong>
                     <div>

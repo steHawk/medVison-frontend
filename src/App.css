@@ -10,7 +10,7 @@
 
 .button-primary {
   background: var(--primaryColor);
-  border: 1px solid var(--primaryColor);
+  border: none;
   color: #fff;
   text-transform: uppercase;
   width: 10.5rem;
@@ -24,6 +24,32 @@
   font-weight: 500;
   cursor: pointer;
   margin-bottom: 1em;
+}
+
+.button-primary:hover {
+  background-color: var(--secondaryColor);
+}
+
+.button-secondary {
+  background: var(--secondaryColor);
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  width: 10.5rem;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none;
+  text-align: center;
+  height: 2.25rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1em;
+}
+
+.button-secondary:hover {
+  background-color: var(--primaryColor);
 }
 
 .button-transparent {
@@ -46,6 +72,14 @@
   border-radius: 0.25rem;
   font-weight: 500;
   cursor: pointer;
+}
+
+.primary-text {
+  color: var(--primaryColor) !important;
+}
+
+.secondary-text {
+  color: var(--secondaryColor) !important;
 }
 
 .active,
@@ -86,11 +120,6 @@
   color: #ffffff;
 }
 
-/* 
-// ------------------------------------------
-//  Home Cards - Booking
-// ------------------------------------------ 
-*/
 .home-cards {
   position: relative;
   height: 320px;
@@ -131,5 +160,19 @@
 
 .button-test:hover {
   background-color: #ececec;
+}
+
+.table-item td {
+  padding: 0 !important;
+  border: none !important;
+}
+
+.consult-form label {
+  font-weight: bold;
+  margin-top: 1em;
+}
+
+.consult-form span {
+  color: red;
 }
 /*# sourceMappingURL=App.css.map */

@@ -43,56 +43,55 @@ class ConsultForm extends Component {
       return <Redirect exact to="/conformation" />;
     }
     return (
-      <div className="call_back">
-        <h2>Request Callback</h2>
+      <div className="container my-4">
+        <div class="row m-0">
+          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
+            <h4 className="font-weight-bold">Request Callback</h4>
 
-        <form onSubmit={this.onSubmit}>
-          <div className="call-ele">
-            <label>
-              Name <span>*</span>
-            </label>
-            <input
-              type="text"
-              className=""
-              placeholder="Name"
-              name="userName"
-              onChange={this.onChange}
-              value={userName}
-            />
+            <form onSubmit={this.onSubmit} className="consult-form">
+              <div className="form-group">
+                <label>
+                  Name <span>*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  placeholder="Name"
+                  name="userName"
+                  onChange={this.onChange}
+                  value={userName}
+                />
+                <label>
+                  Mobile Number <span>*</span>
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="mobile"
+                  placeholder="Mobile Number"
+                  onChange={this.onChange}
+                  value={mobile}
+                />
+                <label>Medical Complaint</label>
+                <input
+                  type="text area"
+                  className="form-control"
+                  placeholder="What is your medical Complaint ?"
+                  name="medicalComplaint"
+                  onChange={this.onChange}
+                  value={medicalComplaint}
+                />
+              </div>
+    
+              <div className="text-right">
+                <button type="submit" className="button-primary">Submit</button>
+              </div>
+              <div className="text-center my-2">
+                <p className="font-weight-bold">Or Call Us On +91 9912654048</p>
+              </div>
+            </form>
           </div>
-
-          <div className="call-ele">
-            <label>
-              Mobile Number <span>*</span>
-            </label>
-            <input
-              type="text"
-              className=""
-              name="mobile"
-              placeholder="Mobile Number"
-              onChange={this.onChange}
-              value={mobile}
-            />
-          </div>
-
-          <div className="call-ele">
-            <label>Medical Complaint</label>
-            <input
-              type="text area"
-              className=""
-              placeholder="What is your medical Complaint ?"
-              name="medicalComplaint"
-              onChange={this.onChange}
-              value={medicalComplaint}
-            />
-          </div>
- 
-          <div className="">
-            <button type="submit">Submit</button>
-          </div>
- 
-          <p>Or Call Us On +91 9912654048</p>
-        </form>
+        </div>
       </div>
     );
   }

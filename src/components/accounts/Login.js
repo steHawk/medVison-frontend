@@ -49,50 +49,56 @@ export class Login extends Component {
     }
     const { number, password } = this.state;
     return (
-      <div className="auth-form">
+      <div className="container my-4">
+        <div class="row m-0">
+          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
+            <h4 className="font-weight-bold">
+              Login to eMetroPlus
+            </h4>
+            <div className="form-group">
+              <form onSubmit={this.onSubmit} className="form">
+                  <label>
+                    Mobile Number
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control"
+                    name="number"
+                    placeholder="Mobile Number"
+                    onChange={this.onChange}
+                    value={number}
+                    pattern="\d{10}"
+                    onBlur={(e) => this.checkMobileNumber(e)}
+                  />
+                  <span id="msg">{this.state.msg}</span>
 
-
-        <h1>
-          Login to eMetroPlus
-        </h1>
-        <form onSubmit={this.onSubmit}>
-          <div className="log-ele">
-            <input
-              type="text"
-              className=""
-              name="number"
-              placeholder="Mobile Number"
-              onChange={this.onChange}
-              value={number}
-              pattern="\d{10}"
-              onBlur={(e) => this.checkMobileNumber(e)}
-            /><span id="msg">{this.state.msg}</span>
+                  <label>
+                    Password
+                  </label>
+                  <input
+                    type="password"
+                    className="form-control"
+                    placeholder="Password"
+                    name="password"
+                    onChange={this.onChange}
+                    value={password}
+                  />
+                  <Link to="/otpLogin" className="primary-text font-weight-bold text-decoration-none"><small>Forgot Password?</small></Link>
+                  <div className="text-center my-2">
+                    <button className="button-primary" type="submit">
+                      Login
+                    </button>
+                    <div>
+                      <small>
+                        Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/getotp">Register</Link>
+                      </small>
+                    </div>
+                  </div>
+              </form>
+            </div>
           </div>
-
-          <div className="log-ele">
-            <input
-              type="password"
-              className=""
-              placeholder="Password"
-              name="password"
-              onChange={this.onChange}
-              value={password}
-            />
-          </div>
-
-          <Link to="/otpLogin">Forgot Password?</Link>
-
-          <div className="">
-            <button className="authBut" type="submit">
-              Login
-              </button>
-          </div>
-          <p>
-            Don't have an account? <Link className="relink" to="/getotp">Register</Link>
-          </p>
-        </form>
+        </div>
       </div>
-
     );
   }
 }

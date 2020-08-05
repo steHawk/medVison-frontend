@@ -39,51 +39,58 @@ class AllTests extends Component {
   render() {
     const { isAuthenticated } = this.props.auth;
     return (
-      <div className="allt">
-        <h1>All Available Tests</h1>
-        <div className="view_items">
+      <div className="container my-4">
+        <div className="text-center">
+          <h1>All Available Tests</h1>
+        </div>
+        <div className="view_items row m-0">
           {this.props.tests.map((test, index) => (
-            <div key={index} className="inner_all">
-              <Link
-                to={{
-                  pathname: "/labItem",
-                  state: { items: test },
-                }}
-              >
-                <h3>
-                  {test.TNAME1} {test.TNAME2} {test.TNAME3}
-                </h3>
-              </Link>
+            <div key={index} className="inner_all col-lg-6 col-md-6 my-2">
+              <div className="p-2 shadow rounded">
+                <Link
+                  to={{
+                    pathname: "/labItem",
+                    state: { items: test },
+                  }}
+                  className="primary-text text-decoration-none"
+                >
+                  <h5 className="font-weight-bold">
+                    {test.TNAME1} {test.TNAME2} {test.TNAME3}
+                  </h5>
+                </Link>
 
-              <p>{test.METHOD}</p>
-              <div className="priceBtn">
-                <p>₹{test.MRP}</p>
-                {isAuthenticated ? (
-                  <button
-                    onClick={this.props.addCart.bind(
-                      this,
-                        test._id,
-                        test.TNAME1,
-                        test.METHOD,
-                        parseInt(test.MRP),
-                        test.Tcode,
-                        "MedicalTest"
-                    )}
-                  >
-                    Add to cart
-                  </button>
-                ) : (
-                  <Link to="/login">
-                    <button>Add to cart</button>
-                  </Link>
-                )}
+                <p>{test.METHOD}</p>
+                <div className="priceBtn">
+                  <p className="font-weight-bold">₹{test.MRP}</p>
+                  {isAuthenticated ? (
+                    <button
+                      onClick={this.props.addCart.bind(
+                        this,
+                          test._id,
+                          test.TNAME1,
+                          test.METHOD,
+                          parseInt(test.MRP),
+                          test.Tcode,
+                          "MedicalTest"
+                      )}
+                    >
+                      Add to cart
+                    </button>
+                  ) : (
+                    <div className="text-right">
+                    <Link to="/login">
+                      <button className="button-primary mr-2">Add to cart</button>
+                    </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}
         </div>
-        <div className="loadmore">
-          <button onClick={this.decrement}>Previous</button>
-          <button onClick={this.increment}>Next</button>
+        <div className="text-center mt-4">
+          <button onClick={this.decrement} className="button-secondary mr-lg-2 mr-sm-2">Previous</button>
+          <button onClick={this.increment} className=" button-secondary ml-lg-2 ml-sm-2">Next</button>
         </div>
       </div>
     );

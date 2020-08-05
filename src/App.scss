@@ -10,7 +10,7 @@
   
 .button-primary {
     background: var(--primaryColor);
-    border: 1px solid var(--primaryColor);
+    border: none;
     color: #fff;
     text-transform: uppercase;
     width: 10.5rem;
@@ -24,8 +24,34 @@
     font-weight: 500;
     cursor: pointer;
     margin-bottom: 1em;
+    
+    &:hover {
+        background-color: var(--secondaryColor);
+    }
 }
   
+.button-secondary {
+    background: var(--secondaryColor);
+    border: none;
+    color: #fff;
+    text-transform: uppercase;
+    width: 10.5rem;
+    outline: 0;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    text-align: center;
+    height: 2.25rem;
+    font-size: 0.75rem;
+    border-radius: 0.25rem;
+    font-weight: 500;
+    cursor: pointer;
+    margin-bottom: 1em;
+    
+    &:hover {
+        background-color: var(--primaryColor);
+    }
+}
+
 .button-transparent {
     background: transparent;
     border: solid 1px var(--secondaryColor);
@@ -44,6 +70,16 @@
     border-radius: 0.25rem;
     font-weight: 500;
     cursor: pointer;
+}
+
+
+// Primary Text Color
+.primary-text {
+    color: var(--primaryColor) !important;
+}
+// Secondary Text Color
+.secondary-text {
+    color: var(--secondaryColor) !important;
 }
 
 .active,
@@ -82,11 +118,7 @@
     }
 }
 
-/* 
-// ------------------------------------------
 //  Home Cards - Booking
-// ------------------------------------------ 
-*/
 .home-cards {
     position: relative;
     height: 320px;
@@ -124,4 +156,24 @@
     &:hover {
         background-color: #ececec;
     }
+}
+
+// Lab Services
+.table-item td {
+    padding: 0 !important;
+    border: none !important;
+}
+
+// Consult Form
+.consult-form {
+
+    label {
+        font-weight: bold;
+        margin-top: 1em;
+    }
+
+    span {
+        color: red;
+    }
+
 }

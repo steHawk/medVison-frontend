@@ -78,6 +78,11 @@ class Header extends Component {
                 Nursing
               </Link>
             </li>
+            <li className="nav-item">
+              <Link to="/login" className="nav-link">
+                Sign In
+              </Link>
+            </li>
             <li className="nav-item dropdown">
               <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 {/* Hello, {this.props.auth.user.userName} */}
