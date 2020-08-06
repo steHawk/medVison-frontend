@@ -1,179 +1,298 @@
 :root {
-    --primaryColor: #004b87;
-    --secondaryColor: #007cbd;
+  --primaryColor: #004b87;
+  --secondaryColor: #007cbd;
 }
-  
+
+// ------------------------------------------
+//   Navbar
+// ------------------------------------------
 .navbar {
-    background-color: var(--primaryColor) !important;
-    color: white;
-}
-  
-.button-primary {
-    background: var(--primaryColor);
-    border: none;
-    color: #fff;
-    text-transform: uppercase;
-    width: 10.5rem;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    text-align: center;
-    height: 2.25rem;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 1em;
-    
-    &:hover {
-        background-color: var(--secondaryColor);
+  background-color: var(--primaryColor) !important;
+  color: white;
+
+  .search-container {
+    position: relative;
+    form {
+      display: flex;
+      align-items: center;
+      background: #ffffff;
+      padding: 0.1rem 0.4rem;
+      border-radius: 4px;
+
+      input {
+        width: 95%;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+      }
+
+      button {
+        border: none;
+      }
     }
-}
-  
-.button-secondary {
-    background: var(--secondaryColor);
-    border: none;
-    color: #fff;
-    text-transform: uppercase;
-    width: 10.5rem;
-    outline: 0;
-    -webkit-box-shadow: none;
-    box-shadow: none;
-    text-align: center;
-    height: 2.25rem;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    cursor: pointer;
-    margin-bottom: 1em;
-    
-    &:hover {
-        background-color: var(--primaryColor);
+
+    table {
+      position: absolute;
+      top: 45px;
+      background: #ffffff;
+      z-index: 10;
     }
+  }
 }
 
-.button-transparent {
-    background: transparent;
-    border: solid 1px var(--secondaryColor);
-    color: var(--secondaryColor);
-}
-.button-transparent,
-.button-primary,
-.button-primary-inverted {
-    text-transform: uppercase;
-    width: 10.5rem;
-    outline: 0;
-    box-shadow: none;
-    text-align: center;
-    height: 2.25rem;
-    font-size: 0.75rem;
-    border-radius: 0.25rem;
-    font-weight: 500;
-    cursor: pointer;
-}
-
-
-// Primary Text Color
-.primary-text {
-    color: var(--primaryColor) !important;
-}
-// Secondary Text Color
-.secondary-text {
-    color: var(--secondaryColor) !important;
-}
-
-.active,
-.collapsible:hover {
-    background-color: #555;
-}
-
-/* 
 // ------------------------------------------
 //   Footer
-// ------------------------------------------ 
-*/
+// ------------------------------------------
 .footer {
-    background: var(--primaryColor);  .container {
-        .row {
-        div {
-            h6 {
-            padding-bottom: 0.2rem;
-            border-bottom: 2.5px solid var(--teal);
-            width: max-content;
-            color: #ffffff;
-            }        ul li a {
-            color: #ffffff;
-            transition: 0.2s ease-out;
-            text-decoration: none;          &:hover,
-            &:focus {
-                color: var(--teal);
-            }
-            }
-        }      .contact-us {
-            ul li a {
-            color: #ffffff;
-            }
+  background: var(--primaryColor);
+  .container {
+    .row {
+      div {
+        h6 {
+          padding-bottom: 0.2rem;
+          border-bottom: 2.5px solid var(--teal);
+          width: max-content;
+          color: #ffffff;
         }
+        ul li a {
+          color: #ffffff;
+          transition: 0.2s ease-out;
+          text-decoration: none;
+          &:hover,
+          &:focus {
+            color: var(--teal);
+          }
         }
+      }
+      .contact-us {
+        ul li a {
+          color: #ffffff;
+        }
+      }
     }
+  }
 }
 
 //  Home Cards - Booking
 .home-cards {
-    position: relative;
-    height: 320px;
+  position: relative;
+  height: 320px;
 }
 .home-card-subtitle {
-    width: 200px;
+  width: 200px;
 }
 .get-started {
-    position: absolute;
-    bottom: 0;
-    right: 0;
+  position: absolute;
+  bottom: 0;
+  right: 0;
 }
 
 // Popular Tests
 .items_overflow {
-    height: 200px;
-    overflow: auto;
-    white-space: nowrap;
+  height: 200px;
+  overflow: auto;
+  white-space: nowrap;
 }
 .testCard {
-    display: inline-block;
-    width: auto;
-    background-color: var(--primaryColor);
-    color: white;
-    border: 2px solid white;
-    border-radius: 6px;
+  display: inline-block;
+  width: auto;
+  background-color: var(--primaryColor);
+  color: white;
+  border: 2px solid white;
+  border-radius: 6px;
 }
 .button-test {
-    background-color: white;
-    padding: 0.5em;
-    border: none;
-    border-radius: 4px;
-    color: var(--secondaryColor);
+  background-color: white;
+  padding: 0.5em;
+  border: none;
+  border-radius: 4px;
+  color: var(--secondaryColor);
 
-    &:hover {
-        background-color: #ececec;
-    }
+  &:hover {
+    background-color: #ececec;
+  }
 }
 
 // Lab Services
 .table-item td {
-    padding: 0 !important;
-    border: none !important;
+  padding: 0 !important;
+  border: none !important;
 }
 
 // Consult Form
 .consult-form {
+  label {
+    font-weight: bold;
+    margin-top: 1em;
+  }
 
-    label {
-        font-weight: bold;
-        margin-top: 1em;
+  span {
+    color: red;
+  }
+}
+
+// ------------------------------------------
+//   Media Queries
+// ------------------------------------------
+
+@media (max-width: 699px) {
+  .navbar {
+    .search-container {
+      width: 100%;
+      form {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 700px) {
+  .navbar {
+    button {
+      order: 3;
+    }
+    .search-container {
+      width: 470px;
+      order: 2;
+
+      form {
+        width: 100%;
+      }
+    }
+  }
+}
+
+@media (min-width: 991px) {
+  .navbar {
+    flex-wrap: nowrap !important;
+    justify-content: space-between !important;
+    .nav-brand {
+      flex-basis: 10%;
+    }
+    .search-container {
+      width: auto;
+      flex-basis: 25%;
+
+      form {
+        input {
+          width: 80%;
+        }
+      }
+    }
+  }
+
+  #navbarSupportedContent {
+    flex-grow: 0;
+    order: 3;
+    flex-basis: 58%;
+    padding: 0 1rem;
+
+    ul {
+      margin-left: auto;
+    }
+  }
+}
+
+@media (min-width: 1200px) {
+  .navbar {
+    justify-content: space-between;
+    padding: 0.5rem 5%;
+    .search-container {
+      flex-basis: 35%;
+
+      form {
+        input {
+          width: 90%;
+        }
+      }
     }
 
-    span {
-        color: red;
+    #navbarSupportedContent {
+      flex-basis: auto;
     }
+  }
+}
 
+// ------------------------------------------
+//   Old Css
+// ------------------------------------------
+
+.button-primary {
+  background: var(--primaryColor);
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  width: 10.5rem;
+  outline: 0;
+  box-shadow: none;
+  text-align: center;
+  height: 2.25rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1em;
+  transition: all 0.15s ease-out;
+
+  &:hover,
+  &:focus {
+    background: var(--secondaryColor);
+  }
+}
+
+.button-secondary {
+  background: var(--secondaryColor);
+  border: none;
+  color: #fff;
+  text-transform: uppercase;
+  width: 10.5rem;
+  outline: 0;
+  box-shadow: none;
+  text-align: center;
+  height: 2.25rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-bottom: 1em;
+  transition: all 0.15s ease-out;
+
+  &:hover,
+  &:focus {
+    background: var(--primaryColor);
+  }
+}
+
+.button-transparent {
+  background: transparent;
+  border: solid 1px var(--secondaryColor);
+  color: var(--secondaryColor);
+}
+.button-transparent,
+.button-primary,
+.button-primary-inverted {
+  text-transform: uppercase;
+  width: 10.5rem;
+  outline: 0;
+  box-shadow: none;
+  text-align: center;
+  height: 2.25rem;
+  font-size: 0.75rem;
+  border-radius: 0.25rem;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+// Primary Text Color
+.primary-text {
+  color: var(--primaryColor) !important;
+}
+// Secondary Text Color
+.secondary-text {
+  color: var(--secondaryColor) !important;
+}
+
+.active,
+.collapsible:hover {
+  background-color: #555;
 }

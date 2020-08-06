@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 class Footer extends Component {
   render() {
     return (
-      <div className="footer py-4">
+      <footer className="footer py-4">
         <div className="container text-md-left text-sm-left">
           <div className="row m-0">
             <div className="col-lg-4 col-md-4">
@@ -54,7 +54,7 @@ class Footer extends Component {
             </div>
           </div>
         </div>
-      </div>
+      </footer>
       // <div className="footer">
       // <div className="inner_foot">
       //   <ul className="footer-col">

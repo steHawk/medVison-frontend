@@ -45,58 +45,36 @@ class Header extends Component {
     //   document.querySelector(".main-menu").classList.toggle("show");
     // }
     return (
-      <nav className="navbar navbar-expand-lg navbar-dark">
+      <nav className="navbar navbar-expand-lg navbar-dark flex-wrap">
         <Link className="navbar-brand" to="/">
           <img src={logo} alt="eMetroPlus" id="logo" />{" "}
         </Link>
-        <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-toggle="collapse"
+          data-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
           <span className="navbar-toggler-icon"></span>
         </button>
 
-        <div className="collapse navbar-collapse" id="navbarSupportedContent">
-          <ul className="navbar-nav ml-auto mr-2">
-            <li className="nav-item">
-              <Link className="nav-link" to="/">Home <span className="sr-only">(current)</span></Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/doctors" className="nav-link">
-                Doctor Consultation
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/alltests" className="nav-link">
-                Lab Services
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/meditems" className="nav-link">
-                Medicines & Med Supplies
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/docConsult" className="nav-link">
-                Nursing
-              </Link>
-            </li>
-            <li className="nav-item">
-              <Link to="/login" className="nav-link">
-                Sign In
-              </Link>
-            </li>
-            <li className="nav-item dropdown">
-              <Link className="nav-link dropdown-toggle" to="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                {/* Hello, {this.props.auth.user.userName} */}
-                Hello, User
-              </Link>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
-                <Link className="dropdown-item" to="#"><i className='fa fa-user mr-2'></i>Logout</Link>
-              </div>
-            </li>
-          </ul>
-          <div className="search-container form-inline my-2 my-lg-0">
-            <input className="form-control mr-sm-2" type="text" placeholder="Search.." aria-label="Search" value={this.state.item} onChange={(event) => this.onChange(event)} />
-            <button className="btn btn-outline-success my-2 my-sm-0" type="submit"><i className="fa fa-search "></i></button>
-            <table className="drugList">
+        <div className="search-container form-inline my-2 my-lg-0">
+          <form className="search-form">
+            <input
+              className="form-control mr-sm-2"
+              type="text"
+              placeholder="Search.."
+              // value={this.state.item}
+              onChange={(event) => this.onChange(event)}
+            />
+            <button className="btn btn-outline-success" type="submit">
+              <i className="fa fa-search "></i>
+            </button>
+          </form>
+          <table className="drugList table table-striped m-0 shadow">
             <tbody>
               {this.props.data.map((items, i) => (
                 <tr key={i}>
@@ -117,13 +95,100 @@ class Header extends Component {
               ))}
             </tbody>
           </table>
-          </div>
+        </div>
+
+        <div className="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul className="navbar-nav mr-2">
+            {/* <li className="nav-item">
+              <Link className="nav-link" to="/">
+                Home <span className="sr-only">(current)</span>
+              </Link>
+            </li> */}
+            <li className="nav-item">
+              <Link to="/doctors" className="nav-link">
+                Doctor Consultation
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/meditems" className="nav-link">
+                Medicines & Supplies
+              </Link>
+            </li>
+
+            <li className="nav-item">
+              <Link to="/alltests" className="nav-link">
+                Lab Services
+              </Link>
+            </li>
+            {/* <li className="nav-item">
+              <Link to="/login" className="nav-link">
+                Sign In
+              </Link>
+            </li> */}
+            <li className="nav-item dropdown">
+              <Link
+                className="nav-link dropdown-toggle"
+                to="#"
+                id="navbarDropdown"
+                role="button"
+                data-toggle="dropdown"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                {/* Hello, {this.props.auth.user.userName} */}
+                Hello, User
+              </Link>
+              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+                {isAuthenticated ? (
+                  <ul>
+                    <Link className="dropdown-item" to="#">
+                      <i class="fas fa-sign-out-alt mr-3"></i>Logout
+                    </Link>
+                    <Link>
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        height="24"
+                        viewBox="0 0 24 24"
+                        width="24"
+                      >
+                        <path d="M0 0h24v24H0V0z" fill="none" />
+                        <path
+                          fill="white"
+                          d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
+                        />
+                      </svg>{" "}
+                    </Link>
+                  </ul>
+                ) : (
+                  <Link className="dropdown-item" to="/login">
+                    <svg
+                      className="mr-3"
+                      xmlns="http://www.w3.org/2000/svg"
+                      enable-background="new 0 0 24 24"
+                      height="24"
+                      viewBox="0 0 24 24"
+                      width="24"
+                    >
+                      <g>
+                        <rect fill="none" height="24" width="24" />
+                      </g>
+                      <g>
+                        <path d="M11,7L9.6,8.4l2.6,2.6H2v2h10.2l-2.6,2.6L11,17l5-5L11,7z M20,19h-8v2h8c1.1,0,2-0.9,2-2V5c0-1.1-0.9-2-2-2h-8v2h8V19z" />
+                      </g>
+                    </svg>
+                    Sign In
+                  </Link>
+                )}
+              </div>
+            </li>
+          </ul>
         </div>
       </nav>
 
       // =========================================================================
-      // 
-      // 
+      //
+      //
       // Old Nav
       // <div className="topnav">
       //   <div className="nav-line-1">
@@ -201,18 +266,18 @@ class Header extends Component {
       //     <div className="navLine-2">
       //       <div className="link-l"></div>
       //       <div className="nav-Line2-links">
-              // <Link to="/doctors" className="nav-a">
-              //   Doctor Consultation
-              // </Link>
-              // <Link to="/alltests" className="nav-a">
-              //   Lab Services
-              // </Link>
-              // <Link to="/meditems" className="nav-a">
-              //   Medicines & Med Supplies
-              // </Link>
-              // <Link to="/docConsult" className="nav-a">
-              //   Nursing
-              // </Link>
+      // <Link to="/doctors" className="nav-a">
+      //   Doctor Consultation
+      // </Link>
+      // <Link to="/alltests" className="nav-a">
+      //   Lab Services
+      // </Link>
+      // <Link to="/meditems" className="nav-a">
+      //   Medicines & Med Supplies
+      // </Link>
+      // <Link to="/docConsult" className="nav-a">
+      //   Nursing
+      // </Link>
       //       </div>
 
       //       <div></div>
