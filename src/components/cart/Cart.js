@@ -47,7 +47,7 @@ class Cart extends Component {
         <div className="container my-4">
           <div className="row m-0">
             <div className="col-lg-6 col-md-6">
-              <h5 className="font-weight-bold">Cart</h5>
+              <h4 className="font-weight-bold">Cart</h4>
               {cartItems.map((cartItem, index) => (
                 <div class="shadow p-3 my-3" key={cartItem._id}>
                   <div class="row">
@@ -122,7 +122,7 @@ class Cart extends Component {
             </div>
             <div class="col-lg-6 col-md-6 my-auto shadow">
               <div className="mt-4">
-                <h5 class="font-weight-bold">Price details</h5>
+                <h4 class="font-weight-bold">Price details</h4>
               </div>
               <table class="table responsive-table">
                 <tbody>

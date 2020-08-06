@@ -178,276 +178,216 @@ class Billing extends Component {
     // console.log(total);
     return (
       <Fragment>
-        <div className="">
-          <div className="_3B4tat">
-            <div className="_7XMNLT">
-              <h3 class="_1fM65H _2RMAtd">
-                <span class="_1Tmvyj">1</span>
-                <span class="_1_m52b">Delivery Address</span>
-                {/* <div class="_3Ojtt3">
+        <div className="container my-4">
+          <h4 class="font-weight-bold mb-4">1. Delivery Address</h4>
+          <h6>User Name : {this.state.name}</h6>
+          <div class="form-group">
+            <label>Mobile Number : </label>
+            <input
+              className="form-control mb-2"
+              value={this.state.mobileNumber}
+            readOnly/>
+
+            <label>Door Number : </label>
+            <input
+              type="text"
+              className="form-control mb-2"
+              name="houseNumber"
+              onChange={this.onChange}
+              value={houseNumber}
+            />
+
+            <label>Street : </label>
+            <input
+              type="text"
+              className="form-control mb-2"
+              name="street"
+              onChange={this.onChange}
+              value={street}
+            />
+            <label>City :</label>
+            <input
+              type="text"
+              className="form-control mb-2"
+              name="city"
+              onChange={this.onChange}
+              value={city}
+            />
+            <label>PinCode : </label>
+            <input
+              type="text"
+              className="form-control mb-2"
+              name="pincode"
+              onChange={this.onChange}
+              value={pincode}
+            />
+          </div>
+          <hr />
+          <div class="my-3 p-3">
+            <div class="my-2">
+              <h4 className="font-weight-bold">2. Order Summary</h4>
+              <button onClick={handleExpand} className="btn btn-primary">
                 <i class="fa fa-sort-desc" aria-hidden="true"></i>
-
-              </div> */}
-              </h3>
-              <div class="_2o59RR">
-                <div class="A1v2GV">
-                  <div
-                    id="CNTCTFD7EAA6757EE4AE0B9642D447"
-                    class="_1i74Oi _2Y3Dxm"
-                  >
-                    <p class="_22O2Xt">
-                      <span class="_3n0HwW">{this.state.name} &nbsp; </span>
-                      <span class="_rmbzw"> &nbsp; &nbsp; </span>
-                      <span class="_2kSC_X _3n0HwW">
-                        Mobile Number : {this.state.mobileNumber}
-                      </span>
-                    </p>
-                    <span class="_22O2Xt GeUS8P">
-                      <div className="log-ele">
-                        <label>door No : </label>
-                        <input
-                          type="text"
-                          className=""
-                          name="houseNumber"
-                          onChange={this.onChange}
-                          value={houseNumber}
-                        />
-                      </div>
-
-                      <div className="log-ele">
-                        <label>Street : </label>
-                        <input
-                          type="text"
-                          className=""
-                          name="street"
-                          onChange={this.onChange}
-                          value={street}
-                        />
-                      </div>
-
-                      <div className="log-ele">
-                        <label>City :</label>
-                        <input
-                          type="text"
-                          className=""
-                          name="city"
-                          onChange={this.onChange}
-                          value={city}
-                        />
-                      </div>
-
-                      <div className="log-ele">
-                        <label>PinCode : </label>
-                        <input
-                          type="text"
-                          className=""
-                          name="pincode"
-                          onChange={this.onChange}
-                          value={pincode}
-                        />
-                      </div>
-                    </span>
-                  </div>
-                </div>
-              </div>
+              </button>
             </div>
-
-            <div class="_3K1hJZ">
-              <h3 class="_1fM65H _2RMAtd">
-                <span class="_1Tmvyj">2</span>
-                <span class="_1_m52b">Order Summary</span>
-
-                <div class="_3Ojtt3">
-                  <button onClick={handleExpand}>
-                    <i class="fa fa-sort-desc" aria-hidden="true"></i>
-                  </button>
-                </div>
-              </h3>
-              <div class="_2eTL2v content">
-                {cartItems.map((cartItem, index) => (
-                  <div class="_2eTL2v" key={cartItem._id}>
-                    <div class="_20egpM">
-                      <div class="_3ycxrs">
-                        <div class="PaJLWc">
-                          <div class="_3vIvU_">
-                            <div class="_1Ox9a7">
-                              <div class="_325-ji">{cartItem.name}</div>
-                            </div>
-                            <div class="v7-Wbf"> {cartItem.packageSize} </div>
-
-                            <span class="pMSy0p XU9vZa">₹{cartItem.sum}</span>
-                            <div class="c8yCDe"></div>
-                          </div>
-                        </div>
-                        <div class="_3cto0P">
-                          <div class="_3RkJty">
-                            <div class="_3md1dr">
-                              <button
-                                class="wNrY5O"
-                                onClick={this.props.decrementQty.bind(
-                                  this,
-                                  cartItem.id,
-                                  cartItem.quantity
-                                )}
-                              >
-                                –
-                              </button>
-                              <div class="_2zH4zg">
-                                <input
-                                  type="text"
-                                  value={cartItem.quantity}
-                                  readOnly="true"
-                                  class="_2csFM9"
-                                />
-                              </div>
-                              <button
-                                class="wNrY5O"
-                                onClick={this.props.incrementQty.bind(
-                                  this,
-                                  cartItem.id,
-                                  cartItem.quantity
-                                )}
-                              >
-                                +
-                              </button>
-                            </div>
-                          </div>
-                          <div class="_3IO2ev _2K02N8 _2x63a8">
-                            <div class="gdUKd9" tabindex="12">
-                              <span
-                                onClick={this.props.deleteCartItems.bind(
-                                  this,
-                                  cartItem.id
-                                )}
-                              >
-                                Remove
-                              </span>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
+            <div class="_2eTL2v content">
+              {cartItems.map((cartItem, index) => (
+                <div class="p-3 my-3" key={cartItem._id}>
+                  <div class="row">
+                    <div className="col-6 my-auto">
+                      <h6 className="font-weight-bold">{cartItem.name}</h6>
                     </div>
-                    <hr></hr>
+                    <div className="col-3 my-auto">
+                      <h6>{cartItem.packageSize}</h6>
+                    </div>
+                    <div className="col-3 my-auto">
+                      <p>₹{cartItem.sum}</p>
+                    </div>
                   </div>
-                ))}
-              </div>
-            </div>
-
-            <div>
-              {" "}
-              <div class="_3K1hJZ">
-                <h3 class="_1fM65H _2RMAtd">
-                  <span class="_1Tmvyj">3</span>
-                  <span class="_1_m52b">Payment Options</span>
-                </h3>
-
-                <div className="radio">
-                  <label class="_8J-bZE _3C6tOa _1syowc _2i24Q8 _1Icwrf">
-                    <input
-                      type="radio"
-                      value="Online"
-                      checked={this.state.selectedOption === "Online"}
-                      onChange={this.onValueChange}
-                    />
-                    &nbsp; Online
-                  </label>
-                </div>
-                <div className="radio ">
-                  <label class="_8J-bZE _3C6tOa _1syowc _2i24Q8 _1Icwrf">
-                    <input
-                      type="radio"
-                      value="COD"
-                      defaultChecked="true"
-                      checked={this.state.selectedOption === "COD"}
-                      onChange={this.onValueChange}
-                    />
-                    &nbsp; Cash On Delivery
-                  </label>
-                </div>
-
-                <div>
-                  Selected Payment option is : {this.state.selectedOption}
-                </div>
-                <div class="_3gijNv col-12-12 _2GJ0F-">
-                  <div class="_31gTpz _1RLi8m">
-                    {this.state.selectedOption === "Online" ? (
+                  <div class="row mt-2">
+                    <div className="col-2">
                       <button
-                        class="_2AkmmA iwYpF9 _7UHT_c"
-                        onClick={displayRazorpay.bind(
+                        class="btn btn-outline-danger"
+                        onClick={this.props.decrementQty.bind(
                           this,
-                          user,
-                          total,
-                          cartItems,
-                          houseNumber,
-                          street,
-                          pincode,
-                          city
+                          cartItem.id,
+                          cartItem.quantity
                         )}
-                        target="_blank"
-                        rel="noopener noreferrer"
                       >
-                        Confirm Order
+                        –
                       </button>
-                    ) : (
+                    </div>
+                    <div class="col-4">
+                      <input
+                        type="text"
+                        value={cartItem.quantity}
+                        readOnly="true"
+                        class="form-control"
+                      />
+                    </div>
+                    <div className="col-2">
                       <button
-                        class="_2AkmmA iwYpF9 _7UHT_c"
-                        onClick={this.props.cashOnDelivery.bind(
+                        class="btn btn-outline-success"
+                        onClick={this.props.incrementQty.bind(
                           this,
-                          user,
-                          total,
-                          cartItems,
-                          houseNumber,
-                          street,
-                          pincode,
-                          city
+                          cartItem.id,
+                          cartItem.quantity
                         )}
-                        target="_blank"
-                        rel="noopener noreferrer"
                       >
-                        Confirm Order
+                        +
                       </button>
-                    )}
+                    </div>
+                    <div class="col-4 text-right" tabindex="12">
+                      <button
+                        onClick={this.props.deleteCartItems.bind(
+                          this,
+                          cartItem.id
+                        )}
+                        className="btn btn-danger"
+                      >
+                        Remove
+                      </button>
+                    </div>
                   </div>
                 </div>
-              </div>
+              ))}
             </div>
           </div>
-          <div class="_2qUgWb _3uHNGv _3CKRe3 _2kYif3">
-            <div class="_2zqhDs _1lD380">
-              <div class="_13wOiu">
-                <span class="_2huYiT">Price details</span>
-                <div class="_2twTWD">
-                  <div class="hJYgKM">
-                    <div class="_10vVqD">Price</div>
-                    <span>
-                      <div class="_2tarGe _1t3GGY">
-                        <div>
-                          <div class="_3GoQc2">₹{total}</div>
-                        </div>
-                      </div>
-                    </span>
-                  </div>
-                  <div class="hJYgKM">
-                    <div class="_10vVqD">Delivery Charges</div>
-                    <span>
-                      <span class="_27kB8M _3Oa-sk">Free</span>
-                    </span>
-                  </div>
-                  <div class="_3xFQAD">
-                    <div class="hJYgKM">
-                      <div class="_10vVqD">Total Payable</div>
-                      <span>
-                        <div class="_2tarGe _1t3GGY">
-                          <div>
-                            <div class="_3GoQc2">₹{total}</div>
-                          </div>
-                        </div>
-                      </span>
-                    </div>
-                  </div>
+          <hr />
+          <div className="my-3 p-3">
+            {" "}
+            <h4 className="font-weight-bold">3. Payment Options</h4>
+            <div class="input-group my-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input 
+                    type="radio" aria-label="Online Pay" 
+                    value="Online"
+                    checked={this.state.selectedOption === "Online"}
+                    onChange={this.onValueChange}
+                  />
                 </div>
               </div>
+              <p class="form-control">Online</p>
             </div>
+            <div class="input-group my-2">
+              <div class="input-group-prepend">
+                <div class="input-group-text">
+                  <input
+                    type="radio"
+                    value="COD"
+                    defaultChecked="true"
+                    checked={this.state.selectedOption === "COD"}
+                    onChange={this.onValueChange}
+                  />
+                </div>
+              </div>
+              <p class="form-control">Cash On Delivery</p>
+            </div>
+            <h6 className="text-success my-2">
+              Selected Payment option is : {this.state.selectedOption}
+            </h6>
+            {this.state.selectedOption === "Online" ? (
+              <div className="text-center mt-2">
+                <button
+                  className="button-primary"
+                  onClick={displayRazorpay.bind(
+                    this,
+                    user,
+                    total,
+                    cartItems,
+                    houseNumber,
+                    street,
+                    pincode,
+                    city
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Confirm Order
+                </button>
+              </div>
+            ) : (
+              <div className="text-center mt-2">
+                <button
+                  className="button-primary"
+                  onClick={this.props.cashOnDelivery.bind(
+                    this,
+                    user,
+                    total,
+                    cartItems,
+                    houseNumber,
+                    street,
+                    pincode,
+                    city
+                  )}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Confirm Order
+                </button>
+              </div>
+            )}
+          </div>
+          <hr />
+          <div className="my-3 p-3">
+            <h4 class="font-weight-bold">Price details</h4>
+            <table class="table responsive-table">
+              <tbody>
+                <tr>
+                  <td>Price</td>
+                  <td className="font-weight-bold">₹{total}</td>
+                </tr>
+                <tr>
+                  <td>Delivery Charges</td>
+                  <td className="font-weight-bold">Free</td>
+                </tr>
+                <tr>
+                  <td>Total Payable</td>
+                  <td className="font-weight-bold">₹{total}</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
       </Fragment>

@@ -85,80 +85,67 @@ class Prescription extends Component {
       return <Redirect exact to="/" />;
     }
     return (
-      <div className="prescription">
+      <div className="container my-4">
         <form onSubmit={this.onSubmit}>
-          <h1>Please upload file of your prescription</h1>
-          <p>
-            <i className="fa fa-file" aria-hidden="true"></i>
+          <h4 className="font-weight-bold">Please upload file of your prescription</h4>
+          <small>
+            <i className="fa fa-file mr-2" aria-hidden="true"></i>
             File type may be .IMG .PDF .TXT .JPG .JPEG
+          </small>
+          <hr />
+          <div className="text-center my-2">
+            <input
+              label="choose file"
+              type="file"
+              onChange={this.handleFileUpload}
+              className="my-2"
+            />
+            <button className="button-secondary my-2" onClick={this.submitFile} type="submit">
+              upload
+            </button>
+          </div>
+          <p className="font-weight-bold">
+            <i className="fa fa-map-marker mr-2" aria-hidden="true"></i>
+            Confirm Your Delivery location
           </p>
-          <hr></hr>
-          <input
-            label="choose file"
-            type="file"
-            onChange={this.handleFileUpload}
-            className="file_but"
-          />
-
-          <button className="docBut" onClick={this.submitFile} type="submit">
-            upload
-          </button>
-          <p>
-            <i className="fa fa-map-marker" aria-hidden="true"></i>
-            conform Your Delivery location
-          </p>
-          <hr></hr>
-
-          <div className="pair_p">
-            <div className="form_elem">
+          <hr />
+          <div className="form-group">
               <label>House / Flat Number</label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 type="text"
                 name="hno"
                 onChange={this.onChange}
                 value={hno}
               />
-            </div>
-            <div className="form_elem">
               <label>Street</label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 type="text"
                 name="street"
                 onChange={this.onChange}
                 value={street}
               />
-            </div>
-          </div>
-
-          <div className="pair_p">
-            <div className="form_elem">
               <label>Pin Code</label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 type="number"
                 name="pinCode"
                 onChange={this.onChange}
                 value={pinCode}
               />
-            </div>
-
-            <div className="form_elem">
               <label>City</label>
               <input
-                className="form-control"
+                className="form-control mb-2"
                 type="text"
                 name="city"
                 onChange={this.onChange}
                 value={city}
               />
-            </div>
           </div>
-
-          <div className="">
-            <button type="submit" className="pre_but">
-              Conform your order{" "}
+          <div className="text-right mt-4 mb-2">
+            <button type="submit" className="button-primary">
+              Confirm your order{" "}
               <i
                 className="fa fa-angle-right fa-inverse"
                 aria-hidden="true"
