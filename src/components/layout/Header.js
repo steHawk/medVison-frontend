@@ -130,7 +130,8 @@ class Header extends Component {
               </Link>
             </li> */}
             <li className="nav-item dropdown">
-              <Link
+              {isAuthenticated ? 
+              (<Link
                 className="nav-link dropdown-toggle"
                 to="#"
                 id="navbarDropdown"
@@ -139,28 +140,43 @@ class Header extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {/* Hello, {this.user.userName} */}
+              Hello, {this.props.auth.user.userName}
+              </Link>) 
+              : 
+              (<Link
+              className="nav-link dropdown-toggle"
+              to="#"
+              id="navbarDropdown"
+              role="button"
+              data-toggle="dropdown"
+              aria-haspopup="true"
+              aria-expanded="false"
+              >
                 Hello, User
-              </Link>
+              </Link>)
+              }
               <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 {isAuthenticated ? (
                   <ul>
-                    <Link className="dropdown-item" to="#">
-                      <i class="fas fa-sign-out-alt mr-3"></i>Logout
-                    </Link>
-                    <Link>
+                    <Link class="nav-link text-dark text-decoration-none" to="/cart">
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         height="24"
                         viewBox="0 0 24 24"
                         width="24"
+                        className="mr-2"
                       >
                         <path d="M0 0h24v24H0V0z" fill="none" />
                         <path
-                          fill="white"
+                          fill="black"
                           d="M15.55 13c.75 0 1.41-.41 1.75-1.03l3.58-6.49c.37-.66-.11-1.48-.87-1.48H5.21l-.94-2H1v2h2l3.6 7.59-1.35 2.44C4.52 15.37 5.48 17 7 17h12v-2H7l1.1-2h7.45zM6.16 6h12.15l-2.76 5H8.53L6.16 6zM7 18c-1.1 0-1.99.9-1.99 2S5.9 22 7 22s2-.9 2-2-.9-2-2-2zm10 0c-1.1 0-1.99.9-1.99 2s.89 2 1.99 2 2-.9 2-2-.9-2-2-2z"
                         />
-                      </svg>{" "}
+                      </svg>
+                      Cart
+                      {" "}
+                    </Link>
+                    <Link class="nav-link text-dark text-decoration-none" to="/logout">
+                      <i class="fas fa-sign-out-alt text-dark mr-2"></i>Logout
                     </Link>
                   </ul>
                 ) : (
