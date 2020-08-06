@@ -55,7 +55,7 @@ class ItemDetail extends Component {
             <tr>
               <td>
                 {" "}
-                <p className="font-weight-bold secondary-text"> MRP:</p>
+                <p className="font-weight-bold secondary-text"> MRP (₹):</p>
               </td>
               <td>
                 <p>{this.props.location.state.items.mrp}</p>{" "}

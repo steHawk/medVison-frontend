@@ -63,64 +63,63 @@ export class GetOtp extends Component {
       }
     }
     return (
- 
-        <div className="auth-form">
- 
-        {(() => {
-          if (this.props.history.location.pathname === "/otpLogin") {
-            return (
-              <h1>
-                LOGIN WITH OTP {" "}
-              </h1>
-            );
-          } else {
-            return (
-              <h1>
-                ENTER YOUR MOBILE 10 DIGIT NUMBER{" "}
-                </h1>
-            );
-          }
-        })()}
-          <form onSubmit={this.onSubmit}>
-
-            <div className="log-ele">
-              <input
-                type="text"
-                className=""
-                name="mobileName"
-                placeholder="Mobile Number"
-                onChange={this.onChange}
-                value={mobileNumber}
-                pattern="\d{10}"
-                onBlur={(e) => this.checkMobileNumber(e)}
-              /><span id="msg">{this.state.msg}</span>
-            </div>
-            <div className="">
-                  <button className="authBut" type="submit" onSubmit={this.onSubmit}>
-                    Get OTP
-                       </button>
-                </div>
-
+      <div className="container my-4">
+        <div class="row m-0">
+          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
             {(() => {
-              if (this.props.history.location.pathname === "/getotp") {
-
-                return (<p></p>)
-
+              if (this.props.history.location.pathname === "/otpLogin") {
+                return (
+                  <h4 className="font-weight-bold">
+                    Login with OTP {" "}
+                  </h4>
+                );
               } else {
                 return (
-            
-                    <p>
-                      Don't have an account?{" "}
-                      <Link className="relink" to="/register">
-                        Register
-                    </Link>
-                    </p>
+                  <h4 className="font-weight-bold">
+                    Enter your 10 Digit Mobile Number{" "}
+                  </h4>
                 );
               }
             })()}
-          </form>
-        </div>
+            <form onSubmit={this.onSubmit}>
+              <div className="log-ele">
+                <label>
+                  Mobile Number
+                </label>
+                <input
+                  type="text"
+                  className="form-control"
+                  name="mobileName"
+                  placeholder="Mobile Number"
+                  onChange={this.onChange}
+                  value={mobileNumber}
+                  pattern="\d{10}"
+                  onBlur={(e) => this.checkMobileNumber(e)}
+                /><small id="msg" class="text-danger">{this.state.msg}</small>
+              </div>
+              <div className="text-center mb-2 mt-4">
+                <button className="button-primary" type="submit" onSubmit={this.onSubmit}>
+                  Get OTP
+                </button>
+              </div>
 
+              {(() => {
+                if (this.props.history.location.pathname === "/getotp") {
+                  return (<p></p>)
+                } else {
+                  return (
+                    <div>
+                      <small>
+                        Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/getotp">Register</Link>
+                      </small>
+                    </div>
+                  );
+                }
+              })()}
+            </form>
+          </div>
+        </div> 
+      </div>
     );
   }
 }

@@ -16,37 +16,43 @@ class Super60 extends Component {
     const { isAuthenticated } = this.props.auth;
 
     return (
-        <div className="allt">
-        <h1>Super60 Tests</h1>
-        <div className="view_items">
+      <div className="container my-4">
+        <h4 className="font-weight-bold">Super60 Tests</h4>
+        <hr />
+        <div className="view_items row m-0">
           {this.props.super60.map((test, index) => (
-            <div key={index} className="inner_all">
-        
-                <h3>
+            <div key={index} className="inner_all col-lg-6 col-md-6 my-2">
+              <div className="p-2 shadow rounded">
+                <h5 className="font-weight-bold">
                   {test.TNAME1} 
-                </h3>
-       
-              <div className="priceBtn">
-                <p>₹{test.MRP}</p>
-                {isAuthenticated ? (
-                  <button
-                    onClick={this.props.addCart.bind(
-                      this,
-                        test._id,
-                        test.TNAME1,
-                        "no discription",
-                        parseInt(test.MRP),
-                        test.testType,
-                        "MedicalTest"
-                    )}
-                  >
-                    Add to cart
-                  </button>
-                ) : (
-                  <Link to="/login">
-                    <button>Add to cart</button>
-                  </Link>
-                )}
+                </h5>
+                <div className="priceBtn">
+                  <p className="font-weight-bold">₹{test.MRP}</p>
+                  {isAuthenticated ? (
+                    <div className="text-right">
+                    <button
+                      onClick={this.props.addCart.bind(
+                        this,
+                          test._id,
+                          test.TNAME1,
+                          "no discription",
+                          parseInt(test.MRP),
+                          test.testType,
+                          "MedicalTest"
+                      )}
+                      className="button-primary mx-2"
+                    >
+                      Add to cart
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="text-right">
+                      <Link to="/login">
+                        <button className="button-primary mx-2">Add to cart</button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           ))}

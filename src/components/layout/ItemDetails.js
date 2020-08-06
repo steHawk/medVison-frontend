@@ -63,7 +63,7 @@ function ItemDetails(props, {auth}) {
       </div>
       <div className="detail-name">
         {" "}
-        <h2> MRP:</h2> <p>{items.mrp}</p>{" "}
+        <h2> MRP (₹):</h2> <p>{items.mrp}</p>{" "}
       </div>
       <div className="detail-name">
         {" "}

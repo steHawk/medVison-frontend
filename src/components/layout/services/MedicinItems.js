@@ -43,7 +43,8 @@ class MedicineItems extends Component {
     return (
       <div className="container my-4">
         <div className="meds">
-          <h5 className="font-weight-bold ml-2">Prescription Medicine</h5>
+          <h4 className="font-weight-bold">Prescription Medicine</h4>
+          <hr />
           <div className="row m-0">
             {this.props.medicines.map((med, index) => (
               <div key={index} className="meditems col-lg-3 col-md-4 my-2">
@@ -93,8 +94,8 @@ class MedicineItems extends Component {
           </div>
         </div>
           <div className="text-center mt-4">
-            <button onClick={this.decrement} className="button-primary mr-2">Previous</button>
-            <button onClick={this.increment} className="button-primary ml-2">Next</button>
+            <button onClick={this.decrement} className="button-primary mx-2">Previous</button>
+            <button onClick={this.increment} className="button-primary mx-2">Next</button>
           </div>
       </div>
     );

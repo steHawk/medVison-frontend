@@ -40,9 +40,8 @@ class AllTests extends Component {
     const { isAuthenticated } = this.props.auth;
     return (
       <div className="container my-4">
-        <div className="text-center">
-          <h1>All Available Tests</h1>
-        </div>
+        <h4 className="font-weight-bold">All Available Tests</h4>
+        <hr />
         <div className="view_items row m-0">
           {this.props.tests.map((test, index) => (
             <div key={index} className="inner_all col-lg-6 col-md-6 my-2">
@@ -63,24 +62,27 @@ class AllTests extends Component {
                 <div className="priceBtn">
                   <p className="font-weight-bold">₹{test.MRP}</p>
                   {isAuthenticated ? (
-                    <button
-                      onClick={this.props.addCart.bind(
-                        this,
-                          test._id,
-                          test.TNAME1,
-                          test.METHOD,
-                          parseInt(test.MRP),
-                          test.Tcode,
-                          "MedicalTest"
-                      )}
-                    >
-                      Add to cart
-                    </button>
+                    <div className="text-right">
+                      <button
+                        onClick={this.props.addCart.bind(
+                          this,
+                            test._id,
+                            test.TNAME1,
+                            test.METHOD,
+                            parseInt(test.MRP),
+                            test.Tcode,
+                            "MedicalTest"
+                        )}
+                        className="button-primary mx-2"
+                      >
+                        Add to cart
+                      </button>
+                    </div>
                   ) : (
                     <div className="text-right">
-                    <Link to="/login">
-                      <button className="button-primary mr-2">Add to cart</button>
-                    </Link>
+                      <Link to="/login">
+                        <button className="button-primary mx-2">Add to cart</button>
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -89,8 +91,8 @@ class AllTests extends Component {
           ))}
         </div>
         <div className="text-center mt-4">
-          <button onClick={this.decrement} className="button-secondary mr-lg-2 mr-sm-2">Previous</button>
-          <button onClick={this.increment} className=" button-secondary ml-lg-2 ml-sm-2">Next</button>
+          <button onClick={this.decrement} className="button-secondary mx-2">Previous</button>
+          <button onClick={this.increment} className=" button-secondary mx-2">Next</button>
         </div>
       </div>
     );

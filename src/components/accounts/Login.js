@@ -70,7 +70,9 @@ export class Login extends Component {
                     pattern="\d{10}"
                     onBlur={(e) => this.checkMobileNumber(e)}
                   />
-                  <span id="msg">{this.state.msg}</span>
+                  <div>
+                    <small id="msg" class="text-danger">{this.state.msg}</small>
+                  </div>
 
                   <label>
                     Password

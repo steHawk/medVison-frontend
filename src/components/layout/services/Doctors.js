@@ -25,11 +25,12 @@ class Doctors extends Component {
       <div className="my-4">
         <div className="container">
           <div className="docHead">
-            <h3>Our Doctors</h3>
-            <Link to="/docConsult" class="btn">
+            <h4 className="font-weight-bold">Our Doctors</h4>
+            <Link to="/docConsult" class="text-dark text-decoration-none">
               <i class="fa fa-phone" aria-hidden="true"></i> Request Callback
             </Link>
           </div>
+          <hr />
           <div className="docSelect row m-0">
             {this.props.doctors.map((doctor, index) => (
               <div key={index} className="col-lg-3 col-md-4 my-2">

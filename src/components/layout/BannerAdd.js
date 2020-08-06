@@ -6,7 +6,7 @@ class BannerAdd extends Component {
     return (
       <div className="my-4">
           <Link to="/super60">
-            <img src="/img/medBanner.png" alt="Banner Add" className="img-fluid" />{" "}
+            <img src="/img/medBanner.png" alt="Super 60 Lab Tests" className="img-fluid" />{" "}
           </Link>
 
           {/* <div>

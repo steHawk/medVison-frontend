@@ -70,9 +70,9 @@ class Header extends Component {
               // value={this.state.item}
               onChange={(event) => this.onChange(event)}
             />
-            <button className="btn btn-outline-success" type="submit">
+            <Link className="btn text-success" to="/meditems">
               <i className="fa fa-search "></i>
-            </button>
+            </Link>
           </form>
           <table className="drugList table table-striped m-0 shadow">
             <tbody>
@@ -84,13 +84,16 @@ class Header extends Component {
                         pathname: "/to/item",
                         state: { items: items },
                       }}
+                      className="text-decoration-none secondary-text"
                       onClick={() => this.ClearItemsList()}
                     >
                       {" "}
                       {items.doctorPrescriptionName}
                     </Link>
                   </td>
-                  <td>{items.mrp}</td>
+                  <td>
+                    ₹{items.mrp}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -136,10 +139,10 @@ class Header extends Component {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                {/* Hello, {this.props.auth.user.userName} */}
+                {/* Hello, {this.user.userName} */}
                 Hello, User
               </Link>
-              <div className="dropdown-menu" aria-labelledby="navbarDropdown">
+              <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                 {isAuthenticated ? (
                   <ul>
                     <Link className="dropdown-item" to="#">
@@ -165,7 +168,7 @@ class Header extends Component {
                     <svg
                       className="mr-3"
                       xmlns="http://www.w3.org/2000/svg"
-                      enable-background="new 0 0 24 24"
+                      enableBackground="new 0 0 24 24"
                       height="24"
                       viewBox="0 0 24 24"
                       width="24"
@@ -234,33 +237,33 @@ class Header extends Component {
       //     </table>
       //     </div>
 
-      //     {isAuthenticated ? (
-      //       <div className="nav-right">
-      //         <Link to="/profile">
-      //           <span>Hello, {this.props.auth.user.userName}</span>
-      //         </Link>
-      //         {/* <Link to="/logout">
-      //           <span>Logout</span>
-      //         </Link> */}
-      //         <Link to="/cart">
-      //           <span>
-      //             Cart<span className="fa fa fa-shopping-cart fa-2x"></span>
-      //           </span>
-      //         </Link>
-      //       </div>
-      //     ) : (
-      //       <div className="nav-right">
-      //         <Link to="/login">
-      //           <span>Hello, Sign in</span>
-      //         </Link>
-      //         <Link to="/login">
-      //           <span>
-      //             Cart<span className="fa fa fa-shopping-cart fa-2x"></span>
-      //           </span>
-      //         </Link>
-      //       </div>
-      //     )}
-      //   </div>
+          // {isAuthenticated ? (
+          //   <div className="nav-right">
+          //     <Link to="/profile">
+          //       <span>Hello, {this.props.auth.user.userName}</span>
+          //     </Link>
+          //     {/* <Link to="/logout">
+          //       <span>Logout</span>
+          //     </Link> */}
+          //     <Link to="/cart">
+          //       <span>
+          //         Cart<span className="fa fa fa-shopping-cart fa-2x"></span>
+          //       </span>
+          //     </Link>
+          //   </div>
+          // ) : (
+          //   <div className="nav-right">
+          //     <Link to="/login">
+          //       <span>Hello, Sign in</span>
+          //     </Link>
+          //     <Link to="/login">
+          //       <span>
+          //         Cart<span className="fa fa fa-shopping-cart fa-2x"></span>
+          //       </span>
+          //     </Link>
+          //   </div>
+          // )}
+        // </div>
 
       //   <div className="nav-line-2">
       //     <div className="navLine-2">
