@@ -26,7 +26,7 @@ const ApiState = props => {
         };
         try {
             const res = await axios.post("https://api.emetroplus.com/drug/data", value, process)
-            console.log(res);
+            // console.log(res);
             dispatch({
                 type: GET_MED,
                 payload: res.data.data,

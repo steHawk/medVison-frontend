@@ -3,14 +3,14 @@ import ApiContext from '../../../Context/ApiContext'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCart } from "../../../actions/cartAction";
-
-const MedicineItems = () => {
+import auth from "../../../reducers/auth"
+const MedicineItems = ({ auth }) => {
 
   const apiContext = useContext(ApiContext);
 
   const { current, getmed } = apiContext;
   const [currentPage, setCurrentPage] = useState(0);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(12);
 
   useEffect(() => {
     getmed(postsPerPage, currentPage);
@@ -20,7 +20,7 @@ const MedicineItems = () => {
   }
 
 
-  // const { isAuthenticated } = this.props.auth;
+  const { isAuthenticated } = auth;
 
   return (
     <div className="container my-4">
@@ -47,28 +47,28 @@ const MedicineItems = () => {
                 </div>
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
-                  {/* {isAuthenticated ? ( */}
-                  <button
-                    className="button-primary"
-                    onClick={addCart.bind(
-                      this,
-                      med._id,
-                      med.doctorPrescriptionName,
-                      med.uses,
-                      med.mrp,
-                      med.packSize,
-                      "Medicine"
-                    )}
-                  >
-                    Add to cart
+                  {isAuthenticated ? (
+                    <button
+                      className="button-primary"
+                      onClick={addCart.bind(
+                        this,
+                        med._id,
+                        med.doctorPrescriptionName,
+                        med.uses,
+                        med.mrp,
+                        med.packSize,
+                        "Medicine"
+                      )}
+                    >
+                      Add to cart
                     </button>
-                  {/* ) : (
+                  ) : (
                       <div className="text-right m-1">
                         <Link to="/login">
                           <button className="button-primary mb-0">Add to cart</button>
                         </Link>
                       </div>
-                    )} */}
+                    )}
                 </div>
               </div>
             </div>
@@ -86,7 +86,6 @@ const MedicineItems = () => {
 
 
 const mapStateToProps = (state) => ({
-  medicines: state.medicine.meds,
   auth: state.auth,
 });
 export default connect(mapStateToProps, { addCart })(
