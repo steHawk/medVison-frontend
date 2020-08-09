@@ -70,7 +70,7 @@ class App extends Component {
                     <Route path="/services" component={Service} />
                     <Route path="/medicine" component={Medicine} />
                     <Route path="/profile" component={Profile} />
-                    <Route path="/index.html" component={MedicineItems} />
+                    <Route path="/meditems" component={MedicineItems} />
                     <Route path="/specialist" component={Specialist} />
                     <Route path="/doctors" component={Doctors} />
                     <Route path="/conformation" component={Conformation} />
