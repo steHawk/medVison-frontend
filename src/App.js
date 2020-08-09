@@ -37,6 +37,7 @@ import ItemDetail from "./components/layout/ItemDetail";
 import Billing from "./components/cart/Billing";
 import ViewLabTest from "./components/tests/ViewLabTest";
 import Super60 from "./components/layout/Super60";
+import ApiState from './Context/ApiState'
 
 // optional cofiguration
 const options = {
@@ -55,47 +56,47 @@ class App extends Component {
 
   render() {
     return (
-      // <Provider store={store}>
-      <AlertProvider template={AlertTemplate} {...options}>
-        <BrowserRouter>
-          <div>
-            <HeaderNav />
-            <Alerts />
-            <div id="content">
-              <Fragment>
-                <Switch>
-                  <Route exact path="/" component={MainPage} />
-                  <Route path="/about" component={About} />
-                  <Route path="/services" component={Service} />
-                  <Route path="/medicine" component={Medicine} />
-                  <Route path="/profile" component={Profile} />
-                  <Route path="/meditems" component={MedicineItems} />
-                  <Route path="/specialist" component={Specialist} />
-                  <Route path="/doctors" component={Doctors} />
-                  <Route path="/conformation" component={Conformation} />
-                  <Route path="/docConsult" component={ConsultForm} />
-                  <Route path="/cart" component={UserCart} />
-                  <Route path="/alltests" component={AllTests} />
-                  <Route path="/login" component={LoginAuth} />
-                  <Route path="/getotp" component={GetOtp} />
-                  <Route path="/submitOtp" component={SubmitOtp} />
-                  <Route path="/submitLoginOtp" component={SubmitOtp} />
-                  <Route path="/register" component={Register} />
-                  <Route path="/otpLogin" component={GetOtp} />
-                  <Route path="/profileUpdate" component={ProfileUpdate} />
-                  <Route path="/prescription" component={Prescription} />
-                  <Route path={`/checkout`} component={Billing} />
-                  <Route path="/to/item" component={ItemDetail} />
-                  <Route path="/labItem" component={ViewLabTest} />
-                  <Route path="/super60" component={Super60} />
-                </Switch>
-              </Fragment>
+      <ApiState>
+        <AlertProvider template={AlertTemplate} {...options}>
+          <BrowserRouter>
+            <div>
+              <HeaderNav />
+              <Alerts />
+              <div id="content">
+                <Fragment>
+                  <Switch>
+                    <Route exact path="/" component={MainPage} />
+                    <Route path="/about" component={About} />
+                    <Route path="/services" component={Service} />
+                    <Route path="/medicine" component={Medicine} />
+                    <Route path="/profile" component={Profile} />
+                    <Route path="/meditems" component={MedicineItems} />
+                    <Route path="/specialist" component={Specialist} />
+                    <Route path="/doctors" component={Doctors} />
+                    <Route path="/conformation" component={Conformation} />
+                    <Route path="/docConsult" component={ConsultForm} />
+                    <Route path="/cart" component={UserCart} />
+                    <Route path="/alltests" component={AllTests} />
+                    <Route path="/login" component={LoginAuth} />
+                    <Route path="/getotp" component={GetOtp} />
+                    <Route path="/submitOtp" component={SubmitOtp} />
+                    <Route path="/submitLoginOtp" component={SubmitOtp} />
+                    <Route path="/register" component={Register} />
+                    <Route path="/otpLogin" component={GetOtp} />
+                    <Route path="/profileUpdate" component={ProfileUpdate} />
+                    <Route path="/prescription" component={Prescription} />
+                    <Route path={`/checkout`} component={Billing} />
+                    <Route path="/to/item" component={ItemDetail} />
+                    <Route path="/labItem" component={ViewLabTest} />
+                    <Route path="/super60" component={Super60} />
+                  </Switch>
+                </Fragment>
+              </div>
+              <Footer />
             </div>
-            <Footer />
-          </div>
-        </BrowserRouter>
-      </AlertProvider>
-      // </Provider>
+          </BrowserRouter>
+        </AlertProvider>
+      </ApiState>
     );
   }
 }

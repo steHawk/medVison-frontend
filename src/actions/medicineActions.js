@@ -1,35 +1,34 @@
 import axios from "axios";
 import { createMessage } from "./messages";//, returnErrors
 
-import { MEDICINE_BY_TYPES, CALLBACK_TOKEN , CALLBACK_TOKEN_NULL} from "./types";
+import { MEDICINE_BY_TYPES, CALLBACK_TOKEN, CALLBACK_TOKEN_NULL } from "./types";
 import { Link } from "react-router-dom";
 
 //  FETCH ALL MEDICINE BY TYPE
 
-export const fetchMedicineByType = (limit, skip) => (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
-  // Request Body
-  const body = {
-    limit: limit,
-    skip: skip,
-  };
+// export const fetchMedicineByType = async (limit, skip) => async (dispatch) => {
+//   const process = {
+//     headers: {
+//       "Content-Type": "application/json",
+//     },
+//   };
+//   const value = {
+//     limit: limit,
+//     skip: skip,
+//   };
+//   try {
+//     const res = await axios.post("https://api.emetroplus.com/drug/data", value, process)
+//     console.log(res);
+//     dispatch({
+//       type: MEDICINE_BY_TYPES,
+//       payload: res.data.data,
+//     });
+//   } catch (err) {
+//     console.log(err)
 
-  axios
-    .post("https://api.emetroplus.com/drug/data", body, config)
-    .then((res) => {
-      console.log(res);
-      dispatch({
-        type: MEDICINE_BY_TYPES,
-        payload: res.data.data,
-      });
-    });
-};
-
+//   }
+// };
 // REGISTER USER
 export const prescription = ({ hno, street, pinCode, city, file_url }) => (
   dispatch,
@@ -66,7 +65,7 @@ export const prescription = ({ hno, street, pinCode, city, file_url }) => (
     .then((res) => {
       console.log(res);
       if (res.data.ok) {
-        dispatch(createMessage({ prescriptionUploaded: "Prescription Uploaded Successfully"}));
+        dispatch(createMessage({ prescriptionUploaded: "Prescription Uploaded Successfully" }));
         dispatch({
           type: CALLBACK_TOKEN,
           payload: res.data,
@@ -87,19 +86,19 @@ export const prescription = ({ hno, street, pinCode, city, file_url }) => (
 
 //
 export const uploadFileError = () => (dispatch, getState) => {
-  dispatch(createMessage({ uploadFileError: "Please select the file"}));
+  dispatch(createMessage({ uploadFileError: "Please select the file" }));
 };
 
 
 
 // 
 export const addressError = () => (dispatch, getState) => {
-  dispatch(createMessage({ addressError: "House Number or street Should is empty"}));
+  dispatch(createMessage({ addressError: "House Number or street Should is empty" }));
 };
 
 
 
 // 
 export const fileUploadSuccess = () => (dispatch, getState) => {
-  dispatch(createMessage({ fileUploadSuccess: "File Uploaded Successfully "}));
+  dispatch(createMessage({ fileUploadSuccess: "File Uploaded Successfully " }));
 };

@@ -1,0 +1,1 @@
+export const GET_MED = 'GET_MED';
