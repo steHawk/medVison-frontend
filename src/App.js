@@ -38,6 +38,7 @@ import Billing from "./components/cart/Billing";
 import ViewLabTest from "./components/tests/ViewLabTest";
 import Super60 from "./components/layout/Super60";
 import ApiState from './Context/ApiState'
+import NotFound from './components/layout/NotFound'
 
 // optional cofiguration
 const options = {
@@ -66,29 +67,30 @@ class App extends Component {
                 <Fragment>
                   <Switch>
                     <Route exact path="/" component={MainPage} />
-                    <Route path="/about" component={About} />
-                    <Route path="/services" component={Service} />
-                    <Route path="/medicine" component={Medicine} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/meditems" component={MedicineItems} />
-                    <Route path="/specialist" component={Specialist} />
-                    <Route path="/doctors" component={Doctors} />
-                    <Route path="/conformation" component={Conformation} />
-                    <Route path="/docConsult" component={ConsultForm} />
-                    <Route path="/cart" component={UserCart} />
-                    <Route path="/alltests" component={AllTests} />
-                    <Route path="/login" component={LoginAuth} />
-                    <Route path="/getotp" component={GetOtp} />
-                    <Route path="/submitOtp" component={SubmitOtp} />
-                    <Route path="/submitLoginOtp" component={SubmitOtp} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/otpLogin" component={GetOtp} />
-                    <Route path="/profileUpdate" component={ProfileUpdate} />
-                    <Route path="/prescription" component={Prescription} />
-                    <Route path={`/checkout`} component={Billing} />
-                    <Route path="/to/item" component={ItemDetail} />
-                    <Route path="/labItem" component={ViewLabTest} />
-                    <Route path="/super60" component={Super60} />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/services" component={Service} />
+                    <Route exact path="/medicine" component={Medicine} />
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/meditems" component={MedicineItems} />
+                    <Route exact path="/specialist" component={Specialist} />
+                    <Route exact path="/doctors" component={Doctors} />
+                    <Route exact path="/conformation" component={Conformation} />
+                    <Route exact path="/docConsult" component={ConsultForm} />
+                    <Route exact path="/cart" component={UserCart} />
+                    <Route exact path="/alltests" component={AllTests} />
+                    <Route exact path="/login" component={LoginAuth} />
+                    <Route exact path="/getotp" component={GetOtp} />
+                    <Route exact path="/submitOtp" component={SubmitOtp} />
+                    <Route exact path="/submitLoginOtp" component={SubmitOtp} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/otpLogin" component={GetOtp} />
+                    <Route exact path="/profileUpdate" component={ProfileUpdate} />
+                    <Route exact path="/prescription" component={Prescription} />
+                    <Route exact path={`/checkout`} component={Billing} />
+                    <Route exact path="/to/item" component={ItemDetail} />
+                    <Route exact path="/labItem" component={ViewLabTest} />
+                    <Route exact path="/super60" component={Super60} />
+                    <Route component={NotFound} />
                   </Switch>
                 </Fragment>
               </div>
