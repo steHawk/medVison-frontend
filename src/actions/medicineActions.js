@@ -1,7 +1,7 @@
 import axios from "axios";
 import { createMessage } from "./messages";//, returnErrors
 
-import { MEDICINE_BY_TYPES, CALLBACK_TOKEN, CALLBACK_TOKEN_NULL } from "./types";
+import { CALLBACK_TOKEN, CALLBACK_TOKEN_NULL } from "./types";
 import { Link } from "react-router-dom";
 
 //  FETCH ALL MEDICINE BY TYPE

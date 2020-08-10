@@ -3,7 +3,6 @@ import ApiContext from '../../../Context/ApiContext'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
 import { addCart } from "../../../actions/cartAction";
-import auth from "../../../reducers/auth"
 const MedicineItems = ({ auth }) => {
 
   const apiContext = useContext(ApiContext);

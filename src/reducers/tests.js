@@ -6,7 +6,6 @@ import {
 
 const initialState = {
   tests: [],
-  allTests: [],
   super60: [],
 };
 
@@ -16,11 +15,6 @@ export default function (state = initialState, action) {
       return {
         ...state,
         tests: action.payload,
-      };
-    case FETCH_ALL_TESTS:
-      return {
-        ...state,
-        allTests: action.payload,
       };
     case FETCH_SUPER60_TEST:
       return {

@@ -38,6 +38,7 @@ import Billing from "./components/cart/Billing";
 import ViewLabTest from "./components/tests/ViewLabTest";
 import Super60 from "./components/layout/Super60";
 import ApiState from './Context/ApiState'
+import TestState from './Context/testContext/Teststate'
 import NotFound from './components/layout/NotFound'
 
 // optional cofiguration
@@ -58,13 +59,14 @@ class App extends Component {
   render() {
     return (
       <ApiState>
-        <AlertProvider template={AlertTemplate} {...options}>
-          <Router>
-            <div>
-              <HeaderNav />
-              <Alerts />
-              <div id="content">
-                <Fragment>
+        <TestState>
+          <AlertProvider template={AlertTemplate} {...options}>
+            <Router>
+              <div>
+                <HeaderNav />
+                <Alerts />
+                <div id="content">
+
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/about" component={About} />
@@ -92,12 +94,13 @@ class App extends Component {
                     <Route exact path="/super60" component={Super60} />
                     <Route component={NotFound} />
                   </Switch>
-                </Fragment>
+
+                </div>
+                <Footer />
               </div>
-              <Footer />
-            </div>
-          </Router>
-        </AlertProvider>
+            </Router>
+          </AlertProvider>
+        </TestState>
       </ApiState>
     );
   }
