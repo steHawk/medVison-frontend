@@ -4,7 +4,7 @@ import TestContext from '../../Context/testContext/TestContext'
 import { addCart } from "../../actions/cartAction";
 import { Link } from "react-router-dom";
 
-const AllTests = ({ auth }) => {
+const AllTests = ({ auth, addCart }) => {
   const testContext = useContext(TestContext);
 
   const { alltest, fetchalltest } = testContext;
@@ -46,7 +46,7 @@ const AllTests = ({ auth }) => {
                 {isAuthenticated ? (
                   <div className="text-right">
                     <button
-                      onClick={this.props.addCart.bind(
+                      onClick={addCart.bind(
                         this,
                         test._id,
                         test.TNAME1,
