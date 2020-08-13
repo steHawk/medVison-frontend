@@ -6,7 +6,6 @@ import errors from "./errors";
 import messages from "./messages";
 import cart from "./cart";
 import doctors from "./doctors";
-import medicine from "./medicine";
 import searchItems from "./searchItems";
 import itemDetail from "./itemDetail";
 import dataReducer from "./data.reducer"
@@ -20,7 +19,6 @@ export default combineReducers({
   messages,
   cart,
   doctors,
-  medicine,
   searchItems,
   itemDetail,
   data: dataReducer,

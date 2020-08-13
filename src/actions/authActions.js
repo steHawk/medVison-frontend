@@ -24,14 +24,14 @@ export const loadUser = () => (dispatch, getState) => {
   const number = getState().auth.loginNumber;
   //console.log(getState().auth.token);
   //localStorage.setItem("token", getState().auth._id);
-  
+
   // const body = JSON.stringify({
   //   phoneNumber: number,
   // });
 
   const body = {
     phoneNumber: number,
-  }; 
+  };
   axios
     .post(
       `https://api.emetroplus.com/user/info`,
@@ -40,15 +40,15 @@ export const loadUser = () => (dispatch, getState) => {
     )
     .then((res) => {
       if (res.data.ok) {
-        console.log(res.data);
-        localStorage.setItem("user",res.data.user_details.userName);
+        console.log(res.data.user_details.userName);
+        localStorage.setItem("user", res.data.user_details.userName);
         localStorage.setItem("email", res.data.user_details.email);
         localStorage.setItem("age", res.data.user_details.age);
         localStorage.setItem("gender", res.data.user_details.gender);
-        localStorage.setItem("shippingAddress",JSON.stringify( res.data.user_details.shippingAddress[0]));
+        localStorage.setItem("shippingAddress", JSON.stringify(res.data.user_details.shippingAddress[0]));
         //console.log(res.data.user_details.shippingAddress[0]);
         //console.log(localStorage.getItem("shippingAddress"))
-        
+
         // localStorage.setItem("cart", res.data.user_details.cartItems);
         //console.log(res.data.user_details.shippingAddress);
         dispatch({
@@ -151,10 +151,8 @@ export const login = (number, password) => (dispatch, getState) => {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
-            number: number,
           });
-          //console.log(res.data);
-          
+          console.log(res.data);
           window.location.reload(false);
         } else {
           dispatch(
@@ -248,7 +246,7 @@ export const register = ({ number, userName, password, email }) => (
 };
 
 // LOGOUT USER
-export const logout = () => (dispatch, getState) => {
+export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT_SUCCESS,
   });
@@ -264,7 +262,7 @@ export const tokenConfig = (getState) => {
   // Get token from state
   const token = getState().auth.token;
   // console.log("toke",token);
-  
+
 
   // Headers
   const config = {
@@ -305,12 +303,12 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
       )
       .then((res) => {
         console.log(res.data);
-          dispatch({
-            type: GET_OTP,
-            payload: res.data.otp.otp,
-            mobileNumber: mobile,
-          });
-         
+        dispatch({
+          type: GET_OTP,
+          payload: res.data.otp.otp,
+          mobileNumber: mobile,
+        });
+
       })
       .catch((err) => {
         dispatch(returnErrors(err, err));
@@ -339,14 +337,14 @@ export const afterOTPLogin = (mobileNumber) => (dispatch) => {
       )
       .then((res) => {
         console.log(res);
-          dispatch({
-            type: GET_OTP_LOGIN,
-            payload: res.data.otp.otp,
-            mobileNumber: mobile,
-            user_id: res.data.user_id,
-            token: res.data.token
-          });
-          window.location.reload(false);
+        dispatch({
+          type: GET_OTP_LOGIN,
+          payload: res.data.otp.otp,
+          mobileNumber: mobile,
+          user_id: res.data.user_id,
+          token: res.data.token
+        });
+        window.location.reload(false);
       })
       .catch((err) => {
         dispatch(returnErrors(err, err));

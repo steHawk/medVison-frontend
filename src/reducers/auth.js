@@ -79,7 +79,6 @@ export default function (state = initialState, action) {
         isAuthenticated: false,
         isLoading: false,
         gotOtp: false,
-
       };
     default:
       return state;

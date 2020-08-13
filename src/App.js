@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; //Bootstrap CSS
@@ -7,7 +7,7 @@ import { connect } from "react-redux"; //Provider,
 import store from "./store";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
-import HeaderNav from "./components/layout/HeaderNav";
+import Header from "./components/layout/Header";
 import About from "./components/layout/About";
 import Footer from "./components/layout/Footer";
 import Service from "./components/layout/Services";
@@ -63,7 +63,7 @@ class App extends Component {
           <AlertProvider template={AlertTemplate} {...options}>
             <Router>
               <div>
-                <HeaderNav />
+                <Header />
                 <Alerts />
                 <div id="content">
 
@@ -102,6 +102,7 @@ class App extends Component {
           </AlertProvider>
         </TestState>
       </ApiState>
+
     );
   }
 }

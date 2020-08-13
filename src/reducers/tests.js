@@ -1,6 +1,5 @@
 import {
   FETCH_TESTS,
-  FETCH_ALL_TESTS,
   FETCH_SUPER60_TEST,
 } from "../actions/types";
 
