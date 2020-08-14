@@ -151,6 +151,7 @@ export const login = (number, password) => (dispatch, getState) => {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
+            mobileNumber: number
           });
           console.log(res.data);
           window.location.reload(false);
