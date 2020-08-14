@@ -49,7 +49,7 @@ class Cart extends Component {
             <div className="col-lg-6 col-md-6">
               <h4 className="font-weight-bold">Cart</h4>
               {cartItems.map((cartItem, index) => (
-                <div class="shadow p-3 my-3" key={cartItem._id}>
+                <div class="shadow-sm p-3 my-3" key={cartItem._id}>
                   <div class="row">
                     <div className="col-6 my-auto">
                       <h6 className="font-weight-bold">{cartItem.name}</h6>
@@ -120,7 +120,7 @@ class Cart extends Component {
                 </Link>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 my-auto shadow">
+            <div class="col-lg-6 col-md-6 my-auto shadow-sm">
               <div className="mt-4">
                 <h4 class="font-weight-bold">Price details</h4>
               </div>

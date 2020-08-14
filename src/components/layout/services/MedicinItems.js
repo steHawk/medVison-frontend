@@ -47,20 +47,22 @@ const MedicineItems = ({ auth, addCart }) => {
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
                   {isAuthenticated ? (
-                    <button
-                      className="button-primary"
-                      onClick={addCart.bind(
-                        this,
-                        med._id,
-                        med.doctorPrescriptionName,
-                        med.uses,
-                        med.mrp,
-                        med.packSize,
-                        "Medicine"
-                      )}
-                    >
-                      Add to cart
-                    </button>
+                    <div className="text-right m-1">
+                      <button
+                        className="button-primary"
+                        onClick={addCart.bind(
+                          this,
+                          med._id,
+                          med.doctorPrescriptionName,
+                          med.uses,
+                          med.mrp,
+                          med.packSize,
+                          "Medicine"
+                        )}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
                   ) : (
                       <div className="text-right m-1">
                         <Link to="/login">
@@ -68,7 +70,7 @@ const MedicineItems = ({ auth, addCart }) => {
                         </Link>
                       </div>
                     )}
-                </div>
+                </div> 
               </div>
             </div>
           ))}
@@ -76,8 +78,8 @@ const MedicineItems = ({ auth, addCart }) => {
       </div>
       <div className="text-center mt-4">
         <p>Page No. {currentPage}</p>
-        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
       </div>
     </div>
   );

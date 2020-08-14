@@ -27,7 +27,7 @@ const AllTests = ({ auth, addCart }) => {
       <div className="view_items row m-0">
         {alltest.map((test) => (
           <div key={test._id} className="inner_all col-lg-6 col-md-6 my-2">
-            <div className="p-2 shadow rounded">
+            <div className="p-2 shadow rounded my-4">
               <Link
                 to={{
                   pathname: "/labItem",
@@ -73,9 +73,9 @@ const AllTests = ({ auth, addCart }) => {
         ))}
       </div>
       <div className="text-center mt-4">
-        <p>Page No. {currentPage}</p>
-        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        <p>Page : <span className="text-info">{currentPage}</span></p>
+        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
       </div>
     </div>
   );

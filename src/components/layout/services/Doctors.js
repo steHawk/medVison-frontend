@@ -36,7 +36,7 @@ class Doctors extends Component {
               <div key={index} className="col-lg-3 col-md-4 my-2">
                 <div className="p-2 shadow rounded">
                   <div className="text-center">
-                    <img src="/img/standing-11.png" alt="" height="200px"/>
+                    <img src="/img/standing-11.png" alt="" height="160px"/>
                   </div>
                   <div className="p-2">
                     <h5 className="primary-text font-weight-bold">{doctor.userName}</h5>
@@ -52,9 +52,9 @@ class Doctors extends Component {
                                 this,
                                 doctor._id
                               )}
-                              className="docBut"
+                              className="button-primary"
                             >
-                              <p>Consult</p>
+                            Consult
                             </button>
                           </div>
                         ) : (
