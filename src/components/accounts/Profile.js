@@ -24,7 +24,7 @@ class Profile extends Component {
         </h4>
         <hr />
         <div class="row m-0">
-          <div className="col-lg-6">
+          <div className="col-lg-6 col-md-6">
 
           <div className="text-right my-2">
               <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>
@@ -63,7 +63,7 @@ class Profile extends Component {
           </div>
 
           {/* Address */}
-          <div  className="col-lg-6">
+          <div  className="col-lg-6 col-md-6">
 
             <div className="text-right my-2">
               <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>

@@ -71,125 +71,108 @@ export function ProfileUpdate() {
   };
 
   return (
-    <div className="">
-      <div className="auth-form">
-        <form>
-          <div className="log-ele">
+    <div className="container my-4">
+      <form className="form">
+        <div className="row m-0">
+          <div className="col-lg-6 col-md-6"> 
+            <h4 className="font-weight-bold">
+            Edit <span className="primary-text">eMetroPlus</span> Profile Info
+            </h4>
+            <hr />
             <label>Name</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="userName"
               onChange={(e) => setuserName(e.target.value)}
               value={userName}
             />
-          </div>
-
-          <div className="log-ele">
             <label>Email</label>
             <input
               type="email"
-              className=""
+              className="form-control mb-2"
               name="email"
               onChange={(e) => setemail(e.target.value)}
               value={email}
             />
-          </div>
 
-          <div className="log-ele">
             <label>Mobile No.</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="mobile"
               onChange={(e) => setmobile(e.target.value)}
               value={mobile}
             />
-          </div>
 
-          <div className="log-ele">
             <label>Gender</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="gender"
               onChange={(e) => setgender(e.target.value)}
               value={gender}
             />
-          </div>
-
-          <div className="log-ele">
-            <label>age</label>
+            <label>Age</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="age"
               onChange={(e) => setage(e.target.value)}
               value={age}
             />
           </div>
-           <h2>Shipping Address</h2>
-          <div className="log-ele">
+          <div className="col-lg-6 col-md-6">
+            <h4 className="font-weight-bold">Edit Shipping Address Info</h4>
+            <hr />
             <label>Door Number</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="doorNo"
               onChange={(e) => setdoorNo(e.target.value)}
               value={doorNo}
             />
-          </div>
-
-          <div className="log-ele">
             <label>Street</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="street"
               onChange={(e) => setstreet(e.target.value)}
               value={street}
             />
-          </div>
-
-          <div className="log-ele">
             <label>LandMark</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="landmark"
               onChange={(e) => setlandMark(e.target.value)}
               value={landMark}
             />
-          </div>
-
-          <div className="log-ele">
             <label>City</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="city"
               onChange={(e) => setcity(e.target.value)}
               value={city}
             />
-          </div>
-
-          <div className="log-ele">
             <label>Pincode</label>
             <input
               type="text"
-              className=""
+              className="form-control mb-2"
               name="pincode"
               onChange={(e) => setpincode(e.target.value)}
               value={pincode}
             />
           </div>
-    
-
-          <button className="authBut" type="button" onClick={(e) => Submit(e)}>
+        </div>
+        <div className="text-center mt-4">
+          <button className="button-secondary" type="button" onClick={(e) => Submit(e)}>
             Update
           </button>
-        </form>
-      </div>
+        </div>
+      </form>
     </div>
   );
 }
