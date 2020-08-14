@@ -124,6 +124,9 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               {isAuthenticated ? (
                 <ul>
+                  <Link class="nav-link text-dark text-decoration-none" to="/profile">
+                    <i class="fas fa-user-circle"></i>{" "}Profile
+                  </Link>
                   <Link class="nav-link text-dark text-decoration-none" to="/cart">
                     <i class="fas fa-shopping-cart"></i>{" "}Cart
 

@@ -18,34 +18,87 @@ class Profile extends Component {
   render() {
 
     return (
-      <div className="profile">
-        <div className="p_address">
-          <div className="edit">
-            <h1>Your eMetroPlus Profile</h1>
+      <div className="container my-4">
+        <h4 className="font-weight-bold">
+        Your <span className="primary-text">eMetroPlus</span> Profile
+        </h4>
+        <hr />
+        <div class="row m-0">
+          <div className="col-lg-6">
 
-            <Link to="/profileUpdate">edit</Link>
-          </div>
-          <p>Name : {this.state.name}</p>
-          <p>Email : {this.state.email}</p>
-          <p>Mobile :  {this.state.mobileNumber}</p>
-          <p>Gender : {this.state.gender}</p>
-          <p>Age : {this.state.age}</p>
-          <b>Address</b>
-          {/* {this.state.address.length > 0 ? 
-          this.state.address.map((address, index) => (  */}
-          {/* key={index} */}
-          <div  className="address">
-            {/* <b>Type : {this.state.address.type}</b> */}
-            <p>Door :  {this.state.address.doorNo}</p>
-            <p>LandMark : {this.state.address.landMark}</p>
-            <p>Street : {this.state.address.street}</p>
-            <p>City : {this.state.address.city}</p>
-            <p>PIN :{this.state.address.pincode}</p>
-          </div>
-           {/* )):null} */}
+          <div className="text-right my-2">
+              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>
+            </div>
 
+            {/* profile-info */}
+            <div class="table-responsive">
+              <table className="table table-borderless table-striped my-2">
+                <tbody>
+                  <tr>
+                    <td className="secondary-text">Name</td>
+                    <td>{this.state.name}</td>
+                  </tr>
+                  <tr>
+                    <td className="secondary-text">Email</td>
+                    <td>{this.state.email}</td>
+                  </tr>
+                  <tr>
+                    <td className="secondary-text">Mobile</td>
+                    <td>{this.state.mobileNumber}</td>
+                  </tr>
+                  <tr>
+                    <td className="secondary-text">Gender</td>
+                    <td>{this.state.gender}</td>
+                  </tr>
+                  <tr>
+                    <td className="secondary-text">Age</td>
+                    <td>{this.state.age}</td>
+                  </tr>
+                </tbody>
+              </table>
+            {/* {this.state.address.length > 0 ? 
+            this.state.address.map((address, index) => (  */}
+            {/* key={index} */}
+            </div>
+          </div>
+
+          {/* Address */}
+          <div  className="col-lg-6">
+
+            <div className="text-right my-2">
+              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>
+            </div>
+
+            <div class="table-responsive">
+                <table className="table table-borderless table-striped my-2">
+                  <tbody>
+                    <tr>
+                      <td className="secondary-text">Door </td>
+                      <td>{this.state.address.doorNo}</td>
+                    </tr>
+                    <tr>
+                      <td className="secondary-text">LandMark</td>
+                      <td>{this.state.address.landMark}</td>
+                    </tr>
+                    <tr>
+                      <td className="secondary-text">Street</td>
+                      <td>{this.state.address.street}</td>
+                    </tr>
+                    <tr>
+                      <td className="secondary-text">City</td>
+                      <td>{this.state.address.city}</td>
+                    </tr>
+                    <tr>
+                      <td className="secondary-text">PIN</td>
+                      <td>{this.state.address.pincode}</td>
+                    </tr>
+                  </tbody>
+                </table>
+            </div>
+          </div>
+          {/* <b>Type{this.state.address.type}</b> */}
+          {/* )):null} */}
         </div>
-
       </div>
     );
   }
