@@ -40,7 +40,7 @@ export const loadUser = () => (dispatch, getState) => {
     )
     .then((res) => {
       if (res.data.ok) {
-        console.log(res.data.user_details.userName);
+        // console.log(res.data.user_details.userName);
         localStorage.setItem("user", res.data.user_details.userName);
         localStorage.setItem("email", res.data.user_details.email);
         localStorage.setItem("age", res.data.user_details.age);
@@ -146,13 +146,16 @@ export const login = (number, password) => (dispatch, getState) => {
         body
       )
       .then((res) => {
-        //console.log(res.data);
+        console.log(res.data);
         if (res.data.ok) {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
             mobileNumber: number
           });
+          dispatch(
+            createMessage({ check: "Login Successfully" })
+          );
           console.log(res.data);
           window.location.reload(false);
         } else {
@@ -251,6 +254,9 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT_SUCCESS,
   });
+  dispatch(
+    createMessage({ check: "Logout Successfully" })
+  );
 };
 
 // Invalid OTP
@@ -277,7 +283,7 @@ export const tokenConfig = (getState) => {
     config.headers["access-token"] = token;
   }
 
-  console.log(config);
+  // console.log(config);
 
   return config;
 };
