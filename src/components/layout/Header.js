@@ -38,18 +38,29 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
       </button>
 
       <div className="search-container form-inline my-2 my-lg-0">
-        <form className="search-form">
-          <input
-            className="form-control mr-sm-2"
-            type="text"
-            placeholder="Search.."
-            value={text}
-            onChange={onChange}
-          />
-          <Link className="btn text-success" to="/meditems">
-            <i className="fa fa-search "></i>
-          </Link>
-        </form>
+          <form className="search-form">
+            <div class="input-group-btn search-panel">
+                <button type="button" class="btn btn-default bg-white dropdown-toggle" data-toggle="dropdown">
+                  <span id="search_concept">All</span> 
+                  <span class="caret"></span>
+                </button>
+                <ul class="dropdown-menu" role="menu">
+                  <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Medicines</Link></li>
+                  <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Doctors</Link></li>
+                </ul>
+            </div>
+            <input type="hidden" name="search_param" value="all" id="search_param" />         
+            <input 
+              type="text" 
+              class="form-control mr-sm-2" 
+              placeholder="Search..." 
+              value={text}
+              onChange={onChange}
+            />
+            <Link className="btn text-success" to="/meditems">
+              <i className="fa fa-search "></i>
+            </Link>
+          </form>
         <table className="drugList table table-striped m-0 shadow">
           <tbody>
             {data.map((items) => (
