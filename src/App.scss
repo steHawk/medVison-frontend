@@ -3,6 +3,11 @@
   --secondaryColor: #007cbd;
 }
 
+footer {
+  bottom: 0;
+  width: 100%;
+}
+
 // ------------------------------------------
 //   Navbar
 // ------------------------------------------
@@ -149,8 +154,13 @@
 @media (min-width: 700px) {
   .navbar {
     a {
+      order: 1;
+    }
+
+    button {
       order: 3;
     }
+
     .search-container {
       width: 470px;
       order: 2;
@@ -295,4 +305,23 @@
 .active,
 .collapsible:hover {
   background-color: #555;
+}
+
+.presc-wrapper {
+  height: 75vh;
+}
+
+.presc-preview {
+  position: absolute;
+  overflow: hidden;
+}
+
+.preview-trash {
+  position: relative;
+  top: 10px;
+  right: -10px;
+
+  .presc-trash-btn {
+    display: none;
+  }
 }

@@ -33,6 +33,7 @@ import ItemDetails from "./components/layout/ItemDetails";
 import { loadUser } from "./actions/authActions";
 import Conformation from "./components/booknow/Conformation";
 import Prescription from "./components/layout/services/Prescription";
+import ConfirmAddress from "./components/layout/services/ConfirmAddress";
 import ItemDetail from "./components/layout/ItemDetail";
 import Billing from "./components/cart/Billing";
 import ViewLabTest from "./components/tests/ViewLabTest";
@@ -88,6 +89,7 @@ class App extends Component {
                     <Route path="/otpLogin" component={GetOtp} />
                     <Route path="/profileUpdate" component={ProfileUpdate} />
                     <Route path="/prescription" component={Prescription} />
+                    <Route path="/confirmAddress" component={ConfirmAddress} />
                     <Route path={`/checkout`} component={Billing} />
                     <Route path="/to/item" component={ItemDetail} />
                     <Route path="/labItem" component={ViewLabTest} />

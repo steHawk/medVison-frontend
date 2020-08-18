@@ -3,6 +3,11 @@
   --secondaryColor: #007cbd;
 }
 
+footer {
+  bottom: 0;
+  width: 100%;
+}
+
 .navbar {
   background-color: var(--primaryColor) !important;
   color: white;
@@ -137,6 +142,11 @@
 }
 
 @media (min-width: 700px) {
+  .navbar a {
+    -webkit-box-ordinal-group: 2;
+        -ms-flex-order: 1;
+            order: 1;
+  }
   .navbar button {
     -webkit-box-ordinal-group: 4;
         -ms-flex-order: 3;
@@ -290,5 +300,24 @@
 .active,
 .collapsible:hover {
   background-color: #555;
+}
+
+.presc-wrapper {
+  height: 75vh;
+}
+
+.presc-preview {
+  position: absolute;
+  overflow: hidden;
+}
+
+.preview-trash {
+  position: relative;
+  top: 10px;
+  right: -10px;
+}
+
+.preview-trash .presc-trash-btn {
+  display: none;
 }
 /*# sourceMappingURL=App.css.map */
