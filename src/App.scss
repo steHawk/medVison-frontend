@@ -99,7 +99,6 @@ footer {
   white-space: nowrap;
 }
 .testCard {
-  display: inline-block;
   width: auto;
   background-color: var(--primaryColor);
   color: white;
@@ -307,6 +306,7 @@ footer {
   background-color: #555;
 }
 
+// Upload Prescription
 .presc-wrapper {
   height: 75vh;
 }

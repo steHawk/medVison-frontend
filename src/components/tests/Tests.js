@@ -1,4 +1,9 @@
 import React, { Component } from "react";
+
+// Carousel
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 import { connect } from "react-redux";
 import { fetchPopularTests } from "../../actions/testsActions";
 import { Link } from "react-router-dom";//, Redirect
@@ -18,6 +23,25 @@ class Tests extends Component {
   }
 
   render() {
+    const responsive = {
+      superLargeDesktop: {
+        // the naming can be any, depends on you.
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 3
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 2
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1
+      }
+    };
     const { isAuthenticated } = this.props.auth;
     return (
       <div className="test_items my-2">
@@ -30,8 +54,8 @@ class Tests extends Component {
           </Link>  
         </div>
         <hr />
-        <div className="items_overflow">
-          {this.props.tests.map((test, index) => (
+        <Carousel responsive={responsive}>
+        {this.props.tests.map((test, index) => (
             <div key={index} className="testCard p-2 mx-2 shadow my-2">
               <h6 className="font-weight-bold">{test.TNAME1}</h6>
               <p></p>
@@ -40,6 +64,7 @@ class Tests extends Component {
                 {isAuthenticated ? (
                   <div className="text-center">
                     <button
+                      className="button-test"
                       onClick={this.props.addCart.bind(
                       this,
                         test._id,
@@ -63,7 +88,10 @@ class Tests extends Component {
               </div>
             </div>
           ))}
-        </div>
+        </Carousel>
+        {/* <div className="items_overflow">
+          
+        </div> */}
       </div>
     );
   }

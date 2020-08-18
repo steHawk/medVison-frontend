@@ -98,7 +98,6 @@ footer {
 }
 
 .testCard {
-  display: inline-block;
   width: auto;
   background-color: var(--primaryColor);
   color: white;
