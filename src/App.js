@@ -27,11 +27,12 @@ import Specialist from "./components/layout/services/Specialist";
 import Medicine from "./components/layout/services/Medicine";
 import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
+import Orders from "./components/accounts/Orders";
 import ProfileUpdate from "./components/accounts/ProfileUpdate";
 import ItemDetails from "./components/layout/ItemDetails";
 
 import { loadUser } from "./actions/authActions";
-import Conformation from "./components/booknow/Conformation";
+import Confirmation from "./components/booknow/Confirmation";
 import Prescription from "./components/layout/services/Prescription";
 import ConfirmAddress from "./components/layout/services/ConfirmAddress";
 import ItemDetail from "./components/layout/ItemDetail";
@@ -74,10 +75,11 @@ class App extends Component {
                     <Route path="/services" component={Service} />
                     <Route path="/medicine" component={Medicine} />
                     <Route path="/profile" component={Profile} />
+                    <Route path="/yourOrders" component={Orders} />
                     <Route path="/meditems" component={MedicineItems} />
                     <Route path="/specialist" component={Specialist} />
                     <Route path="/doctors" component={Doctors} />
-                    <Route path="/conformation" component={Conformation} />
+                    <Route path="/confirmation" component={Confirmation} />
                     <Route path="/docConsult" component={ConsultForm} />
                     <Route path="/cart" component={UserCart} />
                     <Route path="/alltests" component={AllTests} />

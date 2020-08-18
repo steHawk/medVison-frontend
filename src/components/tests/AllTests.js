@@ -27,7 +27,7 @@ const AllTests = ({ auth, addCart }) => {
       <div className="view_items row m-0">
         {alltest.map((test) => (
           <div key={test._id} className="inner_all col-lg-6 col-md-6 my-2">
-            <div className="p-2 shadow rounded my-4">
+            <div className="p-2 bg-white shadow-sm rounded-lg my-4">
               <Link
                 to={{
                   pathname: "/labItem",

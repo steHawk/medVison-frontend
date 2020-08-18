@@ -1,6 +1,12 @@
 import React, { Component } from "react";
+
+// Carousel
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 import { Link } from "react-router-dom";
 import { connect } from "react-redux";
+import ProfilePic from '../../assets/profile.png';
 
 
 class Profile extends Component {
@@ -13,9 +19,25 @@ class Profile extends Component {
     address: JSON.parse(localStorage.getItem("shippingAddress")),
   };
 
-
-
   render() {
+    const responsive = {
+      superLargeDesktop: {
+        breakpoint: { max: 4000, min: 3000 },
+        items: 5
+      },
+      desktop: {
+        breakpoint: { max: 3000, min: 1024 },
+        items: 5
+      },
+      tablet: {
+        breakpoint: { max: 1024, min: 464 },
+        items: 3
+      },
+      mobile: {
+        breakpoint: { max: 464, min: 0 },
+        items: 1
+      }
+    };
 
     return (
       <div className="container my-4">
@@ -23,16 +45,20 @@ class Profile extends Component {
         Your <span className="primary-text">eMetroPlus</span> Profile
         </h4>
         <hr />
-        <div class="row m-0">
-          <div className="col-lg-6 col-md-6">
+        <div className="row m-0">
 
-          <div className="text-right my-2">
-              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>
+          {/* profile pic */}
+          <div className="col-lg-2 col-md-2 d-flex justify-content-center align-items-center">
+              <img src={ProfilePic} className="img-fluid" width="100" alt="profile" />
+          </div>
+
+          {/* profile-info */}
+          <div className="col-lg-5 col-md-5">
+            <div className="text-right my-2">
+              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
             </div>
-
-            {/* profile-info */}
-            <div class="table-responsive">
-              <table className="table table-borderless table-striped my-2">
+            <div className="table-responsive bg-white rounded-lg shadow-sm">
+              <table className="table table-bordered m-0">
                 <tbody>
                   <tr>
                     <td className="secondary-text">Name</td>
@@ -56,21 +82,16 @@ class Profile extends Component {
                   </tr>
                 </tbody>
               </table>
-            {/* {this.state.address.length > 0 ? 
-            this.state.address.map((address, index) => (  */}
-            {/* key={index} */}
             </div>
           </div>
 
           {/* Address */}
-          <div  className="col-lg-6 col-md-6">
-
+          <div  className="col-lg-5 col-md-5">
             <div className="text-right my-2">
-              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i class="fas fa-edit mr-2"></i>Edit</Link>
+              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
             </div>
-
-            <div class="table-responsive">
-                <table className="table table-borderless table-striped my-2">
+            <div className="table-responsive bg-white rounded-lg shadow-sm">
+                <table className="table table-bordered m-0">
                   <tbody>
                     <tr>
                       <td className="secondary-text">Door </td>
@@ -96,8 +117,6 @@ class Profile extends Component {
                 </table>
             </div>
           </div>
-          {/* <b>Type{this.state.address.type}</b> */}
-          {/* )):null} */}
         </div>
       </div>
     );

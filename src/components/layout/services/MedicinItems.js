@@ -1,4 +1,9 @@
 import React, { useContext, useState, useEffect } from 'react'
+
+// Carousel
+import Carousel from 'react-multi-carousel';
+import 'react-multi-carousel/lib/styles.css';
+
 import ApiContext from '../../../Context/ApiContext'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
@@ -20,16 +25,42 @@ const MedicineItems = ({ auth, addCart }) => {
 
 
   const { isAuthenticated } = auth;
+  const responsive = {
+    superLargeDesktop: {
+      breakpoint: { max: 4000, min: 3000 },
+      items: 5
+    },
+    desktop: {
+      breakpoint: { max: 3000, min: 1024 },
+      items: 5
+    },
+    tablet: {
+      breakpoint: { max: 1024, min: 464 },
+      items: 3
+    },
+    mobile: {
+      breakpoint: { max: 464, min: 0 },
+      items: 1
+    }
+  };
 
   return (
     <div className="container my-4">
       <div className="meds">
         <h4 className="font-weight-bold">Prescription Medicine</h4>
+
+        <Carousel responsive={responsive} className="text-center">
+            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Prescription Medicines</button>
+            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Over-the-counter (OTC)</button>
+            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Baby Care</button>
+            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Personal Care</button>
+            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Supplements</button>
+        </Carousel>
         <hr />
         <div className="row m-0">
           {current.map((med) => (
-            <div key={med._id} className="meditems col-lg-3 col-md-4 my-2">
-              <div className="p-2 shadow rounded">
+            <div key={med._id} className="meditems col-lg-3 col-md-4">
+              <div className="p-4 bg-white shadow-sm rounded-lg my-4">
                 <div>
                   <Link
                     to={{
@@ -47,7 +78,7 @@ const MedicineItems = ({ auth, addCart }) => {
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
                   {isAuthenticated ? (
-                    <div className="text-right m-1">
+                    <div className="text-center">
                       <button
                         className="button-primary"
                         onClick={addCart.bind(
@@ -64,7 +95,7 @@ const MedicineItems = ({ auth, addCart }) => {
                       </button>
                     </div>
                   ) : (
-                      <div className="text-right m-1">
+                      <div className="text-center">
                         <Link to="/login">
                           <button className="button-primary mb-0">Add to cart</button>
                         </Link>

@@ -134,16 +134,21 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
             }
             <div className="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
               {isAuthenticated ? (
-                <ul>
-                  <Link class="nav-link text-dark text-decoration-none" to="/profile">
-                    <i class="fas fa-user-circle"></i>{" "}Profile
+                <ul className="text-left">
+                  <Link class="nav-link text-dark text-decoration-none p-1 mx-2" to="/profile">
+                    <i class="fas fa-user-circle mr-1 icon-primary"></i>{" "}Profile
                   </Link>
-                  <Link class="nav-link text-dark text-decoration-none" to="/cart">
-                    <i class="fas fa-shopping-cart"></i>{" "}Cart
-
+                  <div class="dropdown-divider"></div>
+                  <Link class="nav-link text-dark text-decoration-none p-1 mx-2" to="/cart">
+                    <i class="fas fa-shopping-cart mr-1 icon-primary"></i>{" "}Cart
                   </Link>
-                  <Link class="nav-link text-dark text-decoration-none" onClick={logout} to="/" >
-                    <i class="fas fa-sign-out-alt"></i>{" "}Logout
+                  <div class="dropdown-divider"></div>
+                  <Link class="nav-link text-dark text-decoration-none p-1 mx-2" to="/yourOrders">
+                    <i class="fas fa-shopping-bag mr-1 icon-primary"></i>{" "}Orders
+                  </Link>
+                  <div class="dropdown-divider"></div>
+                  <Link class="nav-link text-dark text-decoration-none p-1 mx-2" onClick={logout} to="/" >
+                    <i class="fas fa-sign-out-alt mr-1 icon-primary"></i>{" "}Logout
                     </Link>
                 </ul>
               ) : (

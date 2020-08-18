@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
+import fileImage from "../../../assets/file.svg";
 
 // import PropTypes from "prop-types";
 import axios from "axios";
@@ -77,44 +78,31 @@ class Prescription extends Component {
     }
     return (
       <div className="container my-4">
-        <h4 className="font-weight-bold">Please upload file of your prescription</h4>
-        <small>
-          <i className="fa fa-file mr-2" aria-hidden="true"></i>
-          File type may be .JPG .JPEG
-        </small>
-        <hr />
-        <div className="presc-wrapper">
-          <div className="row m-0 my-4">
-            <div className="col-lg-6 col-sm-12 mx-auto">
-              <div className="text-center my-2">
+      <div className="page-indicator my-2">
+        <small className="primary-text">Home/Upload Prescription</small>
+      </div>
+      <h4 className="font-weight-bold">Upload Prescription</h4>
+      <div className="presc-wrapper col-lg-6 mx-auto d-flex flex-column align-items-center">
+        <div className="presc-img-wrapper">
+          <div className="presc-img position-relative my-3">
+            <img src={fileImage} id="presc" alt="prescription" className="p-2 my-4 img-fluid rounded" />
+              <button className="btn text-center position-absolute rounded-circle my-4" id="prescTrash" onClick={() => window.location.reload(false)}><i class="fa fa-times"></i></button>
+          </div>
+          <div className="upload-btn-wrapper my-4 text-center">
+                <label for="prescUpload" class="btn rounded-pill px-5 py-2 shadow"><i class="fa fa-image mr-2"></i>Upload</label>
                 <input
+                  id="prescUpload"
                   label="choose file"
                   type="file"
                   accept="image/*"
                   onChange={this.handleFileUpload}
-                  className="my-2"
+                  className="btn rounded-pill px-5 py-2 shadow"
+                  style={{display: 'none'}}
                 />
-                <button className="button-secondary my-2" onClick={this.submitFile} type="submit">
-                  upload
-                </button>
-              </div>
-            </div>
-          </div>
-            <hr className="clearfix w-100 d-md-none" />
-          <div className="row m-0 my-4">
-            <div className="col-lg-6 col-sm-12 mx-auto">
-              <div className="presc-preview">
-                <img id="presc" className="img-fluid" />
-              </div>
-              <div className="preview-trash">
-                <button className="btn btn-danger presc-trash-btn" id="prescTrash" onClick={() => window.location.reload(false)}><i class="fas fa-trash"></i></button>
-              </div>
-            </div>
           </div>
         </div>
-          <div className="text-center my-4 proceed">
-              <Link to="/confirmAddress"><button className="button-primary">Proceed</button></Link>
-          </div>
+        <button className="button-primary w-50 mx-2">Proceed</button>
+      </div>
       </div>
     );
   }

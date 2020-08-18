@@ -40,7 +40,7 @@ class ConsultForm extends Component {
     console.log(this.state);
     const { userName, mobile, medicalComplaint } = this.state;
     if (this.props.gotDocToken) {
-      return <Redirect exact to="/conformation" />;
+      return <Redirect exact to="/confirmation" />;
     }
     return (
       <div className="container my-4">
