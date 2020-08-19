@@ -311,6 +311,12 @@ footer {
   color: rgba(30, 31, 82, 0.3) !important;
 }
 
+.banner-bg {
+  background: -webkit-gradient(linear, left top, right bottom, from(#0f84c1), color-stop(#7cbcdd), color-stop(#89cbee), to(#cce5f2));
+  background: linear-gradient(to bottom right, #0f84c1, #7cbcdd, #89cbee, #cce5f2);
+  background-color: #89cbee;
+}
+
 .active,
 .collapsible:hover {
   background-color: #555;
@@ -331,16 +337,22 @@ footer {
   font-size: 1.5rem;
 }
 
-.presc-wrapper {
-  height: 100vh;
-}
-
 .presc-wrapper .presc-img-wrapper .presc-img img {
   max-width: 100%;
   max-height: 16rem;
 }
 
-.presc-wrapper .presc-img-wrapper .presc-img button {
-  border: 1px solid #e1dcdc;
+.presc-wrapper .presc-img-wrapper button {
+  display: none;
+}
+
+.btn-meditem:hover {
+  background-color: var(--secondaryColor) !important;
+  color: white !important;
+}
+
+.btn-meditem:focus {
+  background-color: var(--primaryColor) !important;
+  color: white !important;
 }
 /*# sourceMappingURL=App.css.map */

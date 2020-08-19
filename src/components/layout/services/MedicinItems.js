@@ -28,11 +28,11 @@ const MedicineItems = ({ auth, addCart }) => {
   const responsive = {
     superLargeDesktop: {
       breakpoint: { max: 4000, min: 3000 },
-      items: 5
+      items: 4
     },
     desktop: {
       breakpoint: { max: 3000, min: 1024 },
-      items: 5
+      items: 4
     },
     tablet: {
       breakpoint: { max: 1024, min: 464 },
@@ -47,14 +47,16 @@ const MedicineItems = ({ auth, addCart }) => {
   return (
     <div className="container my-4">
       <div className="meds">
-        <h4 className="font-weight-bold">Prescription Medicine</h4>
-
         <Carousel responsive={responsive} className="text-center">
-            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Prescription Medicines</button>
-            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Over-the-counter (OTC)</button>
-            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Baby Care</button>
-            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Personal Care</button>
-            <button className="btn bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Supplements</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Prescription Medicines</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Over-the-counter (OTC)</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Baby Care</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Personal Care</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Supplements & Wellness</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Medical & Surgical Devices</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Immunity Boosters </button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Hand - Hygiene</button>
+            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">See How It Works</button>
         </Carousel>
         <hr />
         <div className="row m-0">

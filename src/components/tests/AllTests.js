@@ -22,7 +22,7 @@ const AllTests = ({ auth, addCart }) => {
   const { isAuthenticated } = auth;
   return (
     <div className="container my-4">
-      <h4 className="font-weight-bold">All Available Tests</h4>
+      <h5 className="font-weight-bold primary-heading">All Available Tests</h5>
       <hr />
       <div className="view_items row m-0">
         {alltest.map((test) => (

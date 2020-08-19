@@ -316,6 +316,14 @@ footer {
   color: rgba(30, 31, 82, 0.3) !important;
 }
 
+// Banner BG
+.banner-bg {
+  background: linear-gradient(to bottom right, #0f84c1, #7cbcdd, #89cbee, #cce5f2);
+  background-color: #89cbee;
+  // background-image: url('./assets/banner-bg.png');
+  // background-size: cover;
+}
+
 .active,
 .collapsible:hover {
   background-color: #555;
@@ -342,7 +350,6 @@ footer {
 // Upload Prescription
 
 .presc-wrapper{
-  height: 100vh;
   .presc-img-wrapper{
     .presc-img{ 
       img{
@@ -350,9 +357,16 @@ footer {
         max-height: 16rem;
       }
       
-      button{
-        border: 1px solid #e1dcdc;
-      }
+    }
+    button{
+      display: none;
     }
   }
+}
+
+// Med Items Button 
+.btn-meditem {
+  &:hover{background-color:var(--secondaryColor) !important; color: white !important;}
+  
+  &:focus{background-color:var(--primaryColor) !important; color: white !important;}
 }

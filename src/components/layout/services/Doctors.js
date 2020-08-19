@@ -33,9 +33,9 @@ class Doctors extends Component {
       <div className="my-4">
         <div className="container">
           <div className="docHead">
-            <h4 className="font-weight-bold">Our Doctors</h4>
-            <Link to="/docConsult" className="text-dark text-decoration-none">
-              <i className="fa fa-phone" aria-hidden="true"></i> Request Callback
+            <h5 className="font-weight-bold primary-heading">Our Doctors</h5>
+            <Link to="/docConsult" className="text-secondary text-decoration-none">
+              <i className="fa fa-phone mr-1" aria-hidden="true"></i> Request Callback
             </Link>
           </div>
           <hr />

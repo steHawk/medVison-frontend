@@ -47,9 +47,10 @@ class Cart extends Component {
         <div className="container my-4">
           <div className="row m-0">
             <div className="col-lg-6 col-md-6">
-              <h4 className="font-weight-bold">Cart</h4>
+              <h5 className="font-weight-bold">Cart</h5>
+              <hr />
               {cartItems.map((cartItem, index) => (
-                <div class="shadow-sm p-3 my-3" key={cartItem._id}>
+                <div class="bg-white rounded-lg shadow-sm p-4 my-4 " key={cartItem._id}>
                   <div class="row">
                     <div className="col-6 my-auto">
                       <h6 className="font-weight-bold">{cartItem.name}</h6>
@@ -64,14 +65,14 @@ class Cart extends Component {
                   <div class="row mt-2">
                     <div className="col-2">
                       <button
-                        class="btn btn-outline-danger"
+                        class="btn btn-outline-danger rounded-circle"
                         onClick={this.props.decrementQty.bind(
                           this,
                           cartItem.id,
                           cartItem.quantity
                         )}
                       >
-                        –
+                      <i className="fa fa-minus"></i>
                       </button>
                     </div>
                     <div class="col-4">
@@ -84,14 +85,14 @@ class Cart extends Component {
                     </div>
                     <div className="col-2">
                       <button
-                        class="btn btn-outline-success"
+                        class="btn btn-outline-primary rounded-circle"
                         onClick={this.props.incrementQty.bind(
                           this,
                           cartItem.id,
                           cartItem.quantity
                         )}
                       >
-                        +
+                        <i className="fa fa-plus"></i>
                       </button>
                     </div>
                     <div class="col-4 text-right" tabindex="12">
@@ -100,15 +101,14 @@ class Cart extends Component {
                           this,
                           cartItem.id
                         )}
-                        className="btn btn-danger"
+                        className="btn btn-danger rounded-circle"
                       >
-                        Remove
+                        <i className="fa fa-trash"></i>
                       </button>
                     </div>
                   </div>
                 </div>
               ))}
-              <hr />
               <div class="text-center">
                 <Link
                   to={{
@@ -120,26 +120,29 @@ class Cart extends Component {
                 </Link>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6 my-auto shadow-sm">
-              <div className="mt-4">
-                <h4 class="font-weight-bold">Price details</h4>
+            <div class="col-lg-6 col-md-6">
+              <h5 class="font-weight-bold">Price details</h5>
+              <hr />
+              <div className="bg-white rounded-lg shadow-sm">
+                <div className="responsive-table">
+                  <table class="table table-borderless">
+                    <tbody>
+                      <tr>
+                        <td>Price</td>
+                        <td className="font-weight-bold">₹{total}</td>
+                      </tr>
+                      <tr>
+                        <td>Delivery Charges</td>
+                        <td className="font-weight-bold">Free</td>
+                      </tr>
+                      <tr>
+                        <td>Total Payable</td>
+                        <td className="font-weight-bold">₹{total}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
               </div>
-              <table class="table responsive-table">
-                <tbody>
-                  <tr>
-                    <td>Price</td>
-                    <td className="font-weight-bold">₹{total}</td>
-                  </tr>
-                  <tr>
-                    <td>Delivery Charges</td>
-                    <td className="font-weight-bold">Free</td>
-                  </tr>
-                  <tr>
-                    <td>Total Payable</td>
-                    <td className="font-weight-bold">₹{total}</td>
-                  </tr>
-                </tbody>
-              </table>
             </div>
           </div>
         </div>
