@@ -66,68 +66,75 @@ export class Register extends Component {
     }
     const { number, userName, password, email } = this.state;
     return (
-      <div className="">
-        <div className="auth-form">
-          <form onSubmit={this.onSubmit}>
-            <div className="log-ele">
-              <label>Mobile Number</label>
-              <input
-                type="text"
-                className=""
-                name="number"
-                placeholder="Mobile Number"
-                onChange={this.onChange}
-                value={number}
-                pattern="\d{10}"
-                onBlur={(e) => this.checkMobileNumber(e)}
-              /><span id="msg">{this.state.msg}</span>
-            </div>
+      <div className="container my-4">
+        <div class="row m-0">
+          <div className="col-lg-4 mx-auto bg-white p-4 shadow-lg rounded-lg">
+            <h4 className="font-weight-bold">
+              Register on <span className="primary-text">eMetroPlus</span>
+            </h4>
+            <hr />
+            <div className="form-group">
+              <form onSubmit={this.onSubmit}>
+                <label>Mobile Number</label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  name="number"
+                  placeholder="Mobile Number"
+                  onChange={this.onChange}
+                  value={number}
+                  pattern="\d{10}"
+                  onBlur={(e) => this.checkMobileNumber(e)}
+                />
+                <div>
+                  <small id="msg" class="text-danger mb-2">{this.state.msg}</small>
+                </div>
+              
+                <label>Name<span className="text-danger"> *</span></label>
+                <input
+                  type="text"
+                  className="form-control mb-2"
+                  placeholder="Name"
+                  name="userName"
+                  onChange={this.onChange}
+                  value={userName}
+                />
+              
+                <label>Email</label>
+                <input
+                  type="email"
+                  className="form-control mb-2"
+                  placeholder="Email"
+                  name="email"
+                  onChange={this.onChange}
+                  value={email}
+                />
 
-            <div className="log-ele">
-              <label>Name <span>*</span></label>
-              <input
-                type="text"
-                className=""
-                placeholder="Name"
-                name="userName"
-                onChange={this.onChange}
-                value={userName}
-              />
-            </div>
+                <label>Password<span className="text-danger"> *</span></label>
+                <input
+                  type="password"
+                  className="form-control mb-2"
+                  placeholder="Password"
+                  name="password"
+                  onChange={this.onChange}
+                  value={password}
+                />
 
-            <div className="log-ele">
-              <label>Email</label>
-              <input
-                type="email"
-                className=""
-                placeholder="Email"
-                name="email"
-                onChange={this.onChange}
-                value={email}
-              />
+                <div className="text-center mb-2 mt-4">
+                  <button className="button-primary" type="submit">
+                    Register
+                    </button>
+                  <div>
+                  <small>
+                    Have an account? <Link className="relink" to="/login">Login</Link>
+                  </small>
+                  </div>
+                </div>
+                <p>
+                </p>
+              </form>
             </div>
-
-            <div className="log-ele">
-              <label>Password <span>*</span></label>
-              <input
-                type="password"
-                className=""
-                placeholder="Password"
-                name="password"
-                onChange={this.onChange}
-                value={password}
-              />
-            </div>
-
-            <div className="">
-              <button className="authBut" type="submit">
-                Register
-              </button>
-            </div>
-            <p>
-              Have an account? <Link className="relink" to="/login">Login</Link>
-            </p>
-          </form>
+          </div>
         </div>
       </div>
     );

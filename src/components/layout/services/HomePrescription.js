@@ -15,30 +15,29 @@ class HomePrescription extends Component {
 
   render() {
     return (
-      <div className="service-div my-2">
-        <h4 className="font-weight-bold">Our Services</h4>
-        <hr />
-        <div className="upload-Home row m-0 my-2">
-          <div className="upload-div col-lg-4 text-center my-2">
-            <h6>Request A CallBack</h6>
+      <div className="bg-white py-4">
+        <h1 className="primary-heading text-center">Our Services</h1>
+        <div className="row m-0 my-2">
+          <div className="col-lg-4 text-center my-4">
+            <h6 className="text-secondary font-weight-normal">Request a CallBack</h6>
             <Link to="/docConsult">
-              <button type="button" class="button-primary" icon="">
-                Request A CallBack
+              <button type="button" class="btn-lg btn-primary">
+                CallBack
               </button>{" "}
             </Link>
           </div>
-          <div className="upload-div col-lg-4 text-center  my-2">
-            <h6>Have a prescription?</h6>
+          <div className="col-lg-4 text-center  my-4">
+            <h6 className="text-secondary font-weight-normal">Have a prescription?</h6>
             <Link to="/prescription">
-              <button type="button" class="button-primary" icon="">
+              <button type="button" class="btn-lg btn-primary">
                 UPLOAD PRESCRIPTION
               </button>{" "}
             </Link>
           </div>
-          <div className="upload-div col-lg-4 text-center  my-2">
-            <h6>Nursing Services Available</h6>
+          <div className="col-lg-4 text-center  my-4">
+            <h6 className="text-secondary font-weight-normal">Nursing Services Available</h6>
             <Link to="/docConsult">
-              <button type="button" class="button-primary" icon="">
+              <button type="button" class="btn-lg btn-primary">
                 Nursing Services
               </button>{" "}
             </Link>

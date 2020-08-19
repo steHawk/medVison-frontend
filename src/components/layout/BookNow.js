@@ -43,9 +43,9 @@ class BookNow extends Component {
                       <small>{book.des}</small>
                     </div>
                     <div className="text-center my-2 get-started">
-                      <p className="mr-4 mb-2">
+                      <small className="mr-2 mb-2">
                         GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                      </p>
+                      </small>
                     </div>
                   </div>
                 </div>

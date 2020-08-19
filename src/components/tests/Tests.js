@@ -44,54 +44,50 @@ class Tests extends Component {
     };
     const { isAuthenticated } = this.props.auth;
     return (
-      <div className="test_items my-2">
-        <div className="testName">
-          <h4 className="font-weight-bold">Popular Tests</h4>
-          <Link to="/super60">
-            <div className="view_all">
-              <p>View All</p>
-            </div>
-          </Link>  
-        </div>
-        <hr />
-        <Carousel responsive={responsive}>
-        {this.props.tests.map((test, index) => (
-            <div key={index} className="testCard p-2 mx-2 shadow my-2">
-              <h6 className="font-weight-bold">{test.TNAME1}</h6>
-              <p></p>
-              <div className="bookPrice">
-                <p>₹{test.MRP}</p>
-                {isAuthenticated ? (
-                  <div className="text-center">
-                    <button
-                      className="button-test"
-                      onClick={this.props.addCart.bind(
-                      this,
-                        test._id,
-                        test.TNAME1,
-                        "no discription",
-                        parseInt(test.MRP),
-                        test.testType,
-                        "MedicalTest"
-                    )}
-                    >
-                      Add to cart
-                    </button>
-                  </div>
-                ) : (
-                  <div className="text-center">
-                    <Link to="/login">
-                      <button className="button-test">Add to cart</button>
-                    </Link>
-                  </div>
-                )}
+      <div className="bg-white py-4">
+        <div className="container">
+          <div className="text-center">
+            <h1 className="primary-heading">Popular Tests</h1>
+            <Link to="/super60" className="primary-text text-decoration-none">
+                View All
+            </Link>
+          </div>
+          <Carousel responsive={responsive}>
+          {this.props.tests.map((test, index) => (
+              <div key={index} className="testCard p-2 mx-2 shadow my-2">
+                <h6 className="font-weight-bold">{test.TNAME1}</h6>
+                <p></p>
+                <div className="bookPrice">
+                  <p>₹{test.MRP}</p>
+                  {isAuthenticated ? (
+                    <div className="text-center">
+                      <button
+                        className="button-test"
+                        onClick={this.props.addCart.bind(
+                        this,
+                          test._id,
+                          test.TNAME1,
+                          "no discription",
+                          parseInt(test.MRP),
+                          test.testType,
+                          "MedicalTest"
+                      )}
+                      >
+                        Add to cart
+                      </button>
+                    </div>
+                  ) : (
+                    <div className="text-center">
+                      <Link to="/login">
+                        <button className="button-test">Add to cart</button>
+                      </Link>
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          ))}
-        </Carousel>
-        {/* <div className="items_overflow">
-          
-        </div> */}
+            ))}
+          </Carousel>
+        </div>
       </div>
     );
   }

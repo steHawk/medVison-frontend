@@ -42,7 +42,7 @@ class Doctors extends Component {
           <div className="docSelect row m-0">
             {this.props.doctors.map((doctor, index) => (
                 <div className="col-lg-4 col-md-6">
-                  <div className="p-2">
+                  <div className="p-2 my-4">
                     <div className="card rounded-lg shadow-sm" style={{ width: "auto" }}>
                       <div className="text-center">
                         <img src="/img/standing-11.png" alt="" height="160px"/>

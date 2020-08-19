@@ -321,6 +321,24 @@ footer {
   background-color: #555;
 }
 
+// Home Buttons
+.btn-primary {
+  border: 0 !important;
+  background-color: #0f84c1 !important;
+  text-transform: uppercase;
+  font-size: 0.75rem !important;
+  padding: 1rem 2rem !important;
+}
+
+// Headings
+.primary-heading {
+  font-weight: 600;
+  line-height: 1.5;
+  color: #2f3451;
+  font-size: 1.5rem;
+}
+
+
 // Upload Prescription
 
 .presc-wrapper{

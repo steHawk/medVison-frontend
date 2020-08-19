@@ -51,10 +51,11 @@ export class Login extends Component {
     return (
       <div className="container my-4">
         <div class="row m-0">
-          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
+          <div className="col-lg-4 mx-auto bg-white p-4 shadow-lg rounded-lg">
             <h4 className="font-weight-bold">
-              Login to eMetroPlus
+              Login to <span className="primary-text">eMetroPlus</span>
             </h4>
+            <hr />
             <div className="form-group">
               <form onSubmit={this.onSubmit} className="form">
                 <label>
@@ -62,7 +63,7 @@ export class Login extends Component {
                   </label>
                 <input
                   type="text"
-                  className="form-control"
+                  className="form-control mb-2"
                   name="number"
                   placeholder="Mobile Number"
                   onChange={this.onChange}
@@ -71,7 +72,7 @@ export class Login extends Component {
                   onBlur={(e) => this.checkMobileNumber(e)}
                 />
                 <div>
-                  <small id="msg" class="text-danger">{this.state.msg}</small>
+                  <small id="msg" class="text-danger mb-2">{this.state.msg}</small>
                 </div>
 
                 <label>
@@ -79,20 +80,20 @@ export class Login extends Component {
                   </label>
                 <input
                   type="password"
-                  className="form-control"
+                  className="form-control mb-2"
                   placeholder="Password"
                   name="password"
                   onChange={this.onChange}
                   value={password}
                 />
                 <Link to="/otpLogin" className="primary-text font-weight-bold text-decoration-none"><small>Forgot Password?</small></Link>
-                <div className="text-center my-2">
+                <div className="text-center mb-2 mt-4">
                   <button className="button-primary" type="submit">
                     Login
                     </button>
                   <div>
                     <small>
-                      Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/getotp">Register</Link>
+                      Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/register">Register</Link>
                     </small>
                   </div>
                 </div>

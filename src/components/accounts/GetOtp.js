@@ -65,7 +65,7 @@ export class GetOtp extends Component {
     return (
       <div className="container my-4">
         <div class="row m-0">
-          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
+          <div className="col-lg-4 bg-white mx-auto p-4 shadow-lg rounded-lg">
             {(() => {
               if (this.props.history.location.pathname === "/otpLogin") {
                 return (
@@ -101,21 +101,21 @@ export class GetOtp extends Component {
                 <button className="button-primary" type="submit" onSubmit={this.onSubmit}>
                   Get OTP
                 </button>
-              </div>
 
-              {(() => {
-                if (this.props.history.location.pathname === "/getotp") {
-                  return (<p></p>)
-                } else {
-                  return (
-                    <div>
-                      <small>
-                        Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/getotp">Register</Link>
-                      </small>
-                    </div>
-                  );
-                }
-              })()}
+                {(() => {
+                  if (this.props.history.location.pathname === "/getotp") {
+                    return (<p></p>)
+                  } else {
+                    return (
+                      <div>
+                        <small>
+                          Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/register">Register</Link>
+                        </small>
+                      </div>
+                    );
+                  }
+                })()}
+              </div>
             </form>
           </div>
         </div> 
