@@ -19,7 +19,7 @@
     "react-dom": "^16.13.1",
     "react-multi-carousel": "^2.5.5",
     "react-redux": "^7.2.0",
-    "react-router": "^5.2.0",
+    "react-router": "^3.2.6",
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-time-picker": "^4.0.1",
