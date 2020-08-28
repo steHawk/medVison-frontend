@@ -1,6 +1,12 @@
 import React, { Component } from "react";
 import { Link } from "react-router-dom";
 
+// Animation on Scroll
+import AOS from 'aos';
+import 'aos/dist/aos.css';
+
+AOS.init();
+
 const bookNow = [
   {
     id: 1,
@@ -32,7 +38,8 @@ class BookNow extends Component {
       <div className="bookdiv row m-0 my-4">
         {bookNow.map((book, index) => (
           <div key={index} className="col-lg-4 col-md-6">
-            <div className="home-cards p-4 bg-white shadow-sm rounded-lg my-4">
+            <div className="home-cards p-4 bg-white shadow-sm rounded-lg my-4"
+              data-aos="zoom-in-right" data-aos-duration="1200">
               <div key={index}>
                 <Link to={book.link} class="text-decoration-none text-dark ">   
                 <div>

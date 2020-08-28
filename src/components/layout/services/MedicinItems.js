@@ -62,7 +62,7 @@ const MedicineItems = ({ auth, addCart }) => {
         <div className="row m-0">
           {current.map((med) => (
             <div key={med._id} className="meditems col-lg-3 col-md-4">
-              <div className="p-4 bg-white shadow-sm rounded-lg my-4">
+              <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
                 <div>
                   <Link
                     to={{

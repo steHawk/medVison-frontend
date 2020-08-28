@@ -43,7 +43,7 @@ class Doctors extends Component {
             {this.props.doctors.map((doctor, index) => (
                 <div className="col-lg-4 col-md-6">
                   <div className="p-2 my-4">
-                    <div className="card rounded-lg shadow-sm" style={{ width: "auto" }}>
+                    <div className="card rounded-lg shadow-sm" style={{ width: "auto" }} data-aos="fade-up" data-aos-duration="1200">
                       <div className="text-center">
                         <img src="/img/standing-11.png" alt="" height="160px"/>
                       </div>

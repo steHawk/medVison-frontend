@@ -18,7 +18,7 @@ class HomePrescription extends Component {
       <div className="bg-white py-4">
         <h1 className="primary-heading text-center">Our Services</h1>
         <div className="row m-0 my-2">
-          <div className="col-lg-4 text-center my-4">
+          <div className="col-lg-4 text-center my-4" data-aos="zoom-in" data-aos-duration="1200">
             <h6 className="text-secondary font-weight-normal">Request a CallBack</h6>
             <Link to="/docConsult">
               <button type="button" class="btn-lg btn-primary">
@@ -26,7 +26,7 @@ class HomePrescription extends Component {
               </button>{" "}
             </Link>
           </div>
-          <div className="col-lg-4 text-center  my-4">
+          <div className="col-lg-4 text-center my-4" data-aos="zoom-in" data-aos-duration="1200">
             <h6 className="text-secondary font-weight-normal">Have a prescription?</h6>
             <Link to="/prescription">
               <button type="button" class="btn-lg btn-primary">
@@ -34,7 +34,7 @@ class HomePrescription extends Component {
               </button>{" "}
             </Link>
           </div>
-          <div className="col-lg-4 text-center  my-4">
+          <div className="col-lg-4 text-center my-4" data-aos="zoom-in" data-aos-duration="1200">
             <h6 className="text-secondary font-weight-normal">Nursing Services Available</h6>
             <Link to="/docConsult">
               <button type="button" class="btn-lg btn-primary">

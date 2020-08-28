@@ -27,7 +27,7 @@ const AllTests = ({ auth, addCart }) => {
       <div className="view_items row m-0">
         {alltest.map((test) => (
           <div key={test._id} className="col-lg-4 col-md-4 my-2">
-            <div className="p-4 bg-white shadow-sm rounded-lg my-4">
+            <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
               <Link
                 to={{
                   pathname: "/labItem",

@@ -17,7 +17,6 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
     clearItemsList();
   }
 
-
   const { isAuthenticated, user } = auth;
 
   return (
@@ -25,16 +24,18 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
       <Link className="navbar-brand" to="/">
         <img src={logo} alt="eMetroPlus" id="logo" />{" "}
       </Link>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarSupportedContent"
-        aria-controls="navbarSupportedContent"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
+      <button id="ham" 
+        className="navbar-toggler border-0 nav-button mr-2" 
+        type="button" 
+        data-toggle="collapse" 
+        data-target="#navigation" 
+        aria-expanded="false" 
+        aria-label="Navigation"
+        onClick={hamClick}
+        >
+        <span id="bar1"></span>
+        <span id="bar2"></span>
+        <span id="bar3"></span>
       </button>
 
       <div className="search-container form-inline my-2 my-lg-0">
@@ -87,7 +88,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
         </table>
       </div>
 
-      <div className="collapse navbar-collapse" id="navbarSupportedContent">
+      <div className="collapse navbar-collapse" id="navigation">
         <ul className="navbar-nav mr-2">
           <li className="nav-item">
             <Link to="/doctors" className="nav-link">
@@ -165,6 +166,13 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
   );
 
 }
+
+function hamClick() {
+  document.getElementById("bar1").classList.toggle("clicked");
+  document.getElementById("bar2").classList.toggle("clicked");
+  document.getElementById("bar3").classList.toggle("clicked");
+}
+
 
 const mapStateToProps = (state) => ({
   auth: state.auth,

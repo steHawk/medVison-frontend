@@ -4,8 +4,8 @@ import { Link } from "react-router-dom";
 class BannerAdd extends Component {
   render() {
     return (
-      <div className="m-0 py-4">
-        <div id="offersBanner" className="carousel slide" data-ride="carousel">
+      <div className="m-0">
+        <div id="offersBanner" className="carousel slide" data-ride="carousel" data-aos="fade-left" data-aos-duration="1200">
           <ol className="carousel-indicators">
             <li data-target="#offersBanner" data-slide-to="0" className="active"></li>
             <li data-target="#offersBanner" data-slide-to="1"></li>

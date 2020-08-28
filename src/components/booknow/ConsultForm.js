@@ -45,7 +45,7 @@ class ConsultForm extends Component {
     return (
       <div className="container my-4">
         <div class="row m-0">
-          <div className="col-lg-4 mx-auto p-4 shadow-lg rounded">
+          <div className="col-lg-4 mx-auto bg-white p-4 shadow-lg rounded-lg">
             <h4 className="font-weight-bold">Request Callback</h4>
 
             <form onSubmit={this.onSubmit} className="consult-form">

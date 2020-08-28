@@ -21,8 +21,8 @@ class Super60 extends Component {
         <hr />
         <div className="view_items row m-0">
           {this.props.super60.map((test, index) => (
-            <div key={index} className="inner_all col-lg-6 col-md-6">
-              <div className="p-4 bg-white shadow-sm rounded-lg my-4">
+            <div key={index} className="inner_all col-lg-4 col-md-4">
+              <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
                 <h5 className="font-weight-bold">
                   {test.TNAME1} 
                 </h5>

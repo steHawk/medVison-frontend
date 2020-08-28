@@ -19,6 +19,50 @@ footer {
   width: 100%;
 }
 
+.navbar-toggler:focus {
+  -webkit-box-shadow: none !important;
+          box-shadow: none !important;
+}
+
+.nav-button {
+  width: 42px;
+  height: 42px;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+}
+
+.nav-button span {
+  display: block;
+  height: 3px;
+  width: 22px;
+  background: #fff;
+  -webkit-transition: 0.2s ease-out;
+  transition: 0.2s ease-out;
+}
+
+.nav-button span#bar1.clicked {
+  -webkit-transform: rotate(-45deg);
+          transform: rotate(-45deg);
+  -webkit-transform-origin: 22px;
+          transform-origin: 22px;
+}
+
+.nav-button span#bar2 {
+  margin: 0.3rem 0;
+}
+
+.nav-button span#bar2.clicked {
+  opacity: 0;
+}
+
+.nav-button span#bar3.clicked {
+  -webkit-transform: rotate(45deg);
+          transform: rotate(45deg);
+  -webkit-transform-origin: 22px;
+          transform-origin: 22px;
+}
+
 .navbar {
   background-color: var(--primaryColor) !important;
   color: white;
@@ -193,7 +237,7 @@ footer {
   .navbar .search-container form input {
     width: 80%;
   }
-  #navbarSupportedContent {
+  #navigation {
     -webkit-box-flex: 0;
         -ms-flex-positive: 0;
             flex-grow: 0;
@@ -204,7 +248,7 @@ footer {
         flex-basis: 58%;
     padding: 0 1rem;
   }
-  #navbarSupportedContent ul {
+  #navigation ul {
     margin-left: auto;
   }
 }
@@ -223,7 +267,7 @@ footer {
   .navbar .search-container form input {
     width: 90%;
   }
-  .navbar #navbarSupportedContent {
+  .navbar #navigation {
     -ms-flex-preferred-size: auto;
         flex-basis: auto;
   }
