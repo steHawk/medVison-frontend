@@ -7,7 +7,7 @@ class Footer extends Component {
       <footer className="footer py-4">
         <div className="container text-md-left text-sm-left">
           <div className="row m-0">
-            <div className="col-lg-4 col-md-4">
+            {/* <div className="col-lg-4 col-md-4">
               <h6 className="font-weight-bold text-uppercase">About Us</h6>
               <ul className="list-unstyled">
                 <li>
@@ -17,8 +17,8 @@ class Footer extends Component {
                   <Link to="/awards">Awards and Accolades</Link>
                 </li>
               </ul>
-            </div>
-            <hr className="clearfix w-100 d-md-none" />
+            </div> */}
+            {/* <hr className="clearfix w-100 d-md-none" />
             <div className="col-lg-4 col-md-4">
               <h6 className="font-weight-bold text-uppercase">Services</h6>
               <ul className="list-unstyled">
@@ -30,7 +30,7 @@ class Footer extends Component {
                 </li>
               </ul>
             </div>
-            <hr className="clearfix w-100 d-md-none" />
+            <hr className="clearfix w-100 d-md-none" /> */}
             <div className="col-lg-4 col-md-4 contact-us">
               <h6 className="font-weight-bold text-uppercase">Contact Us</h6>
               <ul className="list-unstyled footer-contact-details">

@@ -16,7 +16,7 @@ class FileUpload extends Component {
     formData.append("name", "chaitanya");
     console.log(formData)
     axios
-      .post(`https://api.emetroplus.com/aws/prescription-upload`, formData, {})
+      .post(`https://api.emetroplus.com/aws/prescription-upload`, formData, [])
       .then((response) => {
         console.log(response)
       })

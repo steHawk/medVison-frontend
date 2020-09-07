@@ -20,48 +20,48 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
   const { isAuthenticated, user } = auth;
 
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark flex-wrap">
+    <nav className="navbar navbar-expand-lg navbar-dark flex-wrap" >
       <Link className="navbar-brand" to="/">
         <img src={logo} alt="eMetroPlus" id="logo" />{" "}
       </Link>
-      <button id="ham" 
-        className="navbar-toggler border-0 nav-button mr-2" 
-        type="button" 
-        data-toggle="collapse" 
-        data-target="#navigation" 
-        aria-expanded="false" 
+      <button id="ham"
+        className="navbar-toggler border-0 nav-button mr-2"
+        type="button"
+        data-toggle="collapse"
+        data-target="#navigation"
+        aria-expanded="false"
         aria-label="Navigation"
         onClick={hamClick}
-        >
+      >
         <span id="bar1"></span>
         <span id="bar2"></span>
         <span id="bar3"></span>
       </button>
 
       <div className="search-container form-inline my-2 my-lg-0">
-          <form className="search-form">
-            <div class="input-group-btn search-panel">
-                <button type="button" class="btn btn-default bg-white dropdown-toggle" data-toggle="dropdown">
-                  <span id="search_concept">All</span> 
-                  <span class="caret"></span>
-                </button>
-                <ul class="dropdown-menu" role="menu">
-                  <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Medicines</Link></li>
-                  <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Doctors</Link></li>
-                </ul>
-            </div>
-            <input type="hidden" name="search_param" value="all" id="search_param" />         
-            <input 
-              type="text" 
-              class="form-control mr-sm-2" 
-              placeholder="Search..." 
-              value={text}
-              onChange={onChange}
-            />
-            <Link className="btn text-success" to="/meditems">
-              <i className="fa fa-search "></i>
-            </Link>
-          </form>
+        <form className="search-form">
+          <div class="input-group-btn search-panel">
+            <button type="button" class="btn btn-default bg-white dropdown-toggle" data-toggle="dropdown">
+              <span id="search_concept">All</span>
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu">
+              <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Medicines</Link></li>
+              <li><Link to="#!" class="dropdown-item text-decoration-none text-dark">Doctors</Link></li>
+            </ul>
+          </div>
+          <input type="hidden" name="search_param" value="all" id="search_param" />
+          <input
+            type="text"
+            class="form-control mr-sm-2"
+            placeholder="Search..."
+            value={text}
+            onChange={onChange}
+          />
+          <Link className="btn text-success" to="/meditems">
+            <i className="fa fa-search "></i>
+          </Link>
+        </form>
         <table className="drugList table table-striped m-0 shadow">
           <tbody>
             {data.map((items) => (

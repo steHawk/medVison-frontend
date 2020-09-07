@@ -9,7 +9,7 @@ const AllTests = ({ auth, addCart }) => {
 
   const { alltest, fetchalltest } = testContext;
   const [currentPage, setCurrentPage] = useState(0);
-  const [postsPerPage] = useState(10);
+  const [postsPerPage] = useState(12);
 
   useEffect(() => {
     fetchalltest(currentPage, postsPerPage);

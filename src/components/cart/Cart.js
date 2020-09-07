@@ -1,3 +1,4 @@
+
 import React, { Component } from "react";
 // import ReactDOM from "react-dom";
 import PropTypes from "prop-types";
@@ -72,7 +73,7 @@ class Cart extends Component {
                           cartItem.quantity
                         )}
                       >
-                      <i className="fa fa-minus"></i>
+                        <i className="fa fa-minus"></i>
                       </button>
                     </div>
                     <div class="col-4">

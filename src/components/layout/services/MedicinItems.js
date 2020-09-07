@@ -7,7 +7,13 @@ import 'react-multi-carousel/lib/styles.css';
 import ApiContext from '../../../Context/ApiContext'
 import { connect } from "react-redux";
 import { Link } from "react-router-dom";
-import { addCart } from "../../../actions/cartAction";
+import {
+  addCart,
+  quantity,
+  decrementQty,
+  incrementQty,
+  getCartTotal
+} from "../../../actions/cartAction";
 const MedicineItems = ({ auth, addCart }) => {
 
   const apiContext = useContext(ApiContext);
@@ -15,12 +21,18 @@ const MedicineItems = ({ auth, addCart }) => {
   const { current, getmed } = apiContext;
   const [currentPage, setCurrentPage] = useState(0);
   const [postsPerPage] = useState(12);
+  const [cartvalue, setcartvalue] = useState(0);
 
   useEffect(() => {
     getmed(postsPerPage, currentPage);
+    decrementQty(quantity, cartvalue);
+    incrementQty(quantity, cartvalue);
   }, [getmed, postsPerPage, currentPage])
   if (currentPage < 0) {
     setCurrentPage(0);
+  }
+  if (cartvalue < 0) {
+    setcartvalue(0);
   }
 
 
@@ -48,15 +60,15 @@ const MedicineItems = ({ auth, addCart }) => {
     <div className="container my-4">
       <div className="meds">
         <Carousel responsive={responsive} className="text-center">
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Prescription Medicines</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Over-the-counter (OTC)</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Baby Care</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Personal Care</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Supplements & Wellness</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Medical & Surgical Devices</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Immunity Boosters </button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Hand - Hygiene</button>
-            <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">See How It Works</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Prescription Medicines</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Over-the-counter (OTC)</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Baby Care</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Personal Care</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Supplements & Wellness</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Medical & Surgical Devices</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Immunity Boosters </button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">Hand - Hygiene</button>
+          <button className="btn btn-meditem bg-white rounded-pill my-4 p-2 px-4 shadow-sm">See How It Works</button>
         </Carousel>
         <hr />
         <div className="row m-0">
@@ -79,6 +91,34 @@ const MedicineItems = ({ auth, addCart }) => {
                 </div>
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
+                  <div class="row" style={{ marginBottom: '10px' }}>
+                    Quantity  <div class="col-4">
+                      <input
+                        type="text"
+                        value={quantity(med._id)}
+                        readOnly="true"
+                        class="form-control"
+                        style={{ margin: '0px' }}
+                      />
+                    </div>
+                    <div className="col-2">
+                      <button
+                        class="btn btn-outline-danger rounded-square"
+                        onClick={() => setcartvalue(cartvalue - 1)}
+                      >
+                        <i className="fa fa-minus"></i>
+                      </button>
+                    </div>
+                    <div className="col-2">
+                      <button
+                        class="btn btn-outline-primary rounded-square"
+                        onClick={() => setcartvalue(cartvalue + 1)}
+                      >
+                        <i className="fa fa-plus"></i>
+                      </button>
+                    </div>
+                  </div>
+
                   {isAuthenticated ? (
                     <div className="text-center">
                       <button
@@ -103,7 +143,7 @@ const MedicineItems = ({ auth, addCart }) => {
                         </Link>
                       </div>
                     )}
-                </div> 
+                </div>
               </div>
             </div>
           ))}

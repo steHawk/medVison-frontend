@@ -34,7 +34,7 @@ class Prescription extends Component {
     del.setAttribute("class", "mx-auto presc-btn btn rounded-pill px-5 py-2 my-4 shadow bg-danger text-white");
     this.fileObj.push(e.target.files)
     for (let i = 0; i < this.fileObj[0].length; i++) {
-        this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+      this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
     }
     this.setState({ file: this.fileArray })
   }
@@ -60,7 +60,7 @@ class Prescription extends Component {
         .post(
           "https://api.emetroplus.com/aws/prescription-upload",
           formData,
-          {}
+          []
         )
         .then((response) => {
           console.log(response);
@@ -74,13 +74,13 @@ class Prescription extends Component {
     }
   };
 
-    onSubmit = (e) => {
-      e.preventDefault();
+  onSubmit = (e) => {
+    e.preventDefault();
 
-      if (this.state.file === null || this.state.file_url === null) {
-        this.props.uploadFileError();
-      } 
+    if (this.state.file === null || this.state.file_url === null) {
+      this.props.uploadFileError();
     }
+  }
 
   render() {
     return (
@@ -94,21 +94,21 @@ class Prescription extends Component {
             <div className="presc-img-wrapper">
               <div className="presc-img my-3">
                 {(this.fileArray || []).map(url => (
-                    <img src={url} alt="Prescription" className="img-fluid my-2" />
+                  <img src={url} alt="Prescription" className="img-fluid my-2" />
                 ))}
               </div>
               <div className="upload-btn-wrapper text-center">
                 <label for="prescUpload" class="btn rounded-pill px-5 py-2 my-4 shadow"><i class="fa fa-image mr-2"></i>Upload</label>
-                <input 
+                <input
                   id="prescUpload"
                   className="btn rounded-pill px-5 py-2 shadow"
-                  type="file" 
+                  type="file"
                   label="Choose Prescription File"
                   accept="image/*"
-                  onChange={this.uploadMultipleFiles} 
+                  onChange={this.uploadMultipleFiles}
                   multiple
-                  style={{display: 'none'}}
-                  />
+                  style={{ display: 'none' }}
+                />
               </div>
               <button className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow" id="prescTrash" onClick={() => window.location.reload(false)}><i class="fa fa-trash mr-2"></i>Remove</button>
             </div>
@@ -120,7 +120,7 @@ class Prescription extends Component {
   }
 };
 
-const mapStateToProps = (state) => ({ gotDocToken: state.doctors.gotDocToken,});
+const mapStateToProps = (state) => ({ gotDocToken: state.doctors.gotDocToken, });
 export default connect(mapStateToProps, {
   prescription,
   uploadFileError,
