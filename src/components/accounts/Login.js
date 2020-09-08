@@ -1,4 +1,5 @@
-import React, { Component, Redirect, useEffect, useState } from 'react';
+import React, { Component, useEffect, useState } from 'react';
+import { Redirect, Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { login } from '../../actions/authActions';
@@ -45,7 +46,9 @@ export class Login extends Component {
 
   render() {
     if (this.props.isAuthenticated) {
-      return <Redirect to="/" ></Redirect>;
+      return <Switch>
+              <Redirect to="/" />
+            </Switch>;
     }
     const { number, password } = this.state;
     return (

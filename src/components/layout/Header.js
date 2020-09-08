@@ -118,7 +118,8 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
                 aria-haspopup="true"
                 aria-expanded="false"
               >
-                Hello, {user.userName}
+                Hello, LoggedIn User
+                {/* Hello, {user.userName} */}
               </Link>)
               :
               (<Link
