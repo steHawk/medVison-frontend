@@ -9,6 +9,10 @@
   box-sizing: border-box;
 }
 
+html,body{
+  height: 100%;
+}
+
 body {
   background: rgba(236, 236, 236, 0.5) !important;
 }
@@ -96,7 +100,8 @@ footer {
 //   Footer
 // ------------------------------------------
 .footer {
-  background: var(--primaryColor);
+  background: #191818;
+
   .container {
     .row {
       div {
@@ -122,6 +127,22 @@ footer {
         }
       }
     }
+  }
+}
+
+// ------------------------------------------
+//   General
+// ------------------------------------------
+#root, .mainWrapper{
+  height: 100%;
+}
+
+.mainWrapper{
+  display: flex;
+  flex-direction: column;
+
+  footer{
+    margin-top: auto;
   }
 }
 
@@ -181,6 +202,14 @@ footer {
     color: red;
   }
 }
+
+// Home Aboutus
+.home-about{
+  p{
+    line-height: 150%;
+    width: 95%;
+  }
+} 
 
 // ------------------------------------------
 //   Media Queries

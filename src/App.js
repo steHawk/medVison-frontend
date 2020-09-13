@@ -65,7 +65,7 @@ class App extends Component {
         <TestState>
           <AlertProvider template={AlertTemplate} {...options}>
             <Router history={browserHistory}>
-              <div>
+              <div className='mainWrapper'>
                 <Header />
                 <Alerts />
                 <div id="content">

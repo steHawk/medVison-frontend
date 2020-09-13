@@ -10,6 +10,10 @@
           box-sizing: border-box;
 }
 
+html, body {
+  height: 100%;
+}
+
 body {
   background: rgba(236, 236, 236, 0.5) !important;
 }
@@ -104,7 +108,7 @@ footer {
 }
 
 .footer {
-  background: var(--primaryColor);
+  background: #191818;
 }
 
 .footer .container .row div h6 {
@@ -129,6 +133,24 @@ footer {
 
 .footer .container .row .contact-us ul li a {
   color: #ffffff;
+}
+
+#root, .mainWrapper {
+  height: 100%;
+}
+
+.mainWrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.mainWrapper footer {
+  margin-top: auto;
 }
 
 .home-cards {
@@ -184,6 +206,11 @@ footer {
 
 .consult-form span {
   color: red;
+}
+
+.home-about p {
+  line-height: 150%;
+  width: 95%;
 }
 
 @media (max-width: 699px) {

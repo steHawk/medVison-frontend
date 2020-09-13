@@ -31,24 +31,20 @@ class Footer extends Component {
               </ul>
             </div>
             <hr className="clearfix w-100 d-md-none" /> */}
-            <div className="col-lg-4 col-md-4 contact-us">
-              <h6 className="font-weight-bold text-uppercase">Contact Us</h6>
-              <ul className="list-unstyled footer-contact-details">
-                <li>
-                  <Link
-                    to="tel:+91 9912589635"
-                    className="text-mute text-decoration-none"
-                  >
-                    +91 9912589635
+            <div className="w-100 contact-us">
+              <ul className="d-flex flex-wrap justify-content-between list-unstyled footer-contact-details my-0">
+                <li className="my-2">
+                  <Link 
+                    to="docConsult"
+                    >
+                      Request Callback
                   </Link>
                 </li>
-                <li>
-                  <Link
-                    to="mailto: info@metrolabs.com"
-                    className="text-mute text-decoration-none"
-                  >
-                    info@metrolabs.com
-                  </Link>
+                <li className="my-2">
+                  <a href="tel:+91991-258-9635" className="text-mute text-decoration-none">+91 9912589635</a>
+                </li>
+                <li className="my-2">
+                  <a href="mailto: info@metrolabs.com" className="text-mute text-decoration-none">info@metrolabs.com</a>
                 </li>
               </ul>
             </div>

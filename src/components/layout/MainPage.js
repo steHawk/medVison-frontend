@@ -3,6 +3,7 @@ import Tests from "../tests/Tests";
 import BannerAdd from "./BannerAdd";
 import BookNow from "./BookNow";
 import HomePrescription from "./services/HomePrescription";
+import MiniAboutUs from "./MiniAboutUs";
 
 
 class MainPage extends Component {
@@ -19,6 +20,9 @@ class MainPage extends Component {
         <BookNow />
       </div>
         <Tests />
+      <div className="about mt-4">
+        <MiniAboutUs />
+      </div>
       </Fragment>
     );
   }
