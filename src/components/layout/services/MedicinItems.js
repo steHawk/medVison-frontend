@@ -91,27 +91,27 @@ const MedicineItems = ({ auth, addCart }) => {
                 </div>
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
-                  <div class="row" style={{ marginBottom: '10px' }}>
-                    Quantity  <div class="col-4">
+                  <strong>Quantity :</strong>
+                  <div class="row m-0 mt-2 mb-4">
+                    <div class="col-6">
                       <input
                         type="text"
                         value={quantity(med._id)}
-                        readOnly="true"
                         class="form-control"
-                        style={{ margin: '0px' }}
+                        readOnly={true}
                       />
                     </div>
-                    <div className="col-2">
+                    <div className="col-3">
                       <button
-                        class="btn btn-outline-danger rounded-square"
+                        class="btn btn-outline-danger rounded-circle"
                         onClick={() => setcartvalue(cartvalue - 1)}
                       >
                         <i className="fa fa-minus"></i>
                       </button>
                     </div>
-                    <div className="col-2">
+                    <div className="col-3">
                       <button
-                        class="btn btn-outline-primary rounded-square"
+                        class="btn btn-outline-primary rounded-circle"
                         onClick={() => setcartvalue(cartvalue + 1)}
                       >
                         <i className="fa fa-plus"></i>
