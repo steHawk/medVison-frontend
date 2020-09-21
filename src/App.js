@@ -8,6 +8,7 @@ import { connect } from "react-redux"; //Provider,
 import store from "./store";
 import { transitions, positions, Provider as AlertProvider } from "react-alert";
 import AlertTemplate from "react-alert-template-basic";
+import TopBar from './components/layout/TopBar';
 import Header from "./components/layout/Header";
 import About from "./components/layout/About";
 import Footer from "./components/layout/Footer";
@@ -66,6 +67,7 @@ class App extends Component {
           <AlertProvider template={AlertTemplate} {...options}>
             <Router history={browserHistory}>
               <div className='mainWrapper'>
+                <TopBar />
                 <Header />
                 <Alerts />
                 <div id="content">

@@ -41,10 +41,10 @@ class Footer extends Component {
                   </Link>
                 </li>
                 <li className="my-2">
-                  <a href="tel:+91991-258-9635" className="text-mute text-decoration-none">+91 9912589635</a>
+                  <a href="tel:+91991-258-9635" className="text-mute text-decoration-none">Call: +91 9912589635</a>
                 </li>
                 <li className="my-2">
-                  <a href="mailto: info@metrolabs.com" className="text-mute text-decoration-none">info@metrolabs.com</a>
+                  <a href="mailto: info@metrolabs.com" className="text-mute text-decoration-none">Mail: info@metrolabs.com</a>
                 </li>
               </ul>
             </div>

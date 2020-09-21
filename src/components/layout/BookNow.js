@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import { Link } from "react-router-dom";
 
 // Animation on Scroll
@@ -35,34 +35,36 @@ class BookNow extends Component {
   render() {
 
     return (
-      <div className="bookdiv row m-0 my-4">
-        {bookNow.map((book, index) => (
-          <div key={index} className="col-lg-4 col-md-6">
-            <div className="home-cards p-4 bg-white shadow-sm rounded-lg my-4"
-              data-aos="zoom-in-right" data-aos-duration="1200">
-              <div key={index}>
-                <Link to={book.link} class="text-decoration-none text-dark ">   
-                <div>
-                  <img src={book.src} alt="" className="img-fluid" />
-                  <div className="home-card-inner my-2">
-                    <h6 className="mt-2">{book.title}</h6>
-                    <div className="home-card-subtitle">
-                      <small>{book.des}</small>
-                    </div>
-                    <div className="text-center my-2 get-started">
-                      <small className="mr-2 mb-2">
-                        GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
-                      </small>
+      <Fragment>
+        <div className="row m-0 my-4">
+          {bookNow.map((book, index) => (
+            <div key={index} className="col-lg-4 col-md-6">
+              <div className="home-cards p-4 bg-white shadow-sm rounded-lg my-4"
+                data-aos="zoom-in-right" data-aos-duration="1200">
+                <div key={index}>
+                  <Link to={book.link} class="text-decoration-none text-dark ">   
+                  <div>
+                    <img src={book.src} alt="" className="img-fluid" />
+                    <div className="home-card-inner my-2">
+                      <h6 className="mt-2">{book.title}</h6>
+                      <div className="home-card-subtitle">
+                        <small>{book.des}</small>
+                      </div>
+                      <div className="text-center my-2 get-started">
+                        <small className="mr-2 mb-2">
+                          GET STARTED <i className="fa fa-angle-right fa-lg" aria-hidden="true"></i>
+                        </small>
+                      </div>
                     </div>
                   </div>
+                  </Link>
                 </div>
-                </Link>
               </div>
             </div>
-          </div>
 
-        ))}
-      </div>
+          ))}
+        </div>
+      </Fragment>
     );
   }
 }

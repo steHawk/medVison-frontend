@@ -22,7 +22,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark flex-wrap" >
       <Link className="navbar-brand" to="/">
-        <img src={logo} alt="eMetroPlus" id="logo" />{" "}
+        <h3>eMetroPlus</h3>
       </Link>
       <button id="ham"
         className="navbar-toggler border-0 nav-button mr-2"

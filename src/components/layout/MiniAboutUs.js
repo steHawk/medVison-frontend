@@ -2,8 +2,7 @@ import React from 'react';
 
 function MiniAbout(){
     return(
-        <div className='home-about container col-lg-9 my-4 py-4'>
-            <h4 className="font-weight-bold pt-2">Welcome to <spn style={{color: 'var(--secondaryColor)'}}>MedVision!</spn></h4>
+        <div className='home-about container my-4'>
             <h5 className="font-weight-bold mt-4 mb-2">Your one stop for Online pharmacy and Healthcare.</h5>
             <p className="mb-2">MedVision is India's best and most trusted online medical store with a wide range of Order prescription & OTC medicines. Ordering medicines online, Doctor consultants or Lab tests at the comfort of your home, we have got you covered.</p>
             <p className="pb-3">We at MedVision take your health seriously and constantly work towards bringing a flawless healthcare experience.</p>

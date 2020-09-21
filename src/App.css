@@ -23,6 +23,10 @@ footer {
   width: 100%;
 }
 
+a {
+  text-decoration: none !important;
+}
+
 .navbar-toggler:focus {
   -webkit-box-shadow: none !important;
           box-shadow: none !important;
@@ -210,7 +214,6 @@ footer {
 
 .home-about p {
   line-height: 150%;
-  width: 95%;
 }
 
 @media (max-width: 699px) {
@@ -219,6 +222,9 @@ footer {
   }
   .navbar .search-container form {
     width: 100%;
+  }
+  .contact-topbar {
+    display: none;
   }
 }
 
@@ -425,5 +431,9 @@ footer {
 .btn-meditem:focus {
   background-color: var(--primaryColor) !important;
   color: white !important;
+}
+
+.contact-topbar {
+  background-color: #00345e;
 }
 /*# sourceMappingURL=App.css.map */

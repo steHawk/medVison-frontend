@@ -4,25 +4,37 @@ import BannerAdd from "./BannerAdd";
 import BookNow from "./BookNow";
 import HomePrescription from "./services/HomePrescription";
 import MiniAboutUs from "./MiniAboutUs";
+import Welcome from "./Welcome";
 
 
 class MainPage extends Component {
   render() {
     return (
       <Fragment>
+
+      {/* Banner */}
       <div className="banner-bg">
         <div className="container">
           <BannerAdd />
         </div>
       </div>
-        <HomePrescription/>
+
+      {/* Welcome Section */}
+      <Welcome />
+
+      {/* Serivces */}
       <div className="container">
         <BookNow />
       </div>
-        <Tests />
-      <div className="about mt-4">
-        <MiniAboutUs />
-      </div>
+
+      {/* Our Services */}
+      <HomePrescription/>
+
+      <MiniAboutUs />
+
+      {/* Popular Tests */}
+      <Tests />
+
       </Fragment>
     );
   }
