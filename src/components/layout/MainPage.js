@@ -30,10 +30,10 @@ class MainPage extends Component {
       {/* Our Services */}
       <HomePrescription/>
 
-      <MiniAboutUs />
-
       {/* Popular Tests */}
       <Tests />
+
+      <MiniAboutUs />
 
       </Fragment>
     );

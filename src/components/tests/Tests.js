@@ -54,35 +54,36 @@ class Tests extends Component {
           </div>
           <Carousel responsive={responsive}>
           {this.props.tests.map((test, index) => (
-              <div key={index} className="testCard p-2 mx-2 shadow my-2">
-                <h6 className="font-weight-bold">{test.TNAME1}</h6>
-                <p></p>
-                <div className="bookPrice">
-                  <p>₹{test.MRP}</p>
-                  {isAuthenticated ? (
-                    <div className="text-center">
-                      <button
-                        className="button-test"
-                        onClick={this.props.addCart.bind(
-                        this,
-                          test._id,
-                          test.TNAME1,
-                          "no discription",
-                          parseInt(test.MRP),
-                          test.testType,
-                          "MedicalTest"
-                      )}
-                      >
-                        Add to cart
-                      </button>
-                    </div>
-                  ) : (
-                    <div className="text-center">
-                      <Link to="/login">
-                        <button className="button-test">Add to cart</button>
-                      </Link>
-                    </div>
-                  )}
+              <div key={index} className="card shadow rounded-lg border-0 m-2">
+                <div className="card-body">
+                  <h6 className="card-title">{test.TNAME1}</h6>
+                  <div className="bookPrice">
+                    <p class="card-text primary-text">Price: ₹{test.MRP}</p>
+                    {isAuthenticated ? (
+                      <div className="text-center">
+                        <button
+                          className="button-primary"
+                          onClick={this.props.addCart.bind(
+                          this,
+                            test._id,
+                            test.TNAME1,
+                            "no discription",
+                            parseInt(test.MRP),
+                            test.testType,
+                            "MedicalTest"
+                        )}
+                        >
+                          Add to cart
+                        </button>
+                      </div>
+                    ) : (
+                      <div className="text-center">
+                        <Link to="/login">
+                          <button className="button-primary">Add to cart</button>
+                        </Link>
+                      </div>
+                    )}
+                  </div>
                 </div>
               </div>
             ))}
