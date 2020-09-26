@@ -4,10 +4,10 @@ function About() {
   return (
     <div className="about">
       <div className="inner_about">
-        <h1>MEDVISION</h1>
+        <h1>eMetroPlus</h1>
         <div className="about_div">
           <p>
-            MEDVISION is India’s largest comprehensive diagnostic network with
+            eMetroPlus is India’s largest comprehensive diagnostic network with
             over 65 state-of-the-art centers spread across 10 cities. Vijaya
             Diagnostic Centre has a qualified team of over 1800 professionals
             consisting of some of the country’s top radiologists, pathologists
@@ -19,7 +19,7 @@ function About() {
         </div>
       </div>
       <div className="inner_about">
-        <h1>Why Medvision</h1>
+        <h1>Why eMetroPlus</h1>
         <div className="about_div">
           <p>
             With a vision of providing comprehensive, innovative and

@@ -10,7 +10,7 @@ export class Welcome extends Component {
                 <div className="row m-0 pt-lg-4 pt-md-4">
                   <div className="col-lg-8 col-md-8 my-4">
                     <h5 className="m-0">Welcome to</h5>
-                    <h2 className="secondary-text font-weight-bold text-uppercase">Medvision</h2>
+                    <h2 className="secondary-text font-weight-bold">eMetroPlus</h2>
                     <h6>Your One Stop for Online Pharmacy and Healthcare.</h6>
                     <div className="pr-5">
                       <p className="text-muted p-1">
