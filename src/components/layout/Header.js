@@ -5,6 +5,8 @@ import { logout } from "../../actions/authActions";
 import { search, clearItemsList } from "../../actions/medSearch";
 import { connect } from "react-redux";
 
+import Life from "../../assets/life.svg"
+
 const Header = ({ auth, logout, search, clearItemsList, data }) => {
 
   const [text, setText] = useState('');
@@ -22,7 +24,8 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark flex-wrap" >
       <Link className="navbar-brand" to="/">
-        <h3>eMetroPlus</h3>
+        <img src={Life} alt="eMetroPlus" style={{ 'width' : '40px' }} />
+        <span className="title font-weight-bold">eMetroPlus</span>
       </Link>
       <button id="ham"
         className="navbar-toggler border-0 nav-button mr-2"
