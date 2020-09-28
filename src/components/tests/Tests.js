@@ -12,6 +12,8 @@ import PropTypes from "prop-types";
 
 import { addCart } from "../../actions/cartAction";
 
+import TestCardImage from "../../assets/tests.svg";
+
 class Tests extends Component {
   static propTypes = {
     addCart: PropTypes.func.isRequired,
@@ -31,7 +33,7 @@ class Tests extends Component {
       },
       desktop: {
         breakpoint: { max: 3000, min: 1024 },
-        items: 3
+        items: 4
       },
       tablet: {
         breakpoint: { max: 1024, min: 464 },
@@ -52,9 +54,12 @@ class Tests extends Component {
                 View All
             </Link>
           </div>
-          <Carousel responsive={responsive}>
+          <Carousel responsive={responsive} className="mx-auto">
           {this.props.tests.map((test, index) => (
-              <div key={index} className="card shadow rounded-lg border-0 m-2">
+              <div key={index} className="card shadow-sm rounded-lg border-0 m-2">
+                <div className="text-center bg-light px-2 py-4">
+                  <img src={TestCardImage} class="card-img-top" alt="Tests"  style={{ 'width' : '90px' }} />
+                </div>
                 <div className="card-body">
                   <h6 className="card-title">{test.TNAME1}</h6>
                   <div className="bookPrice">
