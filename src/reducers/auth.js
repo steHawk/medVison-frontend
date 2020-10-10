@@ -7,7 +7,7 @@ import {
   LOGOUT_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  GET_OTP_LOGIN
+  GET_OTP_LOGIN,
 } from "../actions/types";
 
 const initialState = {
@@ -15,11 +15,12 @@ const initialState = {
   number: "",
   loginNumber: localStorage.getItem("number"),
   token: localStorage.getItem("token"),
+  refreshToken: localStorage.getItem("refreshToken"),
   isAuthenticated: null,
   isLoading: false,
-  user: '',
+  user: "",
   gotOtp: null,
-  _id: localStorage.getItem("_id")
+  _id: localStorage.getItem("_id"),
 };
 
 export default function (state = initialState, action) {
@@ -30,7 +31,6 @@ export default function (state = initialState, action) {
         isLoading: true,
       };
     case USER_LOADED:
-      localStorage.setItem("_id", action.payload._id);
       return {
         ...state,
         isAuthenticated: true,
@@ -57,9 +57,10 @@ export default function (state = initialState, action) {
       };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
-      localStorage.setItem("token", action.payload.token);
-      localStorage.setItem("number", action.mobileNumber);
-      localStorage.setItem("_id", action.payload.user_id);
+      localStorage.setItem("token", action.payload.accessToken);
+      localStorage.setItem("refreshToken", action.payload.refreshToken);
+      localStorage.setItem("number", action.mobileNumber); 
+      localStorage.setItem("_id", action.payload._id);
       return {
         ...state,
         ...action.payload,
@@ -69,9 +70,11 @@ export default function (state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      localStorage.removeItem("token");
+      localStorage.removeItem("token"); 
       localStorage.removeItem("number");
       localStorage.removeItem("_id");
+      localStorage.removeItem("refreshToken");
+      localStorage.removeItem("userName");
       return {
         ...state,
         token: null,

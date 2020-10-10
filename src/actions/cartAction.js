@@ -23,8 +23,7 @@ export const addCart = (
 ) => (dispatch, getState) => {
   // console.log(item_id, test_name, test_desc, test_price, packSize, type );
   const body = {
-    user_id: getState().auth.user._id,
-
+    user_id: localStorage.getItem("_id"),
     item: {
       id: item_id,
       name: test_name,
@@ -52,7 +51,7 @@ export const addCart = (
 // GET Cart Items
 export const getCartItems = () => (dispatch, getState) => {
   const body = {
-    user_id: getState().auth._id,
+    user_id: localStorage.getItem("_id"),
   };
   // console.log("body");
   //console.log(body);
@@ -75,7 +74,7 @@ export const getCartItems = () => (dispatch, getState) => {
 export const deleteCartItems = (item_id) => (dispatch, getState) => {
   console.log(item_id)
   const body = {
-    user_id: getState().auth.user._id,
+    user_id: localStorage.getItem("_id"),
     item_id: item_id,
   };
   console.log(body)
@@ -109,7 +108,7 @@ export const incrementQty = (productId, quan) => (dispatch, getState) => {
   let quantity = quan + 1;
 
   const body = {
-    user_id: getState().auth.user._id,
+    user_id: localStorage.getItem("_id"),
     item: {
       id: productId,
       quantity: quantity,

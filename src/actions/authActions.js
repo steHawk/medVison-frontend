@@ -10,18 +10,18 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   GET_OTP_LOGIN,
-  CALLBACK_TOKEN_NULL
+  CALLBACK_TOKEN_NULL,
 } from "./types";
 import { createMessage, returnErrors } from "./messages";
 
 // CHECK TOKEN & LOAD USER
 export const loadUser = () => (dispatch, getState) => {
   // User Loading
-  dispatch({ type: USER_LOADING });
-  dispatch({
-    type: CALLBACK_TOKEN_NULL,
-  });
-  const number = getState().auth.loginNumber;
+  // dispatch({ type: USER_LOADING });
+  // dispatch({
+  //   type: CALLBACK_TOKEN_NULL,
+  // });
+  const number = localStorage.getItem("number");
   //console.log(getState().auth.token);
   //localStorage.setItem("token", getState().auth._id);
 
@@ -33,24 +33,24 @@ export const loadUser = () => (dispatch, getState) => {
     phoneNumber: number,
   };
   axios
-    .post(
-      `https://api.emetroplus.com/user/info`,
-      body,
-      tokenConfig(getState)
-    )
+    .post(`https://api.emetroplus.com/user/info`, body, tokenConfig(getState))
     .then((res) => {
       if (res.data.ok) {
-        // console.log(res.data.user_details.userName);
-        localStorage.setItem("user", res.data.user_details.userName);
-        localStorage.setItem("email", res.data.user_details.email);
+        console.log(res.data.user_details);
+        localStorage.setItem("userName", res.data.user_details.userName);
+        localStorage.setItem("address", res.data.user_details.address);
         localStorage.setItem("age", res.data.user_details.age);
         localStorage.setItem("gender", res.data.user_details.gender);
-        localStorage.setItem("shippingAddress", JSON.stringify(res.data.user_details.shippingAddress[0]));
-        //console.log(res.data.user_details.shippingAddress[0]);
-        //console.log(localStorage.getItem("shippingAddress"))
+        // localStorage.setItem(
+        //   "shippingAddress",
+        //   JSON.stringify(res.data.user_details.shippingAddress[0])
+        // );
+        // console.log(res.data.user_details.shippingAddress[0]);
+        // console.log(localStorage.getItem("shippingAddress"))
 
         // localStorage.setItem("cart", res.data.user_details.cartItems);
-        //console.log(res.data.user_details.shippingAddress);
+        // console.log(res.data.user_details.shippingAddress);
+        // console.log(res.data.user_details);
         dispatch({
           type: USER_LOADED,
           payload: res.data.user_details,
@@ -62,7 +62,7 @@ export const loadUser = () => (dispatch, getState) => {
       }
     })
     .catch((err) => {
-      console.log("error");
+      console.log(err);
     });
 };
 
@@ -80,10 +80,7 @@ export const getOtp = (mobileNumber) => (dispatch) => {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
     axios
-      .post(
-        `https://api.emetroplus.com/user/sendotp`,
-        body
-      )
+      .post(`https://api.emetroplus.com/user/sendotp`, body)
       .then((res) => {
         console.log(res.data);
 
@@ -127,13 +124,13 @@ export const getOtp = (mobileNumber) => (dispatch) => {
 
 // // LOGIN USER
 export const login = (number, password) => (dispatch, getState) => {
-  // Request Body
-  // const body = JSON.stringify({
-  //   phoneNumber: number,
-  //   password : password
-  // });
   let phoneNumber = number.substr(-10);
-  const body = { phoneNumber: phoneNumber, password: password };
+  const body = { mobile: phoneNumber, password: password };
+
+  const headers = {
+    "Content-Type": "application/json",
+    "auth-type": "user",
+  };
 
   if (number.length < 10 || number === "") {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
@@ -141,26 +138,22 @@ export const login = (number, password) => (dispatch, getState) => {
     dispatch(createMessage({ password: "Please enter your password" }));
   } else {
     axios
-      .post(
-        `https://api.emetroplus.com/user/login`,
-        body
-      )
+      .post(`https://api.emetroplus.com/auth/login`, body, {
+        // .post(`http://localhost:3001/auth/login`, body, {
+        headers: headers,
+      })
       .then((res) => {
-        console.log(res.data);
-        if (res.data.ok) {
+        console.log(res);
+        if (res.data.success) {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
-            mobileNumber: number
+            mobileNumber: number,
           });
-          dispatch(
-            createMessage({ check: "Login Successfully" })
-          );
-          console.log(res.data);
-          window.location.reload(false);
+          dispatch(createMessage({ check: "Login Successfully" }));
         } else {
           dispatch(
-            createMessage({ check: "Mobile Number or Password Incorrect" })
+            createMessage({ check: "The username and password you entered did not match our records. Please double-check and try again." })
           );
           dispatch({
             type: LOGIN_FAIL,
@@ -173,8 +166,6 @@ export const login = (number, password) => (dispatch, getState) => {
   }
 };
 
-
-
 // REGISTER USER
 export const register = ({ number, userName, password, email }) => (
   dispatch
@@ -185,6 +176,7 @@ export const register = ({ number, userName, password, email }) => (
   const config = {
     headers: {
       "Content-Type": "application/json",
+      "auth-type": "user",
     },
   };
 
@@ -218,11 +210,7 @@ export const register = ({ number, userName, password, email }) => (
     dispatch(createMessage({ email: "Enter a valid email" }));
   } else {
     axios
-      .post(
-        "https://api.emetroplus.com/user/create",
-        body,
-        config
-      )
+      .post("https://api.emetroplus.com/user/create", body, config)
       .then((res) => {
         console.log(res);
         if (res.data.ok) {
@@ -230,7 +218,6 @@ export const register = ({ number, userName, password, email }) => (
             type: REGISTER_SUCCESS,
             payload: res.data,
           });
-          window.location.reload(false);
         } else {
           if (res.data.error.message) {
             dispatch(returnErrors(res.data.error.message, res.data));
@@ -254,9 +241,7 @@ export const logout = () => (dispatch) => {
   dispatch({
     type: LOGOUT_SUCCESS,
   });
-  dispatch(
-    createMessage({ check: "Logout Successfully" })
-  );
+  dispatch(createMessage({ check: "Logout Successfully" }));
 };
 
 // Invalid OTP
@@ -267,9 +252,8 @@ export const validOtp = () => (dispatch) => {
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
   // Get token from state
-  const token = getState().auth.token;
+  const token = localStorage.getItem("token");
   // console.log("toke",token);
-
 
   // Headers
   const config = {
@@ -280,15 +264,14 @@ export const tokenConfig = (getState) => {
 
   // If token, add to headers config
   if (token) {
-    config.headers["access-token"] = token;
+    config.headers["Authorization"] = "Bearer " + token;
+    config.headers["auth-type"] = "user";
   }
 
-  // console.log(config);
+  console.log(config);
 
   return config;
 };
-
-
 
 // GET OTP FOR LOGIN
 export const otpForLogin = (mobileNumber) => (dispatch) => {
@@ -304,10 +287,7 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
     axios
-      .post(
-        `https://api.emetroplus.com/user/otplogin`,
-        body
-      )
+      .post(`https://api.emetroplus.com/user/otplogin`, body)
       .then((res) => {
         console.log(res.data);
         dispatch({
@@ -315,14 +295,12 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
           payload: res.data.otp.otp,
           mobileNumber: mobile,
         });
-
       })
       .catch((err) => {
         dispatch(returnErrors(err, err));
       });
   }
 };
-
 
 // GET OTP FOR LOGIN
 export const afterOTPLogin = (mobileNumber) => (dispatch) => {
@@ -338,10 +316,7 @@ export const afterOTPLogin = (mobileNumber) => (dispatch) => {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
     axios
-      .post(
-        `https://api.emetroplus.com/user/otplogin`,
-        body
-      )
+      .post(`https://api.emetroplus.com/user/otplogin`, body)
       .then((res) => {
         console.log(res);
         dispatch({
@@ -349,7 +324,7 @@ export const afterOTPLogin = (mobileNumber) => (dispatch) => {
           payload: res.data.otp.otp,
           mobileNumber: mobile,
           user_id: res.data.user_id,
-          token: res.data.token
+          token: res.data.token,
         });
         window.location.reload(false);
       })

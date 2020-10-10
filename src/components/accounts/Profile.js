@@ -11,13 +11,15 @@ import ProfilePic from '../../assets/profile.png';
 
 class Profile extends Component {
   state = {
-    name: localStorage.getItem("user"),
+    name: localStorage.getItem("userName"),
     email: localStorage.getItem("email"),
     mobileNumber: localStorage.getItem("number"),
     age: localStorage.getItem("age"),
     gender: localStorage.getItem("gender"),
-    address: JSON.parse(localStorage.getItem("shippingAddress")),
-  };
+    address: localStorage.getItem("address"),
+  }
+    // address: JSON.parse(localStorage.getItem("shippingAddress")),
+
 
   render() {
     const responsive = {
@@ -93,7 +95,11 @@ class Profile extends Component {
             <div className="table-responsive bg-white rounded-lg shadow-sm">
                 <table className="table table-bordered m-0">
                   <tbody>
-                    <tr>
+                  <tr>
+                      <td className="secondary-text">Address </td>
+                      <td>{this.state.address}</td>
+                    </tr>
+                    {/* <tr>
                       <td className="secondary-text">Door </td>
                       <td>{this.state.address.doorNo}</td>
                     </tr>
@@ -112,7 +118,7 @@ class Profile extends Component {
                     <tr>
                       <td className="secondary-text">PIN</td>
                       <td>{this.state.address.pincode}</td>
-                    </tr>
+                    </tr> */}
                   </tbody>
                 </table>
             </div>

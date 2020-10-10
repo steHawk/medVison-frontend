@@ -5,29 +5,16 @@ import { connect } from "react-redux";
 // import PropTypes from 'prop-types'
 
 export function ProfileUpdate() {
-  const [userName, setuserName] = useState(localStorage.getItem("user"));
-  // const [gender, setgender] = useState("");
-  // const [age, setage] = useState("");
+  const [userName, setuserName] = useState(localStorage.getItem("userName"));
+
   const [email, setemail] = useState(localStorage.getItem("email"));
   const [mobile, setmobile] = useState(localStorage.getItem("number"));
   const [age, setage] = useState(localStorage.getItem("age"));
   const [gender, setgender] = useState(localStorage.getItem("gender"));
-  const [doorNo, setdoorNo] = useState(
-    JSON.parse(localStorage.getItem("shippingAddress")).doorNo
-  );
-  const [street, setstreet] = useState(
-    JSON.parse(localStorage.getItem("shippingAddress")).street
-  );
-  const [landMark, setlandMark] = useState(
-    JSON.parse(localStorage.getItem("shippingAddress")).landMark
-  );
-  const [pincode, setpincode] = useState(
-    JSON.parse(localStorage.getItem("shippingAddress")).pincode
-  );
-  const [city, setcity] = useState(
-    JSON.parse(localStorage.getItem("shippingAddress")).city
-  );
-  //const [address] = useState([{}]);
+  const [city, setcity] = useState(localStorage.getItem("city"));
+  // const [pincode, setpincode] = useState(localStorage.getItem("pincode"));
+  const [address, setaddress] = useState(localStorage.getItem("address"));
+
 
   const Submit = (e) => {
     let url = "https://api.emetroplus.com/user/update"; //"https://api.emetroplus.com/user/update";
@@ -36,7 +23,8 @@ export function ProfileUpdate() {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
-        "access-token": localStorage.getItem("token"),
+        "Authorization": "Bearer " + localStorage.getItem("token"),
+        "AuthType" : "user"
       },
       body: JSON.stringify({
         user_id: localStorage.getItem("_id"),
@@ -47,15 +35,8 @@ export function ProfileUpdate() {
           phoneNumber: mobile,
           age: parseInt(age),
           gender: gender,
-          shippingAddress: [
-            {
-              doorNo: doorNo,
-              street: street,
-              landMark: landMark,
-              pincode: pincode,
-              city: city,
-            },
-          ],
+          address: address,
+         
           _id: localStorage.getItem("_id"),
         },
       }),
@@ -125,29 +106,13 @@ export function ProfileUpdate() {
           <div className="col-lg-6 col-md-6">
             <h4 className="font-weight-bold">Edit Shipping Address Info</h4>
             <hr />
-            <label>Door Number</label>
+            <label>Address</label>
             <input
               type="text"
               className="form-control mb-2"
-              name="doorNo"
-              onChange={(e) => setdoorNo(e.target.value)}
-              value={doorNo}
-            />
-            <label>Street</label>
-            <input
-              type="text"
-              className="form-control mb-2"
-              name="street"
-              onChange={(e) => setstreet(e.target.value)}
-              value={street}
-            />
-            <label>LandMark</label>
-            <input
-              type="text"
-              className="form-control mb-2"
-              name="landmark"
-              onChange={(e) => setlandMark(e.target.value)}
-              value={landMark}
+              name="address"
+              onChange={(e) => setaddress(e.target.value)}
+              value={address}
             />
             <label>City</label>
             <input
@@ -157,14 +122,14 @@ export function ProfileUpdate() {
               onChange={(e) => setcity(e.target.value)}
               value={city}
             />
-            <label>Pincode</label>
+            {/* <label>Pincode</label>
             <input
               type="text"
               className="form-control mb-2"
               name="pincode"
               onChange={(e) => setpincode(e.target.value)}
               value={pincode}
-            />
+            /> */}
           </div>
         </div>
         <div className="text-center mt-4">

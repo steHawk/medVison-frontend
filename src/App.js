@@ -55,6 +55,17 @@ const options = {
   transition: transitions.SCALE,
 };
 
+
+async function checkUser() {
+  if (this.props.authState.isAuthenticated && !this.state.userInfo) {
+    const userInfo = await this.props.authService.getUser();
+    if (this._isMounted) {
+      this.setState({ userInfo });
+    }
+  }
+}
+
+
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser());

@@ -38,11 +38,12 @@ class Billing extends Component {
       mobileNumber: localStorage.getItem("number"),
       age: localStorage.getItem("age"),
       gender: localStorage.getItem("gender"),
-      address: JSON.parse(localStorage.getItem("shippingAddress")),
-      houseNumber: JSON.parse(localStorage.getItem("shippingAddress")).doorNo,
-      street: JSON.parse(localStorage.getItem("shippingAddress")).street,
-      city: JSON.parse(localStorage.getItem("shippingAddress")).city,
-      pincode: JSON.parse(localStorage.getItem("shippingAddress")).pincode,
+      address: localStorage.getItem("address"),
+      // address: JSON.parse(localStorage.getItem("shippingAddress")),
+      // houseNumber: JSON.parse(localStorage.getItem("shippingAddress")).doorNo,
+      // street: JSON.parse(localStorage.getItem("shippingAddress")).street,
+      // city: JSON.parse(localStorage.getItem("shippingAddress")).city,
+      // pincode: JSON.parse(localStorage.getItem("shippingAddress")).pincode,
       selectedOption: "COD",
     };
 
@@ -95,7 +96,7 @@ class Billing extends Component {
           amount: parseInt(total) * 100,
           payment_type: "Online",
           location: {
-            houseNumber: houseNumber,
+            houseNumber: address,
             street: street,
             pincode: pincode,
             city: city,
@@ -172,7 +173,7 @@ class Billing extends Component {
       document.querySelector("._2eTL2v").classList.toggle("content");
     }
     const { cartItems, total, user } = this.props;
-    const { houseNumber, street, pincode, city } = this.state;
+    const { houseNumber, street, pincode, city , address} = this.state;
 
     // console.log(this.props.auth)
     // console.log(total);
@@ -183,15 +184,25 @@ class Billing extends Component {
             <div className="col-lg-6 ">
               <h4 class="font-weight-bold mb-4">Delivery Address</h4>
               <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
-              <h6>User Name : {this.state.name}</h6>
+                <h6>User Name : {this.state.name}</h6>
                 <div class="form-group">
                   <label>Mobile Number : </label>
                   <input
                     className="form-control mb-2"
                     value={this.state.mobileNumber}
-                  readOnly/>
+                    readOnly
+                  />
 
-                  <label>Door Number : </label>
+                  <label>Address : </label>
+                  <input
+                    type="text"
+                    className="form-control mb-2"
+                    name="address"
+                    onChange={this.onChange}
+                    value={this.state.address}
+                  />
+
+                  {/* <label>Door Number : </label>
                   <input
                     type="text"
                     className="form-control mb-2"
@@ -223,7 +234,7 @@ class Billing extends Component {
                     name="pincode"
                     onChange={this.onChange}
                     value={pincode}
-                  />
+                  /> */}
                 </div>
               </div>
             </div>
@@ -231,7 +242,10 @@ class Billing extends Component {
               <h4 className="font-weight-bold">Order Summary</h4>
               <div class="_2eTL2v content">
                 {cartItems.map((cartItem, index) => (
-                  <div class="p-4 my-4 bg-white rounded-lg shadow-sm" key={cartItem._id}>
+                  <div
+                    class="p-4 my-4 bg-white rounded-lg shadow-sm"
+                    key={cartItem._id}
+                  >
                     <div class="row">
                       <div className="col-6 my-auto">
                         <h6 className="font-weight-bold">{cartItem.name}</h6>
@@ -253,7 +267,7 @@ class Billing extends Component {
                             cartItem.quantity
                           )}
                         >
-                        <i className="fa fa-minus"></i>
+                          <i className="fa fa-minus"></i>
                         </button>
                       </div>
                       <div class="col-4">
@@ -273,7 +287,7 @@ class Billing extends Component {
                             cartItem.quantity
                           )}
                         >
-                        <i className="fa fa-plus"></i>
+                          <i className="fa fa-plus"></i>
                         </button>
                       </div>
                       <div class="col-4 text-right" tabindex="12">
@@ -284,7 +298,7 @@ class Billing extends Component {
                           )}
                           className="btn btn-danger rounded-circle"
                         >
-                        <i className="fa fa-trash"></i>
+                          <i className="fa fa-trash"></i>
                         </button>
                       </div>
                     </div>
@@ -302,8 +316,9 @@ class Billing extends Component {
                 <div class="input-group my-2">
                   <div class="input-group-prepend">
                     <div class="input-group-text">
-                      <input 
-                        type="radio" aria-label="Online Pay" 
+                      <input
+                        type="radio"
+                        aria-label="Online Pay"
                         value="Online"
                         checked={this.state.selectedOption === "Online"}
                         onChange={this.onValueChange}
@@ -370,7 +385,7 @@ class Billing extends Component {
                     </button>
                   </div>
                 )}
-                </div>
+              </div>
             </div>
             <div className="col-lg-6 col-md-6">
               <h4 className="font-weight-bold">Price details</h4>
