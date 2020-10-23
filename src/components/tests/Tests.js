@@ -58,12 +58,12 @@ class Tests extends Component {
           {this.props.tests.map((test, index) => (
               <div key={index} className="card shadow-sm rounded-lg border-0 m-2">
                 <div className="text-center bg-light px-2 py-4">
-                  <img src={TestCardImage} class="card-img-top" alt="Tests"  style={{ 'width' : '90px' }} />
+                  <img src={TestCardImage} className="card-img-top" alt="Tests"  style={{ 'width' : '90px' }} />
                 </div>
                 <div className="card-body">
                   <h6 className="card-title">{test.TNAME1}</h6>
                   <div className="bookPrice">
-                    <p class="card-text primary-text">Price: ₹{test.MRP}</p>
+                    <p className="card-text primary-text">Price: ₹{test.MRP}</p>
                     {isAuthenticated ? (
                       <div className="text-center">
                         <button

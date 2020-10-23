@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 
 // import PropTypes from "prop-types";
-import axios from "axios";
-import {
-  prescription,
-  addressError,
-} from "../../../actions/medicineActions";
-import { Redirect } from "react-router-dom";
+// import axios from "axios";
+// import {
+//   prescription,
+//   addressError,
+// } from "../../../actions/medicineActions";
+// import { Redirect } from "react-router-dom";
 
 class ConfirmAddress extends Component {
 	constructor(props) {

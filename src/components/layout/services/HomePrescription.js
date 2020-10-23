@@ -21,7 +21,7 @@ class HomePrescription extends Component {
           <div className="col-lg-4 text-center my-4">
             <h6 className="text-secondary font-weight-normal">Request a CallBack</h6>
             <Link to="/docConsult">
-              <button type="button" class="btn-lg btn-primary">
+              <button type="button" className="btn-lg btn-primary">
                 CallBack
               </button>{" "}
             </Link>
@@ -29,7 +29,7 @@ class HomePrescription extends Component {
           <div className="col-lg-4 text-center my-4">
             <h6 className="text-secondary font-weight-normal">Have a prescription?</h6>
             <Link to="/prescription">
-              <button type="button" class="btn-lg btn-primary">
+              <button type="button" className="btn-lg btn-primary">
                 UPLOAD PRESCRIPTION
               </button>{" "}
             </Link>
@@ -37,7 +37,7 @@ class HomePrescription extends Component {
           <div className="col-lg-4 text-center my-4">
             <h6 className="text-secondary font-weight-normal">Nursing Services Available</h6>
             <Link to="/docConsult">
-              <button type="button" class="btn-lg btn-primary">
+              <button type="button" className="btn-lg btn-primary">
                 Nursing Services
               </button>{" "}
             </Link>

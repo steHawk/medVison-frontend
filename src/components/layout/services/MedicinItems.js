@@ -12,7 +12,7 @@ import {
   quantity,
   decrementQty,
   incrementQty,
-  getCartTotal
+  // getCartTotal
 } from "../../../actions/cartAction";
 const MedicineItems = ({ auth, addCart }) => {
 
@@ -27,7 +27,7 @@ const MedicineItems = ({ auth, addCart }) => {
     getmed(postsPerPage, currentPage);
     decrementQty(quantity, cartvalue);
     incrementQty(quantity, cartvalue);
-  }, [getmed, postsPerPage, currentPage])
+  }, [ postsPerPage, currentPage, cartvalue])
   if (currentPage < 0) {
     setCurrentPage(0);
   }
@@ -92,18 +92,18 @@ const MedicineItems = ({ auth, addCart }) => {
                 <div className="medBook">
                   <p>₹{med.mrp}</p>
                   <strong>Quantity :</strong>
-                  <div class="row m-0 mt-2 mb-4">
-                    <div class="col-6">
+                  <div className="row m-0 mt-2 mb-4">
+                    <div className="col-6">
                       <input
                         type="text"
                         value={quantity(med._id)}
-                        class="form-control"
+                        className="form-control"
                         readOnly={true}
                       />
                     </div>
                     <div className="col-3">
                       <button
-                        class="btn btn-outline-danger rounded-circle"
+                        className="btn btn-outline-danger rounded-circle"
                         onClick={() => setcartvalue(cartvalue - 1)}
                       >
                         <i className="fa fa-minus"></i>
@@ -111,7 +111,7 @@ const MedicineItems = ({ auth, addCart }) => {
                     </div>
                     <div className="col-3">
                       <button
-                        class="btn btn-outline-primary rounded-circle"
+                        className="btn btn-outline-primary rounded-circle"
                         onClick={() => setcartvalue(cartvalue + 1)}
                       >
                         <i className="fa fa-plus"></i>

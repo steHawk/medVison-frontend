@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import logo from "../../icon.png";
+// import logo from "../../icon.png";
 import { logout } from "../../actions/authActions";
 import { search, clearItemsList } from "../../actions/medSearch";
 import { connect } from "react-redux";
@@ -18,8 +18,8 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
     clearItemsList();
   };
 
-  const { isAuthenticated, user } = auth;
-
+  const { isAuthenticated } = auth;
+  // console.log("auth", auth);
   return (
     <nav className="navbar navbar-expand-lg navbar-dark flex-wrap">
       <Link className="navbar-brand" to="/">
@@ -43,20 +43,20 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
 
       <div className="search-container form-inline my-2 my-lg-0">
         <form className="search-form">
-          <div class="input-group-btn search-panel">
+          <div className="input-group-btn search-panel">
             <button
               type="button"
-              class="btn btn-default bg-white dropdown-toggle"
+              className="btn btn-default bg-white dropdown-toggle"
               data-toggle="dropdown"
             >
               <span id="search_concept">All</span>
-              <span class="caret"></span>
+              <span className="caret"></span>
             </button>
-            <ul class="dropdown-menu" role="menu">
+            <ul className="dropdown-menu" role="menu">
               <li>
                 <Link
                   to="#!"
-                  class="dropdown-item text-decoration-none text-dark"
+                  className="dropdown-item text-decoration-none text-dark"
                 >
                   Medicines
                 </Link>
@@ -64,7 +64,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
               <li>
                 <Link
                   to="#!"
-                  class="dropdown-item text-decoration-none text-dark"
+                  className="dropdown-item text-decoration-none text-dark"
                 >
                   Doctors
                 </Link>
@@ -79,7 +79,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
           />
           <input
             type="text"
-            class="form-control mr-sm-2"
+            className="form-control mr-sm-2"
             placeholder="Search..."
             value={text}
             onChange={onChange}
@@ -146,18 +146,18 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
                 Hello, {localStorage.getItem("userName")}
               </Link>
             ) : (
-              <Link
-                className="nav-link dropdown-toggle"
-                to="#"
-                id="navbarDropdown"
-                role="button"
-                data-toggle="dropdown"
-                aria-haspopup="true"
-                aria-expanded="false"
-              >
-                Hello, User
-              </Link>
-            )}
+                <Link
+                  className="nav-link dropdown-toggle"
+                  to="#"
+                  id="navbarDropdown"
+                  role="button"
+                  data-toggle="dropdown"
+                  aria-haspopup="true"
+                  aria-expanded="false"
+                >
+                  Hello, User
+                </Link>
+              )}
             <div
               className="dropdown-menu dropdown-menu-right"
               aria-labelledby="navbarDropdown"
@@ -165,39 +165,39 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
               {isAuthenticated ? (
                 <ul className="text-left">
                   <Link
-                    class="nav-link text-dark text-decoration-none p-1 mx-2"
+                    className="nav-link text-dark text-decoration-none p-1 mx-2"
                     to="/profile"
                   >
-                    <i class="fas fa-user-circle mr-1 icon-primary"></i> Profile
+                    <i className="fas fa-user-circle mr-1 icon-primary"></i> Profile
                   </Link>
-                  <div class="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div>
                   <Link
-                    class="nav-link text-dark text-decoration-none p-1 mx-2"
+                    className="nav-link text-dark text-decoration-none p-1 mx-2"
                     to="/cart"
                   >
-                    <i class="fas fa-shopping-cart mr-1 icon-primary"></i> Cart
+                    <i className="fas fa-shopping-cart mr-1 icon-primary"></i> Cart
                   </Link>
-                  <div class="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div>
                   <Link
-                    class="nav-link text-dark text-decoration-none p-1 mx-2"
+                    className="nav-link text-dark text-decoration-none p-1 mx-2"
                     to="/yourOrders"
                   >
-                    <i class="fas fa-shopping-bag mr-1 icon-primary"></i> Orders
+                    <i className="fas fa-shopping-bag mr-1 icon-primary"></i> Orders
                   </Link>
-                  <div class="dropdown-divider"></div>
+                  <div className="dropdown-divider"></div>
                   <Link
-                    class="nav-link text-dark text-decoration-none p-1 mx-2"
+                    className="nav-link text-dark text-decoration-none p-1 mx-2"
                     onClick={logout}
                     to="/"
                   >
-                    <i class="fas fa-sign-out-alt mr-1 icon-primary"></i> Logout
+                    <i className="fas fa-sign-out-alt mr-1 icon-primary"></i> Logout
                   </Link>
                 </ul>
               ) : (
-                <Link className="dropdown-item" to="/login">
-                  <i class="fas fa-sign-in-alt"></i> Sign In
-                </Link>
-              )}
+                  <Link className="dropdown-item" to="/login">
+                    <i className="fas fa-sign-in-alt"></i> Sign In
+                  </Link>
+                )}
             </div>
           </li>
         </ul>

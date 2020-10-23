@@ -12,7 +12,7 @@ import {
   getCartTotal,
 } from "../../actions/cartAction";
 // import { Redirect } from "react-router-dom";
-import Billing from "./Billing";
+// import Billing from "./Billing";
 import { Fragment } from "react";
 import { Link } from "react-router-dom";
 
@@ -51,8 +51,8 @@ class Cart extends Component {
               <h5 className="font-weight-bold">Cart</h5>
               <hr />
               {cartItems.map((cartItem, index) => (
-                <div class="bg-white rounded-lg shadow-sm p-4 my-4 " key={cartItem._id}>
-                  <div class="row">
+                <div className="bg-white rounded-lg shadow-sm p-4 my-4 " key={cartItem._id}>
+                  <div className="row">
                     <div className="col-6 my-auto">
                       <h6 className="font-weight-bold">{cartItem.name}</h6>
                     </div>
@@ -63,10 +63,10 @@ class Cart extends Component {
                       <p>₹{cartItem.sum}</p>
                     </div>
                   </div>
-                  <div class="row mt-2">
+                  <div className="row mt-2">
                     <div className="col-2">
                       <button
-                        class="btn btn-outline-danger rounded-circle"
+                        className="btn btn-outline-danger rounded-circle"
                         onClick={this.props.decrementQty.bind(
                           this,
                           cartItem.id,
@@ -76,17 +76,17 @@ class Cart extends Component {
                         <i className="fa fa-minus"></i>
                       </button>
                     </div>
-                    <div class="col-4">
+                    <div className="col-4">
                       <input
                         type="text"
                         value={cartItem.quantity}
                         readOnly="true"
-                        class="form-control"
+                        className="form-control"
                       />
                     </div>
                     <div className="col-2">
                       <button
-                        class="btn btn-outline-primary rounded-circle"
+                        className="btn btn-outline-primary rounded-circle"
                         onClick={this.props.incrementQty.bind(
                           this,
                           cartItem.id,
@@ -96,7 +96,7 @@ class Cart extends Component {
                         <i className="fa fa-plus"></i>
                       </button>
                     </div>
-                    <div class="col-4 text-right" tabindex="12">
+                    <div className="col-4 text-right" tabindex="12">
                       <button
                         onClick={this.props.deleteCartItems.bind(
                           this,
@@ -110,7 +110,7 @@ class Cart extends Component {
                   </div>
                 </div>
               ))}
-              <div class="text-center">
+              <div className="text-center">
                 <Link
                   to={{
                     pathname: "/checkout",
@@ -121,12 +121,12 @@ class Cart extends Component {
                 </Link>
               </div>
             </div>
-            <div class="col-lg-6 col-md-6">
-              <h5 class="font-weight-bold">Price details</h5>
+            <div className="col-lg-6 col-md-6">
+              <h5 className="font-weight-bold">Price details</h5>
               <hr />
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="responsive-table">
-                  <table class="table table-borderless">
+                  <table className="table table-borderless">
                     <tbody>
                       <tr>
                         <td>Price</td>

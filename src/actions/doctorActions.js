@@ -4,7 +4,7 @@ import {
   CALLBACK_TOKEN_NULL,
 } from "./types"; //, DOCTOR_CONSULT
 import axios from "axios";
-import { createMessage, returnErrors } from "./messages";
+import { createMessage } from "./messages";//, returnErrors
 
 // GET ALL THE DOCTORS AND DISPLAY
 

@@ -42,7 +42,7 @@ class BookNow extends Component {
               <div className="home-cards p-4 bg-white shadow-sm rounded-lg my-4"
                 data-aos="zoom-in-right" data-aos-duration="1200">
                 <div key={index}>
-                  <Link to={book.link} class="text-decoration-none text-dark ">   
+                  <Link to={book.link} className="text-decoration-none text-dark ">   
                   <div>
                     <img src={book.src} alt="" className="img-fluid" />
                     <div className="home-card-inner my-2">

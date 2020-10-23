@@ -1,4 +1,4 @@
-import React, { Component, useEffect, useState } from 'react';
+import React, { Component } from 'react';
 import { Redirect, Switch } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
@@ -47,13 +47,13 @@ export class Login extends Component {
   render() {
     if (this.props.isAuthenticated) {
       return <Switch>
-              <Redirect to="/" />
-            </Switch>;
+        <Redirect to="/" />
+      </Switch>;
     }
     const { number, password } = this.state;
     return (
       <div className="container my-4">
-        <div class="row m-0">
+        <div className="row m-0">
           <div className="col-lg-4 mx-auto bg-white p-4 shadow-lg rounded-lg">
             <h4 className="font-weight-bold">
               Login to <span className="primary-text">eMetroPlus</span>
@@ -75,7 +75,7 @@ export class Login extends Component {
                   onBlur={(e) => this.checkMobileNumber(e)}
                 />
                 <div>
-                  <small id="msg" class="text-danger mb-2">{this.state.msg}</small>
+                  <small id="msg" className="text-danger mb-2">{this.state.msg}</small>
                 </div>
 
                 <label>

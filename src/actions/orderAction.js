@@ -1,4 +1,4 @@
-import { FETCH_TESTS, FETCH_ALL_TESTS } from "./types";
+// import { FETCH_TESTS, FETCH_ALL_TESTS } from "./types";
 
 import axios from "axios";
 import { deleteCartItems } from "./cartAction";

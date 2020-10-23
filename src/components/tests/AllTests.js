@@ -1,4 +1,4 @@
-import React, { Component, useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { connect } from "react-redux";
 import TestContext from '../../Context/testContext/TestContext'
 import { addCart } from "../../actions/cartAction";
@@ -13,7 +13,7 @@ const AllTests = ({ auth, addCart }) => {
 
   useEffect(() => {
     fetchalltest(currentPage, postsPerPage);
-  }, [fetchalltest, postsPerPage, currentPage])
+  }, [ postsPerPage, currentPage])
   if (currentPage < 0) {
     setCurrentPage(0);
   }

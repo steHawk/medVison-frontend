@@ -1,7 +1,7 @@
 import axios from "axios";
 import {
   USER_LOADED,
-  USER_LOADING,
+  // USER_LOADING,
   AUTH_ERROR,
   GET_OTP,
   REGISTER_SUCCESS,
@@ -10,7 +10,7 @@ import {
   LOGIN_FAIL,
   LOGIN_SUCCESS,
   GET_OTP_LOGIN,
-  CALLBACK_TOKEN_NULL,
+  // CALLBACK_TOKEN_NULL,
 } from "./types";
 import { createMessage, returnErrors } from "./messages";
 

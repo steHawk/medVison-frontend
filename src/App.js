@@ -31,7 +31,7 @@ import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
 import Orders from "./components/accounts/Orders";
 import ProfileUpdate from "./components/accounts/ProfileUpdate";
-import ItemDetails from "./components/layout/ItemDetails";
+// import ItemDetails from "./components/layout/ItemDetails";
 
 import { loadUser } from "./actions/authActions";
 import Confirmation from "./components/booknow/Confirmation";
@@ -56,14 +56,14 @@ const options = {
 };
 
 
-async function checkUser() {
-  if (this.props.authState.isAuthenticated && !this.state.userInfo) {
-    const userInfo = await this.props.authService.getUser();
-    if (this._isMounted) {
-      this.setState({ userInfo });
-    }
-  }
-}
+// async function checkUser() {
+//   if (this.props.authState.isAuthenticated && !this.state.userInfo) {
+//     const userInfo = await this.props.authService.getUser();
+//     if (this._isMounted) {
+//       this.setState({ userInfo });
+//     }
+//   }
+// }
 
 
 class App extends Component {

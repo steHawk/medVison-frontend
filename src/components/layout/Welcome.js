@@ -20,7 +20,7 @@ export class Welcome extends Component {
                     <Link className="secondary-text font-weight-bold p-1" to="/doctors"> <button className=" button-primary">Register Now!</button></Link>
                   </div>
                   <div className="col-lg-4 col-md-4 my-4">
-                    <img src={HealthyIllustration} className="img-fluid" />
+                    <img src={HealthyIllustration} className="img-fluid" alt="HealthyIllustration" />
                   </div>
                 </div>
               </div>

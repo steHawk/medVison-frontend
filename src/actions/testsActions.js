@@ -1,4 +1,4 @@
-import { FETCH_TESTS, FETCH_ALL_TESTS, FETCH_SUPER60_TEST } from "./types";
+import { FETCH_TESTS,  FETCH_SUPER60_TEST } from "./types";
 
 import axios from "axios";
 
@@ -55,7 +55,7 @@ export const fetchPopularTests = () => (dispatch) => {
 export const getSuper60 = () => (dispatch) => {
   let skip = 0;
 
-  let mrp = 0;
+  // let mrp = 0;
 
   for (var index = 0; index < 3; index++) {
     console.log("getSuper60");
@@ -81,8 +81,8 @@ export const getSuper60 = () => (dispatch) => {
         console.log(res);
         res.data.test_details.forEach((el) => {
           console.log(el.MRP);
-          mrp = mrp + parseInt(el.MRP);
-          console.log(mrp);
+          // mrp = mrp + parseInt(el.MRP);
+          // console.log(mrp);
           dispatch({
             type: FETCH_SUPER60_TEST,
             payload: el,

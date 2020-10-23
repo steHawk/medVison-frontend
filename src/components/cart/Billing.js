@@ -11,7 +11,7 @@ import {
 } from "../../actions/cartAction";
 import { connect } from "react-redux";
 import { cashOnDelivery } from "../../actions/orderAction";
-import { tokenConfig } from "../../actions/authActions";
+// import { tokenConfig } from "../../actions/authActions";
 
 function loadScript(src) {
   return new Promise((resolve) => {
@@ -168,10 +168,10 @@ class Billing extends Component {
       paymentObject.open();
     }
 
-    function handleExpand(e) {
-      console.log("hi");
-      document.querySelector("._2eTL2v").classList.toggle("content");
-    }
+    // function handleExpand(e) {
+    //   console.log("hi");
+    //   document.querySelector("._2eTL2v").classList.toggle("content");
+    // }
     const { cartItems, total, user } = this.props;
     const { houseNumber, street, pincode, city , address} = this.state;
 
@@ -182,10 +182,10 @@ class Billing extends Component {
         <div className="container my-4">
           <div className="row m-0">
             <div className="col-lg-6 ">
-              <h4 class="font-weight-bold mb-4">Delivery Address</h4>
+              <h4 className="font-weight-bold mb-4">Delivery Address</h4>
               <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
                 <h6>User Name : {this.state.name}</h6>
-                <div class="form-group">
+                <div className="form-group">
                   <label>Mobile Number : </label>
                   <input
                     className="form-control mb-2"
@@ -240,13 +240,13 @@ class Billing extends Component {
             </div>
             <div className="col-lg-6">
               <h4 className="font-weight-bold">Order Summary</h4>
-              <div class="_2eTL2v content">
+              <div className="_2eTL2v content">
                 {cartItems.map((cartItem, index) => (
                   <div
-                    class="p-4 my-4 bg-white rounded-lg shadow-sm"
+                    className="p-4 my-4 bg-white rounded-lg shadow-sm"
                     key={cartItem._id}
                   >
-                    <div class="row">
+                    <div className="row">
                       <div className="col-6 my-auto">
                         <h6 className="font-weight-bold">{cartItem.name}</h6>
                       </div>
@@ -257,10 +257,10 @@ class Billing extends Component {
                         <p>₹{cartItem.sum}</p>
                       </div>
                     </div>
-                    <div class="row mt-2">
+                    <div className="row mt-2">
                       <div className="col-2">
                         <button
-                          class="btn btn-outline-danger rounded-circle"
+                          className="btn btn-outline-danger rounded-circle"
                           onClick={this.props.decrementQty.bind(
                             this,
                             cartItem.id,
@@ -270,17 +270,17 @@ class Billing extends Component {
                           <i className="fa fa-minus"></i>
                         </button>
                       </div>
-                      <div class="col-4">
+                      <div className="col-4">
                         <input
                           type="text"
                           value={cartItem.quantity}
                           readOnly="true"
-                          class="form-control"
+                          className="form-control"
                         />
                       </div>
                       <div className="col-2">
                         <button
-                          class="btn btn-outline-success rounded-circle"
+                          className="btn btn-outline-success rounded-circle"
                           onClick={this.props.incrementQty.bind(
                             this,
                             cartItem.id,
@@ -290,7 +290,7 @@ class Billing extends Component {
                           <i className="fa fa-plus"></i>
                         </button>
                       </div>
-                      <div class="col-4 text-right" tabindex="12">
+                      <div className="col-4 text-right" tabindex="12">
                         <button
                           onClick={this.props.deleteCartItems.bind(
                             this,
@@ -313,9 +313,9 @@ class Billing extends Component {
               <h4 className="font-weight-bold">Payment Options</h4>
               <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
                 {" "}
-                <div class="input-group my-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
+                <div className="input-group my-2">
+                  <div className="input-group-prepend">
+                    <div className="input-group-text">
                       <input
                         type="radio"
                         aria-label="Online Pay"
@@ -325,11 +325,11 @@ class Billing extends Component {
                       />
                     </div>
                   </div>
-                  <p class="form-control">Online</p>
+                  <p className="form-control">Online</p>
                 </div>
-                <div class="input-group my-2">
-                  <div class="input-group-prepend">
-                    <div class="input-group-text">
+                <div className="input-group my-2">
+                  <div className="input-group-prepend">
+                    <div className="input-group-text">
                       <input
                         type="radio"
                         value="COD"
@@ -339,7 +339,7 @@ class Billing extends Component {
                       />
                     </div>
                   </div>
-                  <p class="form-control">Cash On Delivery</p>
+                  <p className="form-control">Cash On Delivery</p>
                 </div>
                 <h6 className="text-success my-2">
                   Selected Payment option is : {this.state.selectedOption}
@@ -391,7 +391,7 @@ class Billing extends Component {
               <h4 className="font-weight-bold">Price details</h4>
               <div className="bg-white rounded-lg shadow-sm p-4 my-4">
                 <div className="responsive-table">
-                  <table class="table table-borderless">
+                  <table className="table table-borderless">
                     <tbody>
                       <tr>
                         <td>Price</td>

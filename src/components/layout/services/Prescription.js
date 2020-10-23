@@ -1,17 +1,17 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
-import fileImage from "../../../assets/file.svg";
+// import { Link } from "react-router-dom";
+// import fileImage from "../../../assets/file.svg";
 
 // import PropTypes from "prop-types";
 import axios from "axios";
 import {
   prescription,
   uploadFileError,
-  addressError,
+  // addressError,
   fileUploadSuccess,
 } from "../../../actions/medicineActions";
-import { Redirect } from "react-router-dom";
+// import { Redirect } from "react-router-dom";
 
 class Prescription extends Component {
 
@@ -98,7 +98,7 @@ class Prescription extends Component {
                 ))}
               </div>
               <div className="upload-btn-wrapper text-center">
-                <label for="prescUpload" class="btn rounded-pill px-5 py-2 my-4 shadow"><i class="fa fa-image mr-2"></i>Upload</label>
+                <label for="prescUpload" className="btn rounded-pill px-5 py-2 my-4 shadow"><i className="fa fa-image mr-2"></i>Upload</label>
                 <input
                   id="prescUpload"
                   className="btn rounded-pill px-5 py-2 shadow"
@@ -110,7 +110,7 @@ class Prescription extends Component {
                   style={{ display: 'none' }}
                 />
               </div>
-              <button className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow" id="prescTrash" onClick={() => window.location.reload(false)}><i class="fa fa-trash mr-2"></i>Remove</button>
+              <button className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow" id="prescTrash" onClick={() => window.location.reload(false)}><i className="fa fa-trash mr-2"></i>Remove</button>
             </div>
             <button className="button-primary w-50 mx-2">Proceed</button>
           </div>

@@ -1,5 +1,5 @@
 import React, { useState } from "react"; //Component,
-import { Link } from "react-router-dom"; //, Redirect
+// import { Link } from "react-router-dom"; //, Redirect
 import { connect } from "react-redux";
 // import { register } from '../../actions/authActions';
 // import PropTypes from 'prop-types'

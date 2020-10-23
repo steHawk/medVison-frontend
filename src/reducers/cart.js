@@ -12,7 +12,7 @@ const initialState = {
 export default function (state = initialState, action) {
   switch (action.type) {
     case GET_CART_ITEMS:
-      let arr = action.payload;
+      let arr = action.payload === undefined ? [] : action.payload;
       let result = arr.reduce((cartAcc, product) => {
         cartAcc.push({
           ...product,
