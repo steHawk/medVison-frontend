@@ -4,118 +4,122 @@ import { connect } from "react-redux";
 // import fileImage from "../../../assets/file.svg";
 
 // import PropTypes from "prop-types";
-import axios from "axios";
+import Axios from "axios";
 import {
   prescription,
   uploadFileError,
   // addressError,
   fileUploadSuccess,
+  // removePrescription,
 } from "../../../actions/medicineActions";
 // import { Redirect } from "react-router-dom";
 
 class Prescription extends Component {
 
-  fileObj = []
-  fileArray = []
-
+  // fileObj = []
   constructor(props) {
     super(props);
     this.state = {
       file: null,
+      fileArray: this.props.history.location.state === undefined ? [] : this.props.history.location.state.files,
       file_url: "",
+      loading: "none",
     }
-    this.uploadMultipleFiles = this.uploadMultipleFiles.bind(this)
-    this.uploadFiles = this.uploadFiles.bind(this)
   }
-
-  uploadMultipleFiles(e) {
-    let del = document.getElementById('prescTrash');
-    del.style.display = "block";
-    del.setAttribute("class", "mx-auto presc-btn btn rounded-pill px-5 py-2 my-4 shadow bg-danger text-white");
-    this.fileObj.push(e.target.files)
-    for (let i = 0; i < this.fileObj[0].length; i++) {
-      this.fileArray.push(URL.createObjectURL(this.fileObj[0][i]))
+  uploadFile(e) {
+    this.setState({
+      loading: "flex"
+    })
+    let data = new FormData();
+    data.append('file', e.target.files[0]);
+    // data.append('name', localStorage.getItem('userName'))
+    const config = {
+      headers: {
+        'content-type': 'multipart/form-data'
+      }
     }
-    this.setState({ file: this.fileArray })
-  }
-
-  uploadFiles(e) {
-    e.preventDefault()
-    console.log(this.state.file)
-  }
-
-  onChange = (e) => this.setState({ [e.target.name]: e.target.value });
-
-  submitFile = (event) => {
-    event.preventDefault();
-
-    if (this.state.file === null) {
-      this.props.uploadFileError();
-    } else {
-      const formData = new FormData();
-      formData.append("file", this.state.file[0]);
-      formData.append("name", localStorage.getItem("user"));
-      console.log(formData);
-      axios
-        .post(
-          "https://api.emetroplus.com/aws/prescription-upload",
-          formData,
-          []
-        )
-        .then((response) => {
-          console.log(response);
-          this.setState({ file_url: response.data.Location });
-          this.props.fileUploadSuccess();
+    Axios.post('https://api.emetroplus.com/aws/prescription-upload', data, config)
+      .then((response) => {
+        let fileArray = [...this.state.fileArray]
+        fileArray.push(response.data.Location)
+        this.setState({
+          fileArray,
+          loading: "none"
         })
-        .catch((error) => {
-          // handle your error
-          console.log(error);
-        });
+      }).catch((error) => {
+        console.log(("----****----", error));
+        this.props.uploadFileError()
+        this.setState({
+          loading: "none"
+        })
+      })
+  }
+
+
+  removePrescription(index) {
+    // const index = array.indexOf(5);
+    var array = [...this.state.fileArray]
+    if (index > -1) {
+      array.splice(index, 1);
+      this.setState({ fileArray: array })
     }
-  };
+    // console.log("---", this.state.fileArray);
+  }
 
   onSubmit = (e) => {
     e.preventDefault();
 
-    if (this.state.file === null || this.state.file_url === null) {
-      this.props.uploadFileError();
+    if (this.state.fileArray.length > 0) {
+      // console.log("fileArray", this.state.fileArray);
+      this.props.history.push({
+        pathname: '/confirmprescription',
+        state: {
+          files: this.state.fileArray
+        }
+      })
     }
   }
 
   render() {
     return (
-      <div className="container">
-        <div className="bg-white rounded-lg shadow-sm p-4 my-4">
-          <div className="page-indicator my-2">
-            <small className="primary-text">Home/Upload Prescription</small>
-          </div>
-          <h4 className="font-weight-bold">Upload Prescription</h4>
-          <div className="presc-wrapper col-lg-6 mx-auto d-flex flex-column align-items-center">
-            <div className="presc-img-wrapper">
-              <div className="presc-img my-3">
-                {(this.fileArray || []).map(url => (
-                  <img src={url} alt="Prescription" className="img-fluid my-2" />
-                ))}
-              </div>
-              <div className="upload-btn-wrapper text-center">
-                <label for="prescUpload" className="btn rounded-pill px-5 py-2 my-4 shadow"><i className="fa fa-image mr-2"></i>Upload</label>
-                <input
-                  id="prescUpload"
-                  className="btn rounded-pill px-5 py-2 shadow"
-                  type="file"
-                  label="Choose Prescription File"
-                  accept="image/*"
-                  onChange={this.uploadMultipleFiles}
-                  multiple
-                  style={{ display: 'none' }}
-                />
-              </div>
-              <button className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow" id="prescTrash" onClick={() => window.location.reload(false)}><i className="fa fa-trash mr-2"></i>Remove</button>
-            </div>
-            <button className="button-primary w-50 mx-2">Proceed</button>
-          </div>
+      <div className="container" >
+        <div className="page-indicator my-2">
+          <small className="primary-text">Home/Upload Prescription</small>
         </div>
-      </div>
+        <h4 className="font-weight-bold">Upload Prescription</h4>
+        {(this.state.fileArray || []).map((url, index) => (
+          <div key={index} style={{ backgroundColor: "white", marginTop: "2%" }} className="presc-wrapper col-lg-6 mx-auto d-flex flex-column align-items-center">
+            <img width="70%" src={url} alt="Prescription" className="img-fluid my-2" />
+            <button
+              className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow"
+              style={{ backgroundColor: "red" }}
+              id="prescTrash"
+              onClick={(e) => this.removePrescription(index)}
+              name="prescTrash"
+            >
+              <i className="fa fa-trash mr-2"></i>
+            </button>
+          </div>
+        ))}
+        <div className="upload-btn-wrapper text-center">
+          <p className="btn rounded-pill px-5 py-2 my-4 shadow" style={{ backgroundColor: "#fff", display: this.state.loading }} >
+            Please Wait...
+          </p>
+          <label htmlFor="prescUpload" style={{ backgroundColor: "#ddd" }} className="btn rounded-pill px-5 py-2 my-4 shadow">
+            <i className="fa fa-image mr-2"></i>Upload</label>
+          <input
+            id="prescUpload"
+            className="btn rounded-pill px-5 py-2 shadow"
+            type="file"
+            label="Choose Prescription File"
+            accept="image/*"
+            onChange={(e) => this.uploadFile(e)}
+            multiple
+            style={{ display: 'none' }}
+          />
+        </div>
+        <button className="button-primary" onClick={(e) => this.onSubmit(e)} style={{ marginLeft: "40%", width: "20%", boxShadow: "0vh 0vh 1vh 1vh #ddd" }}>Proceed</button>
+      </div >
     );
   }
 };
@@ -125,4 +129,5 @@ export default connect(mapStateToProps, {
   prescription,
   uploadFileError,
   fileUploadSuccess,
+  // removePrescription,
 })(Prescription);

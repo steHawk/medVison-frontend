@@ -86,7 +86,7 @@ export const prescription = ({ hno, street, pinCode, city, file_url }) => (
 
 //
 export const uploadFileError = () => (dispatch, getState) => {
-  dispatch(createMessage({ uploadFileError: "Please select the file" }));
+  dispatch(createMessage({ uploadFileError: "Error while uploading" }));
 };
 
 
@@ -102,3 +102,4 @@ export const addressError = () => (dispatch, getState) => {
 export const fileUploadSuccess = () => (dispatch, getState) => {
   dispatch(createMessage({ fileUploadSuccess: "File Uploaded Successfully " }));
 };
+

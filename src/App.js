@@ -31,6 +31,7 @@ import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
 import Orders from "./components/accounts/Orders";
 import ProfileUpdate from "./components/accounts/ProfileUpdate";
+import ConfirmPrescription from './components/layout/services/ConfirmPrescription'
 // import ItemDetails from "./components/layout/ItemDetails";
 
 import { loadUser } from "./actions/authActions";
@@ -112,6 +113,7 @@ class App extends Component {
                     <Route path="/to/item" component={ItemDetail} />
                     <Route path="/labItem" component={ViewLabTest} />
                     <Route path="/super60" component={Super60} />
+                    <Route path="/confirmprescription" component={ConfirmPrescription} />
                     <Route component={NotFound} />
                   </Switch>
 
@@ -130,4 +132,4 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {}) (App);
+export default connect(mapStateToProps, {})(App);
