@@ -214,6 +214,7 @@ class Billing extends Component {
                     value={this.state.address}
                     style={{ resize: "none" }}
                     rows="8"
+                    readOnly
                   ></textarea>
                   <button className="button-primary">
                     <Link to="/profileUpdate" style={{ color: "white" }}>
