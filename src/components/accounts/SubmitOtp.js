@@ -1,52 +1,40 @@
 import React, { Component } from "react";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
-import { validOtp, afterOTPLogin ,  getOtp, otpForLogin } from "../../actions/authActions";
+import { validOtp, afterOTPLogin, getOtp, otpForLogin } from "../../actions/authActions";
 
 export class SubmitOtp extends Component {
   state = {
-    mobileNumber: "",
+    mobileNumber: this.props.location.state === undefined ? "" : this.props.location.state,
     otp: "",
     verify: false,
-    msg:"",
+    msg: "",
   };
 
   static propTypes = {
-    auth: PropTypes.object.isRequired,
-    validOtp: PropTypes.func.isRequired,
+    state: PropTypes.object.isRequired
   };
 
   onSubmit = (e) => {
     e.preventDefault();
     let stateOtp = parseInt(this.state.otp);
-    let propOtp = this.props.auth.otp;
-    if (stateOtp === propOtp) {
-      this.setState({ verify: true });
-    } else {
-      this.props.validOtp();
-    }
+    this.props.validOtp(this.state.mobileNumber, stateOtp);
   };
 
   onChange = (e) => {
-    this.setState({ [e.target.name]: e.target.value});
-    console.log(e.target.value)
+    this.setState({ [e.target.name]: e.target.value });
+    // console.log(e.target.value)
   };
 
   onClick = (e) => {
     e.preventDefault();
-    if (this.props.history.location.pathname === "/submitLoginOtp") {
-      this.props.otpForLogin(this.state.mobileNumber);
-      return <Redirect to="/" />
-    } else {
-      this.props.getOtp(this.state.mobileNumber);
-    }
-   
+    this.props.getOtp(this.state.mobileNumber);
   };
 
   componentDidMount() {
     setTimeout(() => {
-      this.setState({ mobileNumber: this.props.auth.number });
+      // this.setState({ mobileNumber: this.props.auth.number });
     }, 3000);
   }
 
@@ -54,7 +42,7 @@ export class SubmitOtp extends Component {
 
     var keycode = (e.target.value.which) ? e.target.value.which : e.target.value.keyCode;
     //comparing pressed keycodes
-    if(e.target.value.length !== 10){
+    if (e.target.value.length !== 10) {
       this.setState({
         msg: "Invalid Mobile Number"
       })
@@ -70,60 +58,67 @@ export class SubmitOtp extends Component {
   }
 
   render() {
+    if (this.props.location.state === undefined || this.props.location.state === "") {
+      return (
+        <Redirect to="/getotp" />
+      )
+    }
+    // console.log("this.props.state.auth.number", this.props);
     if (this.state.verify === true) {
       if (this.props.history.location.pathname === "/submitLoginOtp") {
-        this.props.afterOTPLogin(this.props.auth.number);
+        // this.props.afterOTPLogin(this.props.auth.number);
         return <Redirect to="/" />
       } else {
         return <Redirect to="/register" />;
       }
-     
+
     }
     const { mobileNumber, otp } = this.state;
     return (
-      <div className="">
+      <div className="container my-4">
 
-        <div className="auth-form">
-        <h1>
-         ENTER YOUR OTP
-        </h1>
+        <div className="col-lg-4 bg-white mx-auto p-4 shadow-lg rounded-lg">
+          <h3>
+            ENTER YOUR OTP
+        </h3>
           <form onSubmit={this.onSubmit}>
             <div className="log-ele">
-              <input
-                type="text"
-                className=""
-                name="mobileNumber"
-                placeholder="Mobile Number"
-                onChange={this.onChange}
-                value={mobileNumber}
-                pattern="\d{10}"
-                onBlur={(e) => this.checkMobileNumber(e)}
-              /><span id="msg">{this.state.msg}</span>
-              
+              <label htmlFor="mobilenumber">
+                Mobile Number
+              </label>
+              <div className="row m-0">
+                <input
+                  id="mobilenumber"
+                  type="text"
+                  className="form-control"
+                  name="mobileNumber"
+                  placeholder="Mobile Number"
+                  onChange={this.onChange}
+                  value={mobileNumber}
+                  pattern="\d{10}"
+                  onBlur={(e) => this.checkMobileNumber(e)}
+                /><span id="msg">{this.state.msg}</span>
+
+              </div>
             </div>
 
-            <div className="log-ele">
-              <input
-                type="password"
-                className=""
-                placeholder="OTP"
-                name="otp"
-                onChange={this.onChange}
-                value={otp}
-              />
-            </div>
 
-            <button className="resendOtp" onClick={this.onClick}>Resend OTP</button>
-
-            <div >
-              <button className="authBut" type="submit">SUBMIT</button>
+            <div className="log-ele" style={{ margin: "2em 0%" }}>
+              <label htmlFor="otp">OTP</label>
+              <div className="row m-0">
+                <input
+                  id="otp"
+                  type="text"
+                  className="form-control"
+                  placeholder="OTP"
+                  name="otp"
+                  onChange={this.onChange}
+                  value={otp}
+                />
+              </div>
+              <button style={{ margin: "2em 6em" }} className="button-primary" type="submit">SUBMIT</button>
+              <button style={{ margin: "2em 6em" }} className="button-primary" onClick={this.onClick}>Resend OTP</button>
             </div>
-            <p>
-              Don't have an account?{" "}
-              <Link className="relink" to="/getotp">
-                Register
-              </Link>
-            </p>
           </form>
         </div>
       </div>
@@ -132,7 +127,7 @@ export class SubmitOtp extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  auth: state.auth,
+  state: state,
 });
 
 export default connect(mapStateToProps, { validOtp, afterOTPLogin, getOtp, otpForLogin })(SubmitOtp);

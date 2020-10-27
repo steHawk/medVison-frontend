@@ -37,6 +37,7 @@ export const loadUser = () => (dispatch, getState) => {
     .then((res) => {
       if (res.data.ok) {
         console.log(res.data.user_details);
+        localStorage.setItem("email", res.data.user_details.email);
         localStorage.setItem("userName", res.data.user_details.userName);
         localStorage.setItem("address", res.data.user_details.address);
         localStorage.setItem("age", res.data.user_details.age);
@@ -91,8 +92,7 @@ export const getOtp = (mobileNumber) => (dispatch) => {
         } else {
           dispatch({
             type: GET_OTP,
-            payload: res.data.otp,
-            mobileNumber: mobile,
+            payload: mobile,
           });
         }
       })
@@ -143,13 +143,14 @@ export const login = (number, password) => (dispatch, getState) => {
         headers: headers,
       })
       .then((res) => {
-        console.log(res);
+        console.log("resssss", res.data);
         if (res.data.success) {
           dispatch({
             type: LOGIN_SUCCESS,
             payload: res.data,
             mobileNumber: number,
           });
+          loadUser();
           dispatch(createMessage({ check: "Login Successfully" }));
         } else {
           dispatch(
@@ -245,10 +246,26 @@ export const logout = () => (dispatch) => {
 };
 
 // Invalid OTP
-export const validOtp = () => (dispatch) => {
-  dispatch(createMessage({ otp: "Invalid OTP" }));
-};
-
+export const validOtp = (mobile, otp) => (dispatch) => {
+  if (mobile === "" || mobile.length < 10) {
+    dispatch(createMessage({ number: "Incorrect mobile number" }));
+  } else if (otp === "" || otp.length < 6) {
+    dispatch(createMessage({ otp: "Invalid OTP" }));
+  } else {
+    console.log("*************", { mobile, otp });
+    axios.post('https://api.emetroplus.com/user/verifyotp', { body: { mobile, otp } })
+      .then((response) => {
+        if (response.data.message === "success") { // otp approved
+          window.location.href = "/register";
+        } else {
+          dispatch(returnErrors(response.data.message, response.data.message))
+        }
+        console.log("verify otp", response.data);
+      }).catch((err) => {
+        dispatch(returnErrors(err, err));
+      })
+  }
+}
 // Setup config with token - helper function
 export const tokenConfig = (getState) => {
   // Get token from state

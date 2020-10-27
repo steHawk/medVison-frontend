@@ -18,7 +18,7 @@ class Profile extends Component {
     gender: localStorage.getItem("gender"),
     address: localStorage.getItem("address"),
   }
-    // address: JSON.parse(localStorage.getItem("shippingAddress")),
+  // address: JSON.parse(localStorage.getItem("shippingAddress")),
 
 
   render() {
@@ -40,28 +40,36 @@ class Profile extends Component {
     //     items: 1
     //   }
     // };
+    const textAreaStyle = {
+      resize: "none",
+      background: "transparent",
+      fontSize: "1.2em",
+      border: "0px"
+    }
 
     return (
       <div className="container my-4">
         <h4 className="font-weight-bold">
-        Your <span className="primary-text">eMetroPlus</span> Profile
+          Your <span className="primary-text">eMetroPlus</span> Profile
         </h4>
         <hr />
         <div className="row m-0">
 
           {/* profile pic */}
           <div className="col-lg-2 col-md-2 d-flex justify-content-center align-items-center">
-              <img src={ProfilePic} className="img-fluid" width="100" alt="profile" />
+            <img src={ProfilePic} className="img-fluid" width="80%" alt="profile" />
           </div>
 
+
           {/* profile-info */}
-          <div className="col-lg-5 col-md-5">
+          <div className="col-lg-5">
             <div className="text-right my-2">
-              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
+              <Link to="/profileUpdate" style={{ textDecoration: "none", fontSize: "1.5em" }}><i className="fas fa-edit mr-2"></i>Edit</Link>
             </div>
-            <div className="table-responsive bg-white rounded-lg shadow-sm">
+            <div className="table-responsive bg-white rounded-lg shadow-sm" style={{ width: "100%", padding: "2% 5%" }}>
               <table className="table table-bordered m-0">
                 <tbody>
+
                   <tr>
                     <td className="secondary-text">Name</td>
                     <td>{this.state.name}</td>
@@ -82,45 +90,16 @@ class Profile extends Component {
                     <td className="secondary-text">Age</td>
                     <td>{this.state.age}</td>
                   </tr>
+                  <tr>
+                    <td className="secondary-text">Address </td>
+                    <td>
+                      <textarea rows="8" disabled style={textAreaStyle}>
+                        {this.state.address}
+                      </textarea>
+                    </td>
+                  </tr>
                 </tbody>
               </table>
-            </div>
-          </div>
-
-          {/* Address */}
-          <div  className="col-lg-5 col-md-5">
-            <div className="text-right my-2">
-              <Link to="/profileUpdate" className="secondary-text text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
-            </div>
-            <div className="table-responsive bg-white rounded-lg shadow-sm">
-                <table className="table table-bordered m-0">
-                  <tbody>
-                  <tr>
-                      <td className="secondary-text">Address </td>
-                      <td>{this.state.address}</td>
-                    </tr>
-                    {/* <tr>
-                      <td className="secondary-text">Door </td>
-                      <td>{this.state.address.doorNo}</td>
-                    </tr>
-                    <tr>
-                      <td className="secondary-text">LandMark</td>
-                      <td>{this.state.address.landMark}</td>
-                    </tr>
-                    <tr>
-                      <td className="secondary-text">Street</td>
-                      <td>{this.state.address.street}</td>
-                    </tr>
-                    <tr>
-                      <td className="secondary-text">City</td>
-                      <td>{this.state.address.city}</td>
-                    </tr>
-                    <tr>
-                      <td className="secondary-text">PIN</td>
-                      <td>{this.state.address.pincode}</td>
-                    </tr> */}
-                  </tbody>
-                </table>
             </div>
           </div>
         </div>

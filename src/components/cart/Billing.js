@@ -11,6 +11,8 @@ import {
 } from "../../actions/cartAction";
 import { connect } from "react-redux";
 import { cashOnDelivery } from "../../actions/orderAction";
+import { Link } from "react-router-dom";
+// import Cart from "./Cart";
 // import { tokenConfig } from "../../actions/authActions";
 
 function loadScript(src) {
@@ -168,12 +170,14 @@ class Billing extends Component {
       paymentObject.open();
     }
 
+  
+
     // function handleExpand(e) {
     //   console.log("hi");
     //   document.querySelector("._2eTL2v").classList.toggle("content");
     // }
     const { cartItems, total, user } = this.props;
-    const { houseNumber, street, pincode, city , address} = this.state;
+    const { houseNumber, street, pincode, city, address } = this.state;
 
     // console.log(this.props.auth)
     // console.log(total);
@@ -184,61 +188,42 @@ class Billing extends Component {
             <div className="col-lg-6 ">
               <h4 className="font-weight-bold mb-4">Delivery Address</h4>
               <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
-                <h6>User Name : {this.state.name}</h6>
+
+
                 <div className="form-group">
+                  <label>User Name : </label>
+                  <input
+                    className="form-control mb-2"
+                    value={localStorage.getItem("userName")}
+                    style={{ backgroundColor: "white" }}
+                    readOnly
+                  />
                   <label>Mobile Number : </label>
                   <input
                     className="form-control mb-2"
                     value={this.state.mobileNumber}
+                    style={{ backgroundColor: "white" }}
                     readOnly
                   />
 
                   <label>Address : </label>
-                  <input
-                    type="text"
+                  <textarea
                     className="form-control mb-2"
                     name="address"
                     onChange={this.onChange}
                     value={this.state.address}
-                  />
-
-                  {/* <label>Door Number : </label>
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    name="houseNumber"
-                    onChange={this.onChange}
-                    value={houseNumber}
-                  />
-
-                  <label>Street : </label>
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    name="street"
-                    onChange={this.onChange}
-                    value={street}
-                  />
-                  <label>City :</label>
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    name="city"
-                    onChange={this.onChange}
-                    value={city}
-                  />
-                  <label>PinCode : </label>
-                  <input
-                    type="text"
-                    className="form-control mb-2"
-                    name="pincode"
-                    onChange={this.onChange}
-                    value={pincode}
-                  /> */}
+                    style={{ resize: "none" }}
+                    rows="8"
+                  ></textarea>
+                  <button className="button-primary">
+                    <Link to="/profileUpdate" style={{ color: "white" }}>
+                      Change
+                    </Link>
+                  </button>
                 </div>
               </div>
             </div>
-            <div className="col-lg-6">
+            <div className="col-lg-6" style={{ position: "relative" }} >
               <h4 className="font-weight-bold">Order Summary</h4>
               <div className="_2eTL2v content">
                 {cartItems.map((cartItem, index) => (
@@ -365,26 +350,26 @@ class Billing extends Component {
                     </button>
                   </div>
                 ) : (
-                  <div className="text-center mt-4 mb-2">
-                    <button
-                      className="button-primary"
-                      onClick={this.props.cashOnDelivery.bind(
-                        this,
-                        user,
-                        total,
-                        cartItems,
-                        houseNumber,
-                        street,
-                        pincode,
-                        city
-                      )}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      Confirm Order
+                    <div className="text-center mt-4 mb-2">
+                      <button
+                        className="button-primary"
+                        onClick={this.props.cashOnDelivery.bind(
+                          this,
+                          user,
+                          total,
+                          cartItems,
+                          houseNumber,
+                          street,
+                          pincode,
+                          city
+                        )}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        Confirm Order
                     </button>
-                  </div>
-                )}
+                    </div>
+                  )}
               </div>
             </div>
             <div className="col-lg-6 col-md-6">

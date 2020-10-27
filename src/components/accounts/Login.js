@@ -96,7 +96,7 @@ export class Login extends Component {
                     </button>
                   <div>
                     <small>
-                      Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/register">Register</Link>
+                      Don't have an account? <Link className="primary-text font-weight-bold text-decoration-none" to="/getotp">Register</Link>
                     </small>
                   </div>
                 </div>

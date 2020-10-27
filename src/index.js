@@ -7,7 +7,9 @@ import { Provider } from "react-redux";
 import Axios from 'axios';
 
 Axios.interceptors.request.use((config) => {
-  config.headers.Authorization = "Bearer " + localStorage.getItem("token");
+  if (store.getState().auth.refreshToken && store.getState().auth.refreshToken.length > 0) {
+    config.headers.Authorization = "Bearer " + localStorage.getItem("token");
+  }
   return config;
 }, (error) => {
   console.log("errr", error);
@@ -21,21 +23,23 @@ Axios.interceptors.response.use(response => {
     'Authorization': "Bearer " + store.getState().auth.refreshToken,
     'AuthType': 'user'
   }
-  if (response.data.statusCode === 401 && response.config && !response.config.__isRetryRequest) {
+  if (store.getState().auth.refreshToken && store.getState().auth.refreshToken.length > 0) {
+    if (response.data.statusCode === 401 && response.config && !response.config.__isRetryRequest) {
 
-    response.config._retry = true;
+      response.config._retry = true;
 
-    fetch("https://api.emetroplus.com/auth/access-token", { method: "POST", headers: headers })
-      .then(response => {
-        return response.json()
-      }).then(data => {
-        localStorage.setItem("token", data.accessToken)
-        response.config.headers.Authorization = "Bearer " + data.accessToken;
-        // window.location.reload();
-        return Axios(response.config)
-      }).catch(error => {
-        console.log("errorrrr", error);
-      })
+      fetch("https://api.emetroplus.com/auth/access-token", { method: "POST", headers: headers })
+        .then(response => {
+          return response.json()
+        }).then(data => {
+          localStorage.setItem("token", data.accessToken)
+          response.config.headers.Authorization = "Bearer " + data.accessToken;
+          // window.location.reload();
+          return Axios(response.config)
+        }).catch(error => {
+          console.log("errorrrr", error);
+        })
+    }
   }
   return response;
 }, (error) => {
@@ -45,7 +49,7 @@ Axios.interceptors.response.use(response => {
 
 ReactDOM.render(
   <Provider store={store}>
-    <App />
+      <App />
   </Provider>,
   document.getElementById('root')
 );

@@ -11,7 +11,7 @@ export class TopBar extends Component {
                     </div>
                     <div className="col-lg-6 col-md-6 text-right">
                         <Link to="/login" className="text-light px-2 border-right"><small>Login</small></Link>
-                        <Link to="/register" className="text-light px-2 border-right"><small>Register</small></Link>
+                        <Link to="/getotp" className="text-light px-2 border-right"><small>Register</small></Link>
                         <small className="px-2">Mail us at <a href="info@metrolabs.com" className="text-light">info@metrolabs.com</a></small>
                     </div>
                 </div>

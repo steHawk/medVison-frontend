@@ -14,48 +14,43 @@ export const clearItemsList = () => async (dispatch, getState) => {
 };
 
 
-export const search = (item) => (dispatch) => {
-  if (item && item.length > 3) {
-    dispatch({
-      type: DATA_LOAD_INITIATED,
-    });
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-      },
-    };
+export const search = (searchby, item) => (dispatch) => {
+  dispatch({
+    type: DATA_LOAD_INITIATED,
+  });
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  };
 
-    // Request Body
-    const body = {
-      keyword: item,
-    };
+  // Request Body
+  const body = {
+    searchby,
+    keyword: item,
+  };
 
-    axios
-      .post("https://api.emetroplus.com/drug/search", body, config)
-      .then((res) => {
-        console.log(res);
-        if (res.data.ok) {
-          dispatch({
-            type: DATA_LOAD_SUCCESS,
-            payload: res.data.data,
-          });
-        } else {
-          dispatch({
-            type: DATA_LOAD_FAILED,
-            error: "DATA_LOAD_FAILED",
-          });
-        }
-      })
-      .catch((err) => {
-        console.log("err", err);
+  axios
+    .post("https://api.emetroplus.com/drug/search", body, config)
+    .then((res) => {
+      console.log(res);
+      if (res.data.ok) {
+        dispatch({
+          type: DATA_LOAD_SUCCESS,
+          payload: res.data.data,
+        });
+      } else {
         dispatch({
           type: DATA_LOAD_FAILED,
           error: "DATA_LOAD_FAILED",
         });
+      }
+    })
+    .catch((err) => {
+      console.log("err", err);
+      dispatch({
+        type: DATA_LOAD_FAILED,
+        error: "DATA_LOAD_FAILED",
       });
-  } else if (item.length <= 3) {
-    dispatch({
-      type: DATA_LOAD_INITIATED,
     });
-  }
 };

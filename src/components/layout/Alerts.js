@@ -10,15 +10,16 @@ export class Alerts extends Component {
   };
 
   componentDidUpdate(prevProps) {
+
     const { error, alert, message } = this.props;
 
-    if (error !== prevProps.error) {
+    if (error !== prevProps.error && error.msg !== undefined) {
       if (error.msg.message === "Network Error") alert.error('Please check your Internet');
       if (error.msg === "Network Error") alert.error('Please check your Internet');
-      if ( error.msg.includes("`userName` is required.")) alert.error('User Name is Required');
-      if ( error.msg.includes("userName_1 dup key")) alert.error('User Name is already taken');
+      if (error.msg.includes("`userName` is required.")) alert.error('User Name is Required');
+      if (error.msg.includes("userName_1 dup key")) alert.error('User Name is already taken');
     }
-    
+
     if (message !== prevProps.message) {
       if (message.number) alert.error(message.number);
       if (message.otp) alert.error(message.otp);
@@ -30,12 +31,12 @@ export class Alerts extends Component {
       if (message.itemDel) alert.success(message.itemDel);
       if (message.email) alert.error(message.email);
       if (message.logCart) alert.error(message.logCart);
-      if (message.uploadFileError) alert.error(message.uploadFileError); 
-      if (message.addressError) alert.error(message.addressError); 
+      if (message.uploadFileError) alert.error(message.uploadFileError);
+      if (message.addressError) alert.error(message.addressError);
       if (message.passwordNotMatch) alert.error(message.passwordNotMatch);
       if (message.userName) alert.error(message.userName);
       if (message.prescriptionUploaded) alert.success(message.prescriptionUploaded);
-      if (message.fileUploadSuccess) alert.success(message.fileUploadSuccess); 
+      if (message.fileUploadSuccess) alert.success(message.fileUploadSuccess);
     }
   }
 

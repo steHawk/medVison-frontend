@@ -5,6 +5,7 @@ import TestReducer from './TestReducer';
 import {
     FETCH_ALL_TEST
 } from '../types';
+import { FETCH_ALL_TESTS } from '../../actions/types';
 
 const TestState = props => {
     const initialState = {
@@ -54,27 +55,27 @@ export default TestState;
 
 
 
-// export const fetchAllTests = (skip, limit) => (dispatch) => {
-//     const config = {
-//       headers: {
-//         "Content-Type": "application/json",
-//       },
-//     };
+export const fetchAllTests = (skip, limit) => (dispatch) => {
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+      },
+    };
 
-//     // Request Body
-//     const body = {
-//       testType: ["normal", "advanced", "super60"],
-//       limit: limit,
-//       skip: skip,
-//     };
+    // Request Body
+    const body = {
+      testType: ["normal", "advanced", "super60"],
+      limit: limit,
+      skip: skip,
+    };
 
-//     axios
-//       .post("https://api.emetroplus.com/medicaltest/getall", body, config)
-//       .then((res) => {
-//         console.log(res);
-//         dispatch({
-//           type: FETCH_ALL_TESTS,
-//           payload: res.data.test_details,
-//         });
-//       });
-//   };
+    axios
+      .post("https://api.emetroplus.com/medicaltest/getall", body, config)
+      .then((res) => {
+        console.log(res);
+        dispatch({
+          type: FETCH_ALL_TESTS,
+          payload: res.data.test_details,
+        });
+      });
+  };

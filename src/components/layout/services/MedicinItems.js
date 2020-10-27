@@ -73,7 +73,7 @@ const MedicineItems = ({ auth, addCart }) => {
         <hr />
         <div className="row m-0">
           {current.map((med) => (
-            <div key={med._id} className="meditems col-lg-3 col-md-4">
+            <div key={med._id} style={{display:"flex"}} className="meditems col-lg-3 col-md-4">
               <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
                 <div>
                   <Link
@@ -90,8 +90,8 @@ const MedicineItems = ({ auth, addCart }) => {
                   <strong>Package size : </strong> <p>{med.packSize}</p>
                 </div>
                 <div className="medBook">
-                  <p>₹{med.mrp}</p>
-                  <strong>Quantity :</strong>
+                  <p>Price : ₹{med.mrp}</p>
+                  {/* <strong>Quantity :</strong>
                   <div className="row m-0 mt-2 mb-4">
                     <div className="col-6">
                       <input
@@ -117,7 +117,7 @@ const MedicineItems = ({ auth, addCart }) => {
                         <i className="fa fa-plus"></i>
                       </button>
                     </div>
-                  </div>
+                  </div> */}
 
                   {isAuthenticated ? (
                     <div className="text-center">

@@ -136,8 +136,12 @@ export const incrementQty = (productId, quan) => (dispatch, getState) => {
 
 export const decrementQty = (productId, quan) => (dispatch, getState) => {
   console.log(productId);
-
+  
   let quantity = quan - 1;
+
+  if (quantity < 1)
+    quantity = 1
+
   const body = {
     user_id: getState().auth.user._id,
     item: {

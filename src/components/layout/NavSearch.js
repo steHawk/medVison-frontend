@@ -38,6 +38,9 @@ export class NavSearch extends Component {
   }
 
   render() {
+    console.log('====================================');
+    console.log(this.props.data);
+    console.log('====================================');
     return (
      
         <div className="search">

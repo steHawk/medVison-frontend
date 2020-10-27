@@ -7,7 +7,7 @@ import {
   LOGOUT_SUCCESS,
   LOGIN_SUCCESS,
   LOGIN_FAIL,
-  GET_OTP_LOGIN,
+  // GET_OTP_LOGIN,
 } from "../actions/types";
 
 const initialState = {
@@ -39,27 +39,27 @@ export default function (state = initialState, action) {
         // _id: action.payload._id,
       };
     case GET_OTP:
+      // localStorage.setItem("otpmobile", action.payload)
       return {
         ...state,
-        otp: action.payload,
-        number: action.mobileNumber,
+        number: action.payload,
         gotOtp: true,
       };
-    case GET_OTP_LOGIN:
-      localStorage.setItem("token", action.token);
-      localStorage.setItem("_id", action.user_id);
-      localStorage.setItem("number", action.mobileNumber);
-      return {
-        ...state,
-        otp: action.payload,
-        number: action.mobileNumber,
-        gotOtp: true,
-      };
+    // case GET_OTP_LOGIN:
+    //   localStorage.setItem("token", action.token);
+    //   localStorage.setItem("_id", action.user_id);
+    //   localStorage.setItem("number", action.mobileNumber);
+    //   return {
+    //     ...state,
+    //     otp: action.payload,
+    //     number: action.mobileNumber,
+    //     gotOtp: true,
+    //   };
     case LOGIN_SUCCESS:
     case REGISTER_SUCCESS:
       localStorage.setItem("token", action.payload.accessToken);
       localStorage.setItem("refreshToken", action.payload.refreshToken);
-      localStorage.setItem("number", action.mobileNumber); 
+      localStorage.setItem("number", action.mobileNumber);
       localStorage.setItem("_id", action.payload._id);
       return {
         ...state,
@@ -70,11 +70,7 @@ export default function (state = initialState, action) {
     case LOGIN_FAIL:
     case LOGOUT_SUCCESS:
     case REGISTER_FAIL:
-      localStorage.removeItem("token"); 
-      localStorage.removeItem("number");
-      localStorage.removeItem("_id");
-      localStorage.removeItem("refreshToken");
-      localStorage.removeItem("userName");
+      localStorage.clear()
       return {
         ...state,
         token: null,

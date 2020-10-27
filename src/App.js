@@ -56,6 +56,8 @@ const options = {
 };
 
 
+
+
 // async function checkUser() {
 //   if (this.props.authState.isAuthenticated && !this.state.userInfo) {
 //     const userInfo = await this.props.authService.getUser();
@@ -99,14 +101,14 @@ class App extends Component {
                     <Route path="/alltests" component={AllTests} />
                     <Route path="/login" component={LoginAuth} />
                     <Route path="/getotp" component={GetOtp} />
-                    <Route path="/submitOtp" component={SubmitOtp} />
-                    <Route path="/submitLoginOtp" component={SubmitOtp} />
+                    <Route path="/submitotp" component={SubmitOtp} />
+                    <Route path="/submitLoginotp" component={SubmitOtp} />
                     <Route path="/register" component={Register} />
                     <Route path="/otpLogin" component={GetOtp} />
                     <Route path="/profileUpdate" component={ProfileUpdate} />
                     <Route path="/prescription" component={Prescription} />
                     <Route path="/confirmAddress" component={ConfirmAddress} />
-                    <Route path={`/checkout`} component={Billing} />
+                    <Route path="/checkout" component={Billing} />
                     <Route path="/to/item" component={ItemDetail} />
                     <Route path="/labItem" component={ViewLabTest} />
                     <Route path="/super60" component={Super60} />
@@ -128,4 +130,4 @@ class App extends Component {
 const mapStateToProps = (state) => ({
   auth: state.auth,
 });
-export default connect(mapStateToProps, {})(App);
+export default connect(mapStateToProps, {}) (App);

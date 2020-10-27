@@ -9,9 +9,13 @@ import Life from "../../assets/life.svg";
 
 const Header = ({ auth, logout, search, clearItemsList, data }) => {
   const [text, setText] = useState("");
+  const [searchBy, setsearchBy] = useState("All");
   const onChange = (e) => {
     setText(e.target.value);
-    search(e.target.value);
+    if (e.target.value.length > 0)
+      search(searchBy, e.target.value);
+    else
+      clearItemsList();
   };
 
   const ClearItemsList = () => {
@@ -49,34 +53,33 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
               className="btn btn-default bg-white dropdown-toggle"
               data-toggle="dropdown"
             >
-              <span id="search_concept">All</span>
+              <span id="search_concept">{searchBy}</span>
               <span className="caret"></span>
             </button>
-            <ul className="dropdown-menu" role="menu">
+            <ul className="dropdown-menu" role="menu" style={{ cursor: "pointer" }}>
               <li>
-                <Link
-                  to="#!"
+                <p onClick={(e) => setsearchBy("All")}
+                  className="dropdown-item text-decoration-none text-dark"
+                >
+                  All
+                </p>
+              </li>
+              <li>
+                <p onClick={(e) => setsearchBy("Medicines")}
                   className="dropdown-item text-decoration-none text-dark"
                 >
                   Medicines
-                </Link>
+                </p>
               </li>
               <li>
-                <Link
-                  to="#!"
+                <p onClick={(e) => setsearchBy("Doctors")}
                   className="dropdown-item text-decoration-none text-dark"
                 >
                   Doctors
-                </Link>
+                </p>
               </li>
             </ul>
           </div>
-          <input
-            type="hidden"
-            name="search_param"
-            value="all"
-            id="search_param"
-          />
           <input
             type="text"
             className="form-control mr-sm-2"

@@ -11,7 +11,6 @@ export function ProfileUpdate() {
   const [mobile, setmobile] = useState(localStorage.getItem("number"));
   const [age, setage] = useState(localStorage.getItem("age"));
   const [gender, setgender] = useState(localStorage.getItem("gender"));
-  const [city, setcity] = useState(localStorage.getItem("city"));
   // const [pincode, setpincode] = useState(localStorage.getItem("pincode"));
   const [address, setaddress] = useState(localStorage.getItem("address"));
 
@@ -24,7 +23,7 @@ export function ProfileUpdate() {
       headers: {
         "Content-Type": "application/json",
         "Authorization": "Bearer " + localStorage.getItem("token"),
-        "AuthType" : "user"
+        "AuthType": "user"
       },
       body: JSON.stringify({
         user_id: localStorage.getItem("_id"),
@@ -36,7 +35,7 @@ export function ProfileUpdate() {
           age: parseInt(age),
           gender: gender,
           address: address,
-         
+
           _id: localStorage.getItem("_id"),
         },
       }),
@@ -55,9 +54,9 @@ export function ProfileUpdate() {
     <div className="container my-4">
       <form className="form">
         <div className="row m-0">
-          <div className="col-lg-6 col-md-6"> 
+          <div className="col-lg-6 col-md-6">
             <h4 className="font-weight-bold">
-            Edit <span className="primary-text">eMetroPlus</span> Profile Info
+              Edit <span className="primary-text">eMetroPlus</span> Profile Info
             </h4>
             <hr />
             <label>Name</label>
@@ -96,7 +95,7 @@ export function ProfileUpdate() {
             />
             <label>Age</label>
             <input
-              type="text"
+              type="number"
               className="form-control mb-2"
               name="age"
               onChange={(e) => setage(e.target.value)}
@@ -107,21 +106,18 @@ export function ProfileUpdate() {
             <h4 className="font-weight-bold">Edit Shipping Address Info</h4>
             <hr />
             <label>Address</label>
-            <input
-              type="text"
+            <textarea
               className="form-control mb-2"
               name="address"
               onChange={(e) => setaddress(e.target.value)}
               value={address}
-            />
-            <label>City</label>
-            <input
-              type="text"
-              className="form-control mb-2"
-              name="city"
-              onChange={(e) => setcity(e.target.value)}
-              value={city}
-            />
+              placeholder="Address..."
+              style={{ resize: "none" }}
+              rows="10"
+            >
+
+            </textarea>
+
             {/* <label>Pincode</label>
             <input
               type="text"
