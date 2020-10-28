@@ -27,7 +27,7 @@ const ConfirmPrescription = (props) => {
     )
     const textAreaStyle = {
         resize: "none",
-        background: "transparent",
+        bacgroundColor: "white",
         fontSize: "1.2em",
         border: "0px"
     }
@@ -60,7 +60,7 @@ const ConfirmPrescription = (props) => {
                 console.error("***", error);
             })
     }
-    const gotoHome = (e)=>{
+    const gotoHome = (e) => {
         e.preventDefault();
         props.history.replace('', null)
         props.history.push({ pathname: '/' })

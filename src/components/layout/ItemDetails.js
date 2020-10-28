@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 import { addCart } from "../../actions/cartAction";
 import auth from "../../reducers/auth";
 
-function ItemDetails(props, {auth}) {
+function ItemDetails(props, { auth, addCart }) {
   const state = {
     item_id: props.match.params.id,
     items: [],
@@ -46,7 +46,7 @@ function ItemDetails(props, {auth}) {
   console.log(auth)
 
   return dataloaded ? (
-      
+
     <div className="item-detail">
       <div className="detail-name">
         {" "}
@@ -81,35 +81,36 @@ function ItemDetails(props, {auth}) {
         {" "}
         <h2> PrimarilyUsedFor:</h2> <p>{items.primarilyUsedFor}</p>{" "}
       </div>
-      {0 == 0 ? (
+      {0 === 0 ? (
         <button
           className="addb"
-          onClick={this.props.addCart.bind(
+          onClick={addCart.bind(
             this,
             items._id,
             items.doctorPrescriptionName,
             items.uses,
             items.mrp,
-            "Medicine"
+            items.packSize,
+            "Medicine",
           )}
         >
           Add to cart
         </button>
       ) : (
-        <Link to="/login">
-          <button className="addb">Add to cart</button>
-        </Link>
-      )}
+          <Link to="/login">
+            <button className="addb">Add to cart</button>
+          </Link>
+        )}
     </div>
   ) : (
-    <div>Loading...</div>
-  );
+      <div>Loading...</div>
+    );
 }
 
 function mapStateToProps(state) {
-    return { auth: state.auth };
-  } 
-export default connect(mapStateToProps, { addCart })(ItemDetails);
+  return { auth: state.auth };
+}
+export default connect(mapStateToProps, { auth, addCart })(ItemDetails);
 
 
 

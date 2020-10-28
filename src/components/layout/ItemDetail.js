@@ -10,15 +10,14 @@ import { addCart } from '../../actions/cartAction';
 class ItemDetail extends Component {
   constructor(props) {
     super(props);
-    this.state={
-        item :[],
+    this.state = {
+      item: [],
     }
-}
+  }
 
   render() {
-      const { isAuthenticated } = this.props.auth;
-
-      return  (
+    const { isAuthenticated } = this.props.auth;
+    return (
       <div className="container my-4">
         <h4 className="font-weight-bold primary-text">
           {this.props.location.state.items.doctorPrescriptionName}
@@ -36,8 +35,8 @@ class ItemDetail extends Component {
             </tr>
             <tr>
               <td>
-              {" "}
-              <p className="font-weight-bold secondary-text"> Primarily Used For:</p>
+                {" "}
+                <p className="font-weight-bold secondary-text"> Primarily Used For:</p>
               </td>
               <td>
                 <p>{this.props.location.state.items.primarilyUsedFor}</p>{" "}
@@ -45,7 +44,7 @@ class ItemDetail extends Component {
             </tr>
             <tr>
               <td>
-              {" "}
+                {" "}
                 <p className="font-weight-bold secondary-text"> Product Type:</p>
               </td>
               <td>
@@ -81,7 +80,7 @@ class ItemDetail extends Component {
             </tr>
             <tr>
               <td>
-              {" "}
+                {" "}
                 <p className="font-weight-bold secondary-text"> uses:</p>
               </td>
               <td>
@@ -97,36 +96,41 @@ class ItemDetail extends Component {
                 <p>{this.props.location.state.items.primarilyUsedFor}</p>{" "}
               </td>
             </tr>
-          {isAuthenticated ? (
-            <button
-              className="button-primary"
-              onClick={this.props.addCart.bind(
-                this,
-                this.props.location.state.items._id,
-                this.props.location.state.items.doctorPrescriptionName,
-                this.props.location.state.items.uses,
-                this.props.location.state.items.mrp,
-                "Medicine"
-              )}
-            >
-              Add to cart
+            {isAuthenticated ? (
+              <tr><th>
+                <button
+                  className="button-primary"
+                  onClick={this.props.addCart.bind(
+                    this,
+                    this.props.location.state.items._id,
+                    this.props.location.state.items.doctorPrescriptionName,
+                    this.props.location.state.items.uses,
+                    this.props.location.state.items.mrp,
+                    this.props.location.state.items.packSize,
+                    "Medicine",
+                  )}
+                >
+                  Add to cart
             </button>
-          ) : (
-            <Link to="/login">
-              <button className="button-primary">Add to cart</button>
-            </Link>
-          )}
+              </th></tr>
+            ) : (
+                <tr><th>
+                  <Link to="/login">
+                    <button className="button-primary">Add to cart</button>
+                  </Link>
+                </th></tr>
+              )}
           </tbody>
         </table>
-      </div>     
+      </div>
     )
   }
 }
 
 const mapStateToProps = (state) => ({
-    
-    auth: state.auth,
 
-  });
+  auth: state.auth,
 
-export default connect(mapStateToProps, {addCart, getItem})(ItemDetail);
+});
+
+export default connect(mapStateToProps, { addCart, getItem })(ItemDetail);

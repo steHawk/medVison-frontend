@@ -73,14 +73,16 @@ class ConsultForm extends Component {
                   value={mobile}
                 />
                 <label>Medical Complaint</label>
-                <input
+                <textarea
                   type="text area"
                   className="form-control"
                   placeholder="What is your medical Complaint ?"
                   name="medicalComplaint"
                   onChange={this.onChange}
                   value={medicalComplaint}
-                />
+                  style={{resize:"none"}}
+                  rows="8"
+                ></textarea>
               </div>
     
               <div className="text-right">

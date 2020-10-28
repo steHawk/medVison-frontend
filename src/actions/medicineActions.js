@@ -63,7 +63,7 @@ export const prescription = ({ hno, street, pinCode, city, file_url }) => (
   axios
     .post("https://api.emetroplus.com/prescription/upload", body, config)
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.data.ok) {
         dispatch(createMessage({ prescriptionUploaded: "Prescription Uploaded Successfully" }));
         dispatch({

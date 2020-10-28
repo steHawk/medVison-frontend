@@ -14,6 +14,7 @@ import axios from "axios";
 
 // ADD To Cart
 export const addCart = (
+  // _,
   item_id,
   test_name,
   test_desc,
@@ -43,7 +44,7 @@ export const addCart = (
     )
     .then((res) => {
       dispatch(createMessage({ itemAdded: res.data.message }));
-      console.log(res)
+      // console.log(res)
     })
     .catch((err) => console.log(err));
 };
@@ -72,12 +73,12 @@ export const getCartItems = () => (dispatch, getState) => {
 // Delete Cart Item
 
 export const deleteCartItems = (item_id) => (dispatch, getState) => {
-  console.log(item_id)
+  // console.log(item_id)
   const body = {
     user_id: localStorage.getItem("_id"),
     item_id: item_id,
   };
-  console.log(body)
+  // console.log(body)
   axios
     .post(
       `https://api.emetroplus.com/user/removeitem`,
@@ -85,7 +86,7 @@ export const deleteCartItems = (item_id) => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       dispatch({
         type: DELETE_CART_ITEM,
         payload: item_id,
@@ -103,7 +104,7 @@ export const quantity = (item_id) => (dispatch, getState) => {
 };
 
 export const incrementQty = (productId, quan) => (dispatch, getState) => {
-  console.log(productId);
+  // console.log(productId);
 
   let quantity = quan + 1;
 
@@ -121,7 +122,7 @@ export const incrementQty = (productId, quan) => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.data.ok) {
         dispatch({
           type: INCREASE_QUANTITY,
@@ -135,7 +136,7 @@ export const incrementQty = (productId, quan) => (dispatch, getState) => {
 };
 
 export const decrementQty = (productId, quan) => (dispatch, getState) => {
-  console.log(productId);
+  // console.log(productId);
   
   let quantity = quan - 1;
 
@@ -156,7 +157,7 @@ export const decrementQty = (productId, quan) => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
-      console.log(res);
+      // console.log(res);
       if (res.data.ok) {
         dispatch({
           type: DECREMENT_QTY,

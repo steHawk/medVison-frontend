@@ -22,7 +22,7 @@ export default function (state = initialState, action) {
         return cartAcc;
       }, []);
 
-      console.log(result);
+      // console.log(result);
       return {
         ...state,
         cartItems: result,
