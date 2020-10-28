@@ -18,6 +18,12 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
       clearItemsList();
   };
 
+  const clearSearch = (e) =>{
+    e.preventDefault();
+    setText("");
+    clearItemsList();
+  }
+
   const ClearItemsList = () => {
     clearItemsList();
   };
@@ -87,6 +93,13 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
             value={text}
             onChange={onChange}
           />
+          {
+            data.length > 0 || text.length > 0 ?
+              <i className="fas fa-times" style={{ display: "inline", backgroundColor: "white", color: "#228B22", cursor: "pointer", padding: "1.5%" }} onClick={(e) => clearSearch(e)}></i> :
+              null
+          }
+
+          {/* <i class="fa fa-window-close" style={{display:"inline", backgroundColor:"black"}} onClick={(e) => clearItemsList()}></i> */}
           <Link className="btn text-success" to="/meditems">
             <i className="fa fa-search "></i>
           </Link>
@@ -104,7 +117,6 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
                     className="text-decoration-none secondary-text"
                     onClick={() => ClearItemsList()}
                   >
-                    {" "}
                     {items.doctorPrescriptionName}
                   </Link>
                 </td>
