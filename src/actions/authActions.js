@@ -16,55 +16,34 @@ import { createMessage, returnErrors } from "./messages";
 
 // CHECK TOKEN & LOAD USER
 export const loadUser = () => (dispatch, getState) => {
-  // User Loading
-  // dispatch({ type: USER_LOADING });
-  // dispatch({
-  //   type: CALLBACK_TOKEN_NULL,
-  // });
-  const number = localStorage.getItem("number");
-  //console.log(getState().auth.token);
-  //localStorage.setItem("token", getState().auth._id);
-
-  // const body = JSON.stringify({
-  //   phoneNumber: number,
-  // });
-
-  const body = {
-    phoneNumber: number,
-  };
-  axios
-    .post(`https://api.emetroplus.com/user/info`, body, tokenConfig(getState))
-    .then((res) => {
-      if (res.data.ok) {
-        console.log(res.data.user_details);
-        localStorage.setItem("email", res.data.user_details.email);
-        localStorage.setItem("userName", res.data.user_details.userName);
-        localStorage.setItem("address", res.data.user_details.address);
-        localStorage.setItem("age", res.data.user_details.age);
-        localStorage.setItem("gender", res.data.user_details.gender);
-        // localStorage.setItem(
-        //   "shippingAddress",
-        //   JSON.stringify(res.data.user_details.shippingAddress[0])
-        // );
-        // console.log(res.data.user_details.shippingAddress[0]);
-        // console.log(localStorage.getItem("shippingAddress"))
-
-        // localStorage.setItem("cart", res.data.user_details.cartItems);
-        // console.log(res.data.user_details.shippingAddress);
-        // console.log(res.data.user_details);
-        dispatch({
-          type: USER_LOADED,
-          payload: res.data.user_details,
-        });
-      } else {
-        dispatch({
-          type: AUTH_ERROR,
-        });
-      }
-    })
-    .catch((err) => {
-      console.log(err);
-    });
+  if (localStorage.getItem('token') && localStorage.getItem('refreshToken')) {
+    const number = localStorage.getItem("number");
+    const body = {
+      phoneNumber: number,
+    };
+    axios
+      .post(`https://api.emetroplus.com/user/info`, body, tokenConfig(getState))
+      .then((res) => {
+        if (res.data.ok) {
+          localStorage.setItem("email", res.data.user_details.email);
+          localStorage.setItem("userName", res.data.user_details.userName);
+          localStorage.setItem("address", res.data.user_details.address);
+          localStorage.setItem("age", res.data.user_details.age);
+          localStorage.setItem("gender", res.data.user_details.gender);
+          dispatch({
+            type: USER_LOADED,
+            payload: res.data.user_details,
+          });
+        } else {
+          dispatch({
+            type: AUTH_ERROR,
+          });
+        }
+      })
+      .catch((err) => {
+        console.error(err);
+      });
+  }
 };
 
 // GET OTP
@@ -83,7 +62,7 @@ export const getOtp = (mobileNumber) => (dispatch) => {
     axios
       .post(`https://api.emetroplus.com/user/sendotp`, body)
       .then((res) => {
-        console.log(res.data);
+        console.log("getOtp res.data", res.data);
 
         if (res.data.message === "Phone number already registered") {
           dispatch(
@@ -143,7 +122,7 @@ export const login = (number, password) => (dispatch, getState) => {
         headers: headers,
       })
       .then((res) => {
-        console.log("resssss", res.data);
+        // console.log("resssss", res.data);
         if (res.data.success) {
           dispatch({
             type: LOGIN_SUCCESS,
@@ -254,14 +233,20 @@ export const validOtp = (mobile, otp) => (dispatch) => {
     dispatch(createMessage({ otp: "Invalid OTP" }));
   } else {
     console.log("*************", { mobile, otp });
-    axios.post('https://api.emetroplus.com/user/verifyotp', { body: { mobile, otp } })
+    let body = {
+      otp : otp.toString(),
+      mobile
+    }
+    axios.post('https://api.emetroplus.com/user/verifyotp', body)
       .then((response) => {
-        if (response.data.message === "success") { // otp approved
+        console.log('====================================');
+        console.log("verifyOtp response", response.data);
+        console.log('====================================');
+        if (response.data.message === "success") { 
           window.location.href = "/register";
         } else {
           dispatch(returnErrors(response.data.message, response.data.message))
         }
-        console.log("verify otp", response.data);
       }).catch((err) => {
         dispatch(returnErrors(err, err));
       })

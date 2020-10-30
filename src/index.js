@@ -34,14 +34,22 @@ Axios.interceptors.response.use(response => {
         }).then(data => {
           localStorage.setItem("token", data.accessToken)
           response.config.headers.Authorization = "Bearer " + data.accessToken;
-          // window.location.reload();
+
+          localStorage.setItem("email", response.data.user_details.email);
+          localStorage.setItem("userName", response.data.user_details.userName);
+          localStorage.setItem("address", response.data.user_details.address);
+          localStorage.setItem("age", response.data.user_details.age);
+          localStorage.setItem("gender", response.data.user_details.gender);
+
           return Axios(response.config)
         }).catch(error => {
-          console.log("errorrrr", error);
+          console.log("error", error);
         })
     }
-  }
-  return response;
+  } 
+  // else {
+    return response;
+  // }
 }, (error) => {
   console.log("errr", error);
   return Promise.reject(error);
@@ -49,7 +57,7 @@ Axios.interceptors.response.use(response => {
 
 ReactDOM.render(
   <Provider store={store}>
-      <App />
+    <App />
   </Provider>,
   document.getElementById('root')
 );

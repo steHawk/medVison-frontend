@@ -1,30 +1,26 @@
-import { FETCH_TESTS,  FETCH_SUPER60_TEST } from "./types";
+import { FETCH_TESTS, FETCH_SUPER60_TEST } from "./types";
 
 import axios from "axios";
 
 export const fetchPopularTests = () => (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
   // Request Body
   const body = {
-    testType: ["super60"],
-    limit: 10,
-    skip: 0,
+    "testType": ["normal", "advanced", "super60"],
+    "skip": 0,
+    "limit": 10
   };
 
   axios
-    .post("https://api.emetroplus.com/medicaltest/getall", body, config)
+    .post("https://api.emetroplus.com/medicaltest/getall", body)
     .then((res) => {
-      console.log(res);
       dispatch({
         type: FETCH_TESTS,
         payload: res.data.test_details,
       });
-    });
+    }).catch((err) => {
+      console.log("err fetchPopularTests", err);
+    })
 };
 
 // export const fetchAllTests = (skip, limit) => (dispatch) => {
