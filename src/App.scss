@@ -388,6 +388,16 @@ a {
   color: rgba(30, 31, 82, 0.3) !important;
 }
 
+.primary-bg {
+  background-color: var(--primaryColor) !important;
+  color: white !important;
+}
+
+.secondary-bg {
+  background-color: var(--secondaryColor) !important;
+  color: white !important;
+}
+
 // Banner BG
 .banner-bg {
   background: linear-gradient(to bottom right, #0f84c1, #7cbcdd, #89cbee, #cce5f2);
@@ -448,3 +458,15 @@ a {
   background-color: #00345e;
 }
 
+// Upload Button Wrapper - Prescription
+.upload-btn-wrapper {
+  background: white;
+  height: 50vh; 
+}
+
+.upload-heading {
+  padding-left: 1rem;
+  p {
+    font-size: .875rem;
+  }
+}

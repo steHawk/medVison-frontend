@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
 // import { Link } from "react-router-dom";
-// import fileImage from "../../../assets/file.svg";
+import fileImage from "../../../assets/file.svg";
 
 // import PropTypes from "prop-types";
 import Axios from "axios";
@@ -82,41 +82,52 @@ class Prescription extends Component {
 
   render() {
     return (
-      <div className="container" >
-        <div className="page-indicator my-2">
-          <small className="primary-text">Home/Upload Prescription</small>
+      <div className="container p-0 my-4">
+        <div className="upload-heading">
+          <h4 className=" font-weight-bold">Upload Prescription</h4>
+          <p className="text-muted">Please upload the Image file(s) of your prescription</p>
         </div>
-        <h4 className="font-weight-bold">Upload Prescription</h4>
-        {(this.state.fileArray || []).map((url, index) => (
-          <div key={index} style={{ backgroundColor: "white", marginTop: "2%" }} className="presc-wrapper col-lg-6 mx-auto d-flex flex-column align-items-center">
-            <img width="70%" src={url} alt="Prescription" className="img-fluid my-2" />
-            <button
-              className="presc-btn btn rounded-pill px-5 py-2 my-4 shadow"
-              style={{ backgroundColor: "red" }}
-              id="prescTrash"
-              onClick={(e) => this.removePrescription(index)}
-              name="prescTrash"
-            >
-              <i className="fa fa-trash mr-2"></i>
-            </button>
+        <hr />
+        <div className="row m-0 my-2 mb-4">
+          <div className="upload-btn-wrapper rounded border-darken-4 col-lg-6 col-md-6 my-2 text-center d-flex flex-column flex-wrap-reverse justify-content-center align-items-center">
+            <div>
+              <img src={fileImage} width="100px" />
+            </div>
+            <div>
+              <p className="my-2" style={{display: this.state.loading }} >
+                Please Wait...
+              </p>
+              <label htmlFor="prescUpload" className="btn secondary-bg border-black rounded-pill px-5 py-2 my-4 shadow">
+                <i className="fa fa-image mr-2"></i>Upload
+              </label>
+              <input
+                id="prescUpload"
+                className="btn rounded p-2 shadow"
+                type="file"
+                label="Choose Prescription File"
+                accept="image/*"
+                onChange={(e) => this.uploadFile(e)}
+                multiple
+                style={{ display: 'none' }}
+              />
+            </div>
           </div>
-        ))}
-        <div className="upload-btn-wrapper text-center">
-          <p className="btn rounded-pill px-5 py-2 my-4 shadow" style={{ backgroundColor: "#fff", display: this.state.loading }} >
-            Please Wait...
-          </p>
-          <label htmlFor="prescUpload" style={{ backgroundColor: "#ddd" }} className="btn rounded-pill px-5 py-2 my-4 shadow">
-            <i className="fa fa-image mr-2"></i>Upload</label>
-          <input
-            id="prescUpload"
-            className="btn rounded-pill px-5 py-2 shadow"
-            type="file"
-            label="Choose Prescription File"
-            accept="image/*"
-            onChange={(e) => this.uploadFile(e)}
-            multiple
-            style={{ display: 'none' }}
-          />
+          <div className="col-lg-6 col-md-6 my-2">
+            {(this.state.fileArray || []).map((url, index) => (
+              <div key={index} className="presc-wrapper w-75 d-flex flex-column align-items-center bg-white mx-auto my-2">
+                <img src={url} alt="Prescription" className="img-fluid" />
+                <button
+                  className="btn rounded-circle my-4 shadow"
+                  style={{ backgroundColor: "red" }}
+                  id="prescTrash"
+                  onClick={(e) => this.removePrescription(index)}
+                  name="prescTrash"
+                >
+                  <i className="fa fa-trash text-white"></i>
+                </button>
+              </div>
+            ))}
+          </div>
         </div>
         <button className="button-primary" onClick={(e) => this.onSubmit(e)} style={{ marginLeft: "40%", width: "20%", boxShadow: "0vh 0vh 1vh 1vh #ddd" }}>Proceed</button>
       </div >
