@@ -84,16 +84,41 @@ const ConfirmPrescription = (props) => {
         )
     } else {
         return (
-            <>
-                <div style={{ paddingLeft: "20%", display: "flex", float: "left" }}>
-                    <div className="col-lg-5">
+            <div className="container my-4">
+                <div className="row m-0">
+                    <div className="col-lg-6 col-md-6 my-2">
                         <div className="text-right my-2">
-                            <Link to="/profileUpdate" style={{ textDecoration: "none", fontSize: "1.5em" }}><i className="fas fa-edit mr-2"></i>Edit</Link>
+                            <Link to={{
+                                pathname: "/prescription",
+                                state: {
+                                    files: state.files
+                                }
+                            }} className="text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
                         </div>
-                        <div className="table-responsive bg-white rounded-lg shadow-sm" style={{ width: "100%", padding: "2% 5%" }}>
+                        <div className="table-responsive bg-white rounded-lg">
+                            <table className="table table-borderless m-0">
+                                <tbody>
+                                    {
+                                        state.files.map((file, index) => (
+                                            <tr key={index}>
+                                                <th>
+                                                    <img src={file} className="img-fluid" alt="prescription" />
+                                                </th>
+                                            </tr>
+                                        ))
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    <div className="col-lg-6 col-md-6 my-2">
+                        <div className="text-right my-2">
+                            <Link to="/profileUpdate" className="text-decoration-none"><i className="fas fa-edit mr-2"></i>Edit</Link>
+                        </div>
+                        <div className="table-responsive bg-white rounded-lg p-2">
                             {
                                 localStorage.getItem('refreshToken') ?
-                                    <table className="table table-bordered m-0">
+                                    <table className="table table-borderless m-0">
                                         <tbody>
                                             <tr>
                                                 <td className="secondary-text">Name</td>
@@ -118,12 +143,12 @@ const ConfirmPrescription = (props) => {
                                             <tr>
                                                 <td className="secondary-text">Address </td>
                                                 <td>
-                                                    <textarea rows="8" value={state.address} disabled style={textAreaStyle}>
+                                                    <textarea className="form-control" rows="8" value={state.address} disabled style={textAreaStyle}>
                                                     </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot className="text-center">
                                             <tr>
                                                 <th colSpan="2">
                                                     <button className="button-primary" onClick={(e) => submitPrescription(e)} >SUBMIT</button>
@@ -132,50 +157,50 @@ const ConfirmPrescription = (props) => {
                                         </tfoot>
                                     </table>
                                     :
-                                    <table className="table table-bordered m-0">
+                                    <table className="table table-borderless m-0">
                                         <tbody>
 
                                             <tr>
                                                 <td className="secondary-text">Name</td>
                                                 <td>
-                                                    <input type="text" name="name" required value={state.name} onChange={(e) => onChange(e)} />
+                                                    <input type="text" className="form-control" name="name" required value={state.name} onChange={(e) => onChange(e)} />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="secondary-text">Email</td>
                                                 <td>
-                                                    <input type="email" name="email" required value={state.email} onChange={(e) => onChange(e)} />
+                                                    <input type="email" className="form-control" name="email" required value={state.email} onChange={(e) => onChange(e)} />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="secondary-text">Mobile</td>
                                                 <td>
-                                                    <input type="number" name="mobileNumber" required value={state.mobileNumber} onChange={(e) => onChange(e)} />
+                                                    <input type="number" className="form-control" name="mobileNumber" required value={state.mobileNumber} onChange={(e) => onChange(e)} />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="secondary-text">Gender</td>
                                                 <td>
 
-                                                    <input type="text" name="gender" required value={state.gender} onChange={(e) => onChange(e)} />
+                                                    <input type="text" className="form-control" name="gender" required value={state.gender} onChange={(e) => onChange(e)} />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="secondary-text">Age</td>
                                                 <td>
 
-                                                    <input type="number" name="age" value={state.age} onChange={(e) => onChange(e)} />
+                                                    <input type="number" className="form-control" name="age" value={state.age} onChange={(e) => onChange(e)} />
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <td className="secondary-text">Address </td>
                                                 <td>
-                                                    <textarea rows="8" value={state.address} required onChange={(e) => onChange(e)} style={textAreaStyle}>
+                                                    <textarea className="form-control" value={state.address} required onChange={(e) => onChange(e)} style={textAreaStyle}>
                                                     </textarea>
                                                 </td>
                                             </tr>
                                         </tbody>
-                                        <tfoot>
+                                        <tfoot className="text-center">
                                             <tr>
                                                 <th colSpan="2">
                                                     <button className="button-primary" onClick={(e) => submitPrescription(e)} >SUBMIT</button>
@@ -184,36 +209,10 @@ const ConfirmPrescription = (props) => {
                                         </tfoot>
                                     </table>
                             }
-
-                        </div>
-                    </div>
-                    <div>
-                        <div className="text-right my-2" style={{ marginTop: "5%", width: "60%", float: "left" }}>
-                            <Link to={{
-                                pathname: "/prescription",
-                                state: {
-                                    files: state.files
-                                }
-                            }} style={{ textDecoration: "none", fontSize: "1.5em" }}><i className="fas fa-edit mr-2"></i>Edit</Link>
-                        </div>
-                        <div className="table-responsive bg-white rounded-lg shadow-sm" style={{ width: "60%", float: "left", textAlign: "center" }}>
-                            <table className="table table-bordered m-0">
-                                <tbody>
-                                    {
-                                        state.files.map((file, index) => (
-                                            <tr key={index}>
-                                                <th>
-                                                    <img width="40%" src={file} alt="prescription" />
-                                                </th>
-                                            </tr>
-                                        ))
-                                    }
-                                </tbody>
-                            </table>
                         </div>
                     </div>
                 </div>
-            </ >
+            </ div>
         )
     }
 }

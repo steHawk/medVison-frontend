@@ -388,6 +388,16 @@ a {
   color: rgba(30, 31, 82, 0.3) !important;
 }
 
+.primary-bg {
+  background-color: var(--primaryColor) !important;
+  color: white !important;
+}
+
+.secondary-bg {
+  background-color: var(--secondaryColor) !important;
+  color: white !important;
+}
+
 .banner-bg {
   background: -webkit-gradient(linear, left top, right bottom, from(#0f84c1), color-stop(#7cbcdd), color-stop(#89cbee), to(#cce5f2));
   background: linear-gradient(to bottom right, #0f84c1, #7cbcdd, #89cbee, #cce5f2);
@@ -436,14 +446,17 @@ a {
 .contact-topbar {
   background-color: #00345e;
 }
-/*# sourceMappingURL=App.css.map */
-input::-webkit-outer-spin-button,
-input::-webkit-inner-spin-button {
-  -webkit-appearance: none;
-  margin: 0;
+
+.upload-btn-wrapper {
+  background: white;
+  height: 50vh;
 }
 
-/* Firefox */
-input[type=number] {
-  -moz-appearance: textfield;
+.upload-heading {
+  padding-left: 1rem;
 }
+
+.upload-heading p {
+  font-size: .875rem;
+}
+/*# sourceMappingURL=App.css.map */
