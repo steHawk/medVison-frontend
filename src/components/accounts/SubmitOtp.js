@@ -6,7 +6,8 @@ import { validOtp, afterOTPLogin, getOtp, otpForLogin } from "../../actions/auth
 
 export class SubmitOtp extends Component {
   state = {
-    mobileNumber: this.props.location.state === undefined ? "" : this.props.location.state,
+    mobileNumber: this.props.location.state.mobile === undefined ? "" : this.props.location.state.mobile,
+    countryCode: this.props.location.state.countryCode === undefined ? "" : this.props.location.state.countryCode,
     otp: "",
     verify: false,
     msg: "",
@@ -29,7 +30,7 @@ export class SubmitOtp extends Component {
 
   onClick = (e) => {
     e.preventDefault();
-    this.props.getOtp(this.state.mobileNumber);
+    this.props.getOtp(this.state.mobileNumber, this.state.countryCode);
   };
 
   componentDidMount() {
@@ -74,6 +75,9 @@ export class SubmitOtp extends Component {
 
     }
     const { mobileNumber, otp } = this.state;
+    console.log('====================================');
+    console.log(this.props.location.state );
+    console.log('====================================');
     return (
       <div className="container my-4">
 
@@ -82,6 +86,23 @@ export class SubmitOtp extends Component {
             ENTER YOUR OTP
         </h3>
           <form onSubmit={this.onSubmit}>
+            <div className="log-ele">
+              <label>
+                Coutry Code
+                       </label>
+                       +
+                  <input
+                type="number"
+                className="form-control"
+                name="countryCode"
+                placeholder="Country Code"
+                onChange={this.onChange}
+                value={this.state.countryCode}
+                pattern="\d{2}"
+                width="5%"
+                onBlur={(e) => this.checkMobileNumber(e)}
+              />
+            </div>
             <div className="log-ele">
               <label htmlFor="mobilenumber">
                 Mobile Number

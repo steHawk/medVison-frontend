@@ -47,26 +47,28 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // GET OTP
-export const getOtp = (mobileNumber) => (dispatch) => {
+export const getOtp = (mobileNumber, countryCode) => (dispatch) => {
   let mobile = mobileNumber.substr(-10);
   // const body = JSON.stringify({
   //   phoneNumber: mobileNumber,
   // });
   const body = {
-    phoneNumber: mobile,
-  };
+    "signUp": true,
+    "mobile": mobileNumber,
+    "countryCode": "+" + countryCode
+  }
   console.log(mobile);
-  if (mobile === "" || mobile.length < 10) {
+  if (mobile === "" || mobile.length < 10 || countryCode === "" || countryCode.length !== 2) {
     dispatch(createMessage({ number: "Incorrect mobile number" }));
   } else {
     axios
-      .post(`https://api.emetroplus.com/user/sendotp`, body)
+      .post(`https://api.emetroplus.com/message/mobile`, body)
       .then((res) => {
         console.log("getOtp res.data", res.data);
 
-        if (res.data.message === "Phone number already registered") {
+        if (res.data.message === "User already registered") {
           dispatch(
-            createMessage({ duplicate: "Phone number already registered" })
+            createMessage({ duplicate: "User already registered" })
           );
         } else {
           dispatch({
@@ -194,11 +196,12 @@ export const register = ({ number, userName, password, email }) => (
       .post("https://api.emetroplus.com/user/create", body, config)
       .then((res) => {
         console.log(res);
-        if (res.data.ok) {
+        if (res.data.success) {
           dispatch({
             type: REGISTER_SUCCESS,
             payload: res.data,
           });
+          window.location.href = "/login"
         } else {
           if (res.data.error.message) {
             dispatch(returnErrors(res.data.error.message, res.data));
@@ -234,7 +237,7 @@ export const validOtp = (mobile, otp) => (dispatch) => {
   } else {
     console.log("*************", { mobile, otp });
     let body = {
-      otp : otp.toString(),
+      otp: otp.toString(),
       mobile
     }
     axios.post('https://api.emetroplus.com/user/verifyotp', body)
@@ -242,7 +245,7 @@ export const validOtp = (mobile, otp) => (dispatch) => {
         console.log('====================================');
         console.log("verifyOtp response", response.data);
         console.log('====================================');
-        if (response.data.message === "success") { 
+        if (response.data.status === true) {
           window.location.href = "/register";
         } else {
           dispatch(returnErrors(response.data.message, response.data.message))

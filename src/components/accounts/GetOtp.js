@@ -10,6 +10,7 @@ export class GetOtp extends Component {
     mobileNumber: "",
     msg: "",
     otpsent: false,
+    countryCode: "",
   };
 
   static propTypes = {
@@ -19,12 +20,12 @@ export class GetOtp extends Component {
   };
 
 
-  onChange = (e) => this.setState({ mobileNumber: e.target.value, msg: "" });
+  onChange = (e) => this.setState({ [e.target.name]: e.target.value, msg: "" });
 
   onSubmit = (e) => {
     e.preventDefault();
     const mobileNumber = this.state.mobileNumber;
-    this.props.getOtp(mobileNumber);
+    this.props.getOtp(mobileNumber, this.state.countryCode);
     this.setState({
       otpsent: true
     })
@@ -55,7 +56,7 @@ export class GetOtp extends Component {
       return (
         <Redirect to={{
           pathname: "/submitotp",
-          state: this.state.mobileNumber
+          state: {mobile : this.state.mobileNumber, countryCode : this.state.countryCode}
         }} />
       )
     } else {
@@ -69,12 +70,29 @@ export class GetOtp extends Component {
               <form onSubmit={this.onSubmit}>
                 <div className="log-ele">
                   <label>
+                    Coutry Code
+                       </label>
+                       +
+                  <input
+                    type="number"
+                    className="form-control"
+                    name="countryCode"
+                    placeholder="Country Code"
+                    onChange={this.onChange}
+                    value={this.state.countryCode}
+                    pattern="\d{2}"
+                    width="5%"
+                    onBlur={(e) => this.checkMobileNumber(e)}
+                  />
+                </div>
+                <div className="log-ele">
+                  <label>
                     Mobile Number
                        </label>
                   <input
                     type="number"
                     className="form-control"
-                    name="mobileName"
+                    name="mobileNumber"
                     placeholder="Mobile Number"
                     onChange={this.onChange}
                     value={this.state.mobileNumber}
