@@ -9,11 +9,11 @@ import Life from "../../assets/life.svg";
 
 const Header = ({ auth, logout, search, clearItemsList, data }) => {
   const [text, setText] = useState("");
-  const [searchBy, setsearchBy] = useState("All");
+  // const [searchBy, setsearchBy] = useState("All");
   const onChange = (e) => {
     setText(e.target.value);
     if (e.target.value.length > 0)
-      search(searchBy, e.target.value);
+      search( e.target.value);//searchBy,
     else
       clearItemsList();
   };
@@ -53,7 +53,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
 
       <div className="search-container form-inline my-2 my-lg-0">
         <form className="search-form">
-          <div className="input-group-btn search-panel">
+          {/* <div className="input-group-btn search-panel">
             <button
               type="button"
               className="btn btn-default bg-white dropdown-toggle"
@@ -85,7 +85,7 @@ const Header = ({ auth, logout, search, clearItemsList, data }) => {
                 </p>
               </li>
             </ul>
-          </div>
+          </div> */}
           <input
             type="text"
             className="form-control mr-sm-2"

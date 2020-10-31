@@ -91,7 +91,7 @@ class Prescription extends Component {
         <div className="row m-0 my-2 mb-4">
           <div className="upload-btn-wrapper rounded border-darken-4 col-lg-6 col-md-6 my-2 text-center d-flex flex-column flex-wrap-reverse justify-content-center align-items-center">
             <div>
-              <img src={fileImage} width="100px" />
+              <img src={fileImage} alt="fileImage" width="100px" />
             </div>
             <div>
               <p className="my-2" style={{display: this.state.loading }} >

@@ -14,7 +14,7 @@ export const clearItemsList = () => async (dispatch, getState) => {
 };
 
 
-export const search = (searchby, item) => (dispatch) => {
+export const search = (item) => (dispatch) => {//searchby,
   dispatch({
     type: DATA_LOAD_INITIATED,
   });
@@ -26,7 +26,7 @@ export const search = (searchby, item) => (dispatch) => {
 
   // Request Body
   const body = {
-    searchby,
+    // searchby,
     keyword: item,
   };
 
