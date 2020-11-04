@@ -7,17 +7,17 @@ import {
 const initialState = {
   doctors: [],
   doc_token: "",
-  gotDocToken: null,
+  gotDocToken: false,
 };
 
 export default function (state = initialState, action) {
   switch (action.type) {
     case FETCH_ALL_DOCTORS:
       return {
-        ...state,
         doctors: action.payload,
       };
     case CALLBACK_TOKEN:
+      // console.log("-------->", action.payload.test_details)
       return {
         ...state,
         doc_token: action.payload.test_details.bookingId,
@@ -27,7 +27,7 @@ export default function (state = initialState, action) {
       return {
         ...state,
         doc_token: "", 
-        gotDocToken: null,
+        gotDocToken: false,
       };
     default:
       return state;

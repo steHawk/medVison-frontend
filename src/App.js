@@ -1,6 +1,6 @@
 import React, { Component } from "react";
-import { browserHistory } from 'react-router'
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
+// import { browserHistory } from 'react-router'
+import {  Route, Switch } from 'react-router-dom';//BrowserRouter as Router,
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; //Bootstrap CSS
 import "bootstrap/dist/js/bootstrap"; //Bootstrap CSS
@@ -79,7 +79,7 @@ class App extends Component {
       <ApiState>
         <TestState>
           <AlertProvider template={AlertTemplate} {...options}>
-            <Router history={browserHistory}>
+            {/*<Router history={browserHistory}>*/}
               <div className='mainWrapper'>
                 <TopBar />
                 <Header />
@@ -120,7 +120,7 @@ class App extends Component {
                 </div>
                 <Footer />
               </div>
-            </Router>
+            {/*</Router>*/}
           </AlertProvider>
         </TestState>
       </ApiState>

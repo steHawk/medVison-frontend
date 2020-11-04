@@ -46,7 +46,7 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
     axios
       .post("https://api.emetroplus.com/consultantbooking/create", body, config)
       .then((res) => {
-        console.log(res);
+        console.log("--->",res);
         dispatch({
           type: CALLBACK_TOKEN,
           payload: res.data,
@@ -81,21 +81,24 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
     },
   };
 
-  console.log(body);
+  // console.log(body);
 
   axios
     .post("https://api.emetroplus.com//consultantbooking/create", body, config)
     .then((res) => {
-      console.log(res);
+      // console.log("***",res.data);
       dispatch({
         type: CALLBACK_TOKEN,
         payload: res.data,
       });
     });
 
-  setTimeout(function () {
+};
+
+export const resetConsultToken = () =>(dispatch, getState)=>{
+  // setTimeout(function () {
     dispatch({
       type: CALLBACK_TOKEN_NULL,
     });
-  }, 3000);
-};
+  // }, 3000);
+}

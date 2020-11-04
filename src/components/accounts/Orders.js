@@ -1,57 +1,92 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 // import { Link } from "react-router-dom";
+import {connect} from "react-redux";
+import {getOrders} from "../../actions/orderAction";
+
 
 class Orders extends Component {
     render() {
-        return (
-            <div className="container my-4">
-                <h4 className="font-weight-bold my-2">Pending Orders</h4>
-                <hr />
-                <div className="row m-0 my-2">
-                    <div className="col-lg-4 col-md-6">
-                        <div className="p-2">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title font-weight-bold">ACIVIR EYE DROP</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">₹55.5</h6>
-                                    <p className="card-text">Acyclovir is used in the treatment of viral infectio</p>
-                                    <p className="font-weight-bold">Status : <span className="text-muted">On the way</span></p>
-                                </div>
+        if (this.props.orders.isOrdersLoaded) {
+            return (
+                <div className="container my-4">
+                    <h4 className="font-weight-bold my-2">Pending Orders</h4>
+                    <hr/>
+                    <div className="row m-0 my-2">
+                        <div className="col-lg-4 col-md-6">
+                            <div className="p-2">
+                                {
+                                    this.props.orders.orders.map((order, index) =>
+                                        order.status === "created" ?
+                                            <div className="show-order-items" key={index}>
+                                                {order.items.map(item =>
+                                                <div className="card" key={item.id}>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title font-weight-bold">{item.name}</h5>
+                                                        <h6 className="card-subtitle mb-2 text-muted">₹{item.price}</h6>
+                                                        <p className="card-text">{item.type}</p>
+                                                        <p className="card-text">Quantity: {item.quantity}</p>
+                                                        <p className="font-weight-bold">Status : <span
+                                                            className={order.status === "created" ? "text-muted" : "secondary-text"}>
+                                                        {order.status === "created" ? "On the way" : "Delivered"}
+                                                    </span></p>
+                                                    </div>
+                                                </div>
+                                                ) }
+                                            </div>:null
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>
-                    <div className="col-lg-4 col-md-6">
-                        <div className="p-2">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title font-weight-bold">ALGIC EYE DROP</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">₹44.7</h6>
-                                    <p className="card-text">Ketorolac is used for pain relief, it relieves pain</p>
-                                    <p className="font-weight-bold">Status : <span className="secondary-text">Dispatched</span></p>
-                                </div>
+                    <h4 className="font-weight-bold mt-4 mb-2">Delivered Orders</h4>
+                    <hr/>
+                    <div className="row m-0 my-2">
+                        <div className="col-lg-4 col-md-6">
+                            <div className="p-2">
+                                {
+                                    this.props.orders.orders.map((order, index) =>
+                                        order.status !== "created" ?
+                                            <div className="show-order-items" key={index} >
+                                                {order.items.map(item =>
+                                                <div className="card" key={item.id}>
+                                                    <div className="card-body">
+                                                        <h5 className="card-title font-weight-bold">{item.name}</h5>
+                                                        <h6 className="card-subtitle mb-2 text-muted">₹{item.price}</h6>
+                                                        <p className="card-text">{item.type}</p>
+                                                        <p className="card-text">Quantity : {item.quantity}</p>
+                                                        <p className="font-weight-bold">Status : <span
+                                                            className={order.status === "created" ? "text-muted" : "secondary-text"}>
+                                                        {order.status === "created" ? "On the way" : "Delivered"}
+                                                    </span></p>
+                                                    </div>
+                                                </div>
+                                            )}
+                                        </div> : null
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
                 </div>
-                <h4 className="font-weight-bold mt-4 mb-2">Delivered Orders</h4>
-                <hr />
-                <div className="row m-0 my-2">
-                    <div className="col-lg-4 col-md-6">
-                        <div className="p-2">
-                            <div className="card">
-                                <div className="card-body">
-                                    <h5 className="card-title font-weight-bold">ALERCHEK OD NA EYE DROP</h5>
-                                    <h6 className="card-subtitle mb-2 text-muted">₹107.4</h6>
-                                    <p className="card-text">Olopatadine is used to treat allergic disorders.</p>
-                                    <p className="font-weight-bold">Status : <span className="text-success">Delivered</span></p>
-                                </div>
-                            </div>
-                        </div>
+            )
+        } else {
+            if (this.props.orders.isOrdersLoading) {
+                return (
+                    <div className="loading">
+                        Loading...
                     </div>
-                </div>
-            </div>
-        )
+                )
+            } else {
+                this.props.getOrders();
+                return null;
+            }
+        }
     }
 }
 
-export default Orders
+const mapStateToProps = (state) => ({
+    orders: state.orders,
+})
+
+export default connect(mapStateToProps, {getOrders})(Orders);

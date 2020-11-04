@@ -1,54 +1,80 @@
 // import { FETCH_TESTS, FETCH_ALL_TESTS } from "./types";
 
 import axios from "axios";
-import { deleteCartItems } from "./cartAction";
+import {FETCH_ORDERS_FAILED, FETCH_ORDERS_INIT, FETCH_ORDERS_SUCCESS} from "./types";
+// import { deleteCartItems } from "./cartAction";
 
 export const cashOnDelivery = (
-  user,
-  total,
-  cartItems,
-  houseNumber,
-  street,
-  pincode,
-  city
+    user,
+    total,
+    cartItems,
+    houseNumber,
+    street,
+    pincode,
+    city
 ) => (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-  console.log(cartItems);
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem('token'),
+        },
+    };
+    console.log(cartItems);
 
-  // Request Body
-  const body = {
-    orderDetails: {
-      userName: user.userName,
-      mobile: user.mobile,
-      amount: parseInt(total) * 100,
-      payment_type: "COD",
-      location: {
-        houseNumber: houseNumber,
-        street: street,
-        pincode: pincode,
-        city: city,
-      },
-      email: user.email,
-      items: cartItems,
-    },
-  };
+    // Request Body
+    const body = {
+        orderDetails: {
+            user: localStorage.getItem('_id'),
+            userName: user.userName,
+            mobile: user.mobile,
+            amount: parseInt(total) * 100,
+            payment_type: "COD",
+            location: {
+                houseNumber: houseNumber,
+                street: street,
+                pincode: pincode,
+                city: city,
+            },
+            email: user.email,
+            items: cartItems,
+        },
+    };
 
-  axios
-    .post("https://api.emetroplus.com/order/create", body, config)
-    .then((res) => {
-      console.log(res);
-      if (res.data.ok) {
-        res.data.order_details.items.forEach((el) => {
-          console.log(el.id)
-          dispatch(deleteCartItems(el.id));
-        });
-      }else {
-        
-      }
-    })
-    .catch((error) => console);
+    axios
+        .post("https://api.emetroplus.com/order/create", body, config)
+        .then((res) => {
+            console.log(res);
+            if (res.data.ok) {
+                window.location.href="/yourOrders";
+                // window.re
+            } else {
+
+            }
+        })
+        .catch((error) => console);
 };
+
+export const getOrders = () => (dispatch, getState) => {
+    let user = localStorage.getItem("_id");
+    let body = {
+        user,
+        // status: "created",
+    };
+    const config = {
+        headers: {
+            "Content-Type": "application/json",
+            "Authorization": "Bearer " + localStorage.getItem('token'),
+        },
+    };
+    dispatch({type: FETCH_ORDERS_INIT})
+    axios
+        .post('https://api.emetroplus.com/order/data?skip=0&limit=20', body, config)
+        .then(response => {
+            // console.log("orders response data",response.data)
+            dispatch({type: FETCH_ORDERS_SUCCESS, payload: response.data.orders});
+        })
+        .catch(error => {
+            // console.log("orders error", error)
+            dispatch({type: FETCH_ORDERS_FAILED, error: "Orders Fetching failed"});
+        })
+}

@@ -459,4 +459,20 @@ a {
 .upload-heading p {
   font-size: .875rem;
 }
+@media (min-width: 800px) {
+  .show-order-items{
+    padding: 3%;
+    width: 60rem;
+    display: inline-flex;
+  }
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+input[type=number] {
+  -moz-appearance: textfield;
+}
 /*# sourceMappingURL=App.css.map */

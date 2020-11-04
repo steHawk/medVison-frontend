@@ -65,7 +65,7 @@ export class Login extends Component {
                   Mobile Number
                   </label>
                 <input
-                  type="text"
+                  type="number"
                   className="form-control mb-2"
                   name="number"
                   placeholder="Mobile Number"

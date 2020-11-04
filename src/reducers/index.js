@@ -9,6 +9,7 @@ import doctors from "./doctors";
 import searchItems from "./searchItems";
 import itemDetail from "./itemDetail";
 import dataReducer from "./data.reducer"
+import orders from './orders.reducer';
 
 
 export default combineReducers({
@@ -22,4 +23,5 @@ export default combineReducers({
   searchItems,
   itemDetail,
   data: dataReducer,
+  orders,
 });

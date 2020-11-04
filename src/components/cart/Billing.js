@@ -260,7 +260,7 @@ class Billing extends Component {
                         <input
                           type="text"
                           value={cartItem.quantity}
-                          readOnly="true"
+                          readOnly={true}
                           className="form-control"
                         />
                       </div>
@@ -276,7 +276,7 @@ class Billing extends Component {
                           <i className="fa fa-plus"></i>
                         </button>
                       </div>
-                      <div className="col-4 text-right" tabindex="12">
+                      <div className="col-4 text-right" tabIndex="12">
                         <button
                           onClick={this.props.deleteCartItems.bind(
                             this,
