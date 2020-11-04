@@ -88,6 +88,7 @@ class App extends Component {
 
                   <Switch>
                     <Route exact path="/" component={MainPage} />
+                    <Route exact path="/index.html" component={MainPage} />
                     <Route exact path="/about" component={About} />
                     <Route exact path="/services" component={Service} />
                     <Route exact path="/medicine" component={Medicine} />
