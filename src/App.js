@@ -88,32 +88,32 @@ class App extends Component {
 
                   <Switch>
                     <Route exact path="/" component={MainPage} />
-                    <Route path="/about" component={About} />
-                    <Route path="/services" component={Service} />
-                    <Route path="/medicine" component={Medicine} />
-                    <Route path="/profile" component={Profile} />
-                    <Route path="/yourOrders" component={Orders} />
-                    <Route path="/meditems" component={MedicineItems} />
-                    <Route path="/specialist" component={Specialist} />
-                    <Route path="/doctors" component={Doctors} />
-                    <Route path="/confirmation" component={Confirmation} />
-                    <Route path="/docConsult" component={ConsultForm} />
-                    <Route path="/cart" component={UserCart} />
-                    <Route path="/alltests" component={AllTests} />
-                    <Route path="/login" component={LoginAuth} />
-                    <Route path="/getotp" component={GetOtp} />
-                    <Route path="/submitotp" component={SubmitOtp} />
-                    <Route path="/submitLoginotp" component={SubmitOtp} />
-                    <Route path="/register" component={Register} />
-                    <Route path="/otpLogin" component={GetOtp} />
-                    <Route path="/profileUpdate" component={ProfileUpdate} />
-                    <Route path="/prescription" component={Prescription} />
-                    <Route path="/confirmAddress" component={ConfirmAddress} />
-                    <Route path="/checkout" component={Billing} />
-                    <Route path="/to/item" component={ItemDetail} />
-                    <Route path="/labItem" component={ViewLabTest} />
-                    <Route path="/super60" component={Super60} />
-                    <Route path="/confirmprescription" component={ConfirmPrescription} />
+                    <Route exact path="/about" component={About} />
+                    <Route exact path="/services" component={Service} />
+                    <Route exact path="/medicine" component={Medicine} />
+                    <Route exact path="/profile" component={Profile} />
+                    <Route exact path="/yourOrders" component={Orders} />
+                    <Route exact path="/meditems" component={MedicineItems} />
+                    <Route exact path="/specialist" component={Specialist} />
+                    <Route exact path="/doctors" component={Doctors} />
+                    <Route exact path="/confirmation" component={Confirmation} />
+                    <Route exact path="/docConsult" component={ConsultForm} />
+                    <Route exact path="/cart" component={UserCart} />
+                    <Route exact path="/alltests" component={AllTests} />
+                    <Route exact path="/login" component={LoginAuth} />
+                    <Route exact path="/getotp" component={GetOtp} />
+                    <Route exact path="/submitotp" component={SubmitOtp} />
+                    <Route exact path="/submitLoginotp" component={SubmitOtp} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/otpLogin" component={GetOtp} />
+                    <Route exact path="/profileUpdate" component={ProfileUpdate} />
+                    <Route exact path="/prescription" component={Prescription} />
+                    <Route exact path="/confirmAddress" component={ConfirmAddress} />
+                    <Route exact path="/checkout" component={Billing} />
+                    <Route exact path="/to/item" component={ItemDetail} />
+                    <Route exact path="/labItem" component={ViewLabTest} />
+                    <Route exact path="/super60" component={Super60} />
+                    <Route exact path="/confirmprescription" component={ConfirmPrescription} />
                     <Route component={NotFound} />
                   </Switch>
 
