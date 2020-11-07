@@ -14,18 +14,19 @@ const ApiState = props => {
     const [state, dispatch] = useReducer(ApiReducer, initialState);
 
     // Get Contacts
-    const getmed = async (limit, skip) => {
+    const getmed = async (category, postsPerPage, currentPage) => {
         const process = {
             headers: {
                 "Content-Type": "application/json",
             },
         };
+        // let skip = postsPerPage*currentPage;
+        // let limit = postsPerPage;
         const value = {
-            limit: limit,
-            skip: skip,
+            category,
         };
         try {
-            const res = await axios.post("https://api.emetroplus.com/drug/data", value, process)
+            const res = await axios.post("https://api.emetroplus.com/drug/data/?skip="+postsPerPage+"&limit="+currentPage, value, process)
             console.log("---->",res.data);
             dispatch({
                 type: GET_MED,

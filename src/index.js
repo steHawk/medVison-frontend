@@ -35,7 +35,7 @@ Axios.interceptors.response.use(response => {
         }).then(data => {
           localStorage.setItem("token", data.accessToken)
           response.config.headers.Authorization = "Bearer " + data.accessToken;
-
+        // console.log(response.data.user_details)
           localStorage.setItem("email", response.data.user_details.email);
           localStorage.setItem("userName", response.data.user_details.userName);
           localStorage.setItem("address", response.data.user_details.address);
