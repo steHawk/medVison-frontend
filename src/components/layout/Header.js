@@ -164,7 +164,7 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                 <ul className="navbar-nav mr-2">
                     <li className="nav-item">
                         <Link to="/doctors" className="nav-link">
-                            Doctor Consultation
+                            Doctor
                         </Link>
                     </li>
 
@@ -179,6 +179,7 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                             Lab Services
                         </Link>
                     </li>
+
                     <li className="nav-item dropdown">
                         {isAuthenticated ? (
                             <Link
@@ -190,7 +191,6 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                {/* Hello, LoggedIn User */}
                                 Hello, {localStorage.getItem("userName")}
                             </Link>
                         ) : (
@@ -221,13 +221,6 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                     <div className="dropdown-divider"></div>
                                     <Link
                                         className="nav-link text-dark text-decoration-none p-1 mx-2"
-                                        to="/cart"
-                                    >
-                                        <i className="fas fa-shopping-cart mr-1 icon-primary"></i> Cart
-                                    </Link>
-                                    <div className="dropdown-divider"></div>
-                                    <Link
-                                        className="nav-link text-dark text-decoration-none p-1 mx-2"
                                         to="/yourOrders"
 
                                     >
@@ -248,6 +241,12 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                 </Link>
                             )}
                         </div>
+                    </li>
+                    
+                    <li className="nav-item">
+                        <Link to="/cart" className="nav-link">
+                            <i className="fas fa-shopping-cart mr-1 text-white"></i>
+                        </Link>
                     </li>
                 </ul>
             </div>
