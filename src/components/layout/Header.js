@@ -2,22 +2,26 @@ import React, {useState} from "react";
 import {Link} from "react-router-dom";
 // import logo from "../../icon.png";
 import {logout} from "../../actions/authActions";
-import {clearItemsList, search} from "../../actions/medSearch";
+import {clearItemsList, search, searchTests} from "../../actions/medSearch";
 import {connect} from "react-redux";
 
 import Life from "../../assets/life.svg";
 
-const Header = ({auth, logout, search, clearItemsList, data}) => {
+const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
     const [text, setText] = useState("");
-    // const [searchBy, setsearchBy] = useState("All");
+    const [searchBy, setsearchBy] = useState("Medicines");
     const onChange = (e) => {
         setText(e.target.value);
-        if (e.target.value.length > 0)
-            search(e.target.value);//searchBy,
-        else
+        if (e.target.value.length <= 0){
             clearItemsList();
+        }else{
+            if(searchBy === 'Medicines')
+                search(e.target.value);
+            else if(searchBy === 'Tests'){
+                searchTests(e.target.value);
+            }
+        }
     };
-
     const clearSearch = (e) => {
         e.preventDefault();
         setText("");
@@ -53,39 +57,32 @@ const Header = ({auth, logout, search, clearItemsList, data}) => {
 
             <div className="search-container form-inline my-2 my-lg-0">
                 <form className="search-form">
-                    {/* <div className="input-group-btn search-panel">
-            <button
-              type="button"
-              className="btn btn-default bg-white dropdown-toggle"
-              data-toggle="dropdown"
-            >
-              <span id="search_concept">{searchBy}</span>
-              <span className="caret"></span>
-            </button>
-            <ul className="dropdown-menu" role="menu" style={{ cursor: "pointer" }}>
-              <li>
-                <p onClick={(e) => setsearchBy("All")}
-                  className="dropdown-item text-decoration-none text-dark"
-                >
-                  All
-                </p>
-              </li>
-              <li>
-                <p onClick={(e) => setsearchBy("Medicines")}
-                  className="dropdown-item text-decoration-none text-dark"
-                >
-                  Medicines
-                </p>
-              </li>
-              <li>
-                <p onClick={(e) => setsearchBy("Doctors")}
-                  className="dropdown-item text-decoration-none text-dark"
-                >
-                  Doctors
-                </p>
-              </li>
-            </ul>
-          </div> */}
+                    <div className="input-group-btn search-panel">
+                        <button
+                            type="button"
+                            className="btn btn-default bg-white dropdown-toggle"
+                            data-toggle="dropdown"
+                        >
+                            <span id="search_concept">{searchBy}</span>
+                            <span className="caret"></span>
+                        </button>
+                        <ul className="dropdown-menu" role="menu" style={{cursor: "pointer"}}>
+                            <li>
+                                <p onClick={(e) => setsearchBy("Medicines")}
+                                   className="dropdown-item text-decoration-none text-dark"
+                                >
+                                    Medicines
+                                </p>
+                            </li>
+                            <li>
+                                <p onClick={(e) => setsearchBy("Tests")}
+                                   className="dropdown-item text-decoration-none text-dark"
+                                >
+                                    Tests
+                                </p>
+                            </li>
+                        </ul>
+                    </div>
                     <input
                         type="text"
                         className="form-control mr-sm-2"
@@ -101,7 +98,7 @@ const Header = ({auth, logout, search, clearItemsList, data}) => {
                                 color: "#228B22",
                                 cursor: "pointer",
                                 padding: "1.5%"
-                            }} onClick={(e) => clearSearch(e)}></i> :
+                            }} onClick={(e) => clearSearch(e)}>&nbsp;</i> :
                             null
                     }
 
@@ -110,27 +107,57 @@ const Header = ({auth, logout, search, clearItemsList, data}) => {
                         <i className="fa fa-search "></i>
                     </Link>
                 </form>
-                <table className="drugList table table-striped m-0 shadow">
-                    <tbody>
-                    {data.map((items) => (
-                        <tr key={items._id}>
-                            <td>
-                                <Link
-                                    to={{
-                                        pathname: "/to/item",
-                                        state: {items: items},
-                                    }}
-                                    className="text-decoration-none secondary-text"
-                                    onClick={() => ClearItemsList()}
-                                >
-                                    {items.doctorPrescriptionName}
-                                </Link>
-                            </td>
-                            <td>₹{items.mrp}</td>
-                        </tr>
-                    ))}
-                    </tbody>
-                </table>
+                {
+                    searchBy==='Medicines'?
+                        <table className="drugList table table-striped m-0 shadow">
+                            <tbody>
+                            {data.map((items) => (
+                                <tr key={items._id}>
+                                    <td>
+                                        <Link
+                                            to={{
+                                                pathname: "/to/item",
+                                                state: {
+                                                    searchBy,
+                                                    items: items},
+                                            }}
+                                            className="text-decoration-none secondary-text"
+                                            onClick={() => ClearItemsList()}
+                                        >
+                                            {items.doctorPrescriptionName}
+                                        </Link>
+                                    </td>
+                                    <td>₹{items.mrp}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                        :
+                        <table className="drugList table table-striped m-0 shadow">
+                            <tbody>
+                            {data.map((items) => (
+                                <tr key={items._id}>
+                                    <td>
+                                        <Link
+                                            to={{
+                                                pathname: "/to/item",
+                                                state: {
+                                                    searchBy,
+                                                    items: items},
+                                            }}
+                                            className="text-decoration-none secondary-text"
+                                            onClick={() => ClearItemsList()}
+                                        >
+                                            {items.TNAME1}
+                                        </Link>
+                                    </td>
+                                    <td>₹{items.MRP}</td>
+                                </tr>
+                            ))}
+                            </tbody>
+                        </table>
+                }
+
             </div>
 
             <div className="collapse navbar-collapse" id="navigation">
@@ -239,6 +266,6 @@ const mapStateToProps = (state) => ({
     data: state.data.data,
     isDataLoading: state.data.isDataLoading,
 });
-export default connect(mapStateToProps, {logout, search, clearItemsList})(
+export default connect(mapStateToProps, {logout, search,searchTests ,clearItemsList})(
     Header
 );

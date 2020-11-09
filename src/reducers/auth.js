@@ -15,7 +15,7 @@ const initialState = {
     loginNumber: localStorage.getItem("number"),
     token: localStorage.getItem("token"),
     refreshToken: localStorage.getItem("refreshToken"),
-    isAuthenticated: null,
+    isAuthenticated: localStorage.getItem('isAuthenticated'),
     isLoading: false,
     user: "",
     gotOtp: null,
@@ -60,10 +60,11 @@ export default function (state = initialState, action) {
             localStorage.setItem("refreshToken", action.payload.refreshToken);
             localStorage.setItem("number", action.mobileNumber);
             localStorage.setItem("_id", action.payload._id);
+            localStorage.setItem('isAuthenticated', "true");
             return {
                 ...state,
                 ...action.payload,
-                isAuthenticated: true,
+                isAuthenticated: "true",
                 isLoading: false,
             };
         case LOGIN_FAIL:

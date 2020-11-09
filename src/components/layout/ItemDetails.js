@@ -10,10 +10,12 @@ function ItemDetails(props, { auth, addCart }) {
     item_id: props.match.params.id,
     items: [],
     dataloaded: false,
+      searchby: "",
   };
 
   const [item_id] = useState(state.item_id);
   const [items, setItems] = useState(state.items);
+  const [searchby, setSearchBy] = useState(state.searchBy)
   const [dataloaded, setDataLoaded] = useState(state.dataloaded);
 
   useEffect(() => {
@@ -43,9 +45,10 @@ function ItemDetails(props, { auth, addCart }) {
   //console.log(item_id);
 
 
-  console.log(auth)
+  console.log(props)
 
   return dataloaded ? (
+
 
     <div className="item-detail">
       <div className="detail-name">
@@ -71,7 +74,7 @@ function ItemDetails(props, { auth, addCart }) {
       </div>
       <div className="detail-name">
         {" "}
-        <h2> How It Works:</h2> <p>{items.howItWorks}</p>{" "}
+        {/*<h2> How It Works:</h2> <p>{items.howItWorks}</p>{" "}*/}
       </div>
       <div className="detail-name">
         {" "}

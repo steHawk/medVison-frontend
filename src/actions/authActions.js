@@ -267,24 +267,54 @@ export const afterOTPLogin = (mobile, otp) => (dispatch) => {
     } else if (otp === "" || otp.length < 6) {
         dispatch(createMessage({otp: "Invalid OTP"}));
     } else {
-        let body = {
+        let body = JSON.stringify({
             otp: otp.toString(),
             mobile
-        }
-        axios.post('https://api.emetroplus.com/user/verifyotp', body)
-            .then((response) => {
-                console.log('====================================');
-                console.log("verifyOtp response", response.data);
-                console.log('====================================');
-                if (response.data.status === true) {
-                    console.log("----->", response.data)
-                    // window.location.href = "/";
-                } else {
-                    dispatch(returnErrors(response.data.message, response.data.message))
-                }
-            }).catch((err) => {
-            dispatch(returnErrors(err, err));
+        });
+        let headers = {
+            'auth-type': 'user',
+            'login-type': 'mobileOtp',
+            'Content-Type': 'application/json',
+        };
+        fetch('https://api.emetroplus.com/auth/login', {
+            method:'POST',
+            headers,
+            body
+        }).then(response=>{
+            return response.json();
+        }).then(data=>{
+            if(data.success){
+                dispatch({
+                    type: LOGIN_SUCCESS,
+                    payload: data,
+                    mobileNumber: mobile,
+                });
+                dispatch(createMessage({check: "Login Successfully"}));
+                loadUser();
+                window.location.reload();
+            }else{
+                dispatch(createMessage({check: "Login Failed"}));
+            }
+            console.log("data", data);
+        }).catch(err=>{
+            dispatch(returnErrors(err, err))
+            console.log("err", err);
         })
+        // axios.post('https://api.emetroplus.com/auth/login', headers, body)
+        //     .then((response) => {
+        //         console.log('====================================');
+        //         console.log("verifyOtp response", response.data);
+        //         console.log('====================================');
+        //         if (response.data.status === true) {
+        //             console.log("----->", response.data)
+        //             // window.location.href = "/";
+        //         } else {
+        //             dispatch(returnErrors(response.data.message, response.data.message))
+        //         }
+        //     }).catch((err) => {
+        //     console.log("errrr", err)
+        //     dispatch(returnErrors(err, err));
+        // })
     }
 };
 

@@ -52,7 +52,7 @@ export class GetOtp extends Component {
     }
 
     render() {
-        console.log(this.props)
+        // console.log(this.props)
         if (this.state.otpSent === true) {
             return (
                 <Redirect to={{

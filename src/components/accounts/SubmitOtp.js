@@ -65,9 +65,8 @@ export class SubmitOtp extends Component {
             )
         }
         // console.log("this.props.state.auth.number", this.props);
-        if (this.state.verify === true) {
+        if (this.props.auth.isAuthenticated === true) {
             if (this.props.history.location.pathname === "/submitLoginOtp") {
-                // this.props.afterOTPLogin(this.props.auth.number);
                 return <Redirect to="/"/>
             } else {
                 return <Redirect to="/register"/>;
@@ -131,6 +130,7 @@ export class SubmitOtp extends Component {
 
 const mapStateToProps = (state) => ({
     state: state,
+    auth: state.auth,
 });
 
 export default connect(mapStateToProps, {validOtp, afterOTPLogin, getOtp, otpForLogin})(SubmitOtp);

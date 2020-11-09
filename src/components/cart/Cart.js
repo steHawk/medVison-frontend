@@ -25,7 +25,7 @@ class Cart extends Component {
   }
   static propTypes = {
     deleteCartItems: PropTypes.func.isRequired,
-    isAuthenticated: PropTypes.bool,
+    // isAuthenticated: PropTypes.string,
   };
 
   componentDidMount() {

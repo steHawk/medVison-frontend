@@ -2,7 +2,7 @@ import {
     DATA_LOAD_FAILED,
     DATA_LOAD_SUCCESS,
     DATA_LOAD_INITIATED,
-    CLEAR_ITEMS_LIST,
+    CLEAR_ITEMS_LIST, MED_SEARCH_ITEMS_FAILURE, MED_SEARCH_ITEMS_INIT, MED_SEARCH_ITEMS_SUCCESS,
 } from "../actions/types";
 
 
@@ -43,6 +43,22 @@ const dataReducer = (state = initialState, action) => {
             // console.log("succ", state);
             return state;
         }
+        case MED_SEARCH_ITEMS_FAILURE:
+            return {
+                data: [],
+                isDataLoading: false,
+            }
+        case MED_SEARCH_ITEMS_INIT:
+            return {
+                data:[],
+                isDataLoading: true,
+            }
+        case MED_SEARCH_ITEMS_SUCCESS:
+            // let {_id, TNAME1, MRP} = action.payload
+            return {
+                data:action.payload,
+                isDataLoading: false
+            }
         case CLEAR_ITEMS_LIST : {
             state = {
                 data : [],
@@ -58,3 +74,5 @@ const dataReducer = (state = initialState, action) => {
 }
 
 export default dataReducer;
+
+
