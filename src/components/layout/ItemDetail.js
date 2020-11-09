@@ -98,7 +98,7 @@ class ItemDetail extends Component {
                   <p>{this.props.location.state.items.primarilyUsedFor}</p>{" "}
                 </td>
               </tr>
-              {isAuthenticated==="true" ? (
+              {isAuthenticated ? (
                   <tr><th>
                     <button
                         className="button-primary"
@@ -206,7 +206,7 @@ class ItemDetail extends Component {
                   <p>{this.props.location.state.items.IsFasting === null ? "No" : this.props.location.state.items.IsFasting}</p>{" "}
                 </td>
               </tr>
-              {isAuthenticated==="true" ? (
+              {isAuthenticated ? (
                   <tr><th>
                     <button
                         className="button-primary"
