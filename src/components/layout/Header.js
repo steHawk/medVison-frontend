@@ -7,17 +7,17 @@ import {connect} from "react-redux";
 
 import Life from "../../assets/life.svg";
 
-const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
+const Header = ({auth, logout, search, searchTests, clearItemsList, data}) => {
     const [text, setText] = useState("");
     const [searchBy, setsearchBy] = useState("Medicines");
     const onChange = (e) => {
         setText(e.target.value);
-        if (e.target.value.length <= 0){
+        if (e.target.value.length <= 0) {
             clearItemsList();
-        }else{
-            if(searchBy === 'Medicines')
+        } else {
+            if (searchBy === 'Medicines')
                 search(e.target.value);
-            else if(searchBy === 'Tests'){
+            else if (searchBy === 'Tests') {
                 searchTests(e.target.value);
             }
         }
@@ -34,6 +34,8 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
 
     const {isAuthenticated} = auth;
     // console.log("auth", auth);
+    let userName = localStorage.getItem("userName") ? localStorage.getItem("userName").split(" ")[0] : "";
+
     return (
         <nav className="navbar navbar-expand-lg navbar-dark flex-wrap">
             <Link className="navbar-brand" to="/">
@@ -108,7 +110,7 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                     </Link>
                 </form>
                 {
-                    searchBy==='Medicines'?
+                    searchBy === 'Medicines' ?
                         <table className="drugList table table-striped m-0 shadow">
                             <tbody>
                             {data.map((items) => (
@@ -119,7 +121,8 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                                 pathname: "/to/item",
                                                 state: {
                                                     searchBy,
-                                                    items: items},
+                                                    items: items
+                                                },
                                             }}
                                             className="text-decoration-none secondary-text"
                                             onClick={() => ClearItemsList()}
@@ -143,7 +146,8 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                                 pathname: "/to/item",
                                                 state: {
                                                     searchBy,
-                                                    items: items},
+                                                    items: items
+                                                },
                                             }}
                                             className="text-decoration-none secondary-text"
                                             onClick={() => ClearItemsList()}
@@ -191,7 +195,7 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                Hello, {localStorage.getItem("userName")}
+                                Hello, {userName}
                             </Link>
                         ) : (
                             <Link
@@ -242,11 +246,17 @@ const Header = ({auth, logout, search,searchTests, clearItemsList, data}) => {
                             )}
                         </div>
                     </li>
-                    
+
                     <li className="nav-item">
-                        <Link to="/cart" className="nav-link">
-                            <i className="fas fa-shopping-cart mr-1 text-white"></i>
-                        </Link>
+                        {
+                            isAuthenticated
+                                ? <Link to="/cart" className="nav-link">
+                                    <i className="fas fa-shopping-cart mr-1 text-white"></i>
+                                </Link>
+                                : <Link to="/login" className="nav-link">
+                                    <i className="fas fa-shopping-cart mr-1 text-white"></i>
+                                </Link>
+                        }
                     </li>
                 </ul>
             </div>
@@ -265,6 +275,6 @@ const mapStateToProps = (state) => ({
     data: state.data.data,
     isDataLoading: state.data.isDataLoading,
 });
-export default connect(mapStateToProps, {logout, search,searchTests ,clearItemsList})(
+export default connect(mapStateToProps, {logout, search, searchTests, clearItemsList})(
     Header
 );
