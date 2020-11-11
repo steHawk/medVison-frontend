@@ -43,6 +43,7 @@ class Cart extends Component {
   render() {
     // this.state.cartItems = this.props.cartItems;
     const { cartItems, total } = this.props;
+    console.log(this.props)
     return (
       <Fragment>
         <div className="container my-4">

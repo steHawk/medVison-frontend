@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 // import { register } from '../../actions/authActions';
 // import PropTypes from 'prop-types'
 
-export function ProfileUpdate() {
+export function ProfileUpdate(props) {
   const [userName, setuserName] = useState(localStorage.getItem("userName"));
 
   const [email, setemail] = useState(localStorage.getItem("email"));
@@ -42,14 +42,18 @@ export function ProfileUpdate() {
     }).then((response) => {
       if (response.ok) {
         console.log(response);
-        window.location.href = "/";
+        if(props.location.state){
+          window.location.href="/checkout"
+        }else{
+          window.location.href="/profile"
+        }
       }
     });
     // .catch((e) => {
     //   console.log(e);
     // })
   };
-
+  console.log("===>", props.location)
   return (
     <div className="container my-4">
       <form className="form">

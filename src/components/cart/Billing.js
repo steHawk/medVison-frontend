@@ -215,9 +215,12 @@ class Billing extends Component {
                     style={{ resize: "none" }}
                     rows="8"
                     disabled
-                  ></textarea>
+                  >&nbsp;</textarea>
                   <button className="button-primary">
-                    <Link to="/profileUpdate" style={{ color: "white" }}>
+                    <Link to={{
+                      pathname:"/profileUpdate",
+                      state:{cartItems, total, user}
+                    }} style={{ color: "white" }}>
                       Change
                     </Link>
                   </button>
