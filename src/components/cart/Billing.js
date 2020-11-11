@@ -71,6 +71,7 @@ class Billing extends Component {
   onChange = (e) => this.setState({ [e.target.name]: e.target.value });
 
   render() {
+    let type = this.props.location.state? this.props.location.state.type : "";
     async function displayRazorpay() {
       const res = await loadScript(
         "https://checkout.razorpay.com/v1/checkout.js"
@@ -90,12 +91,12 @@ class Billing extends Component {
           "Content-Type": "application/json",
         },
       };
-      // console.log(user , total)
+      // console.log(user , totalMedItems)
       const body = {
         orderDetails: {
           userName: user.userName,
           mobile: user.mobile,
-          amount: parseInt(total) * 100,
+          amount: parseInt(totalMedItems) * 100,
           payment_type: "Online",
           location: {
             houseNumber: address,
@@ -104,7 +105,7 @@ class Billing extends Component {
             city: city,
           },
           email: user.email,
-          items: cartItems,
+          items: medItems,
         },
       };
 
@@ -176,11 +177,11 @@ class Billing extends Component {
     //   console.log("hi");
     //   document.querySelector("._2eTL2v").classList.toggle("content");
     // }
-    const { cartItems, total, user } = this.props;
+    const { medItems,testItems,totalTestItems, totalMedItems, user } = this.props;
     const { houseNumber, street, pincode, city, address } = this.state;
 
     // console.log(this.props.auth)
-    // console.log(total);
+    // console.log(totalMedItems);
     return (
       <Fragment>
         <div className="container my-4">
@@ -219,7 +220,7 @@ class Billing extends Component {
                   <button className="button-primary">
                     <Link to={{
                       pathname:"/profileUpdate",
-                      state:{cartItems, total, user}
+                      state:{medItems, totalMedItems, user}
                     }} style={{ color: "white" }}>
                       Change
                     </Link>
@@ -230,69 +231,135 @@ class Billing extends Component {
             <div className="col-lg-6" style={{ position: "relative" }} >
               <h4 className="font-weight-bold">Order Summary</h4>
               <div className="_2eTL2v content">
-                {cartItems.map((cartItem, index) => (
-                  <div
-                    className="p-4 my-4 bg-white rounded-lg shadow-sm"
-                    key={cartItem._id}
-                  >
-                    <div className="row">
-                      <div className="col-6 my-auto">
-                        <h6 className="font-weight-bold">{cartItem.name}</h6>
-                      </div>
-                      <div className="col-3 my-auto">
-                        <h6>{cartItem.packageSize}</h6>
-                      </div>
-                      <div className="col-3 my-auto">
-                        <p>₹{cartItem.sum}</p>
-                      </div>
-                    </div>
-                    <div className="row mt-2">
-                      <div className="col-2">
-                        <button
-                          className="btn btn-outline-danger rounded-circle"
-                          onClick={this.props.decrementQty.bind(
-                            this,
-                            cartItem.id,
-                            cartItem.quantity
-                          )}
-                        >
-                          <i className="fa fa-minus"></i>
-                        </button>
-                      </div>
-                      <div className="col-4">
-                        <input
-                          type="text"
-                          value={cartItem.quantity}
-                          readOnly={true}
-                          className="form-control"
-                        />
-                      </div>
-                      <div className="col-2">
-                        <button
-                          className="btn btn-outline-success rounded-circle"
-                          onClick={this.props.incrementQty.bind(
-                            this,
-                            cartItem.id,
-                            cartItem.quantity
-                          )}
-                        >
-                          <i className="fa fa-plus"></i>
-                        </button>
-                      </div>
-                      <div className="col-4 text-right" tabIndex="12">
-                        <button
-                          onClick={this.props.deleteCartItems.bind(
-                            this,
-                            cartItem.id
-                          )}
-                          className="btn btn-danger rounded-circle"
-                        >
-                          <i className="fa fa-trash"></i>
-                        </button>
-                      </div>
-                    </div>
-                  </div>
-                ))}
+                {
+                  type === "Medicine"
+                      ?medItems.map((cartItem, index) => (
+                          <div
+                              className="p-4 my-4 bg-white rounded-lg shadow-sm"
+                              key={cartItem._id}
+                          >
+                            <div className="row">
+                              <div className="col-6 my-auto">
+                                <h6 className="font-weight-bold">{cartItem.name}</h6>
+                              </div>
+                              <div className="col-3 my-auto">
+                                <h6>{cartItem.packageSize}</h6>
+                              </div>
+                              <div className="col-3 my-auto">
+                                <p>₹{cartItem.sum}</p>
+                              </div>
+                            </div>
+                            <div className="row mt-2">
+                              <div className="col-2">
+                                <button
+                                    className="btn btn-outline-danger rounded-circle"
+                                    onClick={this.props.decrementQty.bind(
+                                        this,
+                                        cartItem.id,
+                                        cartItem.quantity
+                                    )}
+                                >
+                                  <i className="fa fa-minus"></i>
+                                </button>
+                              </div>
+                              <div className="col-4">
+                                <input
+                                    type="text"
+                                    value={cartItem.quantity}
+                                    readOnly={true}
+                                    className="form-control"
+                                />
+                              </div>
+                              <div className="col-2">
+                                <button
+                                    className="btn btn-outline-success rounded-circle"
+                                    onClick={this.props.incrementQty.bind(
+                                        this,
+                                        cartItem.id,
+                                        cartItem.quantity
+                                    )}
+                                >
+                                  <i className="fa fa-plus"></i>
+                                </button>
+                              </div>
+                              <div className="col-4 text-right" tabIndex="12">
+                                <button
+                                    onClick={this.props.deleteCartItems.bind(
+                                        this,
+                                        cartItem.id
+                                    )}
+                                    className="btn btn-danger rounded-circle"
+                                >
+                                  <i className="fa fa-trash"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                      )):
+                      testItems.map((cartItem, index) => (
+                          <div
+                              className="p-4 my-4 bg-white rounded-lg shadow-sm"
+                              key={cartItem._id}
+                          >
+                            <div className="row">
+                              <div className="col-6 my-auto">
+                                <h6 className="font-weight-bold">{cartItem.name}</h6>
+                              </div>
+                              <div className="col-3 my-auto">
+                                <h6>{cartItem.packageSize}</h6>
+                              </div>
+                              <div className="col-3 my-auto">
+                                <p>₹{cartItem.sum}</p>
+                              </div>
+                            </div>
+                            <div className="row mt-2">
+                              <div className="col-2">
+                                <button
+                                    className="btn btn-outline-danger rounded-circle"
+                                    onClick={this.props.decrementQty.bind(
+                                        this,
+                                        cartItem.id,
+                                        cartItem.quantity
+                                    )}
+                                >
+                                  <i className="fa fa-minus"></i>
+                                </button>
+                              </div>
+                              <div className="col-4">
+                                <input
+                                    type="text"
+                                    value={cartItem.quantity}
+                                    readOnly={true}
+                                    className="form-control"
+                                />
+                              </div>
+                              <div className="col-2">
+                                <button
+                                    className="btn btn-outline-success rounded-circle"
+                                    onClick={this.props.incrementQty.bind(
+                                        this,
+                                        cartItem.id,
+                                        cartItem.quantity
+                                    )}
+                                >
+                                  <i className="fa fa-plus"></i>
+                                </button>
+                              </div>
+                              <div className="col-4 text-right" tabIndex="12">
+                                <button
+                                    onClick={this.props.deleteCartItems.bind(
+                                        this,
+                                        cartItem.id
+                                    )}
+                                    className="btn btn-danger rounded-circle"
+                                >
+                                  <i className="fa fa-trash"></i>
+                                </button>
+                              </div>
+                            </div>
+                          </div>
+                      ))
+                }
               </div>
             </div>
           </div>
@@ -340,8 +407,8 @@ class Billing extends Component {
                       onClick={displayRazorpay.bind(
                         this,
                         user,
-                        total,
-                        cartItems,
+                        totalMedItems,
+                        medItems,
                         houseNumber,
                         street,
                         pincode,
@@ -360,8 +427,8 @@ class Billing extends Component {
                         onClick={this.props.cashOnDelivery.bind(
                           this,
                           user,
-                          total,
-                          cartItems,
+                          totalMedItems,
+                          medItems,
                           houseNumber,
                           street,
                           pincode,
@@ -378,26 +445,52 @@ class Billing extends Component {
             </div>
             <div className="col-lg-6 col-md-6">
               <h4 className="font-weight-bold">Price details</h4>
-              <div className="bg-white rounded-lg shadow-sm p-4 my-4">
-                <div className="responsive-table">
-                  <table className="table table-borderless">
-                    <tbody>
-                      <tr>
-                        <td>Price</td>
-                        <td className="font-weight-bold">₹{total}</td>
-                      </tr>
-                      <tr>
-                        <td>Delivery Charges</td>
-                        <td className="font-weight-bold">Free</td>
-                      </tr>
-                      <tr>
-                        <td>Total Payable</td>
-                        <td className="font-weight-bold">₹{total}</td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
+              {
+                type === "Medicine"
+                  ?
+                    <div className="bg-white rounded-lg shadow-sm p-4 my-4">
+                      <div className="responsive-table">
+                        <table className="table table-borderless">
+                          <tbody>
+                          <tr>
+                            <td>Price</td>
+                            <td className="font-weight-bold">₹{totalMedItems}</td>
+                          </tr>
+                          <tr>
+                            <td>Delivery Charges</td>
+                            <td className="font-weight-bold">Free</td>
+                          </tr>
+                          <tr>
+                            <td>Total Payable</td>
+                            <td className="font-weight-bold">₹{totalMedItems}</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+                    :
+                    <div className="bg-white rounded-lg shadow-sm p-4 my-4">
+                      <div className="responsive-table">
+                        <table className="table table-borderless">
+                          <tbody>
+                          <tr>
+                            <td>Price</td>
+                            <td className="font-weight-bold">₹{totalTestItems}</td>
+                          </tr>
+                          <tr>
+                            <td>Delivery Charges</td>
+                            <td className="font-weight-bold">Free</td>
+                          </tr>
+                          <tr>
+                            <td>Total Payable</td>
+                            <td className="font-weight-bold">₹{totalTestItems}</td>
+                          </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </div>
+              }
+
             </div>
           </div>
         </div>
@@ -407,9 +500,11 @@ class Billing extends Component {
 }
 
 const mapStateToProps = (state) => ({
-  cartItems: state.cart.cartItems,
+  medItems: state.cart.medItems,
+  testItems: state.cart.testItems,
   isAuthenticated: state.auth.isAuthenticated,
-  total: getCartTotal(state.cart.cartItems),
+  totalMedItems: getCartTotal(state.cart.medItems),
+  totalTestItems:getCartTotal(state.cart.testItems),
   user: state.auth.user,
 });
 export default connect(mapStateToProps, {

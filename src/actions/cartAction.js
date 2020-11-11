@@ -14,7 +14,6 @@ import axios from "axios";
 
 // ADD To Cart
 export const addCart = (
-  // _,
   item_id,
   test_name,
   test_desc,
@@ -31,8 +30,6 @@ export const addCart = (
       price: test_price,
       type: type,
       quantity: 1,
-      sum: 0,
-      // packageSize: packSize,
     },
   };
   console.log(body);
@@ -53,9 +50,14 @@ export const addCart = (
 export const getCartItems = () => (dispatch, getState) => {
   const body = {
     user_id: localStorage.getItem("_id"),
+    type1: "MedicalTest",
+    type2: "Medicine",
   };
-  // console.log("body");
-  //console.log(body);
+  let headers={
+    "Authorization": "bearer"+localStorage.getItem("token"),
+    "auth-type":"user",
+    "Content-Type":"application/json"
+  }
   axios
     .post(
       "https://api.emetroplus.com/user/getcartitems",
@@ -63,6 +65,7 @@ export const getCartItems = () => (dispatch, getState) => {
       tokenConfig(getState)
     )
     .then((res) => {
+      console.log(res.data)
       dispatch({
         type: GET_CART_ITEMS,
         payload: res.data.cart_items_list,
@@ -106,75 +109,80 @@ export const quantity = (item_id) => (dispatch, getState) => {
 export const incrementQty = (productId, quan) => (dispatch, getState) => {
   // console.log(productId);
 
-  let quantity = quan + 1;
+  if(quan> 0){
+    let quantity = quan + 1;
 
-  const body = {
-    user_id: localStorage.getItem("_id"),
-    item: {
-      id: productId,
-      quantity: quantity,
-    },
-  };
-  axios
-    .post(
-      `https://api.emetroplus.com/user/updateitem`,
-      body,
-      tokenConfig(getState)
-    )
-    .then((res) => {
-      // console.log(res);
-      if (res.data.ok) {
-        dispatch({
-          type: INCREASE_QUANTITY,
-          productId,
-        });
-      } else {
-        console.log("error");
-      }
-    })
-    .catch((err) => console.log(err));
+    const body = {
+      user_id: localStorage.getItem("_id"),
+      item: {
+        id: productId,
+        quantity: quantity,
+      },
+    };
+    axios
+        .post(
+            `https://api.emetroplus.com/user/updateitem`,
+            body,
+            tokenConfig(getState)
+        )
+        .then((res) => {
+          // console.log(res);
+          if (res.data.ok) {
+            dispatch({
+              type: INCREASE_QUANTITY,
+              productId,
+            });
+          } else {
+            console.log("error");
+          }
+        })
+        .catch((err) => console.log(err));
+  }
 };
 
 export const decrementQty = (productId, quan) => (dispatch, getState) => {
   // console.log(productId);
-  
-  let quantity = quan - 1;
+  if(quan >1 ){
 
-  if (quantity < 1)
-    quantity = 1
+    let quantity = quan - 1;
 
-  const body = {
-    user_id: getState().auth.user._id,
-    item: {
-      id: productId,
-      quantity: quantity,
-    },
-  };
-  axios
-    .post(
-      `https://api.emetroplus.com/user/updateitem`,
-      body,
-      tokenConfig(getState)
-    )
-    .then((res) => {
-      // console.log(res);
-      if (res.data.ok) {
-        dispatch({
-          type: DECREMENT_QTY,
-          productId,
-        });
-      } else {
-        console.log("error");
-      }
-    })
-    .catch((err) => console.log(err));
+    if (quantity < 1)
+      quantity = 1
+
+    const body = {
+      user_id: getState().auth.user._id,
+      item: {
+        id: productId,
+        quantity: quantity,
+      },
+    };
+    axios
+        .post(
+            `https://api.emetroplus.com/user/updateitem`,
+            body,
+            tokenConfig(getState)
+        )
+        .then((res) => {
+          // console.log(res);
+          if (res.data.ok) {
+            dispatch({
+              type: DECREMENT_QTY,
+              productId,
+            });
+          } else {
+            console.log("error");
+          }
+        })
+        .catch((err) => console.log(err));
+  }
+
 };
 
 export const getCartTotal = (cartItems) => {
   var total = 0;
+
   for (var i = 0; i < cartItems.length; i++) {
-    total +=
-      parseInt(cartItems[i].quantity, 10) * parseInt(cartItems[i].price, 10);
+    total +=parseInt(cartItems[i].quantity, 10) * parseInt(cartItems[i].price, 10);
   }
   return total;
 };

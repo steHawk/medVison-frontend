@@ -20,7 +20,7 @@ class Cart extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      // cartItems: [],
+      // medItems: [],
     };
   }
   static propTypes = {
@@ -32,18 +32,8 @@ class Cart extends Component {
     this.props.getCartItems();
   }
 
-  // setPrice(id) {
-  //   this.setState((prevState) => ({
-  //     cartItems: prevState.cartItems
-  //       .filter((item) => item._id === id)
-  //       .map((item) => (item.quantity = parseInt(item.quantity) + 1)),
-  //   }));
-  // }
-
   render() {
-    // this.state.cartItems = this.props.cartItems;
-    const { cartItems, total } = this.props;
-    console.log(this.props)
+    const { medItems,testItems, totalMedItems , totalTestItems} = this.props;
     return (
       <Fragment>
         <div className="container my-4">
@@ -51,7 +41,9 @@ class Cart extends Component {
             <div className="col-lg-6 col-md-6">
               <h5 className="font-weight-bold">Cart</h5>
               <hr />
-              {cartItems.map((cartItem, index) => (
+              <h6 className="font-weight-bold">Med Items:</h6>
+              <hr/>
+              {medItems.map((cartItem, index) => (
                 <div className="bg-white rounded-lg shadow-sm p-4 my-4 " key={cartItem._id}>
                   <div className="row">
                     <div className="col-6 my-auto">
@@ -74,7 +66,7 @@ class Cart extends Component {
                           cartItem.quantity
                         )}
                       >
-                        <i className="fa fa-minus"></i>
+                        <i className="fa fa-minus">&nbsp;</i>
                       </button>
                     </div>
                     <div className="col-4">
@@ -94,7 +86,7 @@ class Cart extends Component {
                           cartItem.quantity
                         )}
                       >
-                        <i className="fa fa-plus"></i>
+                        <i className="fa fa-plus">&nbsp;</i>
                       </button>
                     </div>
                     <div className="col-4 text-right" tabIndex="12">
@@ -105,7 +97,7 @@ class Cart extends Component {
                         )}
                         className="btn btn-danger rounded-circle"
                       >
-                        <i className="fa fa-trash"></i>
+                        <i className="fa fa-trash">&nbsp;</i>
                       </button>
                     </div>
                   </div>
@@ -115,7 +107,82 @@ class Cart extends Component {
                 <Link
                   to={{
                     pathname: "/checkout",
+                    state: {type: "Medicine"}
                   }}
+                >
+                  {" "}
+                  <button className="btn btn-success">Place Order</button>
+                </Link>
+              </div>
+              <hr/>
+              <h6 className="font-weight-bold">Test Items:</h6>
+              <hr/>
+              {testItems.map((cartItem, index) => (
+                  <div className="bg-white rounded-lg shadow-sm p-4 my-4 " key={cartItem._id}>
+                    <div className="row">
+                      <div className="col-6 my-auto">
+                        <h6 className="font-weight-bold">{cartItem.name}</h6>
+                      </div>
+                      <div className="col-3 my-auto">
+                        <h6>{cartItem.packageSize}</h6>
+                      </div>
+                      <div className="col-3 my-auto">
+                        <p>₹{cartItem.sum}</p>
+                      </div>
+                    </div>
+                    <div className="row mt-2">
+                      <div className="col-2">
+                        <button
+                            className="btn btn-outline-danger rounded-circle"
+                            onClick={this.props.decrementQty.bind(
+                                this,
+                                cartItem.id,
+                                cartItem.quantity
+                            )}
+                        >
+                          <i className="fa fa-minus">&nbsp;</i>
+                        </button>
+                      </div>
+                      <div className="col-4">
+                        <input
+                            type="text"
+                            value={cartItem.quantity}
+                            readOnly
+                            className="form-control"
+                        />
+                      </div>
+                      <div className="col-2">
+                        <button
+                            className="btn btn-outline-primary rounded-circle"
+                            onClick={this.props.incrementQty.bind(
+                                this,
+                                cartItem.id,
+                                cartItem.quantity
+                            )}
+                        >
+                          <i className="fa fa-plus">&nbsp;</i>
+                        </button>
+                      </div>
+                      <div className="col-4 text-right" tabIndex="12">
+                        <button
+                            onClick={this.props.deleteCartItems.bind(
+                                this,
+                                cartItem.id
+                            )}
+                            className="btn btn-danger rounded-circle"
+                        >
+                          <i className="fa fa-trash">&nbsp;</i>
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+              ))}
+              <div className="text-center">
+                <Link
+                    to={{
+                      pathname: "/checkout",
+                      state: {type: "MedicalTest"}
+                    }}
                 >
                   {" "}
                   <button className="btn btn-success">Place Order</button>
@@ -123,15 +190,15 @@ class Cart extends Component {
               </div>
             </div>
             <div className="col-lg-6 col-md-6">
-              <h5 className="font-weight-bold">Price details</h5>
+              <h5 className="font-weight-bold">Medicines Price details</h5>
               <hr />
               <div className="bg-white rounded-lg shadow-sm">
                 <div className="responsive-table">
                   <table className="table table-borderless">
                     <tbody>
                       <tr>
-                        <td>Price</td>
-                        <td className="font-weight-bold">₹{total}</td>
+                        <td>Med Items Price</td>
+                        <td className="font-weight-bold">₹{totalMedItems}</td>
                       </tr>
                       <tr>
                         <td>Delivery Charges</td>
@@ -139,8 +206,31 @@ class Cart extends Component {
                       </tr>
                       <tr>
                         <td>Total Payable</td>
-                        <td className="font-weight-bold">₹{total}</td>
+                        <td className="font-weight-bold">₹{totalMedItems}</td>
                       </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr />
+              <h5 className="font-weight-bold">Tests Price details</h5>
+              <hr />
+              <div className="bg-white rounded-lg shadow-sm">
+                <div className="responsive-table">
+                  <table className="table table-borderless">
+                    <tbody>
+                    <tr>
+                      <td>Test Items Price</td>
+                      <td className="font-weight-bold">₹{totalTestItems}</td>
+                    </tr>
+                    <tr>
+                      <td>Delivery Charges</td>
+                      <td className="font-weight-bold">Free</td>
+                    </tr>
+                    <tr>
+                      <td>Total Payable</td>
+                      <td className="font-weight-bold">₹{totalTestItems}</td>
+                    </tr>
                     </tbody>
                   </table>
                 </div>
@@ -153,9 +243,11 @@ class Cart extends Component {
   }
 }
 const mapStateToProps = (state) => ({
-  cartItems: state.cart.cartItems,
+  medItems: state.cart.medItems,
+  testItems: state.cart.testItems,
   isAuthenticated: state.auth.isAuthenticated,
-  total: getCartTotal(state.cart.cartItems),
+  totalMedItems: getCartTotal(state.cart.medItems),
+  totalTestItems: getCartTotal(state.cart.testItems),
 });
 export default connect(mapStateToProps, {
   getCartItems,
