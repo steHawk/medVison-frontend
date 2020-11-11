@@ -523,3 +523,49 @@ input[type=number] {
 }
 
 /*# sourceMappingURL=App.css.map */
+
+
+.row {margin: 1% 0 0 0;}
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.order-headings{
+    font-size: 1em;
+    font-weight: bold;
+}
+.order-headings span{
+    font-weight: lighter;
+    color: var(--secondaryColor);
+}
+
+.table-headings td{
+    text-align: center;
+    font-weight: bold;
+}
+
+@media screen and (max-width: 600px) {
+    .order-column {
+        width: 100%;
+        display: block;
+    }
+}
+
+.card {
+    box-shadow: 0 0 1vh 0 rgba(0, 0, 0, 0.2);
+    padding: 2% 2% 5% 2%;
+    text-align: left;
+    background-color: #ffffff;
+    margin-top: 2%;
+}
+
+.orders-table{
+    width: 100%;
+    text-align: center;
+    table-layout: fixed;
+}
+.orders-table tbody tr td{
+    padding: 1%;
+}

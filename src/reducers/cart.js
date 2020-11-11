@@ -1,5 +1,4 @@
 import {DECREMENT_QTY, DELETE_CART_ITEM, GET_CART_ITEMS, INCREASE_QUANTITY,} from "../actions/types";
-import {quantity} from "../actions/cartAction";
 
 const initialState = {
     medItems: [],

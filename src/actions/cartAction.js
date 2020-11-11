@@ -53,11 +53,6 @@ export const getCartItems = () => (dispatch, getState) => {
     type1: "MedicalTest",
     type2: "Medicine",
   };
-  let headers={
-    "Authorization": "bearer"+localStorage.getItem("token"),
-    "auth-type":"user",
-    "Content-Type":"application/json"
-  }
   axios
     .post(
       "https://api.emetroplus.com/user/getcartitems",
