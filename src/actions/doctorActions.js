@@ -4,7 +4,7 @@ import {
   CALLBACK_TOKEN_NULL,
 } from "./types"; //, DOCTOR_CONSULT
 import axios from "axios";
-import { createMessage } from "./messages";//, returnErrors
+import { createMessage } from "./messages"; //, returnErrors
 
 // GET ALL THE DOCTORS AND DISPLAY
 
@@ -33,7 +33,12 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
 
   // Request Body
   const body = {
-    bookingDetails: { userName, mobile, medicalComplaint },
+    bookingDetails: {
+      userName,
+      mobile,
+      medicalComplaint,
+      consultType: "CallBack",
+    },
   };
 
   console.log(body);
@@ -46,7 +51,7 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
     axios
       .post("https://api.emetroplus.com/consultantbooking/create", body, config)
       .then((res) => {
-        console.log("--->",res);
+        console.log("--->", res);
         dispatch({
           type: CALLBACK_TOKEN,
           payload: res.data,
@@ -78,13 +83,14 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
       mobile: getState().auth.user.mobile,
       user: getState().auth.user._id,
       doctor: doctor_id,
+      consultType: "Doctor",
     },
   };
 
   // console.log(body);
 
   axios
-    .post("https://api.emetroplus.com//consultantbooking/create", body, config)
+    .post("https://api.emetroplus.com/consultantbooking/create", body, config)
     .then((res) => {
       // console.log("***",res.data);
       dispatch({
@@ -92,13 +98,12 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
         payload: res.data,
       });
     });
-
 };
 
-export const resetConsultToken = () =>(dispatch, getState)=>{
+export const resetConsultToken = () => (dispatch, getState) => {
   // setTimeout(function () {
-    dispatch({
-      type: CALLBACK_TOKEN_NULL,
-    });
+  dispatch({
+    type: CALLBACK_TOKEN_NULL,
+  });
   // }, 3000);
-}
+};
