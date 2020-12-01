@@ -22,11 +22,12 @@ export const loadUser = () => (dispatch, getState) => {
             .post(`https://api.emetroplus.com/user/info`, body, tokenConfig(getState))
             .then((res) => {
                 if (res.data.ok) {
-                    localStorage.setItem("email", res.data.user_details.email);
-                    localStorage.setItem("userName", res.data.user_details.userName);
-                    localStorage.setItem("address", res.data.user_details.address);
-                    localStorage.setItem("age", res.data.user_details.age);
-                    localStorage.setItem("gender", res.data.user_details.gender);
+                    console.log("data===>", res.data)
+                    localStorage.setItem("email", res.data.user_details.email ? res.data.user_details.email : "");
+                    localStorage.setItem("userName", res.data.user_details.userName ? res.data.user_details.userName : "");
+                    localStorage.setItem("address", res.data.user_details.address ? res.data.user_details.address : "");
+                    localStorage.setItem("age", res.data.user_details.age ? res.data.user_details.age : "");
+                    localStorage.setItem("gender", res.data.user_details.gender ? res.data.user_details.gender : "");
                     dispatch({
                         type: USER_LOADED,
                         payload: res.data.user_details,
@@ -44,7 +45,7 @@ export const loadUser = () => (dispatch, getState) => {
 };
 
 // GET OTP BEFORE REGISTRATION
-export const getOtp = (mobileNumber) => (dispatch) => {
+export const otpForRegister = (mobileNumber) => (dispatch) => {
     let mobile = mobileNumber.substr(-10);
     // const body = JSON.stringify({
     //   phoneNumber: mobileNumber,
@@ -64,10 +65,8 @@ export const getOtp = (mobileNumber) => (dispatch) => {
                 console.log("getOtp res.data", res.data);
 
                 if (res.data.message === "User already registered") {
-                    dispatch(
-                        createMessage({duplicate: "User already registered"})
-                    );
-                    window.location.href = "/login";
+                    dispatch(createMessage({check: "User already registered"}));
+                    setTimeout(() => {  window.location.href = "/login"; }, 2000);
                 } else {
                     dispatch({
                         type: GET_OTP,
@@ -82,7 +81,7 @@ export const getOtp = (mobileNumber) => (dispatch) => {
 };
 
 // PUSH OTP BEFORE REGISTRATION
-export const validOtp = (mobile, otp) => (dispatch) => {
+export const afterOTPRegister = (mobile, otp) => (dispatch) => {
     if (mobile === "" || mobile.length < 10) {
         dispatch(createMessage({number: "Incorrect mobile number"}));
     } else if (otp === "" || otp.length < 6) {
@@ -92,13 +91,53 @@ export const validOtp = (mobile, otp) => (dispatch) => {
             otp: otp.toString(),
             mobile
         }
+        console.log({body})
         axios.post('https://api.emetroplus.com/user/verifyotp', body)
             .then((response) => {
                 console.log('====================================');
                 console.log("verifyOtp response", response.data);
                 console.log('====================================');
-                if (response.data.status === true) {
-                    window.location.href = "/register";
+                if (response.data.status) {
+                    const config = {
+                        headers: {
+                            "Content-Type": "application/json",
+                            "auth-type": "user",
+                        },
+                    };
+
+                    // Request Body
+                    const body = JSON.stringify({
+                        userDetails: {mobile},
+                    });
+
+                    console.log({body})
+
+                    axios
+                        .post("https://api.emetroplus.com/user/create", body, config)
+                        .then((res) => {
+                            console.log(res);
+                            if (res.data.success) {
+                                dispatch({
+                                    type: REGISTER_SUCCESS,
+                                    payload: res.data,
+                                    mobileNumber: mobile,
+                                });
+                                loadUser();
+                            } else {
+                                if (res.data.error.message) {
+                                    dispatch(returnErrors(res.data.error.message, res.data));
+                                }
+                                if (res.data.error.errmsg) {
+                                    dispatch(returnErrors(res.data.error.errmsg, res.data));
+                                }
+                                dispatch({
+                                    type: REGISTER_FAIL,
+                                });
+                            }
+                        })
+                        .catch((err) => {
+                            console.log(err);
+                        });
                 } else {
                     dispatch(returnErrors(response.data.message, response.data.message))
                 }
@@ -109,118 +148,58 @@ export const validOtp = (mobile, otp) => (dispatch) => {
 }
 
 // REGISTER USER
-export const register = ({number, userName, password, email}) => (dispatch) => {
-    let mobile = number.substr(-10);
-
-    // Headers
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-            "auth-type": "user",
-        },
-    };
-
-    // Request Body
-    const body = JSON.stringify({
-        userDetails: {mobile: mobile, userName, email, password},
-    });
-
-    // Validate email
-    function validateEmail(email) {
-        var re = /\S+@\S+\.\S+/;
-        return re.test(email);
-    }
-
-    function emailLength(email) {
-        if (email.length > 0) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-
-    if (password.length === 0) {
-        dispatch(createMessage({password: "Please set password"}));
-    } else if (password.length < 8) {
-        dispatch(
-            createMessage({passwordL: "Password should be minimum 8 characters "})
-        );
-    } else if (emailLength(email) === true && validateEmail(email) === false) {
-        dispatch(createMessage({email: "Enter a valid email"}));
-    } else {
-        axios
-            .post("https://api.emetroplus.com/user/create", body, config)
-            .then((res) => {
-                console.log(res);
-                if (res.data.success) {
-                    dispatch({
-                        type: REGISTER_SUCCESS,
-                        payload: res.data,
-                    });
-                    window.location.href = "/login"
-                } else {
-                    if (res.data.error.message) {
-                        dispatch(returnErrors(res.data.error.message, res.data));
-                    }
-                    if (res.data.error.errmsg) {
-                        dispatch(returnErrors(res.data.error.errmsg, res.data));
-                    }
-                    dispatch({
-                        type: REGISTER_FAIL,
-                    });
-                }
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-    }
-};
+// export const register = ({number}) => (dispatch) => {
+//     let mobile = number.substr(-10);
+//
+//     // Headers
+//
+// };
 
 // LOGIN USER
-export const login = (number, password) => (dispatch, getState) => {
-    let phoneNumber = number.substr(-10);
-    const body = {mobile: phoneNumber, password: password};
-
-    const headers = {
-        "Content-Type": "application/json",
-        "auth-type": "user",
-    };
-
-    if (number.length < 10 || number === "") {
-        dispatch(createMessage({number: "Incorrect mobile number"}));
-    } else if (password === "") {
-        dispatch(createMessage({password: "Please enter your password"}));
-    } else {
-        axios
-            .post(`https://api.emetroplus.com/auth/login`, body, {
-                // .post(`http://localhost:3001/auth/login`, body, {
-                headers: headers,
-            })
-            .then((res) => {
-                // console.log("resssss", res.data);
-                if (res.data.success) {
-                    dispatch({
-                        type: LOGIN_SUCCESS,
-                        payload: res.data,
-                        mobileNumber: number,
-                    });
-                    dispatch(createMessage({check: "Login Successfully"}));
-                    loadUser();
-                    window.location.reload();
-                } else {
-                    dispatch(
-                        createMessage({check: "The username and password you entered did not match our records. Please double-check and try again."})
-                    );
-                    dispatch({
-                        type: LOGIN_FAIL,
-                    });
-                }
-            })
-            .catch((err) => {
-                dispatch(returnErrors(err.message, err.message));
-            });
-    }
-};
+// export const login = (number, password) => (dispatch, getState) => {
+//     let phoneNumber = number.substr(-10);
+//     const body = {mobile: phoneNumber, password: password};
+//
+//     const headers = {
+//         "Content-Type": "application/json",
+//         "auth-type": "user",
+//     };
+//
+//     if (number.length < 10 || number === "") {
+//         dispatch(createMessage({number: "Incorrect mobile number"}));
+//     } else if (password === "") {
+//         dispatch(createMessage({password: "Please enter your password"}));
+//     } else {
+//         axios
+//             .post(`https://api.emetroplus.com/auth/login`, body, {
+//                 // .post(`http://localhost:3001/auth/login`, body, {
+//                 headers: headers,
+//             })
+//             .then((res) => {
+//                 // console.log("resssss", res.data);
+//                 if (res.data.success) {
+//                     dispatch({
+//                         type: LOGIN_SUCCESS,
+//                         payload: res.data,
+//                         mobileNumber: number,
+//                     });
+//                     dispatch(createMessage({check: "Login Successfully"}));
+//                     loadUser();
+//                     window.location.reload();
+//                 } else {
+//                     dispatch(
+//                         createMessage({check: "The username and password you entered did not match our records. Please double-check and try again."})
+//                     );
+//                     dispatch({
+//                         type: LOGIN_FAIL,
+//                     });
+//                 }
+//             })
+//             .catch((err) => {
+//                 dispatch(returnErrors(err.message, err.message));
+//             });
+//     }
+// };
 
 // LOGOUT USER
 export const logout = () => (dispatch) => {
@@ -241,6 +220,7 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
         mobile,
         "countryCode": "+91"
     };
+    console.log({body})
     if (mobile === "" || mobile.length < 10) {
         dispatch(createMessage({number: "Incorrect mobile number"}));
     } else {
@@ -277,13 +257,13 @@ export const afterOTPLogin = (mobile, otp) => (dispatch) => {
             'Content-Type': 'application/json',
         };
         fetch('https://api.emetroplus.com/auth/login', {
-            method:'POST',
+            method: 'POST',
             headers,
             body
-        }).then(response=>{
+        }).then(response => {
             return response.json();
-        }).then(data=>{
-            if(data.success){
+        }).then(data => {
+            if (data.success) {
                 dispatch({
                     type: LOGIN_SUCCESS,
                     payload: data,
@@ -292,11 +272,11 @@ export const afterOTPLogin = (mobile, otp) => (dispatch) => {
                 dispatch(createMessage({check: "Login Successfully"}));
                 loadUser();
                 window.location.reload();
-            }else{
+            } else {
                 dispatch(createMessage({check: "Login Failed"}));
             }
             console.log("data", data);
-        }).catch(err=>{
+        }).catch(err => {
             dispatch(returnErrors(err, err))
             console.log("err", err);
         })

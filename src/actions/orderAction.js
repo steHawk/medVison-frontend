@@ -8,10 +8,8 @@ export const cashOnDelivery = (
     user,
     total,
     cartItems,
-    houseNumber,
-    street,
-    pincode,
-    city
+    address,
+    type,
 ) => (dispatch) => {
     const config = {
         headers: {
@@ -29,16 +27,14 @@ export const cashOnDelivery = (
             mobile: user.mobile,
             amount: parseInt(total) * 100,
             payment_type: "COD",
-            location: {
-                houseNumber: houseNumber,
-                street: street,
-                pincode: pincode,
-                city: city,
-            },
+            address:address,
             email: user.email,
             items: cartItems,
+            orderType: type,
+            orderStatus: 'created',
         },
     };
+    console.log(body)
 
     axios
         .post("https://api.emetroplus.com/order/create", body, config)
@@ -70,7 +66,7 @@ export const getOrders = () => (dispatch, getState) => {
     axios
         .post('https://api.emetroplus.com/order/data?skip=0&limit=20', body, config)
         .then(response => {
-            // console.log("orders response data",response.data)
+            console.log("orders response data",response.data)
             dispatch({type: FETCH_ORDERS_SUCCESS, payload: response.data.orders});
         })
         .catch(error => {

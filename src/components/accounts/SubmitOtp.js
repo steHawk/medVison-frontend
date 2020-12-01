@@ -2,7 +2,7 @@ import React, {Component} from "react";
 import {Redirect} from "react-router-dom";
 import {connect} from "react-redux";
 import PropTypes from "prop-types";
-import {afterOTPLogin, getOtp, otpForLogin, validOtp} from "../../actions/authActions";
+import {afterOTPLogin, otpForRegister, otpForLogin, afterOTPRegister} from "../../actions/authActions";
 
 export class SubmitOtp extends Component {
     static propTypes = {
@@ -21,7 +21,7 @@ export class SubmitOtp extends Component {
         if (this.props.location.state.historyPath === "/otpLogin") {
             this.props.afterOTPLogin(this.state.mobileNumber, stateOtp)
         } else {
-            this.props.validOtp(this.state.mobileNumber, stateOtp);
+            this.props.afterOTPRegister(this.state.mobileNumber, stateOtp);
 
         }
     };
@@ -36,7 +36,7 @@ export class SubmitOtp extends Component {
         if (this.props.location.state.historyPath === "/otpLogin") {
             this.props.otpForLogin(this.state.mobileNumber)
         } else {
-            this.props.getOtp(this.state.mobileNumber);
+            this.props.otpForRegister(this.state.mobileNumber);
         }
     };
 
@@ -133,4 +133,4 @@ const mapStateToProps = (state) => ({
     auth: state.auth,
 });
 
-export default connect(mapStateToProps, {validOtp, afterOTPLogin, getOtp, otpForLogin})(SubmitOtp);
+export default connect(mapStateToProps, {afterOTPRegister, afterOTPLogin, otpForRegister, otpForLogin})(SubmitOtp);

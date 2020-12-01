@@ -569,3 +569,18 @@ input[type=number] {
 .orders-table tbody tr td{
     padding: 1%;
 }
+
+.cursor{
+    cursor: pointer;
+}
+
+.margin-top-2{
+    margin-top: 2%;
+}
+
+.position-fixed{
+    position: fixed;
+    top: 0;
+    left: 10%;
+    right: 10%;
+}

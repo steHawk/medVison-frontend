@@ -3,7 +3,7 @@ import React, { useState } from "react"; //Component,
 import { connect } from "react-redux";
 // import { register } from '../../actions/authActions';
 // import PropTypes from 'prop-types'
-
+// import history from "../../history";
 export function ProfileUpdate(props) {
   const [userName, setuserName] = useState(localStorage.getItem("userName"));
 
@@ -35,7 +35,6 @@ export function ProfileUpdate(props) {
           age: parseInt(age),
           gender: gender,
           address: address,
-
           _id: localStorage.getItem("_id"),
         },
       }),
@@ -43,7 +42,12 @@ export function ProfileUpdate(props) {
       if (response.ok) {
         console.log(response);
         if(props.location.state){
-          window.location.href="/checkout"
+          if(props.location.state.refTo==="billing"){
+            window.location.href="/checkout"
+          }
+          if(props.location.state.refTo==="confirmPrescription"){
+            window.location.href = "/confirmprescription"
+          }
         }else{
           window.location.href="/profile"
         }
@@ -63,14 +67,14 @@ export function ProfileUpdate(props) {
               Edit <span className="primary-text">eMetroPlus</span> Profile Info
             </h4>
             <hr />
-            <label>Name</label>
-            <input
-              type="text"
-              className="form-control mb-2"
-              name="userName"
-              onChange={(e) => setuserName(e.target.value)}
-              value={userName}
-            />
+              <label>Name</label>
+              <input
+                type="text"
+                className="form-control mb-2"
+                name="userName"
+                onChange={(e) => setuserName(e.target.value)}
+                value={userName}
+              />
             <label>Email</label>
             <input
               type="email"

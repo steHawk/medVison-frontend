@@ -63,7 +63,7 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
 
 // DOCTOR CONSULTATION
 
-export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
+export const doctorConsultation = (doctor_id) => (dispatch, getState) => {
   // Headers
   const config = {
     headers: {
@@ -74,19 +74,21 @@ export const doctorConsultation = ({ doctor_id }) => (dispatch, getState) => {
   // Request Body
   const body = {
     bookingDetails: {
-      userName: getState().auth.user.userName,
+      userName: getState().auth.user.userName ? getState().auth.user.userName: "",
       mobile: getState().auth.user.mobile,
       user: getState().auth.user._id,
       doctor: doctor_id,
+      consultType:"Doctor",
+
     },
   };
 
-  // console.log(body);
+  console.log(body);
 
   axios
-    .post("https://api.emetroplus.com//consultantbooking/create", body, config)
+    .post("https://api.emetroplus.com/consultantbooking/create", body, config)
     .then((res) => {
-      // console.log("***",res.data);
+      console.log("***",res.data);
       dispatch({
         type: CALLBACK_TOKEN,
         payload: res.data,

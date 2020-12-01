@@ -195,7 +195,7 @@ const Header = ({auth, logout, search, searchTests, clearItemsList, data}) => {
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                Hello, {userName}
+                                <i className="fas fa-user"/>
                             </Link>
                         ) : (
                             <Link
@@ -207,7 +207,7 @@ const Header = ({auth, logout, search, searchTests, clearItemsList, data}) => {
                                 aria-haspopup="true"
                                 aria-expanded="false"
                             >
-                                Hello, User
+                                <i className="fas fa-user"/>
                             </Link>
                         )}
                         <div
@@ -220,28 +220,28 @@ const Header = ({auth, logout, search, searchTests, clearItemsList, data}) => {
                                         className="nav-link text-dark text-decoration-none p-1 mx-2"
                                         to="/profile"
                                     >
-                                        <i className="fas fa-user-circle mr-1 icon-primary"></i> Profile
+                                        <i className="fas fa-user-circle mr-1 icon-primary"/> Profile
                                     </Link>
-                                    <div className="dropdown-divider"></div>
+                                    <div className="dropdown-divider"/>
                                     <Link
                                         className="nav-link text-dark text-decoration-none p-1 mx-2"
                                         to="/yourOrders"
 
                                     >
-                                        <i className="fas fa-shopping-bag mr-1 icon-primary"></i> Orders
+                                        <i className="fas fa-shopping-bag mr-1 icon-primary"/> Orders
                                     </Link>
-                                    <div className="dropdown-divider"></div>
+                                    <div className="dropdown-divider"/>
                                     <Link
                                         className="nav-link text-dark text-decoration-none p-1 mx-2"
                                         onClick={logout}
                                         to="/"
                                     >
-                                        <i className="fas fa-sign-out-alt mr-1 icon-primary"></i> Logout
+                                        <i className="fas fa-sign-out-alt mr-1 icon-primary"/> Logout
                                     </Link>
                                 </ul>
                             ) : (
                                 <Link className="dropdown-item" to="/login">
-                                    <i className="fas fa-sign-in-alt"></i> Sign In
+                                    <i className="fas fa-sign-in-alt"/> Sign In
                                 </Link>
                             )}
                         </div>

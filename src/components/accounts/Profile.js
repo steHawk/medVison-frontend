@@ -14,7 +14,7 @@ class Profile extends Component {
     name: localStorage.getItem("userName"),
     email: localStorage.getItem("email"),
     mobileNumber: localStorage.getItem("number"),
-    age: localStorage.getItem("age"),
+    age: localStorage.getItem("age") ,
     gender: localStorage.getItem("gender"),
     address: localStorage.getItem("address"),
   }
@@ -53,16 +53,16 @@ class Profile extends Component {
           Your <span className="primary-text">eMetroPlus</span> Profile
         </h4>
         <hr />
-        <div className="row m-0">
+        {/*<div className="row m-0">*/}
 
           {/* profile pic */}
-          <div className="col-lg-2 col-md-2 d-flex justify-content-center align-items-center">
-            <img src={ProfilePic} className="img-fluid" width="80%" alt="profile" />
-          </div>
+          {/*<div className="col-lg-2 col-md-2 d-flex justify-content-center align-items-center">*/}
+          {/*  <img src={ProfilePic} className="img-fluid" width="80%" alt="profile" />*/}
+          {/*</div>*/}
 
 
           {/* profile-info */}
-          <div className="col-lg-5">
+          <div>
             <div className="text-right my-2">
               <Link to="/profileUpdate" style={{ textDecoration: "none", fontSize: "1.5em" }}><i className="fas fa-edit mr-2"></i>Edit</Link>
             </div>
@@ -102,7 +102,7 @@ class Profile extends Component {
               </table>
             </div>
           </div>
-        </div>
+        {/*</div>*/}
       </div>
     );
   }

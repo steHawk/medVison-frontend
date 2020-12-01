@@ -74,7 +74,6 @@ class ConsultForm extends Component {
                 />
                 <label>Medical Complaint</label>
                 <textarea
-                  type="text area"
                   className="form-control"
                   placeholder="What is your medical Complaint ?"
                   name="medicalComplaint"
@@ -82,7 +81,7 @@ class ConsultForm extends Component {
                   value={medicalComplaint}
                   style={{resize:"none"}}
                   rows="8"
-                ></textarea>
+                > </textarea>
               </div>
     
               <div className="text-right">
