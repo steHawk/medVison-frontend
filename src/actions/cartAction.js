@@ -10,6 +10,7 @@ import { createMessage } from "./messages"; //, returnErrors
 // import React from "react";
 
 import axios from "axios";
+import instance from "../api/instance";
 // import { Redirect, Link } from "react-router-dom";
 
 // ADD To Cart
@@ -33,12 +34,7 @@ export const addCart = (
     },
   };
   console.log(body);
-  axios
-    .post(
-      "https://api.emetroplus.com/user/additem",
-      body,
-      tokenConfig(getState)
-    )
+  instance.post('user/additem', body)
     .then((res) => {
       dispatch(createMessage({ itemAdded: res.data.message }));
       // console.log(res)
@@ -53,12 +49,7 @@ export const getCartItems = () => (dispatch, getState) => {
     type1: "MedicalTest",
     type2: "Medicine",
   };
-  axios
-    .post(
-      "https://api.emetroplus.com/user/getcartitems",
-      body,
-      tokenConfig(getState)
-    )
+  instance.post('user/getcartitems', body)
     .then((res) => {
       console.log(res.data)
       dispatch({
@@ -77,13 +68,8 @@ export const deleteCartItems = (item_id) => (dispatch, getState) => {
     item_id: item_id,
   };
   // console.log(body)
-  axios
-    .post(
-      `https://api.emetroplus.com/user/removeitem`,
-      body,
-      tokenConfig(getState)
-    )
-    .then((res) => {
+  instance.post('user/removeitem', body)
+     .then((res) => {
       // console.log(res);
       dispatch({
         type: DELETE_CART_ITEM,
@@ -114,12 +100,7 @@ export const incrementQty = (productId, quan) => (dispatch, getState) => {
         quantity: quantity,
       },
     };
-    axios
-        .post(
-            `https://api.emetroplus.com/user/updateitem`,
-            body,
-            tokenConfig(getState)
-        )
+    instance.post('user/updateitem', body)
         .then((res) => {
           // console.log(res);
           if (res.data.ok) {
@@ -151,12 +132,7 @@ export const decrementQty = (productId, quan) => (dispatch, getState) => {
         quantity: quantity,
       },
     };
-    axios
-        .post(
-            `https://api.emetroplus.com/user/updateitem`,
-            body,
-            tokenConfig(getState)
-        )
+    instance.post('user/updateitem', body)
         .then((res) => {
           // console.log(res);
           if (res.data.ok) {

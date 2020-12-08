@@ -10,6 +10,7 @@ import {
     USER_LOADED,
 } from "./types";
 import {createMessage, returnErrors} from "./messages";
+import instance from "../api/instance";
 
 // CHECK TOKEN & LOAD USER
 export const loadUser = () => (dispatch, getState) => {
@@ -18,8 +19,8 @@ export const loadUser = () => (dispatch, getState) => {
         const body = {
             phoneNumber: number,
         };
-        axios
-            .post(`https://api.emetroplus.com/user/info`, body, tokenConfig(getState))
+
+        instance.post('user/info', body)
             .then((res) => {
                 if (res.data.ok) {
                     console.log("data===>", res.data)
@@ -59,8 +60,7 @@ export const otpForRegister = (mobileNumber) => (dispatch) => {
     if (mobile === "" || mobile.length < 10) {
         dispatch(createMessage({number: "Incorrect mobile number"}));
     } else {
-        axios
-            .post(`https://api.emetroplus.com/message/mobile`, body)
+        instance.post('message/mobile', body)
             .then((res) => {
                 console.log("getOtp res.data", res.data);
 
@@ -92,7 +92,7 @@ export const afterOTPRegister = (mobile, otp) => (dispatch) => {
             mobile
         }
         console.log({body})
-        axios.post('https://api.emetroplus.com/user/verifyotp', body)
+        instance.post('user/verifyotp', body)
             .then((response) => {
                 console.log('====================================');
                 console.log("verifyOtp response", response.data);
@@ -112,8 +112,7 @@ export const afterOTPRegister = (mobile, otp) => (dispatch) => {
 
                     console.log({body})
 
-                    axios
-                        .post("https://api.emetroplus.com/user/create", body, config)
+                    instance.post('user/create', body)
                         .then((res) => {
                             console.log(res);
                             if (res.data.success) {
@@ -224,8 +223,7 @@ export const otpForLogin = (mobileNumber) => (dispatch) => {
     if (mobile === "" || mobile.length < 10) {
         dispatch(createMessage({number: "Incorrect mobile number"}));
     } else {
-        axios
-            .post(`https://api.emetroplus.com/message/mobile`, body)
+        instance.post('message/mobile', body)
             .then((res) => {
                 console.log(res.data);
                 dispatch({

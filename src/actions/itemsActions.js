@@ -1,9 +1,11 @@
 import { FETCH_ITEMS, SEARCH_ITEMS, ITEM_DETAIL } from "./types";
 import axios from "axios";
+import baseURL from "../api/baseURL";
+import instance from "../api/instance";
 
 
 export const getItems = () => (dispatch) => {
-  fetch("https://5e9fd95611b078001679ce9a.mockapi.io/api/tests")
+  fetch(`${baseURL}api/tests`)
     .then((res) => res.json())
     .then((items) =>
       dispatch({
@@ -16,9 +18,9 @@ export const getItems = () => (dispatch) => {
 
 export const getItem = (item_id) => (dispatch) => {
 
-  let requrl = 'https://api.emetroplus.com/drug/';
+  let reqUrl = `${baseURL}drug/`;
   let data = { 'drug_id': item_id };
-  fetch(requrl, {
+  fetch(reqUrl, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(data)
@@ -40,23 +42,11 @@ export const getItem = (item_id) => (dispatch) => {
 
 
 export const itemSearch = (searchKey) => (dispatch) => {
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
-
-  // Request Body
+   // Request Body
   const body = {
     "keyword": searchKey 
   };
-
-  axios
-    .post(
-      "https://api.emetroplus.com/drug/search",
-      body,
-      config
-    )
+instance.post('drug/search', body)
     .then((res) => {
       console.log(res);
       dispatch({

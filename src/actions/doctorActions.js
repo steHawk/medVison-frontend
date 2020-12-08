@@ -3,13 +3,15 @@ import {
   CALLBACK_TOKEN,
   CALLBACK_TOKEN_NULL,
 } from "./types"; //, DOCTOR_CONSULT
-import axios from "axios";
-import { createMessage } from "./messages";//, returnErrors
+import { createMessage } from "./messages";
+import instance from "../api/instance";
+import baseURL from "../api/baseURL";
+//, returnErrors
 
 // GET ALL THE DOCTORS AND DISPLAY
 
 export const fetchAllDoctors = () => (dispatch) => {
-  fetch("https://api.emetroplus.com/doctor/data")
+  fetch(`${baseURL}doctor/data`)
     .then((res) => res.json())
     .then((docs) =>
       dispatch({
@@ -43,15 +45,18 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
   } else if (userName === "") {
     dispatch(createMessage({ userName: "User Name empty" }));
   } else {
-    axios
-      .post("https://api.emetroplus.com/consultantbooking/create", body, config)
-      .then((res) => {
-        console.log("--->",res);
-        dispatch({
-          type: CALLBACK_TOKEN,
-          payload: res.data,
-        });
-      });
+
+    instance.post('consultantbooking/create', body)
+        .then((res) => {
+          console.log("--->",res);
+          dispatch({
+            type: CALLBACK_TOKEN,
+            payload: res.data,
+          });
+        }).catch(error=>{
+      console.log({error})
+    });
+
 
     setTimeout(function () {
       dispatch({
@@ -65,11 +70,6 @@ export const callbackRequest = ({ userName, mobile, medicalComplaint }) => (
 
 export const doctorConsultation = (doctor_id) => (dispatch, getState) => {
   // Headers
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
   // Request Body
   const body = {
@@ -78,22 +78,23 @@ export const doctorConsultation = (doctor_id) => (dispatch, getState) => {
       mobile: getState().auth.user.mobile,
       user: getState().auth.user._id,
       doctor: doctor_id,
-      consultType:"Doctor",
-
     },
   };
 
   console.log(body);
 
-  axios
-    .post("https://api.emetroplus.com/consultantbooking/create", body, config)
-    .then((res) => {
-      console.log("***",res.data);
-      dispatch({
-        type: CALLBACK_TOKEN,
-        payload: res.data,
+  instance.post('consultantbooking/create', body)
+      .then((res) => {
+        console.log("***",res.data);
+        dispatch({
+          type: CALLBACK_TOKEN,
+          payload: res.data,
+        });
+      })
+      .catch(error=>{
+        console.log(error)
       });
-    });
+
 
 };
 
