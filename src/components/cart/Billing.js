@@ -1,17 +1,16 @@
 import React, {Component, Fragment} from "react";
-
-import axios from "axios";
 import {
-    getCartTotal,
-    getCartItems,
-    deleteCartItems,
-    quantity,
     decrementQty,
+    deleteCartItems,
+    getCartItems,
+    getCartTotal,
     incrementQty,
+    quantity,
 } from "../../actions/cartAction";
 import {connect} from "react-redux";
 import {cashOnDelivery} from "../../actions/orderAction";
 import {Link} from "react-router-dom";
+import instance from "../../api/instance";
 // import Cart from "./Cart";
 // import { tokenConfig } from "../../actions/authActions";
 
@@ -119,11 +118,11 @@ class Billing extends Component {
             }
 
             console.log(body)
-            const data = await axios
-                .post("https://api.emetroplus.com/order/create", body, config)
-                .then((res) => {
-                    return res.data.order_details;
-                });
+            const data = await
+                instance.post('order/create', body)
+                    .then((res) => {
+                        return res.data.order_details;
+                    });
 
             console.log(data);
             const order_id = data._id;
@@ -156,9 +155,7 @@ class Billing extends Component {
 
                     //   });
                     // console.log(data);
-
-                    axios
-                        .put("https://api.emetroplus.com/order/update", body, config)
+                    instance.put('order/update', body)
                         .then((res) => {
                             console.log(res);
                             if (res.data.ok === true) {

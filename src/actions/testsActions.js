@@ -1,6 +1,7 @@
 import { FETCH_TESTS, FETCH_SUPER60_TEST } from "./types";
 
 import axios from "axios";
+import instance from "../api/instance";
 
 export const fetchPopularTests = () => (dispatch) => {
 
@@ -11,8 +12,7 @@ export const fetchPopularTests = () => (dispatch) => {
     "limit": 10
   };
 
-  axios
-    .post("https://api.emetroplus.com/medicaltest/getall", body)
+  instance.post('medicaltest/getall', body)
     .then((res) => {
       dispatch({
         type: FETCH_TESTS,
@@ -71,8 +71,8 @@ export const getSuper60 = () => (dispatch) => {
     };
 
     skip = skip + 20;
-    axios
-      .post("https://api.emetroplus.com/medicaltest/getall", body, config)
+
+    instance.post('medicaltest/getall', body)
       .then((res) => {
         console.log(res);
         res.data.test_details.forEach((el) => {

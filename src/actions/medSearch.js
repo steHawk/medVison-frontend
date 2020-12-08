@@ -5,6 +5,7 @@ import {
   DATA_LOAD_INITIATED,
   CLEAR_ITEMS_LIST, MED_SEARCH_ITEMS_SUCCESS, MED_SEARCH_ITEMS_INIT, MED_SEARCH_ITEMS_FAILURE,
 } from "./types";
+import instance from "../api/instance";
 
 export const clearItemsList = () => async (dispatch, getState) => {
   //console.log(getState().data)
@@ -30,8 +31,7 @@ export const search = (item) => (dispatch) => {//searchby,
     keyword: item,
   };
 
-  axios
-    .post("https://api.emetroplus.com/drug/search", body, config)
+  instance.post('drug/search', body)
     .then((res) => {
       console.log(res);
       if (res.data.ok) {
@@ -59,20 +59,13 @@ export const searchTests = (item)=> async (dispatch, getState)=>{
   dispatch({
     type: MED_SEARCH_ITEMS_INIT,
   });
-  const config = {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  };
 
   // Request Body
   const body = {
     // searchby,
     keyword: item,
   };
-
-  axios
-      .post("https://api.emetroplus.com/medicaltest/search", body, config)
+instance.post('medicaltest/search', body)
       .then((res) => {
         console.log(res);
         if (res.data.ok) {

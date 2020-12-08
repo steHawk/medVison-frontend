@@ -2,6 +2,8 @@ import axios from "axios";
 import {createMessage} from "./messages"; //, returnErrors
 import {CALLBACK_TOKEN, CALLBACK_TOKEN_NULL} from "./types";
 import {FETCH_MED, GET_MED} from "../Context/types";
+import baseURL from "../api/baseURL";
+import instance from "../api/instance";
 // import { Link } from "react-router-dom";
 
 //  FETCH ALL MEDICINE BY TYPE
@@ -20,7 +22,7 @@ export const fetchMedicineByCategory = (category, currentPage, postsPerPage) => 
         category,
     });
     console.log("body", body);
-    fetch("https://api.emetroplus.com/drug/data/?skip=" + skip + "&limit=" + limit, {
+    fetch(`${baseURL}drug/data/?skip=${skip}&limit=${limit}`, {
         method: 'POST',
         headers,
         body,
@@ -44,12 +46,6 @@ export const fetchMedicineByCategory = (category, currentPage, postsPerPage) => 
 }
 // REGISTER USER
 export const prescription = ({hno, street, pinCode, city, file_url}) => (dispatch, getState) => {
-    // Headers
-    const config = {
-        headers: {
-            "Content-Type": "application/json",
-        },
-    };
 
     // Request Body
     const body = {
@@ -70,8 +66,7 @@ export const prescription = ({hno, street, pinCode, city, file_url}) => (dispatc
         },
     };
 
-    axios
-        .post("https://api.emetroplus.com/prescription/upload", body, config)
+    instance.post('prescription/upload', body)
         .then((res) => {
             // console.log(res);
             if (res.data.ok) {

@@ -1,6 +1,8 @@
 import Axios from 'axios';
 import React from 'react'
 import {Link} from 'react-router-dom';
+import instance from "../../../api/instance";
+import baseURL from "../../../api/baseURL";
 
 const ConfirmPrescription = (props) => {
     const [state, setState] = React.useState({
@@ -36,7 +38,7 @@ const ConfirmPrescription = (props) => {
     const updateUser = (e) => {
         e.preventDefault();
 
-        let url = "https://api.emetroplus.com/user/update"; //"https://api.emetroplus.com/user/update";
+        let url = `${baseURL}user/update`; //"https://api.emetroplus.com/user/update";
 
         fetch(url, {
             method: "PUT",
@@ -80,7 +82,7 @@ const ConfirmPrescription = (props) => {
                     address: state.address,
                 }
             }
-            Axios.post('https://api.emetroplus.com/prescription/upload', body)
+            instance.post('prescription/upload', body)
                 .then((response) => {
                     if (response.data.ok) {
                         setState({

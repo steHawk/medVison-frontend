@@ -6,6 +6,7 @@ import store from "./store";
 import { Provider } from "react-redux";
 import {BrowserRouter} from "react-router-dom";
 import Axios from 'axios';
+import baseURL from "./api/baseURL";
 
 Axios.interceptors.request.use((config) => {
   if (store.getState().auth.refreshToken && store.getState().auth.refreshToken.length > 0) {
@@ -29,7 +30,7 @@ Axios.interceptors.response.use(response => {
 
       response.config._retry = true;
 
-      fetch("https://api.emetroplus.com/auth/access-token", { method: "POST", headers: headers })
+      fetch(`${baseURL}/auth/access-token`, { method: "POST", headers: headers })
         .then(response => {
           return response.json()
         }).then(data => {

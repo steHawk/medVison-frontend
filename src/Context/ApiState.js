@@ -1,10 +1,8 @@
-import React, { useReducer } from 'react';
-import axios from 'axios';
+import React, {useReducer} from 'react';
 import ApiContext from './ApiContext';
 import ApiReducer from './ApiReducer';
-import {
-    GET_MED,
-} from './types';
+import {GET_MED,} from './types';
+import instance from "../api/instance";
 
 const ApiState = props => {
     const initialState = {
@@ -26,8 +24,8 @@ const ApiState = props => {
             category,
         };
         try {
-            const res = await axios.post("https://api.emetroplus.com/drug/data/?skip="+postsPerPage+"&limit="+currentPage, value, process)
-            console.log("---->",res.data);
+            const res = await instance.post('drug/data/?skip=' + postsPerPage + '&limit=' + currentPage, value)
+            console.log("---->", res.data);
             dispatch({
                 type: GET_MED,
                 payload: res.data.data,

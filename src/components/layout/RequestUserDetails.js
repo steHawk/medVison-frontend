@@ -1,4 +1,5 @@
 import React, {Component} from 'react';
+import baseURL from "../../api/baseURL";
 
 class RequestUserDetails extends Component {
     constructor(props) {
@@ -20,7 +21,7 @@ class RequestUserDetails extends Component {
 
     onSubmit(e) {
         e.preventDefault();
-        let url = "https://api.emetroplus.com/user/update";
+        let url = `${baseURL}user/update`;
 
         fetch(url, {
             method: "PUT",

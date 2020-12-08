@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link, NavLink } from "react-router-dom";
+import baseURL from "../../api/baseURL";
 export class NavSearch extends Component {
   constructor(props) {
     super(props);
@@ -20,7 +21,7 @@ export class NavSearch extends Component {
           searchMeds: [],
         });
       } else {
-        let requrl = "https://api.emetroplus.com/drug/search";
+        let requrl =`${baseURL}drug/search`;
         let data = { keyword: event.target.value };
         fetch(
           requrl,

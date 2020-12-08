@@ -4,6 +4,7 @@ import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
 import { addCart } from "../../actions/cartAction";
 import auth from "../../reducers/auth";
+import baseURL from "../../api/baseURL";
 
 function ItemDetails(props, { auth, addCart }) {
   const state = {
@@ -21,7 +22,7 @@ function ItemDetails(props, { auth, addCart }) {
   useEffect(() => {
     const getItems = async () => {
       //console.log("p1", dataloaded);
-      let requrl = "https://api.emetroplus.com/drug/";
+      let requrl = `${baseURL}drug/`;
       let data = { drug_id: item_id };
       fetch(requrl, {
         method: "POST",

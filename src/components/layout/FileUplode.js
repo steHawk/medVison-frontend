@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import axios from "axios";
+import instance from "../../api/instance";
 
 class FileUpload extends Component {
   constructor() {
@@ -15,8 +16,7 @@ class FileUpload extends Component {
     formData.append("file", this.state.file[0]);
     formData.append("name", "chaitanya");
     console.log(formData)
-    axios
-      .post(`https://api.emetroplus.com/aws/prescription-upload`, formData, [])
+    instance.post('aws/prescription-upload', formData, {})
       .then((response) => {
         console.log(response)
       })

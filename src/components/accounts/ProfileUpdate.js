@@ -1,6 +1,7 @@
 import React, { useState } from "react"; //Component,
 // import { Link } from "react-router-dom"; //, Redirect
 import { connect } from "react-redux";
+import baseURL from "../../api/baseURL";
 // import { register } from '../../actions/authActions';
 // import PropTypes from 'prop-types'
 // import history from "../../history";
@@ -16,7 +17,7 @@ export function ProfileUpdate(props) {
 
 
   const Submit = (e) => {
-    let url = "https://api.emetroplus.com/user/update"; //"https://api.emetroplus.com/user/update";
+    let url = `${baseURL}user/update`; //"https://api.emetroplus.com/user/update";
 
     fetch(url, {
       method: "PUT",
@@ -57,7 +58,6 @@ export function ProfileUpdate(props) {
     //   console.log(e);
     // })
   };
-  console.log("===>", props.location)
   return (
     <div className="container my-4">
       <form className="form">

@@ -78,6 +78,7 @@ export const doctorConsultation = (doctor_id) => (dispatch, getState) => {
       mobile: getState().auth.user.mobile,
       user: getState().auth.user._id,
       doctor: doctor_id,
+      consultType:"Doctor",
     },
   };
 

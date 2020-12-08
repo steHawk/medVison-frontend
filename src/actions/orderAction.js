@@ -2,6 +2,7 @@
 
 import axios from "axios";
 import {FETCH_ORDERS_FAILED, FETCH_ORDERS_INIT, FETCH_ORDERS_SUCCESS} from "./types";
+import instance from "../api/instance";
 // import { deleteCartItems } from "./cartAction";
 
 export const cashOnDelivery = (
@@ -35,9 +36,7 @@ export const cashOnDelivery = (
         },
     };
     console.log(body)
-
-    axios
-        .post("https://api.emetroplus.com/order/create", body, config)
+instance.post('order/create', body)
         .then((res) => {
             console.log(res);
             if (res.data.ok) {
@@ -63,8 +62,7 @@ export const getOrders = () => (dispatch, getState) => {
         },
     };
     dispatch({type: FETCH_ORDERS_INIT})
-    axios
-        .post('https://api.emetroplus.com/order/data?skip=0&limit=20', body, config)
+    instance.post('order/data?skip=0&limit=20', body)
         .then(response => {
             console.log("orders response data",response.data)
             dispatch({type: FETCH_ORDERS_SUCCESS, payload: response.data.orders});
