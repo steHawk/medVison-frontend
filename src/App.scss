@@ -230,6 +230,10 @@ a {
   .contact-topbar {
     display: none;
   }
+  .prescription-form {
+    padding: 2rem;
+  }
+
 }
 
 @media (min-width: 700px) {
@@ -250,6 +254,10 @@ a {
         width: 100%;
       }
     }
+  }
+  .prescription-form  {
+    border-left: 1px solid rgba(30, 31, 82, 0.1);
+    padding-left: 3rem !important;
   }
 }
 
@@ -456,12 +464,6 @@ a {
 // Contact Top Bar
 .contact-topbar {
   background-color: #00345e;
-}
-
-// Upload Button Wrapper - Prescription
-.upload-btn-wrapper {
-  background: white;
-  height: 50vh; 
 }
 
 .upload-heading {
