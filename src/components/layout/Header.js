@@ -251,10 +251,10 @@ const Header = ({auth, logout, search, searchTests, clearItemsList, data}) => {
                         {
                             isAuthenticated
                                 ? <Link to="/cart" className="nav-link">
-                                    <i className="fas fa-shopping-cart mr-1 text-white"></i>
+                                    <i className="fas fa-shopping-cart mr-1"></i>
                                 </Link>
                                 : <Link to="/login" className="nav-link">
-                                    <i className="fas fa-shopping-cart mr-1 text-white"></i>
+                                    <i className="fas fa-shopping-cart mr-1"></i>
                                 </Link>
                         }
                     </li>
