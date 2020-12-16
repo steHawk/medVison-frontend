@@ -8,9 +8,6 @@ import "bootstrap/dist/css/bootstrap.css";
 import {fileUploadSuccess, prescription, uploadFileError,} from "../../../actions/medicineActions";
 import instance from "../../../api/instance";
 
-// Form
-import baseURL from "../../../api/baseURL";
-
 class Prescription extends Component {
 
     constructor(props) {
@@ -33,9 +30,11 @@ class Prescription extends Component {
 
             // Modal
             show: false,
-            setShow: false,
         }
     }
+
+    handleShow = () => this.setState({ show: true })
+    handleClose = () => this.setState({ show: false })
 
     uploadFile(e) {
         this.setState({
@@ -99,7 +98,6 @@ class Prescription extends Component {
                             success: true,
                             show: true
                         })
-                        console.log(response)
                     }
                 }).catch((error) => {
                 console.error("***", error);
@@ -108,7 +106,7 @@ class Prescription extends Component {
             this.setState(prevState => {
                 return {
                     ...prevState,
-                    errorMsg: "Please Update Your Details...",
+                    errorMsg: "Please update your details",
                     isUserDetails: false,
                 }
             })
@@ -116,7 +114,7 @@ class Prescription extends Component {
     }
 
     render() {
-        return (
+            return (
             <div className="container bg-white rounded-lg p-2 p-lg-4 my-4">
                 <div className="p-2">
                     <h4 className="font-weight-bold">Upload Prescription</h4>
@@ -172,10 +170,10 @@ class Prescription extends Component {
                         <div>
                             <h5 className="font-weight-bold">Step 2</h5>
                             <p className="text-muted">Please fill the details and click on Finish</p>
+                            <span className="text-danger">{this.state.errorMsg}</span>
                             <input type="text" className="form-control my-4" placeholder="Name" name="name" value={this.state.name} onChange={(e) => this.onChange(e)} required/>
                             <input type="tel" className="form-control my-4" placeholder="Mobile Number" name="mobileNumber" value={this.state.mobileNumber} onChange={(e) => this.onChange(e)} required/>
                             <input className="form-control my-4"placeholder="Address" name="address" value={this.state.address || ""} onChange={(e) => this.onChange(e)} required />
-                            <span className="text-danger">{this.state.errorMsg}</span>
                             <div className="text-center">
                                 <button className="button-primary rounded-pill" onClick={(e) => this.submitPrescription(e)}>
                                         Finish
@@ -185,7 +183,22 @@ class Prescription extends Component {
                         }
                     </div>
                 </div>
-
+                <div className="container p-2">
+                    <Modal show={this.state.show} size="md"
+                        aria-labelledby="contained-modal-title-vcenter"
+                        centered>
+                        <Modal.Header closeButton>
+                        <Modal.Title className="text-success">Success</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p>Your prescription has been uploaded successfully! Our customer support will contact you.</p>
+                            <p>Thank you!</p>
+                        </Modal.Body>
+                        <Modal.Footer>
+                        <Button variant="primary" onClick={this.handleClose}>Close</Button>
+                        </Modal.Footer>
+                </Modal>
+              </div>
             </div>
         );
     }
