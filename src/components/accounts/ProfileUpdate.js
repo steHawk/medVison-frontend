@@ -41,7 +41,17 @@ export function ProfileUpdate(props) {
       }),
     }).then((response) => {
       if (response.ok) {
+        
         console.log(response);
+
+        // Updating LocalStorage
+        localStorage.setItem("userName", userName);
+        localStorage.setItem("email", email);
+        localStorage.setItem("number", mobile);
+        localStorage.setItem("gender", gender);
+        localStorage.setItem("age", parseInt(age));
+        localStorage.setItem("address", address);
+
         if(props.location.state){
           if(props.location.state.refTo==="billing"){
             window.location.href="/checkout"
