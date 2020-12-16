@@ -49,7 +49,7 @@ export function ProfileUpdate(props) {
         localStorage.setItem("email", email);
         localStorage.setItem("number", mobile);
         localStorage.setItem("gender", gender);
-        localStorage.setItem("age", parseInt(age));
+        localStorage.setItem("age", age);
         localStorage.setItem("address", address);
 
         if(props.location.state){
