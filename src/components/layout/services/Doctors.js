@@ -22,7 +22,6 @@ class Doctors extends Component {
     }
 
     render() {
-        // console.log("hfh", this.props)
         const {isAuthenticated} = this.props.auth;
         if (this.props.gotDocToken) {
             //
@@ -39,17 +38,17 @@ class Doctors extends Component {
                     <hr/>
                     <div className="docSelect row m-0">
                         {this.props.doctors.doctors.map((doctor, index) => (
-                            <div key={index} className="col-lg-4 col-md-6">
-                                <div className="p-2 my-4">
-                                    <div className="card rounded-lg shadow-sm" style={{width: "auto"}}
+                            <div key={index} className="col-lg-3 col-md-6">
+                                <div className="p-2 my-2">
+                                    <div className="card rounded-lg shadow" style={{width: "auto"}}
                                          data-aos="fade-up" data-aos-duration="1200">
                                         <div className="text-center">
-                                            <img src="/img/standing-11.png" alt="" height="160px"/>
+                                            <img src="/img/standing-11.png" alt="" height="150px"/>
                                         </div>
                                         <div className="card-body">
-                                            <h5 className="primary-text font-weight-bold">{doctor.userName}</h5>
+                                            <h6 className="primary-text font-weight-bold">{doctor.userName}</h6>
                                             <p>MBBS, MD (DVL)</p>
-                                            <strong>{doctor.specialization}</strong>
+                                            <strong>{doctor.specialization.charAt(0).toUpperCase() + doctor.specialization.slice(1)}</strong>
                                             <p>₹500</p>
                                             {isAuthenticated ? (
                                                 <div className="text-center">
