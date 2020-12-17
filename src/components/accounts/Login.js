@@ -165,7 +165,7 @@ class Login extends Component {
             <div className="container my-4">
                 <div className="row m-0">
                     <div className="col-lg-4 mx-auto bg-white p-4 shadow-lg rounded-lg">
-                        <h4>Login: </h4>
+                        <h4 className="font-weight-bold">Login</h4>
                         <hr/>
                         <label htmlFor="mobileNumber">
                             <h6 className="font-weight-bold">
@@ -176,7 +176,7 @@ class Login extends Component {
                             <div className="log-ele">
                                 <input
                                     id="mobileNumber"
-                                    type="number"
+                                    type="text"
                                     className="form-control"
                                     name="mobileNumber"
                                     placeholder="Mobile Number"
@@ -222,19 +222,20 @@ class Login extends Component {
                                                 LOGIN
                                             </button>
                                         </div>
+                                        <hr />
                                         <div className="text-center mb-2 mt-4">
-                                            <p className="cursor" onClick={(e) => this.onSubmit(e)}>
-                                                RESEND OTP
-                                            </p>
+                                            <button className="button-secondary" onClick={(e) => this.onSubmit(e)}>
+                                                Resend OTP
+                                            </button>
                                         </div>
                                     </form>
                                 </div>
                                 : null
                         }
-                        <div className="text-center mb-2 mt-4">
+                        <div className="text-center mb-2 mt-2">
                             <div>
                                 <small>
-                                    Don't have an account?
+                                    Don't have an account? {" "}
                                     <Link
                                         to="/register"
                                         className="primary-text font-weight-bold text-decoration-none"
