@@ -143,7 +143,7 @@ class Login extends Component {
             })
         } else {
             this.setState({
-                msg: "Invalid Mobile Number..."
+                msg: "Invalid Mobile Number"
             })
         }
     }
@@ -198,7 +198,7 @@ class Login extends Component {
                         </form>
                         {
                             isOTPSent ?
-                                <div className="margin-top-2">
+                                <div className="mt-3">
                                     <label htmlFor="otp">
                                         <h6 className="font-weight-bold">
                                             Enter your OTP{" "}
