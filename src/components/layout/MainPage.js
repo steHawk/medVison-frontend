@@ -8,6 +8,9 @@ import Welcome from "./Welcome";
 
 
 class MainPage extends Component {
+
+  isAuthenticated = localStorage.getItem('token');
+  
   render() {
     return (
       <Fragment>
@@ -20,8 +23,8 @@ class MainPage extends Component {
       </div>
 
       {/* Welcome Section */}
-      <Welcome />
-
+      {!this.isAuthenticated ? <Welcome /> : <div></div>}
+    
       {/* Serivces */}
       <div className="container">
         <BookNow />
