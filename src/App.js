@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 // import { browserHistory } from 'react-router'
-import {  Route, Switch } from 'react-router-dom';//BrowserRouter as Router,
+import {  Route, Switch, Redirect } from 'react-router-dom';//BrowserRouter as Router,
 import "./App.css";
 import "bootstrap/dist/css/bootstrap.min.css"; //Bootstrap CSS
 import "bootstrap/dist/js/bootstrap"; //Bootstrap CSS
@@ -19,7 +19,6 @@ import ConsultForm from "./components/booknow/ConsultForm";
 import UserCart from "./components/cart/UserCart";
 import AllTests from "./components/tests/AllTests";
 import LoginAuth from "./components/accounts/LayoutAuth";
-// import Register from "./components/accounts/Register";
 import GetOtp from "./components/accounts/GetOtp";
 import SubmitOtp from "./components/accounts/SubmitOtp";
 import Register from "./components/accounts/Register";
@@ -31,11 +30,8 @@ import MedicineItems from "./components/layout/services/MedicinItems";
 import Profile from "./components/accounts/Profile";
 import Orders from "./components/accounts/Orders";
 import ProfileUpdate from "./components/accounts/ProfileUpdate";
-import ConfirmPrescription from './components/layout/services/ConfirmPrescription'
-// import ItemDetails from "./components/layout/ItemDetails";
 
 import { loadUser } from "./actions/authActions";
-import Confirmation from "./components/booknow/Confirmation";
 import Prescription from "./components/layout/services/Prescription";
 import ConfirmAddress from "./components/layout/services/ConfirmAddress";
 import ItemDetail from "./components/layout/ItemDetail";
@@ -48,80 +44,83 @@ import NotFound from './components/layout/NotFound'
 
 // optional cofiguration
 const options = {
-  // you can also just use 'bottom center'
   position: positions.TOP_CENTER,
   timeout: 5000,
   offset: "30px",
-  // you can also just use 'scale'
   transition: transitions.SCALE,
 };
-
-
-
-
-// async function checkUser() {
-//   if (this.props.authState.isAuthenticated && !this.state.userInfo) {
-//     const userInfo = await this.props.authService.getUser();
-//     if (this._isMounted) {
-//       this.setState({ userInfo });
-//     }
-//   }
-// }
-
 
 class App extends Component {
   componentDidMount() {
     store.dispatch(loadUser());
   }
 
+  isAuthenticated = this.props.auth.isAuthenticated;
+
   render() {
     return (
       <ApiState>
         <TestState>
           <AlertProvider template={AlertTemplate} {...options}>
-            {/*<Router history={browserHistory}>*/}
+
               <div className='mainWrapper'>
-                <TopBar />
+                
+                {!this.isAuthenticated ? <TopBar /> : <div></div>}
+
                 <Header />
                 <Alerts />
-                <div id="content">
 
+                <div id="content">
                   <Switch>
                     <Route exact path="/" component={MainPage} />
                     <Route exact path="/index.html" component={MainPage} />
                     <Route exact path="/about" component={About} />
+
+                    {/* Services Routes */}
                     <Route exact path="/services" component={Service} />
                     <Route exact path="/medicine" component={Medicine} />
-                    <Route exact path="/profile" component={Profile} />
-                    <Route exact path="/yourOrders" component={Orders} />
                     <Route exact path="/meditems" component={MedicineItems} />
                     <Route exact path="/specialist" component={Specialist} />
                     <Route exact path="/doctors" component={Doctors} />
-                    <Route exact path="/confirmation" component={Confirmation} />
                     <Route exact path="/docConsult" component={ConsultForm} />
-                    <Route exact path="/cart" component={UserCart} />
                     <Route exact path="/alltests" component={AllTests} />
-                    <Route exact path="/login" component={LoginAuth} />
-                    <Route exact path="/getotp" component={GetOtp} />
-                    <Route exact path="/submitotp" component={SubmitOtp} />
-                    <Route exact path="/submitLoginotp" component={SubmitOtp} />
-                    <Route exact path="/register" component={Register} />
-                    <Route exact path="/otpLogin" component={GetOtp} />
-                    <Route exact path="/profileUpdate" component={ProfileUpdate} />
                     <Route exact path="/prescription" component={Prescription} />
-                    <Route exact path="/confirmAddress" component={ConfirmAddress} />
-                    <Route exact path="/checkout" component={Billing} />
                     <Route exact path="/to/item" component={ItemDetail} />
                     <Route exact path="/labItem" component={ViewLabTest} />
                     <Route exact path="/super60" component={Super60} />
-                    <Route exact path="/confirmprescription" component={ConfirmPrescription} />
+
+                    {/* Auth Routes */}
+                    <Route exact path="/login" component={LoginAuth} />
+                    <Route exact path="/register" component={Register} />
+                    <Route exact path="/otpLogin" component={GetOtp} />
+                    <Route exact path="/submitotp" component={SubmitOtp} />
+                    <Route exact path="/submitLoginotp" component={SubmitOtp} />
+                    <Route exact path="/getotp" component={GetOtp} />
+
+                    {/* Private Routes */}
+                    <Route exact path="/profile">
+                      {(!this.isAuthenticated) ? <Redirect to="/login" /> : <Profile/>}
+                    </Route>
+                    <Route exact path="/cart" >
+                      {(!this.isAuthenticated) ? <Redirect to="/login" /> : <UserCart/>}
+                    </Route>
+                    <Route exact path="/checkout">
+                      {(!this.isAuthenticated) ? <Redirect to="/login" /> : <Billing/> }
+                    </Route>
+                    <Route exact path="/confirmAddress">
+                      {(!this.isAuthenticated) ? <Redirect to="/login" /> : <ConfirmAddress/> }
+                    </Route>
+                    <Route exact path="/profileUpdate">
+                      {(!this.isAuthenticated) ? <Redirect to="/login" /> : <ProfileUpdate/> }
+                    </Route>
+                    <Route exact path="/yourOrders" component={Orders} />
+
                     <Route component={NotFound} />
                   </Switch>
 
                 </div>
                 <Footer />
               </div>
-            {/*</Router>*/}
           </AlertProvider>
         </TestState>
       </ApiState>
