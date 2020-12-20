@@ -61,7 +61,7 @@ class Cart extends Component {
                     medItems.length > 0 
                     ?
                     <Fragment>
-                      <h5>Med Items:</h5>
+                      <h5 className="font-weight-bold">Medicines</h5>
                     </Fragment>
                     : "" 
                     }
@@ -149,7 +149,7 @@ class Cart extends Component {
                     {
                     testItems.length > 0 
                     ? 
-                    <h5 className="my-2 mt-4">Test Items:</h5>
+                    <h5 className="font-weight-bold mt-4 mb-2">Tests</h5>
                     : 
                     "" 
                     }
@@ -232,10 +232,11 @@ class Cart extends Component {
                     
                   </div>
                   <div className="col-lg-4 col-md-4 my-2 ">
-                    <div className="bg-white rounded-lg shadow-sm">
-                      <div className="p-2 text-center">
-                        <h5>Medicines Price details</h5>
+                    <div className="bg-white rounded-lg shadow-sm p-2">
+                      <div className="m-2">
+                        <h5 className="font-weight-bold">Medicines Price</h5>
                       </div>
+                      <hr />
                       <div className="responsive-table">
                         <table className="table table-borderless">
                           <tbody>
@@ -256,10 +257,11 @@ class Cart extends Component {
                       </div>
                     </div>
                     <hr />
-                    <div className="bg-white rounded-lg shadow-sm">
-                      <div className="p-2 text-center">
-                        <h5>Tests Price details</h5>
+                    <div className="bg-white rounded-lg shadow-sm p-2">
+                      <div className="m-2">
+                        <h5 className="font-weight-bold">Tests Price</h5>
                       </div>
+                      <hr />
                       <div className="responsive-table">
                         <table className="table table-borderless">
                           <tbody>
