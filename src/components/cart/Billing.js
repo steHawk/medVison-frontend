@@ -11,8 +11,7 @@ import {connect} from "react-redux";
 import {cashOnDelivery} from "../../actions/orderAction";
 import {Link} from "react-router-dom";
 import instance from "../../api/instance";
-// import Cart from "./Cart";
-// import { tokenConfig } from "../../actions/authActions";
+import baseURL from "../../api/baseURL";
 
 function loadScript(src) {
     return new Promise((resolve) => {
@@ -35,16 +34,8 @@ class Billing extends Component {
         super(props);
         this.state = {
             name: localStorage.getItem("user"),
-            email: localStorage.getItem("email"),
             mobileNumber: localStorage.getItem("number"),
-            age: localStorage.getItem("age"),
-            gender: localStorage.getItem("gender"),
             address: localStorage.getItem("address"),
-            // address: JSON.parse(localStorage.getItem("shippingAddress")),
-            // houseNumber: JSON.parse(localStorage.getItem("shippingAddress")).doorNo,
-            // street: JSON.parse(localStorage.getItem("shippingAddress")).street,
-            // city: JSON.parse(localStorage.getItem("shippingAddress")).city,
-            // pincode: JSON.parse(localStorage.getItem("shippingAddress")).pincode,
             selectedOption: "COD",
         };
 
@@ -56,22 +47,60 @@ class Billing extends Component {
         this.props.getCartItems();
     }
 
+
+    // Event Change Functions
+
+    onChange = (e) => this.setState({[e.target.name]: e.target.value});
+
     onValueChange(event) {
         this.setState({
             selectedOption: event.target.value,
         });
     }
 
-    formSubmit(event) {
-        event.preventDefault();
-        console.log(this.state.selectedOption);
+    // Update User Info
+
+    updateUserInfo = (e) => {
+        let url = `${baseURL}user/update`;
+
+        fetch(url, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+              "Authorization": "Bearer " + localStorage.getItem("token"),
+              "AuthType": "user"
+            },
+            body: JSON.stringify({
+              user_id: localStorage.getItem("_id"),
+              phoneNumber: this.state.mobileNumber,
+              userDetails: {
+                  [e.target.name] : e.target.value,
+                _id: localStorage.getItem("_id"),
+              },
+            }),
+          }).then((res) => {
+              if(res.ok) {
+                  console.log(res)
+              }
+          })
     }
 
-    onChange = (e) => this.setState({[e.target.name]: e.target.value});
+    // Form Submission
+
+    formSubmit(event) {
+        event.preventDefault();
+    }
 
     render() {
-        let type = this.props.location.state ? this.props.location.state.type : "";
 
+        const {medItems, testItems, totalTestItems, totalMedItems, user} = this.props;
+        const {address} = this.state;
+
+        const totalItems = totalMedItems.length + totalTestItems.length
+
+        const items = this.medItems+this.testItems
+
+        // Razor Pay
         async function displayRazorpay() {
             const res = await loadScript(
                 "https://checkout.razorpay.com/v1/checkout.js"
@@ -82,49 +111,25 @@ class Billing extends Component {
                 return;
             }
 
-            // const data = await fetch("http://localhost:1337/razorpay", {
-            //   method: "POST",
-            // }).then((t) => t.json());
-
-            const config = {
-                headers: {
-                    "Content-Type": "application/json",
-                },
-            };
-            // console.log(user , totalMedItems)
-
-            const body = type === "Medicine" ? {
+            let body =  
+            {
                 orderDetails: {
-                    userName: user.userName,
-                    mobile: user.mobile,
-                    amount: parseInt(totalMedItems) * 100,
-                    payment_type: "Online",
-                    address: address,
-                    email: user.email,
-                    items: medItems,
-                    orderType: type,
-                },
-            } : {
-                orderDetails: {
-                    userName: user.userName,
-                    mobile: user.mobile,
-                    amount: parseInt(totalTestItems) * 100,
-                    payment_type: "Online",
-                    address: address,
-                    email: user.email,
-                    items: testItems,
-                    orderType: type,
+                userName: user.userName,
+                mobile: user.mobile,
+                amount: parseInt(totalItems) * 100,
+                payment_type: "Online",
+                address: address,
+                email: user.email,
+                items: medItems + testItems,
                 },
             }
 
-            console.log(body)
             const data = await
                 instance.post('order/create', body)
                     .then((res) => {
                         return res.data.order_details;
                     });
 
-            console.log(data);
             const order_id = data._id;
             const options = {
                 key: __DEV__ ? "rzp_test_PDlp4aGAWXBD2H" : "PRODUCTION_KEY",
@@ -135,10 +140,6 @@ class Billing extends Component {
                 description: "Thank you for shopping",
                 image: "http://localhost:1337/logo.svg",
                 handler: function (response) {
-                    // alert(response.razorpay_payment_id);
-                    // alert(response.razorpay_order_id);
-                    // alert(response.razorpay_signature);
-
                     const body = {
                         orderDetails: {
                             order_id: order_id,
@@ -147,14 +148,6 @@ class Billing extends Component {
                             razorpay_signature: response.razorpay_signature,
                         },
                     };
-
-                    // const data = axios
-                    //   .put("https://api.emetroplus.com/order/update", body, config)
-                    //   .then((res) => {
-                    //     return res;
-
-                    //   });
-                    // console.log(data);
                     instance.put('order/update', body)
                         .then((res) => {
                             console.log(res);
@@ -166,7 +159,7 @@ class Billing extends Component {
                             } else {
                             }
                         })
-                        .catch((error) => console);
+                        .catch((error) => console.log(error));
                 },
                 prefill: {
                     name: user.userName,
@@ -178,205 +171,58 @@ class Billing extends Component {
             paymentObject.open();
         }
 
-
-        // function handleExpand(e) {
-        //   console.log("hi");
-        //   document.querySelector("._2eTL2v").classList.toggle("content");
-        // }
-        const {medItems, testItems, totalTestItems, totalMedItems, user} = this.props;
-        const {address} = this.state;
-
-        console.log(this.state)
-        // console.log(totalMedItems);
-        console.log({user})
         return (
             <Fragment>
                 <div className="container my-4">
                     <div className="row m-0">
-                        <div className="col-lg-6 ">
-                            <h4 className="font-weight-bold mb-4">Delivery Address</h4>
+                        <div className="col-lg-8">
                             <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
+                                <h5 className="font-weight-bold">Confirm Details</h5>
+                                <hr />
+                                <form onClick="">
+                                    <div className="form-group">
+                                        <label>Name</label>
+                                        <input
+                                            className="form-control mb-2"
+                                            name="userName"
+                                            value={this.state.name}
+                                            style={{backgroundColor: "white"}}
+                                            onChange={this.onChange}
+                                        />
+                                        <label>Mobile Number</label>
+                                        <input
+                                            className="form-control mb-2"
+                                            name="phoneNumber"
+                                            onChange={this.onChange}
+                                            value={this.state.mobileNumber}
+                                            style={{backgroundColor: "white"}}
+                                        />
 
-
-                                <div className="form-group">
-                                    <label>User Name : </label>
-                                    <input
-                                        className="form-control mb-2"
-                                        value={localStorage.getItem("userName")}
-                                        style={{backgroundColor: "white"}}
-                                        readOnly
-                                    />
-                                    <label>Mobile Number : </label>
-                                    <input
-                                        className="form-control mb-2"
-                                        value={this.state.mobileNumber}
-                                        style={{backgroundColor: "white"}}
-                                        readOnly
-                                    />
-
-                                    <label>Address : </label>
-                                    <textarea
-                                        className="form-control mb-2"
-                                        name="address"
-                                        onChange={this.onChange}
-                                        value={this.state.address}
-                                        style={{resize: "none"}}
-                                        rows="8"
-                                        disabled
-                                    >&nbsp;</textarea>
-                                    <button className="button-primary">
-                                        <Link to={{
-                                            pathname: "/profileUpdate",
-                                            state: {medItems, totalMedItems, user, refTo: "billing"}
-                                        }} style={{color: "white"}}>
-                                            Change
-                                        </Link>
-                                    </button>
-                                </div>
+                                        <label>Address</label>
+                                        <textarea
+                                            className="form-control mb-2"
+                                            name="address"
+                                            onChange={this.onChange}
+                                            value={this.state.address}
+                                            style={{resize: "none"}}
+                                            rows="4"
+                                        >&nbsp;</textarea>
+                                        <div className="text-right mt-4">
+                                            <button className="button-primary">
+                                                <Link to={{
+                                                    pathname: "/profileUpdate",
+                                                    state: {medItems, totalMedItems, user, refTo: "billing"}
+                                                }} style={{color: "white"}}>
+                                                    Change
+                                                </Link>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
                             </div>
-                        </div>
-                        <div className="col-lg-6" style={{position: "relative"}}>
-                            <h4 className="font-weight-bold">Order Summary</h4>
-                            <div className="_2eTL2v content">
-                                {
-                                    type === "Medicine"
-                                        ?
-                                        medItems.map((cartItem, index) => (
-                                            <div
-                                                className="p-4 my-4 bg-white rounded-lg shadow-sm"
-                                                key={cartItem._id}
-                                            >
-                                                <div className="row">
-                                                    <div className="col-6 my-auto">
-                                                        <h6 className="font-weight-bold">{cartItem.name}</h6>
-                                                    </div>
-                                                    <div className="col-3 my-auto">
-                                                        <h6>{cartItem.packageSize}</h6>
-                                                    </div>
-                                                    <div className="col-3 my-auto">
-                                                        <p>₹{cartItem.sum}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-2">
-                                                    <div className="col-2">
-                                                        <button
-                                                            className="btn btn-outline-danger rounded-circle"
-                                                            onClick={this.props.decrementQty.bind(
-                                                                this,
-                                                                cartItem.id,
-                                                                cartItem.quantity
-                                                            )}
-                                                        >
-                                                            <i className="fa fa-minus"/>
-                                                        </button>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <input
-                                                            type="text"
-                                                            value={cartItem.quantity}
-                                                            readOnly={true}
-                                                            className="form-control"
-                                                        />
-                                                    </div>
-                                                    <div className="col-2">
-                                                        <button
-                                                            className="btn btn-outline-success rounded-circle"
-                                                            onClick={this.props.incrementQty.bind(
-                                                                this,
-                                                                cartItem.id,
-                                                                cartItem.quantity
-                                                            )}
-                                                        >
-                                                            <i className="fa fa-plus"/>
-                                                        </button>
-                                                    </div>
-                                                    <div className="col-4 text-right" tabIndex="12">
-                                                        <button
-                                                            onClick={this.props.deleteCartItems.bind(
-                                                                this,
-                                                                cartItem.id
-                                                            )}
-                                                            className="btn btn-danger rounded-circle"
-                                                        >
-                                                            <i className="fa fa-trash"/>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        )) :
-                                        testItems.map((cartItem, index) => (
-                                            <div
-                                                className="p-4 my-4 bg-white rounded-lg shadow-sm"
-                                                key={cartItem._id}
-                                            >
-                                                <div className="row">
-                                                    <div className="col-6 my-auto">
-                                                        <h6 className="font-weight-bold">{cartItem.name}</h6>
-                                                    </div>
-                                                    <div className="col-3 my-auto">
-                                                        <h6>{cartItem.packageSize}</h6>
-                                                    </div>
-                                                    <div className="col-3 my-auto">
-                                                        <p>₹{cartItem.sum}</p>
-                                                    </div>
-                                                </div>
-                                                <div className="row mt-2">
-                                                    <div className="col-2">
-                                                        <button
-                                                            className="btn btn-outline-danger rounded-circle"
-                                                            onClick={this.props.decrementQty.bind(
-                                                                this,
-                                                                cartItem.id,
-                                                                cartItem.quantity
-                                                            )}
-                                                        >
-                                                            <i className="fa fa-minus"/>
-                                                        </button>
-                                                    </div>
-                                                    <div className="col-4">
-                                                        <input
-                                                            type="text"
-                                                            value={cartItem.quantity}
-                                                            readOnly={true}
-                                                            className="form-control"
-                                                        />
-                                                    </div>
-                                                    <div className="col-2">
-                                                        <button
-                                                            className="btn btn-outline-success rounded-circle"
-                                                            onClick={this.props.incrementQty.bind(
-                                                                this,
-                                                                cartItem.id,
-                                                                cartItem.quantity
-                                                            )}
-                                                        >
-                                                            <i className="fa fa-plus"></i>
-                                                        </button>
-                                                    </div>
-                                                    <div className="col-4 text-right" tabIndex="12">
-                                                        <button
-                                                            onClick={this.props.deleteCartItems.bind(
-                                                                this,
-                                                                cartItem.id
-                                                            )}
-                                                            className="btn btn-danger rounded-circle"
-                                                        >
-                                                            <i className="fa fa-trash"></i>
-                                                        </button>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        ))
-                                }
-                            </div>
-                        </div>
-                    </div>
-                    <hr/>
-                    <div className="row m-0">
-                        <div className="col-lg-6 col-md-6">
-                            <h4 className="font-weight-bold">Payment Options</h4>
                             <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
-                                {" "}
+                                <h5 className="font-weight-bold">Payment Options</h5>
+                                <hr />
                                 <div className="input-group my-2">
                                     <div className="input-group-prepend">
                                         <div className="input-group-text">
@@ -397,7 +243,6 @@ class Billing extends Component {
                                             <input
                                                 type="radio"
                                                 value="COD"
-                                                defaultChecked="true"
                                                 checked={this.state.selectedOption === "COD"}
                                                 onChange={this.onValueChange}
                                             />
@@ -411,7 +256,7 @@ class Billing extends Component {
                                 {this.state.selectedOption === "Online" ? (
                                     <div className="text-center mt-4 mb-2">
                                         {
-                                            ((user.userName) && (user.address))
+                                            (this.state.address && this.state.mobileNumber)
                                                 ?
                                                 <button
                                                     className="button-primary"
@@ -421,7 +266,6 @@ class Billing extends Component {
                                                         totalTestItems,
                                                         testItems,
                                                         address,
-                                                        type,
                                                     )}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
@@ -429,14 +273,14 @@ class Billing extends Component {
                                                     Confirm Order
                                                 </button>
                                                 :
-                                                <p>Please Update your details...</p>
+                                                <p>Please Update your details</p>
                                         }
 
                                     </div>
                                 ) : (
                                     <div className="text-center mt-4 mb-2">
                                         {
-                                            ((user.userName) && (user.address))
+                                            (this.state.address && this.state.mobileNumber)
                                                 ?
                                                 <button
                                                     className="button-primary"
@@ -446,7 +290,6 @@ class Billing extends Component {
                                                         totalTestItems,
                                                         testItems,
                                                         address,
-                                                        type,
                                                     )}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
@@ -461,54 +304,154 @@ class Billing extends Component {
                                 )}
                             </div>
                         </div>
-                        <div className="col-lg-6 col-md-6">
-                            <h4 className="font-weight-bold">Price details</h4>
-                            {
-                                type === "Medicine"
-                                    ?
-                                    <div className="bg-white rounded-lg shadow-sm p-4 my-4">
-                                        <div className="responsive-table">
-                                            <table className="table table-borderless">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Price</td>
-                                                    <td className="font-weight-bold">₹{totalMedItems}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Delivery Charges</td>
-                                                    <td className="font-weight-bold">Free</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Payable</td>
-                                                    <td className="font-weight-bold">₹{totalMedItems}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
-                                    :
-                                    <div className="bg-white rounded-lg shadow-sm p-4 my-4">
-                                        <div className="responsive-table">
-                                            <table className="table table-borderless">
-                                                <tbody>
-                                                <tr>
-                                                    <td>Price</td>
-                                                    <td className="font-weight-bold">₹{totalTestItems}</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Delivery Charges</td>
-                                                    <td className="font-weight-bold">Free</td>
-                                                </tr>
-                                                <tr>
-                                                    <td>Total Payable</td>
-                                                    <td className="font-weight-bold">₹{totalTestItems}</td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
-                                        </div>
-                                    </div>
+                        <div className="col-lg-4">
+                            <div className="p-2 my-4 bg-white rounded-lg shadow-sm">
+                            { 
+                            medItems.length > 0 
+                            ?
+                            <div className="m-2">
+                                <h5 className="font-weight-bold">Medicines</h5>
+                            </div>
+                            : "" 
                             }
-
+                            {
+                            medItems.map((cartItem, index) => (
+                            <Fragment key={cartItem._id}>
+                                <div className="p-2 px-lg-4">
+                                    <div className="row">
+                                        <div className="col-6 my-auto">
+                                        <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
+                                        </div>
+                                        <div className="col-3 my-auto">
+                                        <h6>{cartItem.packageSize}</h6>
+                                        </div>
+                                        <div className="col-3 my-auto text-right">
+                                        <p className="font-weight-bold">₹{cartItem.sum}</p>
+                                        </div>
+                                    </div>
+                                    <div className="row mt-2">
+                                        <div className="col-2">
+                                        <button
+                                            className="btn text-white secondary-bg rounded-circle"
+                                            onClick={this.props.decrementQty.bind(
+                                            this,
+                                            cartItem.id,
+                                            cartItem.quantity
+                                            )}
+                                        >
+                                            <i className="fa fa-minus"></i>
+                                        </button>
+                                        </div>
+                                        <div className="col-4">
+                                        <input
+                                            type="text"
+                                            value={cartItem.quantity}
+                                            readOnly
+                                            className="form-control"
+                                        />
+                                        </div>
+                                        <div className="col-2">
+                                        <button
+                                            className="btn text-white secondary-bg rounded-circle"
+                                            onClick={this.props.incrementQty.bind(
+                                            this,
+                                            cartItem.id,
+                                            cartItem.quantity
+                                            )}
+                                        >
+                                            <i className="fa fa-plus"></i>
+                                        </button>
+                                        </div>
+                                        <div className="col-4 text-right" tabIndex="12">
+                                        <button
+                                            onClick={this.props.deleteCartItems.bind(
+                                            this,
+                                            cartItem.id
+                                            )}
+                                            className="btn text-white bg-dark rounded-circle"
+                                        >
+                                            <i className="fa fa-trash"></i>
+                                        </button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr />
+                            </Fragment>
+                            ))
+                            }
+                            {
+                            testItems.length > 0 
+                            ? 
+                            <div className="m-2">
+                                <h5 className="font-weight-bold mt-4 mb-2">Tests</h5>
+                            </div>
+                            : 
+                            "" 
+                            }
+                            {testItems.map((cartItem, index) => (
+                            <Fragment key={cartItem._id}>
+                                <div className="p-2 px-lg-4">
+                                <div className="row">
+                                    <div className="col-6 my-auto">
+                                    <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
+                                    </div>
+                                    <div className="col-3 my-auto">
+                                    <h6>{cartItem.packageSize}</h6>
+                                    </div>
+                                    <div className="col-3 my-auto text-right">
+                                    <p className="font-weight-bold">₹{cartItem.sum}</p>
+                                    </div>
+                                </div>
+                                <div className="row mt-2">
+                                    <div className="col-2">
+                                    <button
+                                        className="btn text-white secondary-bg rounded-circle"
+                                        onClick={this.props.decrementQty.bind(
+                                            this,
+                                            cartItem.id,
+                                            cartItem.quantity
+                                        )}
+                                    >
+                                        <i className="fa fa-minus"></i>
+                                    </button>
+                                    </div>
+                                    <div className="col-4">
+                                    <input
+                                        type="text"
+                                        value={cartItem.quantity}
+                                        readOnly
+                                        className="form-control"
+                                    />
+                                    </div>
+                                    <div className="col-2">
+                                    <button
+                                        className="btn text-white secondary-bg rounded-circle"
+                                        onClick={this.props.incrementQty.bind(
+                                            this,
+                                            cartItem.id,
+                                            cartItem.quantity
+                                        )}
+                                    >
+                                        <i className="fa fa-plus"></i>
+                                    </button>
+                                    </div>
+                                    <div className="col-4 text-right" tabIndex="12">
+                                    <button
+                                        onClick={this.props.deleteCartItems.bind(
+                                            this,
+                                            cartItem.id
+                                        )}
+                                        className="btn text-white bg-dark rounded-circle"
+                                    >
+                                        <i className="fa fa-trash"></i>
+                                    </button>
+                                    </div>
+                                </div>
+                                </div>
+                                <hr />
+                            </Fragment>
+                            ))}
+                            </div>
                         </div>
                     </div>
                 </div>
