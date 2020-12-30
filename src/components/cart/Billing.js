@@ -9,7 +9,7 @@ import {
 } from "../../actions/cartAction";
 import {connect} from "react-redux";
 import {cashOnDelivery} from "../../actions/orderAction";
-import {Link} from "react-router-dom";
+import {Link, Redirect, withRouter} from "react-router-dom";
 import instance from "../../api/instance";
 import baseURL from "../../api/baseURL";
 
@@ -37,6 +37,7 @@ class Billing extends Component {
             mobileNumber: localStorage.getItem("number"),
             address: localStorage.getItem("address"),
             selectedOption: "COD",
+            type: localStorage.getItem("cartItemType")
         };
 
         this.onValueChange = this.onValueChange.bind(this);
@@ -46,7 +47,6 @@ class Billing extends Component {
     componentDidMount() {
         this.props.getCartItems();
     }
-
 
     // Event Change Functions
 
@@ -94,11 +94,7 @@ class Billing extends Component {
     render() {
 
         const {medItems, testItems, totalTestItems, totalMedItems, user} = this.props;
-        const {address} = this.state;
-
-        const totalItems = totalMedItems.length + totalTestItems.length
-
-        const items = this.medItems+this.testItems
+        const {address, type} = this.state;
 
         // Razor Pay
         async function displayRazorpay() {
@@ -111,18 +107,25 @@ class Billing extends Component {
                 return;
             }
 
+            const amount = this.state.type === "Medicine" ?  parseInt(medItems.length) * 100 : parseInt(testItems.length) * 100
+
+            const cartItems = this.state.type === "Medicines" ? medItems : testItems
+
             let body =  
             {
                 orderDetails: {
                 userName: user.userName,
                 mobile: user.mobile,
-                amount: parseInt(totalItems) * 100,
+                amount: amount,
                 payment_type: "Online",
                 address: address,
-                email: user.email,
-                items: medItems + testItems,
+                email: "",
+                items: cartItems,
+                orderType: this.state.type
                 },
             }
+
+            console.log(body)
 
             const data = await
                 instance.post('order/create', body)
@@ -132,7 +135,7 @@ class Billing extends Component {
 
             const order_id = data._id;
             const options = {
-                key: __DEV__ ? "rzp_test_PDlp4aGAWXBD2H" : "PRODUCTION_KEY",
+                key: __DEV__ ? "rzp_test_5QLXOg1PbzjCFt" : "PRODUCTION_KEY",
                 currency: data.rzOrderDetails.currency,
                 amount: data.rzOrderDetails.amount.toString(),
                 order_id: data.rzOrderDetails.id,
@@ -171,34 +174,22 @@ class Billing extends Component {
             paymentObject.open();
         }
 
+        if(!medItems.length > 0 && !testItems.length > 0) {
+            return <Redirect to="/cart" />
+        }
+
         return (
             <Fragment>
                 <div className="container my-4">
                     <div className="row m-0">
                         <div className="col-lg-8">
                             <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
-                                <h5 className="font-weight-bold">Confirm Details</h5>
-                                <hr />
-                                <form onClick="">
-                                    <div className="form-group">
-                                        <label>Name</label>
-                                        <input
-                                            className="form-control mb-2"
-                                            name="userName"
-                                            value={this.state.name}
-                                            style={{backgroundColor: "white"}}
-                                            onChange={this.onChange}
-                                        />
-                                        <label>Mobile Number</label>
-                                        <input
-                                            className="form-control mb-2"
-                                            name="phoneNumber"
-                                            onChange={this.onChange}
-                                            value={this.state.mobileNumber}
-                                            style={{backgroundColor: "white"}}
-                                        />
-
-                                        <label>Address</label>
+                                <div className="text-right">
+                                    <a className="btn btn-primary" data-toggle="collapse" href="#updateAddress" role="button" aria-expanded="false" aria-controls="updateAddress">Update Address</a>
+                                </div>
+                                <form onSubmit={" "}>
+                                    <div className="form-group collapse m-0" id="updateAddress">
+                                        <h5 className="font-weight-bold mt-4">Your Address</h5>
                                         <textarea
                                             className="form-control mb-2"
                                             name="address"
@@ -208,20 +199,13 @@ class Billing extends Component {
                                             rows="4"
                                         >&nbsp;</textarea>
                                         <div className="text-right mt-4">
-                                            <button className="button-primary">
-                                                <Link to={{
-                                                    pathname: "/profileUpdate",
-                                                    state: {medItems, totalMedItems, user, refTo: "billing"}
-                                                }} style={{color: "white"}}>
-                                                    Change
-                                                </Link>
+                                            <button className="button-primary text-uppercase">
+                                                Change
                                             </button>
                                         </div>
                                     </div>
                                 </form>
-                            </div>
-                            <div className="p-4 my-4 bg-white rounded-lg shadow-sm">
-                                <h5 className="font-weight-bold">Payment Options</h5>
+                                <h5 className="font-weight-bold mt-2">Payment Options</h5>
                                 <hr />
                                 <div className="input-group my-2">
                                     <div className="input-group-prepend">
@@ -255,25 +239,46 @@ class Billing extends Component {
                                 </h6>
                                 {this.state.selectedOption === "Online" ? (
                                     <div className="text-center mt-4 mb-2">
-                                        {
-                                            (this.state.address && this.state.mobileNumber)
-                                                ?
-                                                <button
-                                                    className="button-primary"
-                                                    onClick={displayRazorpay.bind(
-                                                        this,
-                                                        user,
-                                                        totalTestItems,
-                                                        testItems,
-                                                        address,
-                                                    )}
-                                                    target="_blank"
-                                                    rel="noopener noreferrer"
-                                                >
-                                                    Confirm Order
-                                                </button>
-                                                :
-                                                <p>Please Update your details</p>
+                                        { 
+                                            (this.state.type === "Medicine" && this.state.address && this.state.mobileNumber)
+                                            ?
+                                            <button
+                                                className="button-primary"
+                                                onClick={displayRazorpay.bind(
+                                                    this,
+                                                    user,
+                                                    totalMedItems,
+                                                    medItems,
+                                                    address,
+                                                )}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Confirm Order
+                                            </button>
+                                            :
+                                            " "
+                                        }
+
+{ 
+                                        (this.state.type === "Test" && this.state.address && this.state.mobileNumber)
+                                            ?
+                                            <button
+                                                className="button-primary"
+                                                onClick={displayRazorpay.bind(
+                                                    this,
+                                                    user,
+                                                    totalTestItems,
+                                                    testItems,
+                                                    address,
+                                                )}
+                                                target="_blank"
+                                                rel="noopener noreferrer"
+                                            >
+                                                Confirm Order
+                                            </button>
+                                            :
+                                            " "
                                         }
 
                                     </div>
@@ -306,151 +311,61 @@ class Billing extends Component {
                         </div>
                         <div className="col-lg-4">
                             <div className="p-2 my-4 bg-white rounded-lg shadow-sm">
-                            { 
-                            medItems.length > 0 
-                            ?
-                            <div className="m-2">
-                                <h5 className="font-weight-bold">Medicines</h5>
-                            </div>
-                            : "" 
+                            {/* Tab Headings depending on item type */}
+                            {
+                                type === "Medicine"
+                                ?
+                                <div className="m-2">
+                                    <h5 className="font-weight-bold">Medicines</h5>
+                                </div>
+                                :
+                                <div className="m-2">
+                                    <h5 className="font-weight-bold">Tests</h5>
+                                </div>
                             }
                             {
-                            medItems.map((cartItem, index) => (
-                            <Fragment key={cartItem._id}>
-                                <div className="p-2 px-lg-4">
-                                    <div className="row">
-                                        <div className="col-6 my-auto">
-                                        <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
+                                type === "Medicine"
+                                ?
+                                medItems.map((cartItem, index) => (
+                                <Fragment key={cartItem._id}>
+                                    <div className="row m-0">
+                                        <div className="col-6 p-2">
+                                            <small>Item:</small>
+                                            <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
                                         </div>
-                                        <div className="col-3 my-auto">
-                                        <h6>{cartItem.packageSize}</h6>
+                                        <div className="col-3 text-center p-2">
+                                            <small>Quantity:</small>
+                                            <h6 className="font-weight-bold">{cartItem.quantity}</h6>
                                         </div>
-                                        <div className="col-3 my-auto text-right">
-                                        <p className="font-weight-bold">₹{cartItem.sum}</p>
-                                        </div>
-                                    </div>
-                                    <div className="row mt-2">
-                                        <div className="col-2">
-                                        <button
-                                            className="btn text-white secondary-bg rounded-circle"
-                                            onClick={this.props.decrementQty.bind(
-                                            this,
-                                            cartItem.id,
-                                            cartItem.quantity
-                                            )}
-                                        >
-                                            <i className="fa fa-minus"></i>
-                                        </button>
-                                        </div>
-                                        <div className="col-4">
-                                        <input
-                                            type="text"
-                                            value={cartItem.quantity}
-                                            readOnly
-                                            className="form-control"
-                                        />
-                                        </div>
-                                        <div className="col-2">
-                                        <button
-                                            className="btn text-white secondary-bg rounded-circle"
-                                            onClick={this.props.incrementQty.bind(
-                                            this,
-                                            cartItem.id,
-                                            cartItem.quantity
-                                            )}
-                                        >
-                                            <i className="fa fa-plus"></i>
-                                        </button>
-                                        </div>
-                                        <div className="col-4 text-right" tabIndex="12">
-                                        <button
-                                            onClick={this.props.deleteCartItems.bind(
-                                            this,
-                                            cartItem.id
-                                            )}
-                                            className="btn text-white bg-dark rounded-circle"
-                                        >
-                                            <i className="fa fa-trash"></i>
-                                        </button>
+                                        <div className="col-3 text-center p-2">
+                                            <small>Price:</small>
+                                            <p className="font-weight-bold">₹{cartItem.sum}</p>
                                         </div>
                                     </div>
-                                </div>
-                                <hr />
-                            </Fragment>
-                            ))
+                                    { medItems.length > 1 ? <hr className="m-0" /> : " " }
+                                </Fragment>
+                                ))
+                                :
+                                testItems.map((cartItem, index) => (
+                                <Fragment key={cartItem._id}>
+                                    <div className="row m-0">
+                                        <div className="col-6 p-2">
+                                            <small>Item:</small>
+                                            <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
+                                        </div>
+                                        <div className="col-3 text-center p-2">
+                                            <small>Quantity:</small>
+                                            <h6 className="font-weight-bold">{cartItem.quantity}</h6>
+                                        </div>
+                                        <div className="col-3 text-center p-2">
+                                            <small>Price:</small>
+                                            <p className="font-weight-bold">₹{cartItem.sum}</p>
+                                        </div>
+                                    </div>
+                                    { testItems.length > 1 ? <hr className="m-0" /> : " " }
+                                    </Fragment>
+                                ))
                             }
-                            {
-                            testItems.length > 0 
-                            ? 
-                            <div className="m-2">
-                                <h5 className="font-weight-bold mt-4 mb-2">Tests</h5>
-                            </div>
-                            : 
-                            "" 
-                            }
-                            {testItems.map((cartItem, index) => (
-                            <Fragment key={cartItem._id}>
-                                <div className="p-2 px-lg-4">
-                                <div className="row">
-                                    <div className="col-6 my-auto">
-                                    <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
-                                    </div>
-                                    <div className="col-3 my-auto">
-                                    <h6>{cartItem.packageSize}</h6>
-                                    </div>
-                                    <div className="col-3 my-auto text-right">
-                                    <p className="font-weight-bold">₹{cartItem.sum}</p>
-                                    </div>
-                                </div>
-                                <div className="row mt-2">
-                                    <div className="col-2">
-                                    <button
-                                        className="btn text-white secondary-bg rounded-circle"
-                                        onClick={this.props.decrementQty.bind(
-                                            this,
-                                            cartItem.id,
-                                            cartItem.quantity
-                                        )}
-                                    >
-                                        <i className="fa fa-minus"></i>
-                                    </button>
-                                    </div>
-                                    <div className="col-4">
-                                    <input
-                                        type="text"
-                                        value={cartItem.quantity}
-                                        readOnly
-                                        className="form-control"
-                                    />
-                                    </div>
-                                    <div className="col-2">
-                                    <button
-                                        className="btn text-white secondary-bg rounded-circle"
-                                        onClick={this.props.incrementQty.bind(
-                                            this,
-                                            cartItem.id,
-                                            cartItem.quantity
-                                        )}
-                                    >
-                                        <i className="fa fa-plus"></i>
-                                    </button>
-                                    </div>
-                                    <div className="col-4 text-right" tabIndex="12">
-                                    <button
-                                        onClick={this.props.deleteCartItems.bind(
-                                            this,
-                                            cartItem.id
-                                        )}
-                                        className="btn text-white bg-dark rounded-circle"
-                                    >
-                                        <i className="fa fa-trash"></i>
-                                    </button>
-                                    </div>
-                                </div>
-                                </div>
-                                <hr />
-                            </Fragment>
-                            ))}
                             </div>
                         </div>
                     </div>

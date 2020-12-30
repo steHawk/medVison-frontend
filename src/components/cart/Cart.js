@@ -10,12 +10,23 @@ import {
   getCartTotal,
 } from "../../actions/cartAction";
 import { Fragment } from "react";
-import { Link } from "react-router-dom";
+import { Link, Redirect } from "react-router-dom";
 
 // Assets
 import emptyCart from "../../assets/emptyCart.svg";
 
 class Cart extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect: null,
+      cartItemType: "Medicine",
+      type: null
+    };
+    this.onMedicinesOrder = this.onMedicinesOrder.bind(this)
+    this.onTestsOrder = this.onTestsOrder.bind(this)
+  }
+
   static propTypes = {
     deleteCartItems: PropTypes.func.isRequired,
   };
@@ -24,8 +35,27 @@ class Cart extends Component {
     this.props.getCartItems();
   }
 
+  onMedicinesOrder() {
+    this.setState({
+      redirect: true,
+    })
+    localStorage.setItem('cartItemType', 'Medicine')
+  }
+
+  onTestsOrder() {
+    this.setState({
+      redirect: true,
+    })
+    localStorage.setItem('cartItemType', 'Test')
+  }
+
   render() {
     const { medItems,testItems, totalMedItems , totalTestItems} = this.props;
+
+    if(this.state.redirect) {
+      return <Redirect to={{ pathname: "/checkout" }} />
+    }
+
     if(medItems.length === 0 && testItems.length === 0 ) {
       return (
         <div className="container my-4">
@@ -67,8 +97,8 @@ class Cart extends Component {
                     }
                     {
                     medItems.map((cartItem, index) => (
-                      <Fragment>
-                        <div className="px-lg-4 py-2" key={cartItem._id}>
+                      <Fragment  key={cartItem._id}>
+                        <div className="px-lg-4 py-2">
                           <div className="row">
                             <div className="col-6 my-auto">
                               <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
@@ -134,15 +164,7 @@ class Cart extends Component {
                     {/* Check if medItems are in Cart */}
                     {medItems.length > 0 ?
                     <div className="text-right px-lg-4 mb-2">
-                      <Link
-                        to={{
-                          pathname: "/checkout",
-                          state: {type: "Medicine"}
-                        }}
-                      >
-                        {" "}
-                        <button className="btn btn-primary">Place Order</button>
-                      </Link>
+                        <button className="btn btn-primary" onClick={this.onMedicinesOrder}>Place Order</button>
                     </div> : ""
                     }
                     
@@ -154,8 +176,8 @@ class Cart extends Component {
                     "" 
                     }
                     {testItems.map((cartItem, index) => (
-                      <Fragment>
-                        <div className="px-lg-4 py-2" key={cartItem._id}>
+                      <Fragment key={cartItem._id}>
+                        <div className="px-lg-4 py-2">
                           <div className="row">
                             <div className="col-6 my-auto">
                               <h6 className="font-weight-bold secondary-text">{cartItem.name}</h6>
@@ -218,15 +240,7 @@ class Cart extends Component {
                     ))}
                     {testItems.length > 0 ? 
                     <div className="text-right px-lg-4">
-                      <Link
-                          to={{
-                            pathname: "/checkout",
-                            state: {type: "MedicalTest"}
-                          }}
-                      >
-                        {" "}
-                        <button className="btn btn-primary">Place Order</button>
-                      </Link>
+                        <button className="btn btn-primary" onClick={this.onTestsOrder}>Place Order</button>
                     </div>
                     : "" }
                     
