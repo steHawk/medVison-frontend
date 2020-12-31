@@ -1,15 +1,13 @@
 import React, {Component, Fragment} from "react";
 import {
-    decrementQty,
     deleteCartItems,
     getCartItems,
     getCartTotal,
-    incrementQty,
     quantity,
 } from "../../actions/cartAction";
 import {connect} from "react-redux";
 import {cashOnDelivery} from "../../actions/orderAction";
-import {Link, Redirect, withRouter} from "react-router-dom";
+import {Redirect} from "react-router-dom";
 import instance from "../../api/instance";
 import baseURL from "../../api/baseURL";
 
@@ -37,7 +35,8 @@ class Billing extends Component {
             mobileNumber: localStorage.getItem("number"),
             address: localStorage.getItem("address"),
             selectedOption: "COD",
-            type: localStorage.getItem("cartItemType")
+            type: localStorage.getItem("cartItemType"),
+            message: ""
         };
 
         this.onValueChange = this.onValueChange.bind(this);
@@ -61,8 +60,10 @@ class Billing extends Component {
     // Update User Info
 
     updateUserInfo = (e) => {
-        let url = `${baseURL}user/update`;
 
+        localStorage.setItem("address", this.state.address)
+
+        let url = `${baseURL}user/update`;
         fetch(url, {
             method: "PUT",
             headers: {
@@ -74,13 +75,16 @@ class Billing extends Component {
               user_id: localStorage.getItem("_id"),
               phoneNumber: this.state.mobileNumber,
               userDetails: {
-                  [e.target.name] : e.target.value,
+                  address : this.state.address,
                 _id: localStorage.getItem("_id"),
               },
             }),
           }).then((res) => {
               if(res.ok) {
                   console.log(res)
+                  this.setState({
+                      message: "Address Updated Successfully!"
+                  })
               }
           })
     }
@@ -98,6 +102,11 @@ class Billing extends Component {
 
         // Razor Pay
         async function displayRazorpay() {
+
+            const amount = this.state.type === "Medicine" ?  parseInt(medItems.length) * 100 : parseInt(testItems.length) * 100
+
+            const cartItems = this.state.type === "Medicines" ? medItems : testItems
+
             const res = await loadScript(
                 "https://checkout.razorpay.com/v1/checkout.js"
             );
@@ -107,25 +116,20 @@ class Billing extends Component {
                 return;
             }
 
-            const amount = this.state.type === "Medicine" ?  parseInt(medItems.length) * 100 : parseInt(testItems.length) * 100
-
-            const cartItems = this.state.type === "Medicines" ? medItems : testItems
-
             let body =  
             {
                 orderDetails: {
+                user: user._id,
                 userName: user.userName,
                 mobile: user.mobile,
                 amount: amount,
                 payment_type: "Online",
                 address: address,
-                email: "",
+                email: user.email,
                 items: cartItems,
                 orderType: this.state.type
                 },
             }
-
-            console.log(body)
 
             const data = await
                 instance.post('order/create', body)
@@ -134,15 +138,16 @@ class Billing extends Component {
                     });
 
             const order_id = data._id;
+
             const options = {
-                key: __DEV__ ? "rzp_test_5QLXOg1PbzjCFt" : "PRODUCTION_KEY",
+                key: __DEV__ ? "rzp_test_qXVCwwCrnyHf4x" : "PRODUCTION_KEY",
                 currency: data.rzOrderDetails.currency,
                 amount: data.rzOrderDetails.amount.toString(),
                 order_id: data.rzOrderDetails.id,
                 name: "eMetroPlus",
                 description: "Thank you for shopping",
-                image: "http://localhost:1337/logo.svg",
-                handler: function (response) {
+                image: "https://www.emetroplus.com/static/media/life.f612bf37.svg",
+                handler: async (response) => {
                     const body = {
                         orderDetails: {
                             order_id: order_id,
@@ -151,18 +156,21 @@ class Billing extends Component {
                             razorpay_signature: response.razorpay_signature,
                         },
                     };
-                    instance.put('order/update', body)
+                    instance.post('order/update', body)
                         .then((res) => {
-                            console.log(res);
+                            console.log(res)    
                             if (res.data.ok === true) {
                                 res.data.order_details.items.forEach((el) => {
                                     console.log(el.id);
                                     deleteCartItems(el.id);
                                 });
-                            } else {
+                                return <Redirect to='/yourOrders' />
                             }
                         })
-                        .catch((error) => console.log(error));
+                        .catch((error) => console.log('Error', error));
+                },
+                theme: {
+                    color: "#004b87"
                 },
                 prefill: {
                     name: user.userName,
@@ -187,24 +195,29 @@ class Billing extends Component {
                                 <div className="text-right">
                                     <a className="btn btn-primary" data-toggle="collapse" href="#updateAddress" role="button" aria-expanded="false" aria-controls="updateAddress">Update Address</a>
                                 </div>
-                                <form onSubmit={" "}>
-                                    <div className="form-group collapse m-0" id="updateAddress">
-                                        <h5 className="font-weight-bold mt-4">Your Address</h5>
-                                        <textarea
-                                            className="form-control mb-2"
-                                            name="address"
-                                            onChange={this.onChange}
-                                            value={this.state.address}
-                                            style={{resize: "none"}}
-                                            rows="4"
-                                        >&nbsp;</textarea>
-                                        <div className="text-right mt-4">
-                                            <button className="button-primary text-uppercase">
-                                                Change
-                                            </button>
-                                        </div>
+                                <div className="form-group collapse m-0" id="updateAddress">
+                                    <h5 className="font-weight-bold mt-4">Your Address</h5>
+                                    { this.state.message != "" 
+                                    ? 
+                                    <div className="alert alert-info alert-dismissible fade show" role="alert">
+                                        {this.state.message}
+                                        <button type="button" className="close" data-dismiss="alert" aria-label="Close">
+                                            <span aria-hidden="true">&times;</span>
+                                        </button>
+                                    </div> 
+                                    : " "}
+                                    <input
+                                        className="form-control form-control-lg mb-2"
+                                        name="address"
+                                        onChange={this.onChange}
+                                        value={this.state.address}
+                                    />
+                                    <div className="text-right mt-4">
+                                        <button className="button-primary text-uppercase" onClick={(e) => this.updateUserInfo(e)}>
+                                            Change
+                                        </button>
                                     </div>
-                                </form>
+                                </div>
                                 <h5 className="font-weight-bold mt-2">Payment Options</h5>
                                 <hr />
                                 <div className="input-group my-2">
@@ -387,7 +400,5 @@ export default connect(mapStateToProps, {
     getCartItems,
     deleteCartItems,
     quantity,
-    decrementQty,
-    incrementQty,
     cashOnDelivery,
 })(Billing);
