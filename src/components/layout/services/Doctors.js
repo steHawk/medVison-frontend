@@ -78,47 +78,6 @@ class Doctors extends Component {
                                     </div>
                                 </div>
                             </div>
-                            // <div key={index} className="col-lg-3 col-md-4 my-2">
-                            //   <div className="p-2 shadow rounded">
-                            // <div className="text-center">
-                            //   <img src="/img/standing-11.png" alt="" height="160px"/>
-                            // </div>
-                            //     <div className="p-2">
-                            // <h5 className="primary-text font-weight-bold">{doctor.userName}</h5>
-                            // <p>MBBS, MD (DVL)</p>
-                            // <strong>{doctor.specialization}</strong>
-                            //       <div>
-                            //         <div className="price_but">
-                            // <p>₹500</p>
-                            // {isAuthenticated ? (
-                            //   <div className="text-center">
-                            //     <button
-                            //       type="button"
-                            //       data-toggle="modal"
-                            //       data-target="#Confirmed"
-                            //       onClick={this.props.doctorConsultation.bind(
-                            //         this,
-                            //         doctor._id
-                            //       )}
-                            //       className="button-primary"
-                            //     >
-                            //     Consult
-                            //     </button>
-                            //   </div>
-                            // ) : (
-                            //   <Link to="/login">
-                            //     <div className="text-center">
-                            //       <button className="button-primary">
-                            //         Consult
-                            //       </button>
-                            //     </div>
-                            //   </Link>
-                            // )}
-                            //         </div>
-                            //       </div>
-                            //     </div>
-                            //   </div>
-                            // </div>
                         ))}
                     </div>
                 </div>
@@ -128,21 +87,22 @@ class Doctors extends Component {
                      aria-hidden="true">
                     <div className="modal-dialog modal-dialog-centered" role="document">
                         <div className="modal-content">
-                            <div className="modal-header">
-                                <h5 className="modal-title text-primary" id="exampleModalLongTitle">Confirmed</h5>
+                            <div className="modal-header border-bottom-0">
+                                <h5 className="modal-title font-weight-bold" id="Confirmed">Doctor Consulation</h5>
                                 <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
+                                    <span aria-hidden="true" className="secondary-text">&times;</span>
                                 </button>
                             </div>
                             <div className="modal-body">
-                                <p>
-                                    Doctor Confirmation ID : <span
-                                    className="font-weight-bold text-primary">{this.props.doctors.doc_token}</span> our
-                                    customer
-                                    support will call you back in 3 working hours Thank you..{" "}
+                                <h6 className="font-weight-bold">
+                                    Confirmation ID : {" "}
+                                    <span className="font-weight-bold text-primary">{this.props.doctors.doc_token}</span> 
+                                </h6>
+                                <p>Our Customer Support will contact you in 3 working hours
                                 </p>
+                                <h6>Thank you!</h6>
                             </div>
-                            <div className="modal-footer">
+                            <div className="modal-footer border-top-0">
                                 <button type="button" className="button-secondary" data-dismiss="modal"
                                         onClick={this.props.resetConsultToken}>Close
                                 </button>
