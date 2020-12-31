@@ -13,88 +13,88 @@ class Orders extends Component {
                 return (
                     <div className="container my-4">
                         <div className="row m-0">
-                            <div className="col-lg-8 col-md-8 mx-auto my-2 py-4 bg-white rounded-lg shadow-sm">
+                            <div className="col-lg-8 col-md-8 mx-auto my-2 py-4 bg-white rounded-lg shadow">
                                 <h4 className="font-weight-bold">Pending Orders</h4>
                                 <hr/>
                                 {
                                 orders.map(order => (
-                                    <div className="order-column" key={order._id}>
+                                    <div className="bg-light" key={order._id}>
                                         {
-                                            order.status === 'created' ?
-                                                <div className="order-column card">
-                                                    <p className="order-headings">Receipt: <span>{order.receipt}</span></p>
-                                                    <p className="order-headings">
-                                                        Payment Type: <span>{order.payment_type}</span>
-                                                    </p>
-                                                    <p className="order-headings">Amount: <span>{order.amount}</span></p>
-                                                    <hr />
-                                                    <div className="order-headings">
-                                                        <p className="order-headings">Ordered: </p>
-                                                    </div>
-                                                    <table border={1} className="orders-table">
+                                            order.orderStatus === 'pending' ?
+                                            <div className="card rounded-0 border-top-0 border-left-0 border-right-0 p-3 my-2">
+                                                <h6 className="font-weight-bold">Order Info </h6>
+                                                <p className="order-headings">Receipt : <span>{order.receipt}</span></p>
+                                                <p className="order-headings">
+                                                    Payment Type : <span>{order.payment_type}</span>
+                                                </p>
+                                                <p className="order-headings">Amount : <span>₹{order.amount}</span></p>
+                                                <h6 className="font-weight-bold">Ordered Items </h6>
+                                                <div className="table-responsive mt-2">
+                                                    <table className="table table-bordered">
                                                         <tbody>
-                                                        <tr className="table-headings">
-                                                            <td>Name</td>
-                                                            <td>Price</td>
-                                                            <td>Quantity</td>
-                                                        </tr>
-                                                        {
-                                                            order.items.map(item => (
-                                                                <tr className="orders-data" key={item._id}>
-                                                                    <td>{item.name}</td>
-                                                                    <td>{item.price}</td>
-                                                                    <td>{item.quantity}</td>
-                                                                </tr>
-                                                            ))
-                                                        }
+                                                            <tr className="table-headings">
+                                                                <th>Name</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                            {
+                                                                order.items.map(item => (
+                                                                    <tr className="orders-data" key={item._id}>
+                                                                        <td>{item.name}</td>
+                                                                        <td>{item.price}</td>
+                                                                        <td>{item.quantity}</td>
+                                                                    </tr>
+                                                                ))
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                : null
+                                            </div>
+                                            : null
                                         }
                                     </div>
                                 ))
                                 }
                             </div>
 
-                            <div className="col-lg-8 col-md-8 mx-auto my-2 py-4 bg-white rounded-lg shadow-sm">
+                            <div className="col-lg-8 col-md-8 mx-auto my-2 py-4 bg-white rounded-lg shadow">
                                 <h4 className="font-weight-bold">Delivered Orders</h4>
                                 <hr/>
                                 {
                                 orders.map(order => (
                                     <div className="order-column" key={order._id}>
                                         {
-                                            order.status !== 'created' ?
-                                                <div className="order-column card">
-                                                    <p className="order-headings">Receipt: <span>{order.receipt}</span></p>
-                                                    <p className="order-headings">
-                                                        Payment Type: <span>{order.payment_type}</span>
-                                                    </p>
-                                                    <p className="order-headings">Amount: <span>{order.amount}</span></p>
-                                                    <hr />
-                                                    <div className="order-headings">
-                                                        <p className="order-headings">Ordered: </p>
-                                                    </div>
-                                                    <table border={1} className="orders-table">
+                                            order.orderStatus !== 'completed' ?
+                                                <div className="card rounded-0 border-top-0 border-left-0 border-right-0 p-3 my-2">
+                                                <h6 className="font-weight-bold">Order Info </h6>
+                                                <p className="order-headings">Receipt : <span>{order.receipt}</span></p>
+                                                <p className="order-headings">
+                                                    Payment Type : <span>{order.payment_type}</span>
+                                                </p>
+                                                <p className="order-headings">Amount : <span>₹{order.amount}</span></p>
+                                                <h6 className="font-weight-bold">Ordered Items </h6>
+                                                <div className="table-responsive mt-2">
+                                                    <table className="table table-bordered">
                                                         <tbody>
-                                                        <tr className="table-headings">
-                                                            <td>Name</td>
-                                                            <td>Price</td>
-                                                            <td>Quantity</td>
-                                                        </tr>
-                                                        {
-                                                            order.items.map(item => (
-                                                                <tr className="orders-data" key={item._id}>
-                                                                    <td>{item.name}</td>
-                                                                    <td>{item.price}</td>
-                                                                    <td>{item.quantity}</td>
-                                                                </tr>
-                                                            ))
-                                                        }
+                                                            <tr className="table-headings">
+                                                                <th>Name</th>
+                                                                <th>Price</th>
+                                                                <th>Quantity</th>
+                                                            </tr>
+                                                            {
+                                                                order.items.map(item => (
+                                                                    <tr className="orders-data" key={item._id}>
+                                                                        <td>{item.name}</td>
+                                                                        <td>{item.price}</td>
+                                                                        <td>{item.quantity}</td>
+                                                                    </tr>
+                                                                ))
+                                                            }
                                                         </tbody>
                                                     </table>
                                                 </div>
-                                                : null
+                                            </div>
+                                            : null
                                         }
                                     </div>
                                 ))
