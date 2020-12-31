@@ -25,7 +25,7 @@ export class NavSearch extends Component {
     if (event.target.value.length > 0) {
       this.setState({
         [event.target.name]: event.target.value,
-        msg: "Loading...!!!",
+        msg: "Loading...",
       });
       this.props.search(event.target.value);
     } else {

@@ -106,7 +106,7 @@ class MedicineItems extends React.Component {
                         <div className="row m-0">
                             {this.props.medicines.medicines.map((med) => (
                                 <div key={med._id} style={{display: "flex"}} className="meditems col-lg-3 col-md-4">
-                                    <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up"
+                                    <div className="p-4 bg-white shadow rounded-lg my-4" data-aos="fade-up"
                                          data-aos-duration="1200">
                                             <Link
                                                 to={{
@@ -153,7 +153,7 @@ class MedicineItems extends React.Component {
                         </div>
                     </div>
                     <div className="text-center mt-4">
-                        <p>Page - {this.state.currentPage + 1}</p>
+                        <p>Page - <span className="text-info">{this.state.currentPage + 1}</span></p>
                         <button className="button-primary mx-2"
                                 onClick={() => this.setCurrentPage(this.state.currentPage - 1)}>Previous
                         </button>

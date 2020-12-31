@@ -26,56 +26,55 @@ const AllTests = ({ auth, addCart }) => {
       <hr />
       <div className="view_items row m-0">
         {alltest.map((test) => (
-          <div key={test._id} className="col-lg-4 col-md-4 my-2">
-            <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
+          <div key={test._id} className="col-lg-3 col-md-4 my-2">
+            <div className="p-4 bg-white shadow rounded-lg my-4" data-aos="fade-up" data-aos-duration="1200">
               <Link
                 to={{
                   pathname: "/labItem",
                   state: { items: test },
                 }}
-                className="primary-text text-decoration-none"
+                className="secondary-text text-decoration-none"
               >
-                <h5 className="font-weight-bold">
+                <h6 className="font-weight-bold">
                   {test.TNAME1} {test.TNAME2} {test.TNAME3}
-                </h5>
+                </h6>
               </Link>
-
+              <strong>Method : </strong>
               <p>{test.METHOD}</p>
-              <div className="priceBtn">
-                <p className="font-weight-bold">₹{test.MRP}</p>
-                {isAuthenticated ? (
+              <strong>Price : </strong>
+              <p>₹{test.MRP}</p>
+              {isAuthenticated ? (
+                <div className="text-right">
+                  <button
+                    onClick={addCart.bind(
+                      this,
+                      test._id,
+                      test.TNAME1,
+                      test.METHOD,
+                      parseInt(test.MRP),
+                      test.Tcode,
+                      "MedicalTest"
+                    )}
+                    className="button-secondary mx-2"
+                  >
+                    Add to cart
+                    </button>
+                </div>
+              ) : (
                   <div className="text-right">
-                    <button
-                      onClick={addCart.bind(
-                        this,
-                        test._id,
-                        test.TNAME1,
-                        test.METHOD,
-                        parseInt(test.MRP),
-                        test.Tcode,
-                        "MedicalTest"
-                      )}
-                      className="button-primary mx-2"
-                    >
-                      Add to cart
-                      </button>
+                    <Link to="/login">
+                      <button className="button-secondary mx-2">Add to cart</button>
+                    </Link>
                   </div>
-                ) : (
-                    <div className="text-right">
-                      <Link to="/login">
-                        <button className="button-primary mx-2">Add to cart</button>
-                      </Link>
-                    </div>
-                  )}
-              </div>
+                )}
             </div>
           </div>
         ))}
       </div>
       <div className="text-center mt-4">
-        <p>Page : <span className="text-info">{currentPage}</span></p>
-        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
-        <button className="button-secondary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
+        <p>Page - <span className="text-info">{currentPage + 1}</span></p>
+        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage - 1)}>Previous</button>
+        <button className="button-primary mx-2" onClick={() => setCurrentPage(currentPage + 1)}>Next</button>
       </div>
     </div>
   );
