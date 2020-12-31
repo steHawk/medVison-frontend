@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {getOrders} from "../../actions/orderAction";
 import {Redirect} from "react-router-dom";
+import PreLoader from "../layout/PreLoader";
 
 class Orders extends Component {
     render() {
@@ -105,9 +106,7 @@ class Orders extends Component {
             } else {
                 if (this.props.orders.isOrdersLoading) {
                     return (
-                        <div className="loading">
-                            Loading...
-                        </div>
+                        <PreLoader />
                     )
                 } else {
                     this.props.getOrders();

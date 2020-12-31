@@ -4,16 +4,9 @@ import {fetchMedicineByCategory} from "../../../actions/medicineActions";
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
 import {addCart} from "../../../actions/cartAction";
-// import ApiContext from '../../../Context/ApiContext'
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
-// import {
-//     addCart,
-//     quantity,
-//     decrementQty,
-//     incrementQty,
-//     // getCartTotal
-// } from "../../../actions/cartAction";
+import PreLoader from '../PreLoader';
 
 class MedicineItems extends React.Component {
     constructor(props) {
@@ -115,7 +108,6 @@ class MedicineItems extends React.Component {
                                 <div key={med._id} style={{display: "flex"}} className="meditems col-lg-3 col-md-4">
                                     <div className="p-4 bg-white shadow-sm rounded-lg my-4" data-aos="fade-up"
                                          data-aos-duration="1200">
-                                        <div>
                                             <Link
                                                 to={{
                                                     pathname: "/to/item",
@@ -123,19 +115,18 @@ class MedicineItems extends React.Component {
                                                 }}
                                                 className="text-decoration-none"
                                             >
-                                                <h6 className="font-weight-bold primary-text">{med.doctorPrescriptionName}</h6>
+                                                <h6 className="font-weight-bold secondary-text">{med.doctorPrescriptionName}</h6>
                                             </Link>
                                             <strong>Description : </strong>
                                             <p>{med.uses ? med.uses.replace(/(<([^>]+)>)/gi, "").slice(0, 52) : "Not Found"}</p>
                                             <strong>Package size : </strong> <p>{med.packSize}</p>
-                                        </div>
-                                        <div className="medBook">
-                                            <p>Price : ₹{med.mrp}</p>
+                                            <strong>Price :</strong>
+                                            <p>₹{med.mrp}</p>
 
                                             {this.props.auth.isAuthenticated ? (
                                                 <div className="text-center">
                                                     <button
-                                                        className="button-primary"
+                                                        className="button-secondary"
                                                         onClick={this.props.addCart.bind(
                                                             this,
                                                             med._id,
@@ -152,22 +143,21 @@ class MedicineItems extends React.Component {
                                             ) : (
                                                 <div className="text-center">
                                                     <Link to="/login">
-                                                        <button className="button-primary mb-0">Add to cart</button>
+                                                        <button className="button-secondary mb-0">Add to cart</button>
                                                     </Link>
                                                 </div>
                                             )}
-                                        </div>
                                     </div>
                                 </div>
                             ))}
                         </div>
                     </div>
                     <div className="text-center mt-4">
-                        <p>Page No. {this.state.currentPage + 1}</p>
-                        <button className="button-secondary mx-2"
+                        <p>Page - {this.state.currentPage + 1}</p>
+                        <button className="button-primary mx-2"
                                 onClick={() => this.setCurrentPage(this.state.currentPage - 1)}>Previous
                         </button>
-                        <button className="button-secondary mx-2"
+                        <button className="button-primary mx-2"
                                 onClick={() => this.setCurrentPage(this.state.currentPage + 1)}>Next
                         </button>
                     </div>
@@ -176,11 +166,7 @@ class MedicineItems extends React.Component {
         } else {
             if (this.props.medicines.isMedicinesLoading) {
                 return (
-                    <div>
-                        <p>
-                            Loading...
-                        </p>
-                    </div>
+                    <PreLoader />
                 )
             } else {
                 this.getMeds();
