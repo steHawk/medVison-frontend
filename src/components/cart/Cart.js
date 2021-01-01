@@ -46,7 +46,7 @@ class Cart extends Component {
     this.setState({
       redirect: true,
     })
-    localStorage.setItem('cartItemType', 'Test')
+    localStorage.setItem('cartItemType', 'MedicalTest')
   }
 
   render() {

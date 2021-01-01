@@ -134,8 +134,9 @@ class Billing extends Component {
             const data = await
                 instance.post('order/create', body)
                     .then((res) => {
+                        console.log(res);
                         return res.data.order_details;
-                    });
+                    })
 
             const order_id = data._id;
 
@@ -274,7 +275,7 @@ class Billing extends Component {
                                         }
 
 { 
-                                        (this.state.type === "Test" && this.state.address && this.state.mobileNumber)
+                                        (this.state.type === "MedicalTest" && this.state.address && this.state.mobileNumber)
                                             ?
                                             <button
                                                 className="button-primary"
